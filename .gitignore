@@ -9,6 +9,7 @@
 
 # production
 /build
+/functions/index.js
 
 # misc
 .DS_Store
