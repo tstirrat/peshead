@@ -13,6 +13,9 @@
   },
   "private": true,
   "devDependencies": {
+    "@types/fs-extra": "^4.0.2",
+    "@types/jbinary": "^0.0.28",
+    "fs-extra": "^4.0.2",
     "typescript": "^2.5.3"
   }
 }

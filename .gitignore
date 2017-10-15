@@ -9,6 +9,7 @@
 
 # production
 /build
+/functions/build
 /functions/index.js
 
 # misc

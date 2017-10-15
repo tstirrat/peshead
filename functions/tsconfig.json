@@ -5,9 +5,10 @@
     "module": "commonjs",
     "target": "es6",
     "lib": [
-      "es7"
+      "es7",
+      "dom"
     ],
-    "sourceMap": false,
+    "sourceMap": true,
     "allowJs": false,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,

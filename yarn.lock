@@ -51,16 +51,6 @@
   dependencies:
     "@types/long" "*"
 
-"@types/jbinary@^0.0.28":
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/@types/jbinary/-/jbinary-0.0.28.tgz#3283dc2cc3a9c29247d945d498eb7637af0d1164"
-  dependencies:
-    "@types/jdataview" "*"
-
-"@types/jdataview@*":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@types/jdataview/-/jdataview-0.0.29.tgz#bed43551e0e5afe2994e04e69287721d8bfb445e"
-
 "@types/jest@^21.1.2":
   version "21.1.2"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.2.tgz#05ebfa64817b626694ced56745a7949281981048"
