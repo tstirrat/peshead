@@ -1,10 +1,7 @@
-// import {ZeroPaddedArray} from './zero-padded-array';
 import {ZeroPaddedArray} from './zero-padded-array';
 
 // const TEAM_PLAYER_COUNT = 650;
 // const STADIUM_COUNT = 40;
-
-
 const HEADER_SIZE_BYTES = 67305;
 const HEADER_KNOWN_OFFSET = 67277;
 const HEADER_KNOWN_BYTES = 22;
