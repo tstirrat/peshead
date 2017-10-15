@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ufwb version="1.17">
+    <grammar name="Edit Data" start="id:1" author="lusive">
+        <description>PES 2018 EDIT00000000 files</description>
+        <structure name="Edit Data" id="1" encoding="UTF-8" endian="little" signed="no">
+            <structref name="header" id="3" strokecolor="FFA500" structure="id:2"/>
+            <structure name="players" id="4">
+                <structref name="Player" id="6" strokecolor="165967" fillcolor="64FFB2" repeatmax="3000" structure="id:5"/>
+            </structure>
+        </structure>
+        <structure name="Header" id="2" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <binary name="pre" id="9" length="67277"/>
+            <number name="playerCount" id="10" type="integer" length="2"/>
+            <binary name="unknown" id="11" length="2"/>
+            <number name="teamCount" id="12" type="integer" length="2"/>
+            <number name="managerCount" id="13" type="integer" length="2"/>
+            <number name="competitionCount" id="14" type="integer" length="2"/>
+            <number name="stadiumCount" id="15" type="integer" length="2"/>
+            <number name="unknownCount" id="16" type="integer" length="2"/>
+            <binary name="unknown2" id="17" length="2"/>
+            <number name="teamPlayerCount" id="18" type="integer" length="2"/>
+            <binary name="unknown3" id="19" length="2"/>
+            <number name="gamePlanCount" id="20" type="integer" length="2"/>
+            <binary name="unknown4" id="21" length="6"/>
+        </structure>
+        <structure name="Player" id="5" length="188" alignment="1" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="id" id="23" type="integer" length="4"/>
+            <number name="commentaryId" id="24" type="integer" length="4"/>
+            <number name="&lt;word1&gt;" id="25" type="integer" length="2" display="hex">
+                <description>Usually FF</description>
+            </number>
+            <number name="nationality" mustmatch="yes" id="26" type="integer" length="2">
+                <fixedvalues>
+                    <fixedvalue name="Others" value="260"/>
+                    <fixedvalue name="ALBANIA" value="191"/>
+                    <fixedvalue name="ANDORRA" value="192"/>
+                    <fixedvalue name="ARMENIA" value="193"/>
+                    <fixedvalue name="AUSTRIA" value="194"/>
+                    <fixedvalue name="AZERBAIJAN" value="195"/>
+                    <fixedvalue name="BELARUS" value="196"/>
+                    <fixedvalue name="BELGIUM" value="197"/>
+                    <fixedvalue name="BOSNIA AND HERZEGOVINA" value="198"/>
+                    <fixedvalue name="BULGARIA" value="199"/>
+                    <fixedvalue name="CROATIA" value="200"/>
+                    <fixedvalue name="CYPRUS" value="201"/>
+                    <fixedvalue name="CZECH REPUBLIC" value="202"/>
+                    <fixedvalue name="DENMARK" value="203"/>
+                    <fixedvalue name="ENGLAND" value="204"/>
+                    <fixedvalue name="ESTONIA" value="205"/>
+                    <fixedvalue name="FAROE ISLANDS" value="206"/>
+                    <fixedvalue name="FINLAND" value="207"/>
+                    <fixedvalue name="FRANCE" value="208"/>
+                    <fixedvalue name="GEORGIA" value="209"/>
+                    <fixedvalue name="GERMANY" value="210"/>
+                    <fixedvalue name="GREECE" value="211"/>
+                    <fixedvalue name="HUNGARY" value="212"/>
+                    <fixedvalue name="ICELAND" value="213"/>
+                    <fixedvalue name="IRELAND" value="214"/>
+                    <fixedvalue name="ISRAEL" value="189"/>
+                    <fixedvalue name="ITALY" value="215"/>
+                    <fixedvalue name="KAZAKHSTAN" value="216"/>
+                    <fixedvalue name="KOSOVO" value="311"/>
+                    <fixedvalue name="LATVIA" value="217"/>
+                    <fixedvalue name="LIECHTENSTEIN" value="218"/>
+                    <fixedvalue name="LITHUANIA" value="219"/>
+                    <fixedvalue name="LUXEMBOURG" value="220"/>
+                    <fixedvalue name="MACEDONIA" value="221"/>
+                    <fixedvalue name="MALTA" value="222"/>
+                    <fixedvalue name="MOLDOVA" value="223"/>
+                    <fixedvalue name="MONACO" value="250"/>
+                    <fixedvalue name="MONTENEGRO" value="304"/>
+                    <fixedvalue name="NETHERLANDS" value="224"/>
+                    <fixedvalue name="NORTHERN IRELAND" value="225"/>
+                    <fixedvalue name="NORWAY" value="226"/>
+                    <fixedvalue name="POLAND" value="227"/>
+                    <fixedvalue name="PORTUGAL" value="228"/>
+                    <fixedvalue name="ROMANIA" value="229"/>
+                    <fixedvalue name="RUSSIA" value="230"/>
+                    <fixedvalue name="SAN MARINO" value="231"/>
+                    <fixedvalue name="SCOTLAND" value="232"/>
+                    <fixedvalue name="SERBIA" value="303"/>
+                    <fixedvalue name="SLOVAKIA" value="234"/>
+                    <fixedvalue name="SLOVENIA" value="235"/>
+                    <fixedvalue name="SPAIN" value="236"/>
+                    <fixedvalue name="SWEDEN" value="237"/>
+                    <fixedvalue name="SWITZERLAND" value="238"/>
+                    <fixedvalue name="TURKEY" value="190"/>
+                    <fixedvalue name="UKRAINE" value="239"/>
+                    <fixedvalue name="WALES" value="241"/>
+                    <fixedvalue name="ALGERIA" value="44"/>
+                    <fixedvalue name="ANGOLA" value="45"/>
+                    <fixedvalue name="BENIN" value="46"/>
+                    <fixedvalue name="BOTSWANA" value="47"/>
+                    <fixedvalue name="BURKINA FASO" value="48"/>
+                    <fixedvalue name="BURUNDI" value="49"/>
+                    <fixedvalue name="CAMEROON" value="50"/>
+                    <fixedvalue name="CAPE VERDE" value="51"/>
+                    <fixedvalue name="CENTRAL AFRICAN REP." value="52"/>
+                    <fixedvalue name="CHAD" value="53"/>
+                    <fixedvalue name="CONGO" value="98"/>
+                    <fixedvalue name="CONGO DR" value="55"/>
+                    <fixedvalue name="CÔTE D'IVOIRE" value="56"/>
+                    <fixedvalue name="EGYPT" value="58"/>
+                    <fixedvalue name="EQUATORIAL GUINEA" value="59"/>
+                    <fixedvalue name="ERITREA" value="60"/>
+                    <fixedvalue name="ETHIOPIA" value="61"/>
+                    <fixedvalue name="GABON" value="62"/>
+                    <fixedvalue name="GHANA" value="64"/>
+                    <fixedvalue name="GUINEA" value="65"/>
+                    <fixedvalue name="GUINEA-BISSAU" value="66"/>
+                    <fixedvalue name="KENYA" value="67"/>
+                    <fixedvalue name="LIBERIA" value="69"/>
+                    <fixedvalue name="LIBYA" value="70"/>
+                    <fixedvalue name="MADAGASCAR" value="71"/>
+                    <fixedvalue name="MALAWI" value="72"/>
+                    <fixedvalue name="MALI" value="73"/>
+                    <fixedvalue name="MAURITANIA" value="74"/>
+                    <fixedvalue name="MAURITIUS" value="75"/>
+                    <fixedvalue name="MOROCCO" value="76"/>
+                    <fixedvalue name="MOZAMBIQUE" value="77"/>
+                    <fixedvalue name="NAMIBIA" value="78"/>
+                    <fixedvalue name="NIGER" value="79"/>
+                    <fixedvalue name="NIGERIA" value="80"/>
+                    <fixedvalue name="REPUBLIC OF THE GAMBIA" value="63"/>
+                    <fixedvalue name="RÉUNION" value="100"/>
+                    <fixedvalue name="RWANDA" value="81"/>
+                    <fixedvalue name="SENEGAL" value="83"/>
+                    <fixedvalue name="SIERRA LEONE" value="85"/>
+                    <fixedvalue name="SOMALIA" value="86"/>
+                    <fixedvalue name="SOUTH AFRICA" value="87"/>
+                    <fixedvalue name="SOUTH SUDAN" value="312"/>
+                    <fixedvalue name="SUDAN" value="88"/>
+                    <fixedvalue name="THE COMOROS" value="54"/>
+                    <fixedvalue name="TOGO" value="91"/>
+                    <fixedvalue name="TUNISIA" value="92"/>
+                    <fixedvalue name="UGANDA" value="93"/>
+                    <fixedvalue name="ZAMBIA" value="94"/>
+                    <fixedvalue name="ZIMBABWE" value="95"/>
+                    <fixedvalue name="ANTIGUA AND BARBUDA" value="104"/>
+                    <fixedvalue name="ARUBA" value="105"/>
+                    <fixedvalue name="BARBADOS" value="107"/>
+                    <fixedvalue name="BERMUDA" value="109"/>
+                    <fixedvalue name="CANADA" value="110"/>
+                    <fixedvalue name="COSTA RICA" value="112"/>
+                    <fixedvalue name="CUBA" value="113"/>
+                    <fixedvalue name="CURAÇAO" value="140"/>
+                    <fixedvalue name="DOMINICAN REPUBLIC" value="115"/>
+                    <fixedvalue name="EL SALVADOR" value="116"/>
+                    <fixedvalue name="GRENADA" value="117"/>
+                    <fixedvalue name="GUADELOUPE" value="118"/>
+                    <fixedvalue name="GUATEMALA" value="119"/>
+                    <fixedvalue name="GUYANA" value="159"/>
+                    <fixedvalue name="HAITI" value="120"/>
+                    <fixedvalue name="HONDURAS" value="121"/>
+                    <fixedvalue name="JAMAICA" value="122"/>
+                    <fixedvalue name="MARTINIQUE" value="123"/>
+                    <fixedvalue name="MEXICO" value="124"/>
+                    <fixedvalue name="MONTSERRAT" value="125"/>
+                    <fixedvalue name="NETHERLANDS ANTILLES" value="126"/>
+                    <fixedvalue name="PANAMA" value="128"/>
+                    <fixedvalue name="PUERTO RICO" value="129"/>
+                    <fixedvalue name="SINT MAARTEN" value="310"/>
+                    <fixedvalue name="TRINIDAD AND TOBAGO" value="133"/>
+                    <fixedvalue name="TURKS AND CAICOS IS." value="134"/>
+                    <fixedvalue name="UNITED STATES" value="135"/>
+                    <fixedvalue name="ARGENTINA" value="144"/>
+                    <fixedvalue name="BOLIVIA" value="145"/>
+                    <fixedvalue name="BRAZIL" value="146"/>
+                    <fixedvalue name="CHILE" value="147"/>
+                    <fixedvalue name="COLOMBIA" value="148"/>
+                    <fixedvalue name="ECUADOR" value="149"/>
+                    <fixedvalue name="PARAGUAY" value="150"/>
+                    <fixedvalue name="PERU" value="151"/>
+                    <fixedvalue name="URUGUAY" value="152"/>
+                    <fixedvalue name="VENEZUELA" value="153"/>
+                    <fixedvalue name="AFGHANISTAN" value="1"/>
+                    <fixedvalue name="AUSTRALIA" value="162"/>
+                    <fixedvalue name="BAHRAIN" value="2"/>
+                    <fixedvalue name="BANGLADESH" value="3"/>
+                    <fixedvalue name="CHINA" value="7"/>
+                    <fixedvalue name="INDIA" value="9"/>
+                    <fixedvalue name="INDONESIA" value="10"/>
+                    <fixedvalue name="IRAN" value="11"/>
+                    <fixedvalue name="IRAQ" value="12"/>
+                    <fixedvalue name="JAPAN" value="13"/>
+                    <fixedvalue name="JORDAN" value="14"/>
+                    <fixedvalue name="KUWAIT" value="17"/>
+                    <fixedvalue name="KYRGYZ REPUBLIC" value="40"/>
+                    <fixedvalue name="LAOS" value="18"/>
+                    <fixedvalue name="LEBANON" value="19"/>
+                    <fixedvalue name="MALAYSIA" value="21"/>
+                    <fixedvalue name="MALDIVES" value="22"/>
+                    <fixedvalue name="NORTH KOREA" value="15"/>
+                    <fixedvalue name="OMAN" value="26"/>
+                    <fixedvalue name="PAKISTAN" value="27"/>
+                    <fixedvalue name="PALESTINE" value="28"/>
+                    <fixedvalue name="PHILIPPINES" value="29"/>
+                    <fixedvalue name="QATAR" value="30"/>
+                    <fixedvalue name="SAUDI ARABIA" value="31"/>
+                    <fixedvalue name="SINGAPORE" value="32"/>
+                    <fixedvalue name="SOUTH KOREA" value="16"/>
+                    <fixedvalue name="SRI LANKA" value="33"/>
+                    <fixedvalue name="SYRIA" value="34"/>
+                    <fixedvalue name="TAJIKISTAN" value="41"/>
+                    <fixedvalue name="THAILAND" value="36"/>
+                    <fixedvalue name="TURKMENISTAN" value="42"/>
+                    <fixedvalue name="UAE" value="37"/>
+                    <fixedvalue name="UZBEKISTAN" value="240"/>
+                    <fixedvalue name="VIETNAM" value="38"/>
+                    <fixedvalue name="FIJI" value="164"/>
+                    <fixedvalue name="NEW CALEDONIA" value="165"/>
+                    <fixedvalue name="NEW ZEALAND" value="166"/>
+                    <fixedvalue name="PAPUA NEW GUINEA" value="167"/>
+                    <fixedvalue name="SAMOA" value="168"/>
+                    <fixedvalue name="SOLOMON ISLANDS" value="169"/>
+                    <fixedvalue name="TAHITI" value="170"/>
+                    <fixedvalue name="FRENCH GUIANA" value="138"/>
+                    <fixedvalue name="TAIWAN" value="298"/>
+                </fixedvalues>
+            </number>
+            <number name="height" id="27" type="integer" length="1"/>
+            <number name="weight" id="28" type="integer" length="1"/>
+            <number name="motionGoalCelebration1" id="29" type="integer" length="8" lengthunit="bit"/>
+            <number name="motionGoalCelebration2" id="30" type="integer" length="8" lengthunit="bit"/>
+            <structure name="attrs" id="31">
+                <number name="attackingProwess" id="32" type="integer" length="7" lengthunit="bit"/>
+                <number name="defensiveProwess" id="33" type="integer" length="7" lengthunit="bit"/>
+                <number name="goalkeeping" id="34" type="integer" length="7" lengthunit="bit"/>
+                <number name="dribbling" id="35" type="integer" length="7" lengthunit="bit"/>
+                <number name="motionFreeKick" id="36" type="integer" length="4" lengthunit="bit"/>
+                <number name="finishing" id="37" type="integer" length="7" lengthunit="bit"/>
+                <number name="lowPass" id="38" type="integer" length="7" lengthunit="bit"/>
+                <number name="loftedPass" id="39" type="integer" length="7" lengthunit="bit"/>
+                <number name="header" id="40" type="integer" length="7" lengthunit="bit"/>
+                <number name="form" id="41" type="integer" length="3" lengthunit="bit"/>
+                <number name="isEdited" id="42" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="swerve" id="43" type="integer" length="7" lengthunit="bit"/>
+                <number name="catching" id="44" type="integer" length="7" lengthunit="bit"/>
+                <number name="clearing" id="45" type="integer" length="7" lengthunit="bit"/>
+                <number name="reflexes" id="46" type="integer" length="7" lengthunit="bit"/>
+                <number name="injuryResistance" id="47" type="integer" length="2" lengthunit="bit"/>
+                <number name="&lt;bool1&gt;" id="48" type="integer" length="1" lengthunit="bit"/>
+                <number name="hasBasicSettingMods" id="49" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="bodyControl" id="50" type="integer" length="7" lengthunit="bit"/>
+                <number name="physicalContact" id="51" type="integer" length="7" lengthunit="bit"/>
+                <number name="kickingPower" id="52" type="integer" length="7" lengthunit="bit"/>
+                <number name="explosivePower" id="53" type="integer" length="7" lengthunit="bit"/>
+                <number name="motionArmMovementDribbling" id="54" type="integer" length="3" lengthunit="bit"/>
+                <number name="hasRegisteredPositionMod" id="55" type="integer" length="1">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="age" id="56" type="integer" length="6" lengthunit="bit"/>
+                <number name="registeredPosition" id="57" type="integer" length="4" lengthunit="bit"/>
+                <number name="&lt;bool2&gt;" id="58" type="integer" length="1" lengthunit="bit"/>
+                <number name="playingStyles" id="59" type="integer" length="5" lengthunit="bit"/>
+                <number name="ballControl" id="60" type="integer" length="7" lengthunit="bit"/>
+                <number name="ballWinning" id="61" type="integer" length="7" lengthunit="bit"/>
+                <number name="weakFootAccuracy" id="62" type="integer" length="2" lengthunit="bit"/>
+                <number name="jump" id="63" type="integer" length="7" lengthunit="bit"/>
+                <number name="motionArmMovementRunning" id="64" type="integer" length="3" lengthunit="bit"/>
+                <number name="motionCornerKick" id="65" type="integer" length="3" lengthunit="bit"/>
+                <number name="coverage" id="66" type="integer" length="7" lengthunit="bit"/>
+                <number name="weakFootUsage" id="67" type="integer" length="2" lengthunit="bit"/>
+                <number name="playablePosition" id="68" type="integer" length="26" lengthunit="bit"/>
+                <number name="motionHunchingDribbling" id="69" type="integer" length="2" lengthunit="bit"/>
+                <number name="motionHunchingRunning" id="70" type="integer" length="2" lengthunit="bit"/>
+                <number name="motionPenaltyKick" id="71" type="integer" length="2" lengthunit="bit"/>
+                <number name="placeKicking" id="72" type="integer" length="7" lengthunit="bit"/>
+                <number name="isPlayablePositionChanged" id="73" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="hasAbilityMods" id="74" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="hasPlayerSkillMods" id="75" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="stamina" id="76" type="integer" length="7" lengthunit="bit"/>
+                <number name="speed" id="77" type="integer" length="7" lengthunit="bit"/>
+                <number name="hasPlayingStyleMods" id="78" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="hasComPlayingStyleMods" id="79" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="hasMotionMods" id="80" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="isBaseCopy" id="81" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="false" value="0"/>
+                        <fixedvalue name="true" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="&lt;bool3&gt;" id="82" type="integer" length="1" lengthunit="bit"/>
+                <number name="preferredFoot" id="83" type="integer" length="1" lengthunit="bit">
+                    <fixedvalues>
+                        <fixedvalue name="right" value="0"/>
+                        <fixedvalue name="left" value="1"/>
+                    </fixedvalues>
+                </number>
+                <number name="&lt;bool4&gt;" id="84" type="integer" length="1" lengthunit="bit"/>
+            </structure>
+            <number name="comPlayingStyles" id="86" type="integer" length="7" lengthunit="bit">
+                <mask name="Trickster" value="0x1">
+                    <fixedvalue name="true" value="0x1"/>
+                </mask>
+                <mask name="Mazing Run" value="0x2">
+                    <fixedvalue name="true" value="0x2"/>
+                </mask>
+                <mask name="Speeding Bullet" value="0x4">
+                    <fixedvalue name="true" value="0x4"/>
+                </mask>
+                <mask name="Incisive Run" value="0x8">
+                    <fixedvalue name="true" value="0x8"/>
+                </mask>
+                <mask name="Long Ball Expert" value="0x10">
+                    <fixedvalue name="true" value="0x10"/>
+                </mask>
+                <mask name="Early Cross" value="0x20">
+                    <fixedvalue name="true" value="0x20"/>
+                </mask>
+                <mask name="Long Ranger" value="0x40">
+                    <fixedvalue name="true" value="0x40"/>
+                </mask>
+            </number>
+            <number name="playerSkills" id="87" type="integer" length="28" lengthunit="bit">
+                <mask name="Scissor Feint" value="0x1">
+                    <fixedvalue name="true" value="0x1"/>
+                </mask>
+                <mask name="Flip Flap" value="0x2">
+                    <fixedvalue name="true" value="0x2"/>
+                </mask>
+                <mask name="Marseille Turn" value="0x4">
+                    <fixedvalue name="true" value="0x4"/>
+                </mask>
+                <mask name="Sombrero" value="0x8">
+                    <fixedvalue name="true" value="0x8"/>
+                </mask>
+                <mask name="Cut Behind &amp; Turn" value="0x10">
+                    <fixedvalue name="true" value="0x10"/>
+                </mask>
+                <mask name="Scotch Move" value="0x20">
+                    <fixedvalue name="true" value="0x20"/>
+                </mask>
+                <mask name="Heading" value="0x40">
+                    <fixedvalue name="true" value="0x40"/>
+                </mask>
+                <mask name="Long Range Drive" value="0x80">
+                    <fixedvalue name="true" value="0x80"/>
+                </mask>
+                <mask name="Knuckle Shot" value="0x100">
+                    <fixedvalue name="true" value="0x100"/>
+                </mask>
+                <mask name="Acrobatic Finishing" value="0x200">
+                    <fixedvalue name="true" value="0x200"/>
+                </mask>
+                <mask name="Heel Trick" value="0x400">
+                    <fixedvalue name="true" value="0x400"/>
+                </mask>
+                <mask name="First-time Shot" value="0x800">
+                    <fixedvalue name="true" value="0x800"/>
+                </mask>
+                <mask name="One-touch Pass" value="0x1000">
+                    <fixedvalue name="true" value="0x1000"/>
+                </mask>
+                <mask name="Weighted Pass" value="0x2000">
+                    <fixedvalue name="true" value="0x2000"/>
+                </mask>
+                <mask name="Pinpoint Crossing" value="0x4000">
+                    <fixedvalue name="true" value="0x4000"/>
+                </mask>
+                <mask name="Outside Curler" value="0x8000">
+                    <fixedvalue name="true" value="0x8000"/>
+                </mask>
+                <mask name="Rabona" value="0x10000">
+                    <fixedvalue name="true" value="0x10000"/>
+                </mask>
+                <mask name="Low Lofted Pass" value="0x20000">
+                    <fixedvalue name="true" value="0x20000"/>
+                </mask>
+                <mask name="Low Punt Trajectory" value="0x40000">
+                    <fixedvalue name="true" value="0x40000"/>
+                </mask>
+                <mask name="Long Throw" value="0x80000">
+                    <fixedvalue name="true" value="0x80000"/>
+                </mask>
+                <mask name="GK Long Throw" value="0x100000">
+                    <fixedvalue name="true" value="0x100000"/>
+                </mask>
+                <mask name="Malicia" value="0x200000">
+                    <fixedvalue name="true" value="0x200000"/>
+                </mask>
+                <mask name="Man Marking" value="0x400000">
+                    <fixedvalue name="true" value="0x400000"/>
+                </mask>
+                <mask name="Track Back" value="0x800000">
+                    <fixedvalue name="true" value="0x800000"/>
+                </mask>
+                <mask name="Acrobatic Clear" value="0x1000000">
+                    <fixedvalue name="true" value="0x1000000"/>
+                </mask>
+                <mask name="Captaincy" value="0x2000000">
+                    <fixedvalue name="true" value="0x2000000"/>
+                </mask>
+                <mask name="Super-sub" value="0x4000000">
+                    <fixedvalue name="true" value="0x4000000"/>
+                </mask>
+                <mask name="Fighting Spirit" value="0x8000000">
+                    <fixedvalue name="true" value="0x8000000"/>
+                </mask>
+            </number>
+            <number name="&lt;byte1&gt;" id="88" type="integer" length="8" lengthunit="bit"/>
+            <structure name="player" id="89" length="46" fillcolor="00FF85">
+                <string name="name" id="90" type="zero-terminated"/>
+            </structure>
+            <structure name="print" id="92" length="18" fillcolor="00FF95">
+                <string name="name" id="93" type="zero-terminated"/>
+            </structure>
+            <number name="playerIdAgain" id="95" type="integer" length="4">
+                <description>Perhaps this is base copy id?</description>
+            </number>
+        </structure>
+    </grammar>
+</ufwb>
