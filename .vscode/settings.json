@@ -2,5 +2,10 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
     "jbinary"
-  ]
+  ],
+  "files.exclude": {
+    "build/": true,
+    "functions/node_modules/": true,
+    "functions/build/": true
+  }
 }
