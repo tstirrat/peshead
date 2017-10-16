@@ -4,6 +4,9 @@
 /node_modules
 /functions/node_modules
 
+# security
+config/service-account.json
+
 # testing
 /coverage
 

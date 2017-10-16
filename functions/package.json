@@ -2,7 +2,7 @@
   "name": "pesleagues-functions",
   "description": "PESLeagues Cloud Functions",
   "scripts": {
-    "build": "tsc index.ts"
+    "build": "tsc cli/index.ts"
   },
   "main": "index.js",
   "dependencies": {

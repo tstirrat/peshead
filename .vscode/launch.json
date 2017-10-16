@@ -7,8 +7,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Go",
-      "program": "${workspaceFolder}/functions/build/index.js",
+      "name": "CLI",
+      "program": "${workspaceFolder}/functions/build/cli/index.js",
       "args": [
         "load",
         "./functions/test/base-EDIT00000000"
