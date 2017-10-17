@@ -1,0 +1,189 @@
+syntax = "proto3";
+package net.pesleagues;
+
+import "common.proto";
+
+message Player {
+  uint32 id = 1;
+  uint32 commentaryId = 2;
+  string name = 5;
+  string kitName = 5;
+  uint32 age = 5;
+  Country nationality = 3;
+  Foot preferredFoot = 5;
+  Physique physique = 5;
+  PlayerAbilities abilities = 5;
+  PlayerMotion motion = 5;
+  bool isEdited = 5;
+  bool isBaseCopy = 5;
+  Edits edited = 5;
+  Position registeredPosition = 5;
+  repeated PlayingStyle playingStyles = 5;
+  repeated Position playablePositions = 5;
+  repeated ComPlayingStyle comPlayingStyles = 5;
+  repeated Skill playerSkills = 5;
+  PlayerAppearance appearance = 5;
+  UnknownOptions unknowns = 5;
+}
+
+message Physique {
+  uint32 height = 1;
+  uint32 weight = 2;
+  int32 neckLength = 3;
+  int32 neckSize = 4;
+  int32 shoulderHeight = 5;
+  int32 shoulderWidth = 6;
+  int32 chestSize = 7;
+  int32 waistSize = 8;
+  int32 armSize = 9;
+  int32 thighSize = 10;
+  int32 calfSize = 11;
+  int32 legLength = 12;
+  int32 armLength = 13;
+}
+
+message PlayerAbilities {
+  uint32 attackingProwess = 1;
+  uint32 ballControl = 2;
+  uint32 ballWinning = 3;
+  uint32 bodyControl = 4;
+  uint32 catching = 5;
+  uint32 clearing = 6;
+  uint32 coverage = 7;
+  uint32 defensiveProwess = 8;
+  uint32 dribbling = 9;
+  uint32 explosivePower = 10;
+  uint32 finishing = 11;
+  uint32 goalkeeping = 12;
+  uint32 header = 13;
+  uint32 injuryResistance = 14;
+  uint32 jump = 15;
+  uint32 kickingPower = 16;
+  uint32 loftedPass = 17;
+  uint32 lowPass = 26;
+  uint32 physicalContact = 18;
+  uint32 placeKicking = 19;
+  uint32 reflexes = 20;
+  uint32 speed = 21;
+  uint32 stamina = 22;
+  uint32 swerve = 23;
+  uint32 weakFootAccuracy = 24;
+  uint32 weakFootUsage = 25;
+  uint32 form = 27;
+}
+
+enum Foot { LEFT, RIGHT }
+
+enum PlayingStyle {
+  ANCHOR_MAN = 8;
+  BOX_TO_BOX = 7;
+  BUILD_UP = 15;
+  CLASSIC_NO_10 = 5;
+  CREATIVE_PLAYMAKER = 14;
+  DEFENSIVE_FULLBACK = 12;
+  DEFENSIVE_GOALKEEPER = 18;
+  DUMMY_RUNNER = 2;
+  EXTRA_FRONTMAN = 10;
+  FOX_IN_THE_BOX = 3;
+  GOAL_POACHER = 1;
+  HOLE_PLAYER = 6;
+  N_A = 16;
+  OFFENSIVE_FULLBACK = 11;
+  OFFENSIVE_GOALKEEPER = 17;
+  PROLIFIC_WINGER = 4;
+  TARGET_MAN = 13;
+  THE_DESTROYER = 9;
+}
+
+enum ComPlayingStyle {
+  EARLY_CROSS = 5;
+  INCISIVE_RUN = 3;
+  LONG_BALL_EXPERT = 4;
+  LONG_RANGER = 6;
+  MAZING_RUN = 1;
+  SPEEDING_BULLET = 2;
+  TRICKSTER = 0;
+}
+
+enum Position {
+  ATTACKING_MIDFIELDER = 8;
+  CENTRE_BACK = 1;
+  CENTRE_FORWARD = 12;
+  CENTRE_MIDFIELDER = 5;
+  DEFENSIVE_MIDFIELDER = 4;
+  GOALKEEPER = 0;
+  LEFT_BACK = 2;
+  LEFT_MIDFIELDER = 6;
+  LEFT_WING_FORWARD = 9;
+  RIGHT_BACK = 3;
+  RIGHT_MIDFIELDER = 7;
+  RIGHT_WING_FORWARD = 10;
+  SECOND_STRIKER = 11;
+}
+
+enum Skill {
+  ACROBATIC_CLEAR = 24;
+  ACROBATIC_FINISHING = 9;
+  CAPTAINCY = 25;
+  CUT_BEHIND_TURN = 4;
+  FIGHTING_SPIRIT = 27;
+  FIRST_TIME_SHOT = 11;
+  FLIP_FLAP = 1;
+  GK_LONG_THROW = 20;
+  HEADING = 6;
+  HEEL_TRICK = 10;
+  KNUCKLE_SHOT = 8;
+  LONG_RANGE_DRIVE = 7;
+  LONG_THROW = 19;
+  LOW_LOFTED_PASS = 17;
+  LOW_PUNT_TRAJECTORY = 18;
+  MALICIA = 21;
+  MAN_MARKING = 22;
+  MARSEILLE_TURN = 2;
+  ONE_TOUCH_PASS = 12;
+  OUTSIDE_CURLER = 15;
+  PINPOINT_CROSSING = 14;
+  RABONA = 16;
+  SCISSORS_FEINT = 0;
+  SCOTCH_MOVE = 5;
+  SOMBRERO = 3;
+  SUPER_SUB = 26;
+  TRACK_BACK = 23;
+  WEIGHTED_PASS = 13;
+}
+
+message PlayerAppearance {
+}
+
+message PlayerMotion {
+  uint32 armDribbling = 5;
+  uint32 armRunning = 5;
+  uint32 cornerKick = 5;
+  uint32 freeKick = 5;
+  uint32 goalCelebration1 = 5;
+  uint32 goalCelebration2 = 5;
+  uint32 hunchingDribbling = 5;
+  uint32 hunchingRunning = 5;
+  uint32 penaltyKick = 5;
+}
+
+/** Reports if certain parts of a player are edited. */
+message Edits {
+  bool registeredPosition = 5;
+  bool playablePositions = 5;
+  bool basics = 5;
+  bool abilities = 5;
+  bool playerSkills = 5;
+  bool playingStyles = 5;
+  bool comPlayingStyles = 5;
+  bool motion = 5;
+}
+
+/** Bytes/bits of the player data that are not yet known */
+message UnknownOptions {
+  bool unknown02 = 5;
+  bool unknown03 = 5;
+  bool unknown04 = 5;
+  bool unknown05 = 5;
+  uint32 unknown06 = 5;
+}
