@@ -5,7 +5,8 @@ import jBinary = require('jbinary');
 // const fileName = `${__dirname}/../test/mcnameface-lacasweat_EDIT00000000`;
 const fileName = `${__dirname}/../test/N.MCNAMEFACE.bin`;
 
-let data: any;  // TODO: fix types
+// TODO(tstirrat/pesleagues#2): declare/generate types for these
+let data: any;
 let player: any;
 let team: any;
 

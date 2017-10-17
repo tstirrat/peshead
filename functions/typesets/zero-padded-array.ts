@@ -1,6 +1,7 @@
 /// <reference path="../@types/jbinary.d.ts" />
 import jBinary = require('jbinary');
 
+// TODO(tstirrat/pesleagues#1): Fix jBinary types
 export const ZeroPaddedArray = (jBinary as any).Template({
   params: ['baseType', 'maxLength', 'actualLength'],
   read() {
@@ -23,6 +24,6 @@ export const ZeroPaddedArray = (jBinary as any).Template({
   },
   write(values: any[]) {
     values.forEach(v => this.baseWrite(v));
-    // TODO: write zero padded entries with the same entry size
+    // TODO(tstirrat/pesleages#3): Write remaining entries as zeros
   }
 });
