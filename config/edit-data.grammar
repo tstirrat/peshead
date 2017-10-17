@@ -908,57 +908,59 @@
             <structure name="stadiumText" id="206" length="121">
                 <string name="name" id="207" type="zero-terminated"/>
             </structure>
-            <structure name="banners" id="209" length="16" repeatmin="4" repeatmax="4">
-                <string name="value" id="210" type="zero-terminated"/>
+            <structure name="banners" id="209">
+                <structure name="banner" id="210" length="16" repeatmin="4" repeatmax="4">
+                    <string name="value" id="211" type="zero-terminated"/>
+                </structure>
             </structure>
         </structure>
         <structure name="Color" id="156" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="r" id="213" type="integer" length="6" lengthunit="bit"/>
-            <number name="g" id="214" type="integer" length="6" lengthunit="bit"/>
-            <number name="b" id="215" type="integer" length="6" lengthunit="bit"/>
+            <number name="r" id="215" type="integer" length="6" lengthunit="bit"/>
+            <number name="g" id="216" type="integer" length="6" lengthunit="bit"/>
+            <number name="b" id="217" type="integer" length="6" lengthunit="bit"/>
         </structure>
         <structure name="Manager" id="17" length="88" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="217" type="integer" length="4"/>
-            <number name="nationality_id" id="218" type="integer" length="2"/>
-            <number name="image_id" id="219" type="integer" length="2"/>
-            <number name="&lt;byte&gt;" id="220" type="integer" length="1"/>
-            <string name="name" id="221" type="zero-terminated"/>
+            <number name="id" id="219" type="integer" length="4"/>
+            <number name="nationality_id" id="220" type="integer" length="2"/>
+            <number name="image_id" id="221" type="integer" length="2"/>
+            <number name="&lt;byte&gt;" id="222" type="integer" length="1"/>
+            <string name="name" id="223" type="zero-terminated"/>
         </structure>
         <structure name="Competition" id="21" length="124" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="223" type="integer" length="1"/>
-            <structure name="&lt;unsure&gt;" id="224" length="13">
-                <number name="region_id" id="225" type="integer" length="2"/>
-                <number name="parent_id" id="226" type="integer" length="1"/>
-                <number name="isInactive" id="227" type="integer" length="1" lengthunit="bit">
+            <number name="id" id="225" type="integer" length="1"/>
+            <structure name="&lt;unsure&gt;" id="226" length="13">
+                <number name="region_id" id="227" type="integer" length="2"/>
+                <number name="parent_id" id="228" type="integer" length="1"/>
+                <number name="isInactive" id="229" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="isLicensed" id="228" type="integer" length="1"/>
+                <number name="isLicensed" id="230" type="integer" length="1"/>
             </structure>
-            <string name="name" id="230" type="zero-terminated"/>
+            <string name="name" id="232" type="zero-terminated"/>
         </structure>
         <structure name="GamePlan" id="39" length="628" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="232" type="integer" length="4"/>
+            <number name="id" id="234" type="integer" length="4"/>
         </structure>
         <structure name="Stadium" id="25" length="128" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="234" type="integer" length="4"/>
-            <string name="name" id="235" type="zero-terminated"/>
+            <number name="id" id="236" type="integer" length="4"/>
+            <string name="name" id="237" type="zero-terminated"/>
         </structure>
         <structure name="TeamRoster" id="33" length="164" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="team_id" id="237" type="integer" length="4"/>
-            <structure name="players" id="238">
-                <number name="player" id="239" repeatmin="32" repeatmax="32" type="integer" length="4"/>
+            <number name="team_id" id="239" type="integer" length="4"/>
+            <structure name="players" id="240">
+                <number name="player" id="241" repeatmin="32" repeatmax="32" type="integer" length="4"/>
             </structure>
-            <structure name="kitNumbers" id="241">
-                <number name="player" id="242" repeatmin="32" repeatmax="32" type="integer" length="1"/>
+            <structure name="kitNumbers" id="243">
+                <number name="player" id="244" repeatmin="32" repeatmax="32" type="integer" length="1"/>
             </structure>
         </structure>
         <structure name="Unknown" id="29" length="132" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <binary name="&lt;byte1&gt;" id="245" length="2"/>
-            <structure name="&lt;padding&gt;" id="246" length="125"/>
-            <number name="&lt;byte2&gt;" id="248" type="integer" length="1"/>
+            <binary name="&lt;byte1&gt;" id="247" length="2"/>
+            <structure name="&lt;padding&gt;" id="248" length="125"/>
+            <number name="&lt;byte2&gt;" id="250" type="integer" length="1"/>
         </structure>
     </grammar>
 </ufwb>

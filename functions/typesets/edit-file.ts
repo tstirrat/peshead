@@ -2,7 +2,8 @@ import {ZeroPaddedArray} from './zero-padded-array';
 
 // const TEAM_PLAYER_COUNT = 650;
 // const STADIUM_COUNT = 40;
-const HEADER_SIZE_BYTES = 67305;
+export const HEADER_SIZE_BYTES = 67305;
+export const PLAYER_SIZE_BYTES = 188;
 const HEADER_KNOWN_OFFSET = 67277;
 const HEADER_KNOWN_BYTES = 22;
 const APPEARANCE_SIZE_BYTES = 72;
@@ -161,16 +162,18 @@ export const EditFile = {
     callname_id: 'uint16',
     color1r: ['bitfield', 6],
     color1g: ['bitfield', 6],
-    stadium_net_id: 'uint8',
+    stadium_net_id: ['bitfield', 4],
     color2: 'Color24',
     color1b: ['bitfield', 6],
-    isStadiumNetEnabled: 'Bool',
-    bits1: ['bitfield', 3],
-    stadiumGoalType: ['bitfield', 2],
-    bits2: ['bitfield', 2],
-    stadiumTurfPattern: ['bitfield', 4],
-    stadiumSidelineColor: ['bitfield', 4],
-    stadiumSeatColor: ['bitfield', 4],
+    stadium: {
+      isStadiumNetEnabled: 'Bool',
+      bits1: ['bitfield', 3],
+      stadiumGoalType: ['bitfield', 2],
+      bits2: ['bitfield', 2],
+      stadiumTurfPattern: ['bitfield', 4],
+      stadiumSidelineColor: ['bitfield', 4],
+      stadiumSeatColor: ['bitfield', 4],
+    },
     isNameEdited: 'Bool',
     isStadiumEdited: 'Bool',
     '<bool1>': 'Bool',
@@ -192,6 +195,7 @@ export const EditFile = {
     scoreboard: ['string0', 4],
     stadiumText: ['string0', 121],
     banners: ['array', ['string0', 16], 4],
+    skip: ['skip', 69],
   },
 
   Stadium: {
