@@ -1,7 +1,13 @@
 {
   "name": "pesleagues",
   "version": "0.1.0",
-  "private": true,
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "dependencies": {
     "jbinary": "^2.1.3",
     "protobufjs": "^6.8.0",

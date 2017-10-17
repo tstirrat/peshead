@@ -23,18 +23,19 @@ export async function load(fileName: string): Promise<void> {
 
     const db = admin.firestore();
 
-    const playersRef = db.collection('players');
-    const players = editData.players.slice(0, 10).map(async (player: any) => {
-      console.log(`Inserting ${player.id}...`);
-      return await playersRef.doc('' + player.id).set(player);
-    });
-    await Promise.all(players);
-    console.log(`Inserted ${players.length} players`);
+    // const playersRef = db.collection('players');
+    // const players = editData.players.slice(0, 10).map(async (player: any) =>
+    // {
+    //   console.log(`Inserting ${player.id}...`);
+    //   return playersRef.doc('' + player.id).set(player);
+    // });
+    // await Promise.all(players);
+    // console.log(`Inserted ${players.length} players`);
 
     const teamsRef = db.collection('teams');
-    const teams = editData.teams.slice(0, 10).map(async (team: any) => {
+    const teams = editData.teams.map(async (team: any) => {
       console.log(`Inserting ${team.id}...`);
-      return await teamsRef.doc('' + team.id).set(team);
+      return teamsRef.doc('' + team.id).set(team);
     });
     await Promise.all(teams);
     console.log(`Inserted ${teams.length} teams`);
