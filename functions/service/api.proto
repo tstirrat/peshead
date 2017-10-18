@@ -37,7 +37,5 @@ message UpdatePlayerRequest {
 }
 
 message AddPlayerRequest {
-  // The ID of the player to retrieve
-  string player_id = 1;
   Player player = 2;
 }

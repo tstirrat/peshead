@@ -34,15 +34,15 @@ export const EditFile = {
     header: 'Header',
     players: [
       ZeroPaddedArray, 'Player', PLAYER_COUNT_MAX,
-      (data: any) => data.header.playerCount
+      (data: EditFile) => data.header.playerCount
     ],
     teams: [
       ZeroPaddedArray, 'Team', TEAM_COUNT_MAX,
-      (data: any) => data.header.teamCount
+      (data: EditFile) => data.header.teamCount
     ],
     managers: [
       ZeroPaddedArray, 'Manager', MANAGER_COUNT_MAX,
-      (data: any) => data.header.managerCount
+      (data: EditFile) => data.header.managerCount
     ],
     // competitions: [ZeroPaddedArray, 'blob', 50],
     // stadiums: [ZeroPaddedArray, 'Stadium', STADIUM_COUNT],
@@ -296,7 +296,12 @@ export interface Player {
   playerSkills: number;
   name: string;
   printName: string;
-  // appearance: PlayerAppearance;
+  appearance: PlayerAppearance;
+}
+
+export interface PlayerAppearance {
+  playerId: number;
+  // TODO: complete this
 }
 
 export interface Team {
@@ -310,7 +315,8 @@ export interface Team {
   color1r: number;
   color1g: number;
   stadium_net_id: number;
-  color2: 'Color24', color1b: number;
+  color2: Color24;
+  color1b: number;
   stadium: {
     isStadiumNetEnabled: boolean; bits1: number; stadiumGoalType: number;
     bits2: number;
@@ -362,4 +368,10 @@ export interface Manager {
 export interface Competition {
   id: number;
   // TODO: complete this
+}
+
+export interface Color24 {
+  r: number;
+  g: number;
+  b: number;
 }
