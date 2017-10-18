@@ -9,7 +9,7 @@
     }
   ],
   "scripts": {
-    "build": "yarn api; tsc -p ./",
+    "build": "tsc -p ./",
     "test": "jest",
     "watch": "jest --watch",
     "protos": "pbjs --es6 -w es6 -t static-module -o service/api.js service/api.proto service/common.proto service/player.proto",
