@@ -1,6 +1,4 @@
 syntax = "proto3";
-package net.pesleagues;
-
 
 enum Country {
   AFGHANISTAN = 1;
@@ -40,10 +38,10 @@ enum Country {
   CONGO = 98;
   CONGO_DR = 55;
   COSTA_RICA = 112;
-  CÔTE_D_IVOIRE = 56;
+  COTE_D_IVOIRE = 56;
   CROATIA = 200;
   CUBA = 113;
-  CURAÇAO = 140;
+  CURACAO = 140;
   CYPRUS = 201;
   CZECH_REPUBLIC = 202;
   DENMARK = 203;
@@ -140,7 +138,7 @@ enum Country {
   PUERTO_RICO = 129;
   QATAR = 30;
   REPUBLIC_OF_THE_GAMBIA = 63;
-  RÉUNION = 100;
+  REUNION = 100;
   ROMANIA = 229;
   RUSSIA = 230;
   RWANDA = 81;

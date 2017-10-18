@@ -1,7 +1,10 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
-    "jbinary"
+    "jbinary",
+    "proto",
+    "protobuf",
+    "protos"
   ],
   "files.exclude": {
     "build/": true,

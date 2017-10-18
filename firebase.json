@@ -19,5 +19,11 @@
   },
   "storage": {
     "rules": "config/storage.rules"
+  },
+  "functions": {
+    "ignore": [
+      "**/node_modules/**",
+      "**/test/**"
+    ]
   }
 }

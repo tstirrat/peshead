@@ -9,7 +9,7 @@
       "dom"
     ],
     "sourceMap": true,
-    "allowJs": false,
+    "allowJs": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,

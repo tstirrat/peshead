@@ -6,14 +6,14 @@ import jBinary = require('jbinary');
 const fileName = `${__dirname}/../test/N.MCNAMEFACE.bin`;
 
 // TODO(tstirrat/pesleagues#2): declare/generate types for these
-let data: any;
+// let data: any;
 let player: any;
-let team: any;
+// let team: any;
 
 beforeAll(() => {
   return jBinary.load(fileName, EditFile).then((jb: jBinary) => {
-    // const playerOffset: number = PLAYER_SIZE_BYTES * 13980;
-    // player = jb.read('Player', HEADER_SIZE_BYTES + playerOffset);
+    const playerOffset: number = PLAYER_SIZE_BYTES * 13980;
+    player = jb.read('Player', HEADER_SIZE_BYTES + playerOffset);
     player = jb.read('Player', 0);
     // player = data.players.find((p: any) => p.name === 'M. MCNAMEFACE');
   });

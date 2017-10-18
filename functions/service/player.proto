@@ -1,29 +1,28 @@
 syntax = "proto3";
-package net.pesleagues;
 
 import "common.proto";
 
 message Player {
   uint32 id = 1;
   uint32 commentaryId = 2;
-  string name = 5;
-  string kitName = 5;
+  string name = 3;
+  string kitName = 4;
   uint32 age = 5;
-  Country nationality = 3;
-  Foot preferredFoot = 5;
-  Physique physique = 5;
-  PlayerAbilities abilities = 5;
-  PlayerMotion motion = 5;
-  bool isEdited = 5;
-  bool isBaseCopy = 5;
-  Edits edited = 5;
-  Position registeredPosition = 5;
-  repeated PlayingStyle playingStyles = 5;
-  repeated Position playablePositions = 5;
-  repeated ComPlayingStyle comPlayingStyles = 5;
-  repeated Skill playerSkills = 5;
-  PlayerAppearance appearance = 5;
-  UnknownOptions unknowns = 5;
+  Country nationality = 6;
+  Foot preferredFoot = 7;
+  Physique physique = 8;
+  PlayerAbilities abilities = 9;
+  PlayerMotion motion = 10;
+  bool isEdited = 11;
+  bool isBaseCopy = 12;
+  Edits edited = 13;
+  Position registeredPosition = 14;
+  repeated PlayingStyle playingStyles = 15;
+  repeated Position playablePositions = 16;
+  repeated ComPlayingStyle comPlayingStyles = 17;
+  repeated Skill playerSkills = 18;
+  PlayerAppearance appearance = 19;
+  UnknownOptions unknowns = 20;
 }
 
 message Physique {
@@ -72,7 +71,10 @@ message PlayerAbilities {
   uint32 form = 27;
 }
 
-enum Foot { LEFT, RIGHT }
+enum Foot {
+  RIGHT = 0;
+  LEFT = 1;
+}
 
 enum PlayingStyle {
   ANCHOR_MAN = 8;
@@ -156,34 +158,34 @@ message PlayerAppearance {
 }
 
 message PlayerMotion {
-  uint32 armDribbling = 5;
-  uint32 armRunning = 5;
-  uint32 cornerKick = 5;
-  uint32 freeKick = 5;
+  uint32 armDribbling = 1;
+  uint32 armRunning = 2;
+  uint32 cornerKick = 3;
+  uint32 freeKick = 4;
   uint32 goalCelebration1 = 5;
-  uint32 goalCelebration2 = 5;
-  uint32 hunchingDribbling = 5;
-  uint32 hunchingRunning = 5;
-  uint32 penaltyKick = 5;
+  uint32 goalCelebration2 = 6;
+  uint32 hunchingDribbling = 8;
+  uint32 hunchingRunning = 9;
+  uint32 penaltyKick = 10;
 }
 
 /** Reports if certain parts of a player are edited. */
 message Edits {
-  bool registeredPosition = 5;
-  bool playablePositions = 5;
-  bool basics = 5;
-  bool abilities = 5;
+  bool registeredPosition = 1;
+  bool playablePositions = 2;
+  bool basics = 3;
+  bool abilities = 4;
   bool playerSkills = 5;
-  bool playingStyles = 5;
-  bool comPlayingStyles = 5;
-  bool motion = 5;
+  bool playingStyles = 6;
+  bool comPlayingStyles = 7;
+  bool motion = 8;
 }
 
 /** Bytes/bits of the player data that are not yet known */
 message UnknownOptions {
-  bool unknown02 = 5;
-  bool unknown03 = 5;
-  bool unknown04 = 5;
-  bool unknown05 = 5;
+  bool unknown02 = 1;
+  bool unknown03 = 2;
+  bool unknown04 = 3;
+  bool unknown05 = 4;
   uint32 unknown06 = 5;
 }

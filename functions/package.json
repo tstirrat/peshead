@@ -9,11 +9,13 @@
     }
   ],
   "scripts": {
-    "build": "tsc cli/index.ts",
+    "build": "yarn api; tsc -p ./",
     "test": "jest",
-    "watch": "jest --watch"
+    "watch": "jest --watch",
+    "protos": "pbjs --es6 -w es6 -t static-module -o service/api.js service/api.proto service/common.proto service/player.proto",
+    "api": "yarn run protos; pbts -o @types/api.d.ts service/api.js"
   },
-  "main": "index.js",
+  "main": "build/index.js",
   "dependencies": {
     "firebase-admin": "~5.4.0",
     "firebase-functions": "^0.7.0",
