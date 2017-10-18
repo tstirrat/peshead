@@ -8,4 +8,4 @@ cache:
 script:
   - npm run build
   - npm test
-  - cd functions && && npm install && npm test
+  - cd functions && npm install && npm test
