@@ -17,6 +17,7 @@ config/service-account.json
 
 # misc
 /functions/test/tmp
+/functions/test/*.bin
 .DS_Store
 .env.local
 .env.development.local
