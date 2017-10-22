@@ -4,10 +4,29 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+    // {
+    //   "type": "node",
+    //   "request": "launch",
+    //   "name": "Search",
+    //   "program": "${workspaceFolder}/functions/build/cli/index.js",
+    //   "args": [
+    //     "search",
+    //     "7", // bit length
+    //     "64", // needle
+    //     "./functions/test/player-attrs-64.bin",
+    //     "./functions/test/REFLEXES.bin",
+    //     "./functions/test/CATCHING.bin",
+    //     "./functions/test/player-attrs-99-descending.bin"
+    //   ],
+    //   "preLaunchTask": "tsc: build - functions/tsconfig.json",
+    //   "outFiles": [
+    //     "${workspaceFolder}/functions/build/**/*.js"
+    //   ]
+    // }
     {
       "type": "node",
       "request": "launch",
-      "name": "CLI",
+      "name": "Load",
       "program": "${workspaceFolder}/functions/build/cli/index.js",
       "args": [
         "load",
