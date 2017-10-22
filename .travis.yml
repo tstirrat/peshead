@@ -5,6 +5,9 @@ cache:
   directories:
     - node_modules
     - functions/node_modules
+branches:
+  only:
+  - master
 script:
   - npm run build
   - npm test
