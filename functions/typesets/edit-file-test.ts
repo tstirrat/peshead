@@ -23,11 +23,42 @@ describe('Player', () => {
   });
 
   it('reads player name', () => {
-    expect(attrs64Player.name).toEqual('M. MCNAMEFACE');
+    expect(attrs64Player.name).toEqual('MINIMUMS');
   });
 
   it('reads player kit name', () => {
-    expect(attrs64Player.printName).toEqual('NAMEY');
+    expect(attrs64Player.printName).toEqual('MIN');
+    // Name: MINIMUS
+    // nationality: 1 Afghanistan = 0000000000000001
+    // Age: 15 = 15
+    // Foot: right = 0
+    // reg: CB = 0001
+    // playable: GK = 00000000000000000000000001
+    // weak foot usage/accuracy: 2 = 01
+    // form: 2 = 001
+    // injury: 2 = 01
+    // skills: Fighting Spirit = 0000000000000000000000000001
+    // style: poacher = 00001
+    // com PS: Long Ranger = 000001
+    // motion: all 2 = 001
+
+
+
+    // Name: DESCENDING
+    // DESC
+    // nationality: Montenegro = 304 = 0000000100110000
+    // age: 32 = 100000
+    // Foot: left = 1
+    // reg: AMF (8) = 1000
+    // playable: alternating = 10101010101010101010101010
+    // weak foot U: 4 (3) = 11
+    // weak foot A: 2 (1) = 01
+    // Form: 5 (4) = 100
+    // Inj res: 3 (2) = 10
+    // skills: custom = 1111111111000000000000000000
+    // style: OFF GK = 10001
+    // com ps: Trickster,Long Ranger = 100001
+    // motion: see screenshots
   });
 
   it('reads player id', () => {
@@ -41,56 +72,56 @@ describe('Player', () => {
   it('reads player abilities', () => {
     // --- Player with all abilities set to 64
 
-    expect(attrs64Player.abilities.attackingProwess).toEqual(64);
-    expect(attrs64Player.abilities.ballControl).toEqual(64);
-    // expect(attrs64Player.abilities.dribbling).toEqual(64);
-    // expect(attrs64Player.abilities.lowPass).toEqual(64);
-    // expect(attrs64Player.abilities.loftedPass).toEqual(64);
-    expect(attrs64Player.abilities.finishing).toEqual(64);
-    // expect(attrs64Player.abilities.placeKicking).toEqual(64);
-    expect(attrs64Player.abilities.swerve).toEqual(64);
-    // expect(attrs64Player.abilities.header).toEqual(64);
-    expect(attrs64Player.abilities.defensiveProwess).toEqual(64);
-    expect(attrs64Player.abilities.ballWinning).toEqual(64);
-    // expect(attrs64Player.abilities.kickingPower).toEqual(64);
-    // expect(attrs64Player.abilities.speed).toEqual(64);
-    // expect(attrs64Player.abilities.explosivePower).toEqual(64);
-    expect(attrs64Player.abilities.strength).toEqual(64);
-    // expect(attrs64Player.abilities.physicalContact).toEqual(64);
-    expect(attrs64Player.abilities.jump).toEqual(64);
-    // expect(attrs64Player.abilities.goalkeeping).toEqual(64);
-    expect(attrs64Player.abilities.catching).toEqual(64);
-    // expect(attrs64Player.abilities.clearing).toEqual(64);
-    // expect(attrs64Player.abilities.reflexes).toEqual(64);
-    // expect(attrs64Player.abilities.coverage).toEqual(64);
-    // expect(attrs64Player.abilities.stamina).toEqual(64);
+    expect(attrs64Player.block1.attackingProwess).toEqual(64);
+    expect(attrs64Player.block5.ballControl).toEqual(64);
+    expect(attrs64Player.block1.dribbling).toEqual(64);
+    expect(attrs64Player.block2.lowPass).toEqual(64);
+    expect(attrs64Player.block2.loftedPass).toEqual(64);
+    expect(attrs64Player.block2.finishing).toEqual(64);
+    // expect(attrs64Player.block6.placeKicking).toEqual(64);
+    expect(attrs64Player.block3.swerve).toEqual(64);
+    expect(attrs64Player.block2.header).toEqual(64);
+    expect(attrs64Player.block1.defensiveProwess).toEqual(64);
+    expect(attrs64Player.block5.ballWinning).toEqual(64);
+    expect(attrs64Player.block4.kickingPower).toEqual(64);
+    // expect(attrs64Player.block7.speed).toEqual(64);
+    expect(attrs64Player.block4.explosivePower).toEqual(64);
+    expect(attrs64Player.block4.bodyControl).toEqual(64);
+    expect(attrs64Player.block4.physicalContact).toEqual(64);
+    // expect(attrs64Player.block6.jump).toEqual(64);
+    expect(attrs64Player.block1.goalkeeping).toEqual(64);
+    expect(attrs64Player.block3.catching).toEqual(64);
+    expect(attrs64Player.block3.clearing).toEqual(64);
+    expect(attrs64Player.block3.reflexes).toEqual(64);
+    // expect(attrs64Player.block6.coverage).toEqual(64);
+    // expect(attrs64Player.block7.stamina).toEqual(64);
 
 
     // --- Player with all abilities descending from 99
 
-    expect(attrs99Player.abilities.attackingProwess).toEqual(99);
-    expect(attrs99Player.abilities.ballControl).toEqual(98);
-    // expect(attrs99Player.abilities.dribbling).toEqual(97);
-    // expect(attrs99Player.abilities.lowPass).toEqual(96);
-    // expect(attrs99Player.abilities.loftedPass).toEqual(95);
-    expect(attrs99Player.abilities.finishing).toEqual(94);
-    // expect(attrs99Player.abilities.placeKicking).toEqual(93);
-    expect(attrs99Player.abilities.swerve).toEqual(92);
-    // expect(attrs99Player.abilities.header).toEqual(91);
-    expect(attrs99Player.abilities.defensiveProwess).toEqual(90);
-    expect(attrs99Player.abilities.ballWinning).toEqual(89);
-    // expect(attrs99Player.abilities.kickingPower).toEqual(88);
-    // expect(attrs99Player.abilities.speed).toEqual(87);
-    // expect(attrs99Player.abilities.explosivePower).toEqual(86);
-    expect(attrs99Player.abilities.strength).toEqual(85);
-    // expect(attrs99Player.abilities.physicalContact).toEqual(84);
-    expect(attrs99Player.abilities.jump).toEqual(83);
-    // expect(attrs99Player.abilities.goalkeeping).toEqual(82);
-    expect(attrs99Player.abilities.catching).toEqual(81);
-    // expect(attrs99Player.abilities.clearing).toEqual(80);
-    // expect(attrs99Player.abilities.reflexes).toEqual(79);
-    // expect(attrs99Player.abilities.coverage).toEqual(78);
-    // expect(attrs99Player.abilities.stamina).toEqual(77);
+    expect(attrs99Player.block1.attackingProwess).toEqual(99);
+    expect(attrs99Player.block5.ballControl).toEqual(98);
+    expect(attrs99Player.block1.dribbling).toEqual(97);
+    expect(attrs99Player.block2.lowPass).toEqual(96);
+    expect(attrs99Player.block2.loftedPass).toEqual(95);
+    expect(attrs99Player.block2.finishing).toEqual(94);
+    // expect(attrs99Player.block6.placeKicking).toEqual(93);
+    expect(attrs99Player.block3.swerve).toEqual(92);
+    expect(attrs99Player.block2.header).toEqual(91);
+    expect(attrs99Player.block1.defensiveProwess).toEqual(90);
+    expect(attrs99Player.block5.ballWinning).toEqual(89);
+    expect(attrs99Player.block4.kickingPower).toEqual(88);
+    // expect(attrs99Player.block7.speed).toEqual(87);
+    expect(attrs99Player.block4.explosivePower).toEqual(86);
+    expect(attrs99Player.block4.bodyControl).toEqual(85);
+    expect(attrs99Player.block4.physicalContact).toEqual(84);
+    // expect(attrs99Player.block6.jump).toEqual(83);
+    expect(attrs99Player.block1.goalkeeping).toEqual(82);
+    expect(attrs99Player.block3.catching).toEqual(81);
+    expect(attrs99Player.block3.clearing).toEqual(80);
+    expect(attrs99Player.block3.reflexes).toEqual(79);
+    // expect(attrs99Player.block6.coverage).toEqual(78);
+    // expect(attrs99Player.block7.stamina).toEqual(77);
 
     // expect(attrs99Player.abilities.weakFootUsage).toEqual(3);
     // expect(attrs99Player.abilities.weakFootAccuracy).toEqual(1);
