@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link, RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { State as GlobalState } from '../../reducers';
-import { State } from './reducer';
+import * as search from './reducer';
 
-interface Props extends RouteComponentProps<any>, React.Props<any> {
+export interface Props {
+  search: search.State;
 }
-// export interface Props {
-//   search: State;
-// }
 
-class Search extends React.Component<Props, void> {
+class Search extends React.Component<Props & RouteProps, {}> {
   render() {
     return (
       <div className="Search">
@@ -28,4 +26,4 @@ function mapStateToProps(state: GlobalState): Props {
   return { search: state.search };
 }
 
-export default connect(mapStateToProps, Search);
+export default connect(mapStateToProps)(Search);

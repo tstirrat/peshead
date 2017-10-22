@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { Route, Link, RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Route, Link, withRouter } from 'react-router-dom';
 import { State as GlobalState } from '../../reducers';
+import * as app from './reducer';
 
 import League from '../League';
 import Team from '../Team';
@@ -10,7 +11,11 @@ import Search from '../Search';
 
 import './App.css';
 
-class App extends React.Component {
+export interface Props {
+  app: app.State;
+}
+
+class App extends React.Component<Props & RouteProps, {}> {
   render() {
     return (
       <div className="App">
@@ -30,4 +35,4 @@ function mapStateToProps(state: GlobalState) {
   return { app: state.app };
 }
 
-export default connect(mapStateToProps, App);
+export default connect(mapStateToProps)(App);
