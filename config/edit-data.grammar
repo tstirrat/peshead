@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ufwb version="1.17">
-    <grammar name="Edit Data" start="id:1" author="lusive">
+    <grammar name="Edit Data" start="id:123" author="lusive">
         <description>PES 2018 EDIT00000000 files</description>
-        <structure name="Edit Data" id="1" length="0" encoding="UTF-8" endian="little" signed="no">
-            <structref name="header" id="3" strokecolor="FFA500" structure="id:2"/>
-            <structure name="players" id="4" length="3948000">
-                <structure name="player" id="5" repeatmax="playerCount">
-                    <structref name="record" id="7" strokecolor="165967" fillcolor="64FFB2" structure="id:6"/>
-                    <structref name="appearance" id="9" fillcolor="B6FFF0" structure="id:8"/>
+        <structure name="Edit Data" id="123" length="0" encoding="UTF-8" endian="big" signed="no">
+            <structref name="header" id="125" strokecolor="FFA500" structure="id:124"/>
+            <structure name="players" id="126" length="3948000">
+                <structure name="player" id="127" repeatmax="playerCount">
+                    <structref name="record" id="129" strokecolor="165967" fillcolor="64FFB2" structure="id:128"/>
+                    <structref name="appearance" id="131" fillcolor="B6FFF0" structure="id:130"/>
                 </structure>
             </structure>
-            <structure name="teams" id="12" length="288000">
-                <structref name="team" id="14" fillcolor="FFE8CE" repeatmax="teamCount" structure="id:13"/>
+            <structure name="teams" id="134" length="288000">
+                <structref name="team" id="136" fillcolor="FFE8CE" repeatmax="teamCount" structure="id:135"/>
             </structure>
-            <structure name="managers" id="16" length="74800">
-                <structref name="manager" id="18" repeatmax="managerCount" structure="id:17"/>
+            <structure name="managers" id="138" length="74800">
+                <structref name="manager" id="140" repeatmax="managerCount" structure="id:139"/>
             </structure>
-            <structure name="competitions" id="20" length="6200">
-                <structref name="competition" id="22" repeatmax="competitionCount" structure="id:21"/>
+            <structure name="competitions" id="142" length="6200">
+                <structref name="competition" id="144" repeatmax="competitionCount" structure="id:143"/>
             </structure>
-            <structure name="stadiums" id="24" length="5760">
-                <structref name="stadium" id="26" repeatmax="stadiumCount" structure="id:25"/>
+            <structure name="stadiums" id="146" length="5760">
+                <structref name="stadium" id="148" repeatmax="stadiumCount" structure="id:147"/>
             </structure>
-            <structure name="unknowns" id="28" length="330000">
-                <structref name="unknown" id="30" repeatmax="2500" structure="id:29"/>
+            <structure name="unknowns" id="150" length="330000">
+                <structref name="unknown" id="152" repeatmax="2500" structure="id:151"/>
             </structure>
-            <structure name="teamRoster" id="32" length="98400">
-                <structref name="roster" id="34" repeatmax="teamRosterCount" structure="id:33"/>
+            <structure name="teamRoster" id="154" length="98400">
+                <structref name="roster" id="156" repeatmax="teamRosterCount" structure="id:155"/>
             </structure>
-            <structure name="competitionMembership" id="36" length="2888"/>
-            <structure name="gamePlans" id="38" length="408000">
-                <structref name="plan" id="40" repeatmax="gamePlanCount" structure="id:39"/>
+            <structure name="competitionMembership" id="158" length="2888"/>
+            <structure name="gamePlans" id="160" length="408000">
+                <structref name="plan" id="162" repeatmax="gamePlanCount" structure="id:161"/>
             </structure>
         </structure>
-        <structure name="Header" id="2" length="67305" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <structure name="&lt;pre&gt;" id="43" length="67277"/>
-            <number name="playerCount" id="45" type="integer" length="2"/>
-            <number name="&lt;unknown01&gt;" id="46" type="integer" length="2"/>
-            <number name="teamCount" id="47" type="integer" length="2"/>
-            <number name="managerCount" id="48" type="integer" length="2"/>
-            <number name="competitionCount" id="49" type="integer" length="2"/>
-            <number name="stadiumCount" id="50" type="integer" length="2"/>
-            <number name="&lt;unknown02&gt;" id="51" type="integer" length="2"/>
-            <number name="&lt;unknown03&gt;" id="52" type="integer" length="2"/>
-            <number name="teamRosterCount" id="53" type="integer" length="2"/>
-            <number name="&lt;unknown04&gt;" id="54" type="integer" length="2"/>
-            <number name="gamePlanCount" id="55" type="integer" length="2"/>
+        <structure name="Header" id="124" length="67305" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <structure name="&lt;pre&gt;" id="165" length="67277"/>
+            <number name="playerCount" id="167" type="integer" length="2"/>
+            <number name="&lt;unknown01&gt;" id="168" type="integer" length="2"/>
+            <number name="teamCount" id="169" type="integer" length="2"/>
+            <number name="managerCount" id="170" type="integer" length="2"/>
+            <number name="competitionCount" id="171" type="integer" length="2"/>
+            <number name="stadiumCount" id="172" type="integer" length="2"/>
+            <number name="&lt;unknown02&gt;" id="173" type="integer" length="2"/>
+            <number name="&lt;unknown03&gt;" id="174" type="integer" length="2"/>
+            <number name="teamRosterCount" id="175" type="integer" length="2"/>
+            <number name="&lt;unknown04&gt;" id="176" type="integer" length="2"/>
+            <number name="gamePlanCount" id="177" type="integer" length="2"/>
         </structure>
-        <structure name="Player" id="6" length="116" alignment="0" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="57" fillcolor="B45A2D" type="integer" length="4"/>
-            <number name="commentaryId" id="58" type="integer" length="4"/>
-            <number name="&lt;word1&gt;" id="59" type="integer" length="2" display="hex">
+        <structure name="Player" id="128" length="116" alignment="0" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="id" id="179" fillcolor="B45A2D" type="integer" length="4"/>
+            <number name="commentaryId" id="180" type="integer" length="4"/>
+            <number name="&lt;word1&gt;" id="181" type="integer" length="2" display="hex">
                 <description>Usually FF</description>
             </number>
-            <number name="nationality_id" mustmatch="yes" id="60" type="integer" length="2">
+            <number name="nationality_id" mustmatch="yes" id="182" type="integer" length="2">
                 <fixedvalues>
                     <fixedvalue name="Others" value="260"/>
                     <fixedvalue name="ALBANIA" value="191"/>
@@ -242,148 +242,148 @@
                     <fixedvalue name="TAIWAN" value="298"/>
                 </fixedvalues>
             </number>
-            <number name="height" id="61" type="integer" length="1"/>
-            <number name="weight" id="62" type="integer" length="1"/>
-            <number name="motionGoalCelebration1" id="63" type="integer" length="8" lengthunit="bit"/>
-            <number name="motionGoalCelebration2" id="64" type="integer" length="8" lengthunit="bit"/>
-            <structure name="attrs" id="65" fillcolor="FFD101">
-                <number name="attackingProwess" id="66" type="integer" length="7" lengthunit="bit"/>
-                <number name="defensiveProwess" id="67" type="integer" length="7" lengthunit="bit"/>
-                <number name="goalkeeping" id="68" type="integer" length="7" lengthunit="bit"/>
-                <number name="dribbling" id="69" type="integer" length="7" lengthunit="bit"/>
-                <number name="motionFreeKick" id="70" type="integer" length="4" lengthunit="bit"/>
-                <number name="finishing" id="71" type="integer" length="7" lengthunit="bit"/>
-                <number name="lowPass" id="72" type="integer" length="7" lengthunit="bit"/>
-                <number name="loftedPass" id="73" type="integer" length="7" lengthunit="bit"/>
-                <number name="header" id="74" type="integer" length="7" lengthunit="bit"/>
-                <number name="form" id="75" type="integer" length="3" lengthunit="bit"/>
-                <number name="isEdited" id="76" type="integer" length="1" lengthunit="bit">
+            <number name="height" id="183" type="integer" length="1"/>
+            <number name="weight" id="184" type="integer" length="1"/>
+            <number name="motionGoalCelebration1" id="185" type="integer" length="8" lengthunit="bit"/>
+            <number name="motionGoalCelebration2" id="186" type="integer" length="8" lengthunit="bit"/>
+            <structure name="attrs" id="187" fillcolor="FFD101">
+                <number name="attackingProwess" id="188" type="integer" length="7" lengthunit="bit"/>
+                <number name="defensiveProwess" id="189" type="integer" length="7" lengthunit="bit"/>
+                <number name="goalkeeping" id="190" type="integer" length="7" lengthunit="bit"/>
+                <number name="dribbling" id="191" type="integer" length="7" lengthunit="bit"/>
+                <number name="motionFreeKick" id="192" type="integer" length="4" lengthunit="bit"/>
+                <number name="finishing" id="193" type="integer" length="7" lengthunit="bit"/>
+                <number name="lowPass" id="194" type="integer" length="7" lengthunit="bit"/>
+                <number name="loftedPass" id="195" type="integer" length="7" lengthunit="bit"/>
+                <number name="header" id="196" type="integer" length="7" lengthunit="bit"/>
+                <number name="form" id="197" type="integer" length="3" lengthunit="bit"/>
+                <number name="isEdited" id="198" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="swerve" id="77" type="integer" length="7" lengthunit="bit"/>
-                <number name="catching" id="78" type="integer" length="7" lengthunit="bit"/>
-                <number name="clearing" id="79" type="integer" length="7" lengthunit="bit"/>
-                <number name="reflexes" id="80" type="integer" length="7" lengthunit="bit"/>
-                <number name="injuryResistance" id="81" type="integer" length="2" lengthunit="bit"/>
-                <number name="&lt;bool1&gt;" id="82" type="integer" length="1" lengthunit="bit"/>
-                <number name="hasBasicSettingMods" id="83" type="integer" length="1" lengthunit="bit">
+                <number name="swerve" id="199" type="integer" length="7" lengthunit="bit"/>
+                <number name="catching" id="200" type="integer" length="7" lengthunit="bit"/>
+                <number name="clearing" id="201" type="integer" length="7" lengthunit="bit"/>
+                <number name="reflexes" id="202" type="integer" length="7" lengthunit="bit"/>
+                <number name="injuryResistance" id="203" type="integer" length="2" lengthunit="bit"/>
+                <number name="&lt;bool1&gt;" id="204" type="integer" length="1" lengthunit="bit"/>
+                <number name="hasBasicSettingMods" id="205" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="bodyControl" id="84" type="integer" length="7" lengthunit="bit"/>
-                <number name="physicalContact" id="85" type="integer" length="7" lengthunit="bit"/>
-                <number name="kickingPower" id="86" type="integer" length="7" lengthunit="bit"/>
-                <number name="explosivePower" id="87" type="integer" length="7" lengthunit="bit"/>
-                <number name="motionArmMovementDribbling" id="88" type="integer" length="3" lengthunit="bit"/>
-                <number name="hasRegisteredPositionMod" id="89" type="integer" length="1" lengthunit="bit">
+                <number name="bodyControl" id="206" type="integer" length="7" lengthunit="bit"/>
+                <number name="physicalContact" id="207" type="integer" length="7" lengthunit="bit"/>
+                <number name="kickingPower" id="208" type="integer" length="7" lengthunit="bit"/>
+                <number name="explosivePower" id="209" type="integer" length="7" lengthunit="bit"/>
+                <number name="motionArmMovementDribbling" id="210" type="integer" length="3" lengthunit="bit"/>
+                <number name="hasRegisteredPositionMod" id="211" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="age" id="90" type="integer" length="6" lengthunit="bit"/>
-                <number name="registeredPosition" id="91" type="integer" length="4" lengthunit="bit"/>
-                <number name="&lt;bool2&gt;" id="92" type="integer" length="1" lengthunit="bit"/>
-                <number name="playingStyles" id="93" type="integer" length="5" lengthunit="bit"/>
-                <number name="ballControl" id="94" type="integer" length="7" lengthunit="bit"/>
-                <number name="ballWinning" id="95" type="integer" length="7" lengthunit="bit"/>
-                <number name="weakFootAccuracy" id="96" type="integer" length="2" lengthunit="bit"/>
-                <number name="jump" id="97" type="integer" length="7" lengthunit="bit"/>
-                <number name="motionArmMovementRunning" id="98" type="integer" length="3" lengthunit="bit"/>
-                <number name="motionCornerKick" id="99" type="integer" length="3" lengthunit="bit"/>
-                <number name="coverage" id="100" type="integer" length="7" lengthunit="bit"/>
-                <number name="weakFootUsage" id="101" type="integer" length="2" lengthunit="bit"/>
-                <structure name="playable" id="102">
-                    <number name="CF" id="103" type="integer" length="2" lengthunit="bit">
+                <number name="age" id="212" type="integer" length="6" lengthunit="bit"/>
+                <number name="registeredPosition" id="213" type="integer" length="4" lengthunit="bit"/>
+                <number name="&lt;bool2&gt;" id="214" type="integer" length="1" lengthunit="bit"/>
+                <number name="playingStyles" id="215" type="integer" length="5" lengthunit="bit"/>
+                <number name="ballControl" id="216" type="integer" length="7" lengthunit="bit"/>
+                <number name="ballWinning" id="217" type="integer" length="7" lengthunit="bit"/>
+                <number name="weakFootAccuracy" id="218" type="integer" length="2" lengthunit="bit"/>
+                <number name="jump" id="219" type="integer" length="7" lengthunit="bit"/>
+                <number name="motionArmMovementRunning" id="220" type="integer" length="3" lengthunit="bit"/>
+                <number name="motionCornerKick" id="221" type="integer" length="3" lengthunit="bit"/>
+                <number name="coverage" id="222" type="integer" length="7" lengthunit="bit"/>
+                <number name="weakFootUsage" id="223" type="integer" length="2" lengthunit="bit"/>
+                <structure name="playable" id="224">
+                    <number name="CF" id="225" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="SS" id="104" type="integer" length="2" lengthunit="bit">
+                    <number name="SS" id="226" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="LWF" id="105" type="integer" length="2" lengthunit="bit">
+                    <number name="LWF" id="227" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="RWF" id="106" type="integer" length="2" lengthunit="bit">
+                    <number name="RWF" id="228" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="AMF" id="107" type="integer" length="2" lengthunit="bit">
+                    <number name="AMF" id="229" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="DMF" id="108" type="integer" length="2" lengthunit="bit">
+                    <number name="DMF" id="230" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="CMF" id="109" type="integer" length="2" lengthunit="bit">
+                    <number name="CMF" id="231" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="LMF" id="110" type="integer" length="2" lengthunit="bit">
+                    <number name="LMF" id="232" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="RMF" id="111" type="integer" length="2" lengthunit="bit">
+                    <number name="RMF" id="233" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="CB" id="112" type="integer" length="2" lengthunit="bit">
+                    <number name="CB" id="234" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="LB" id="113" type="integer" length="2" lengthunit="bit">
+                    <number name="LB" id="235" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="RB" id="114" type="integer" length="2" lengthunit="bit">
+                    <number name="RB" id="236" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
                             <fixedvalue name="A" value="2"/>
                         </fixedvalues>
                     </number>
-                    <number name="GK" id="115" type="integer" length="2" lengthunit="bit">
+                    <number name="GK" id="237" type="integer" length="2" lengthunit="bit">
                         <fixedvalues>
                             <fixedvalue name="C" value="0"/>
                             <fixedvalue name="B" value="1"/>
@@ -391,64 +391,64 @@
                         </fixedvalues>
                     </number>
                 </structure>
-                <number name="motionHunchingDribbling" id="117" type="integer" length="2" lengthunit="bit"/>
-                <number name="motionHunchingRunning" id="118" type="integer" length="2" lengthunit="bit"/>
-                <number name="motionPenaltyKick" id="119" type="integer" length="2" lengthunit="bit"/>
-                <number name="placeKicking" id="120" type="integer" length="7" lengthunit="bit"/>
-                <number name="isPlayablePositionChanged" id="121" type="integer" length="1" lengthunit="bit">
+                <number name="motionHunchingDribbling" id="239" type="integer" length="2" lengthunit="bit"/>
+                <number name="motionHunchingRunning" id="240" type="integer" length="2" lengthunit="bit"/>
+                <number name="motionPenaltyKick" id="241" type="integer" length="2" lengthunit="bit"/>
+                <number name="placeKicking" id="242" type="integer" length="7" lengthunit="bit"/>
+                <number name="isPlayablePositionChanged" id="243" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="hasAbilityMods" id="122" type="integer" length="1" lengthunit="bit">
+                <number name="hasAbilityMods" id="244" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="hasPlayerSkillMods" id="123" type="integer" length="1" lengthunit="bit">
+                <number name="hasPlayerSkillMods" id="245" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="stamina" id="124" type="integer" length="7" lengthunit="bit"/>
-                <number name="speed" id="125" type="integer" length="7" lengthunit="bit"/>
-                <number name="hasPlayingStyleMods" id="126" type="integer" length="1" lengthunit="bit">
+                <number name="stamina" id="246" type="integer" length="7" lengthunit="bit"/>
+                <number name="speed" id="247" type="integer" length="7" lengthunit="bit"/>
+                <number name="hasPlayingStyleMods" id="248" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="hasComPlayingStyleMods" id="127" type="integer" length="1" lengthunit="bit">
+                <number name="hasComPlayingStyleMods" id="249" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="hasMotionMods" id="128" type="integer" length="1" lengthunit="bit">
+                <number name="hasMotionMods" id="250" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="isBaseCopy" id="129" type="integer" length="1" lengthunit="bit">
+                <number name="isBaseCopy" id="251" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="&lt;bool3&gt;" id="130" type="integer" length="1" lengthunit="bit"/>
-                <number name="preferredFoot" id="131" type="integer" length="1" lengthunit="bit">
+                <number name="&lt;bool3&gt;" id="252" type="integer" length="1" lengthunit="bit"/>
+                <number name="preferredFoot" id="253" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="right" value="0"/>
                         <fixedvalue name="left" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="&lt;bool4&gt;" id="132" type="integer" length="1" lengthunit="bit"/>
+                <number name="&lt;bool4&gt;" id="254" type="integer" length="1" lengthunit="bit"/>
             </structure>
-            <number name="comPlayingStyles" id="134" type="integer" length="7" lengthunit="bit">
+            <number name="comPlayingStyles" id="256" type="integer" length="7" lengthunit="bit">
                 <mask name="Trickster" value="0x1">
                     <fixedvalue name="true" value="0x1"/>
                 </mask>
@@ -471,7 +471,7 @@
                     <fixedvalue name="true" value="0x40"/>
                 </mask>
             </number>
-            <number name="playerSkills" id="135" type="integer" length="28" lengthunit="bit">
+            <number name="playerSkills" id="257" type="integer" length="28" lengthunit="bit">
                 <mask name="Scissor Feint" value="0x1">
                     <fixedvalue name="true" value="0x1"/>
                 </mask>
@@ -557,24 +557,24 @@
                     <fixedvalue name="true" value="0x8000000"/>
                 </mask>
             </number>
-            <number name="&lt;byte1&gt;" id="136" type="integer" length="8" lengthunit="bit"/>
-            <structure name="player" id="137" length="46" fillcolor="00FF85">
-                <string name="name" id="138" type="zero-terminated"/>
+            <number name="&lt;byte1&gt;" id="258" type="integer" length="8" lengthunit="bit"/>
+            <structure name="player" id="259" length="46" fillcolor="00FF85">
+                <string name="name" id="260" type="zero-terminated"/>
             </structure>
-            <structure name="print" id="140" length="18" fillcolor="00FF95">
-                <string name="name" id="141" type="zero-terminated"/>
+            <structure name="print" id="262" length="18" fillcolor="00FF95">
+                <string name="name" id="263" type="zero-terminated"/>
             </structure>
         </structure>
-        <structure name="PlayerAppearance" id="8" length="72" alignment="0" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="player_id" id="144" type="integer" length="4"/>
+        <structure name="PlayerAppearance" id="130" length="72" alignment="0" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="player_id" id="266" type="integer" length="4"/>
         </structure>
-        <structure name="Team" id="13" length="480" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="146" fillcolor="BD6F10" type="integer" length="4"/>
-            <number name="manager_id" id="147" type="integer" length="4"/>
-            <number name="emblem_id" id="148" type="integer" length="2"/>
-            <number name="stadium_id" id="149" type="integer" length="2"/>
-            <number name="&lt;word1&gt;" id="150" type="integer" length="2"/>
-            <number name="nationality_id" mustmatch="yes" id="151" type="integer" length="2">
+        <structure name="Team" id="135" length="480" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="id" id="268" fillcolor="BD6F10" type="integer" length="4"/>
+            <number name="manager_id" id="269" type="integer" length="4"/>
+            <number name="emblem_id" id="270" type="integer" length="2"/>
+            <number name="stadium_id" id="271" type="integer" length="2"/>
+            <number name="&lt;word1&gt;" id="272" type="integer" length="2"/>
+            <number name="nationality_id" mustmatch="yes" id="273" type="integer" length="2">
                 <fixedvalues>
                     <fixedvalue name="Others" value="260"/>
                     <fixedvalue name="ALBANIA" value="191"/>
@@ -763,204 +763,204 @@
                     <fixedvalue name="TAIWAN" value="298"/>
                 </fixedvalues>
             </number>
-            <number name="callname_id" id="152" type="integer" length="2"/>
-            <number name="color1r" id="153" type="integer" length="6" lengthunit="bit"/>
-            <number name="color1g" id="154" type="integer" length="6" lengthunit="bit"/>
-            <number name="stadium_net_id" id="155" type="integer" length="4" lengthunit="bit"/>
-            <structref name="color2" id="157" structure="id:156"/>
-            <number name="color1b" id="158" type="integer" length="6" lengthunit="bit"/>
-            <structure name="stadium" id="159">
-                <number name="isStadiumNetEnabled" id="160" type="integer" length="1" lengthunit="bit">
+            <number name="callname_id" id="274" type="integer" length="2"/>
+            <number name="color1r" id="275" type="integer" length="6" lengthunit="bit"/>
+            <number name="color1g" id="276" type="integer" length="6" lengthunit="bit"/>
+            <number name="stadium_net_id" id="277" type="integer" length="4" lengthunit="bit"/>
+            <structref name="color2" id="279" structure="id:278"/>
+            <number name="color1b" id="280" type="integer" length="6" lengthunit="bit"/>
+            <structure name="stadium" id="281">
+                <number name="isStadiumNetEnabled" id="282" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="&lt;bits1&gt;" id="161" type="integer" length="3" lengthunit="bit"/>
-                <number name="stadiumGoalType" id="162" type="integer" length="2" lengthunit="bit"/>
-                <number name="&lt;bits2&gt;" id="163" type="integer" length="2" lengthunit="bit"/>
-                <number name="stadiumTurfPattern" id="164" type="integer" length="4" lengthunit="bit"/>
-                <number name="stadiumSidelineColor" id="165" type="integer" length="4" lengthunit="bit"/>
-                <number name="stadiumSeatColor" id="166" type="integer" length="4" lengthunit="bit"/>
+                <number name="&lt;bits1&gt;" id="283" type="integer" length="3" lengthunit="bit"/>
+                <number name="stadiumGoalType" id="284" type="integer" length="2" lengthunit="bit"/>
+                <number name="&lt;bits2&gt;" id="285" type="integer" length="2" lengthunit="bit"/>
+                <number name="stadiumTurfPattern" id="286" type="integer" length="4" lengthunit="bit"/>
+                <number name="stadiumSidelineColor" id="287" type="integer" length="4" lengthunit="bit"/>
+                <number name="stadiumSeatColor" id="288" type="integer" length="4" lengthunit="bit"/>
             </structure>
-            <number name="isNameEdited" id="168" type="integer" length="1" lengthunit="bit">
+            <number name="isNameEdited" id="290" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="isStadiumEdited" id="169" type="integer" length="1" lengthunit="bit">
+            <number name="isStadiumEdited" id="291" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="&lt;bool1&gt;" id="170" type="integer" length="1" lengthunit="bit">
+            <number name="&lt;bool1&gt;" id="292" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="isStadiumNameEdited" id="171" type="integer" length="1" lengthunit="bit">
+            <number name="isStadiumNameEdited" id="293" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="&lt;bool2&gt;" id="172" type="integer" length="1" lengthunit="bit">
+            <number name="&lt;bool2&gt;" id="294" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="isStadiumConfigEdited" id="173" type="integer" length="1" lengthunit="bit">
+            <number name="isStadiumConfigEdited" id="295" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="isRivalEdited" id="174" type="integer" length="1" lengthunit="bit">
+            <number name="isRivalEdited" id="296" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="isBannerEdited" id="175" type="integer" length="1" lengthunit="bit">
+            <number name="isBannerEdited" id="297" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="&lt;bool3&gt;" id="176" type="integer" length="1" lengthunit="bit">
+            <number name="&lt;bool3&gt;" id="298" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="isStripEdited" id="177" type="integer" length="1" lengthunit="bit">
+            <number name="isStripEdited" id="299" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="isManagerEdited" id="178" type="integer" length="1" lengthunit="bit">
+            <number name="isManagerEdited" id="300" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="&lt;bool4&gt;" id="179" type="integer" length="1" lengthunit="bit">
+            <number name="&lt;bool4&gt;" id="301" type="integer" length="1" lengthunit="bit">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <number name="&lt;byte1 strip count?&gt;" id="180" type="integer" length="1">
+            <number name="&lt;byte1 strip count?&gt;" id="302" type="integer" length="1">
                 <fixedvalues>
                     <fixedvalue name="false" value="0"/>
                     <fixedvalue name="true" value="1"/>
                 </fixedvalues>
             </number>
-            <structure name="strips" id="181" length="40">
-                <number name="strip1" id="182" type="integer" length="4"/>
-                <number name="strip2" id="183" type="integer" length="4"/>
-                <number name="strip3" id="184" type="integer" length="4"/>
-                <number name="strip4" id="185" type="integer" length="4"/>
+            <structure name="strips" id="303" length="40">
+                <number name="strip1" id="304" type="integer" length="4"/>
+                <number name="strip2" id="305" type="integer" length="4"/>
+                <number name="strip3" id="306" type="integer" length="4"/>
+                <number name="strip4" id="307" type="integer" length="4"/>
             </structure>
-            <structure name="rivals" id="187" length="0">
-                <number name="rival1_id" id="188" type="integer" length="4"/>
-                <number name="rival2_id" id="189" type="integer" length="4"/>
-                <number name="rival3_id" id="190" type="integer" length="4"/>
+            <structure name="rivals" id="309" length="0">
+                <number name="rival1_id" id="310" type="integer" length="4"/>
+                <number name="rival2_id" id="311" type="integer" length="4"/>
+                <number name="rival3_id" id="312" type="integer" length="4"/>
             </structure>
-            <structure name="&lt;bytes&gt;" id="192" length="68"/>
-            <structure name="banner" id="194">
-                <number name="is1Edited" id="195" type="integer" length="1">
+            <structure name="&lt;bytes&gt;" id="314" length="68"/>
+            <structure name="banner" id="316">
+                <number name="is1Edited" id="317" type="integer" length="1">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="is2Edited" id="196" type="integer" length="1">
+                <number name="is2Edited" id="318" type="integer" length="1">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="is3Edited" id="197" type="integer" length="1">
+                <number name="is3Edited" id="319" type="integer" length="1">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="is4Edited" id="198" type="integer" length="1">
+                <number name="is4Edited" id="320" type="integer" length="1">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
             </structure>
-            <structure name="name" id="200" length="70">
-                <string name="name" id="201" type="zero-terminated"/>
+            <structure name="name" id="322" length="70">
+                <string name="name" id="323" type="zero-terminated"/>
             </structure>
-            <structure name="scoreboard" id="203" length="4">
-                <string name="name" id="204" type="zero-terminated"/>
+            <structure name="scoreboard" id="325" length="4">
+                <string name="name" id="326" type="zero-terminated"/>
             </structure>
-            <structure name="stadiumText" id="206" length="121">
-                <string name="name" id="207" type="zero-terminated"/>
+            <structure name="stadiumText" id="328" length="121">
+                <string name="name" id="329" type="zero-terminated"/>
             </structure>
-            <structure name="banners" id="209">
-                <structure name="banner" id="210" length="16" repeatmin="4" repeatmax="4">
-                    <string name="value" id="211" type="zero-terminated"/>
+            <structure name="banners" id="331">
+                <structure name="banner" id="332" length="16" repeatmin="4" repeatmax="4">
+                    <string name="value" id="333" type="zero-terminated"/>
                 </structure>
             </structure>
         </structure>
-        <structure name="Color" id="156" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="r" id="215" type="integer" length="6" lengthunit="bit"/>
-            <number name="g" id="216" type="integer" length="6" lengthunit="bit"/>
-            <number name="b" id="217" type="integer" length="6" lengthunit="bit"/>
+        <structure name="Color" id="278" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="r" id="337" type="integer" length="6" lengthunit="bit"/>
+            <number name="g" id="338" type="integer" length="6" lengthunit="bit"/>
+            <number name="b" id="339" type="integer" length="6" lengthunit="bit"/>
         </structure>
-        <structure name="Manager" id="17" length="88" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="219" type="integer" length="4"/>
-            <number name="nationality_id" id="220" type="integer" length="2"/>
-            <number name="image_id" id="221" type="integer" length="2"/>
-            <number name="&lt;byte&gt;" id="222" type="integer" length="1"/>
-            <string name="name" id="223" type="zero-terminated"/>
+        <structure name="Manager" id="139" length="88" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="id" id="341" type="integer" length="4"/>
+            <number name="nationality_id" id="342" type="integer" length="2"/>
+            <number name="image_id" id="343" type="integer" length="2"/>
+            <number name="&lt;byte&gt;" id="344" type="integer" length="1"/>
+            <string name="name" id="345" type="zero-terminated"/>
         </structure>
-        <structure name="Competition" id="21" length="124" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="225" type="integer" length="1"/>
-            <structure name="&lt;unsure&gt;" id="226" length="13">
-                <number name="region_id" id="227" type="integer" length="2"/>
-                <number name="parent_id" id="228" type="integer" length="1"/>
-                <number name="isInactive" id="229" type="integer" length="1" lengthunit="bit">
+        <structure name="Competition" id="143" length="124" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="id" id="347" type="integer" length="1"/>
+            <structure name="&lt;unsure&gt;" id="348" length="13">
+                <number name="region_id" id="349" type="integer" length="2"/>
+                <number name="parent_id" id="350" type="integer" length="1"/>
+                <number name="isInactive" id="351" type="integer" length="1" lengthunit="bit">
                     <fixedvalues>
                         <fixedvalue name="false" value="0"/>
                         <fixedvalue name="true" value="1"/>
                     </fixedvalues>
                 </number>
-                <number name="isLicensed" id="230" type="integer" length="1"/>
+                <number name="isLicensed" id="352" type="integer" length="1"/>
             </structure>
-            <string name="name" id="232" type="zero-terminated"/>
+            <string name="name" id="354" type="zero-terminated"/>
         </structure>
-        <structure name="GamePlan" id="39" length="628" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="234" type="integer" length="4"/>
+        <structure name="GamePlan" id="161" length="628" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="id" id="356" type="integer" length="4"/>
         </structure>
-        <structure name="Stadium" id="25" length="128" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="id" id="236" type="integer" length="4"/>
-            <string name="name" id="237" type="zero-terminated"/>
+        <structure name="Stadium" id="147" length="128" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="id" id="358" type="integer" length="4"/>
+            <string name="name" id="359" type="zero-terminated"/>
         </structure>
-        <structure name="TeamRoster" id="33" length="164" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <number name="team_id" id="239" type="integer" length="4"/>
-            <structure name="players" id="240">
-                <number name="player" id="241" repeatmin="32" repeatmax="32" type="integer" length="4"/>
+        <structure name="TeamRoster" id="155" length="164" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <number name="team_id" id="361" type="integer" length="4"/>
+            <structure name="players" id="362">
+                <number name="player" id="363" repeatmin="32" repeatmax="32" type="integer" length="4"/>
             </structure>
-            <structure name="kitNumbers" id="243">
-                <number name="player" id="244" repeatmin="32" repeatmax="32" type="integer" length="1"/>
+            <structure name="kitNumbers" id="365">
+                <number name="player" id="366" repeatmin="32" repeatmax="32" type="integer" length="1"/>
             </structure>
         </structure>
-        <structure name="Unknown" id="29" length="132" encoding="ISO_8859-1:1987" endian="little" signed="no">
-            <binary name="&lt;byte1&gt;" id="247" length="2"/>
-            <structure name="&lt;padding&gt;" id="248" length="125"/>
-            <number name="&lt;byte2&gt;" id="250" type="integer" length="1"/>
+        <structure name="Unknown" id="151" length="132" encoding="ISO_8859-1:1987" endian="little" signed="no">
+            <binary name="&lt;byte1&gt;" id="369" length="2"/>
+            <structure name="&lt;padding&gt;" id="370" length="125"/>
+            <number name="&lt;byte2&gt;" id="372" type="integer" length="1"/>
         </structure>
     </grammar>
 </ufwb>
