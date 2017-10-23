@@ -1,3 +1,4 @@
+import {Definition, PackedBits} from './packed-bits';
 import {ZeroPaddedArray} from './zero-padded-array';
 
 // const TEAM_PLAYER_COUNT = 650;
@@ -15,7 +16,6 @@ const MANAGER_COUNT_MAX = 850;
 export const EditFile = {
   'jBinary.all': 'File',
   'jBinary.littleEndian': true,
-  // 'jBinary.mimeType': 'image/bmp',
 
   // Types
   Attribute7: ['bitfield', 7],  // Attr between 40 and 99
@@ -79,86 +79,116 @@ export const EditFile = {
     weight: 'uint8',
     motionGoalCelebration1: 'uint8',
     motionGoalCelebration2: 'uint8',
-    // ^ 16 bytes
-    // section = 248 bits = 31 bytes
-    abilities: {
-      hasComPlayingStyleMods: 'Bool',  // guess
-      attackingProwess: 'Attribute7',
-      weakFootAccuracy: 'Bit2',  // guess
-      defensiveProwess: 'Attribute7',
-      unknown02: 'uint16',
-      finishing: 'Attribute7',
-      unknown03: ['bitfield', 24],
-      preferredFoot: 'Bool',  // guess
-      // ^ 64 bits = 8 bytes
+    // = 16 bytes
 
-      swerve: 'Attribute7',
-      injuryResistance: 'Bit2',
-      catching: 'Attribute7',
-      unknown10: 'uint16',
-      // ^ +32 bits = 12 bytes
+    // 4 bytes
+    block1: [
+      PackedBits, 'uint32',
+      [
+        {key: 'attackingProwess', bits: 7},
+        {key: 'defensiveProwess', bits: 7},
+        {key: 'goalkeeping', bits: 7},
+        {key: 'dribbling', bits: 7},
+        {key: 'motionFreeKick', bits: 4},
+      ] as Definition[]
+    ],
 
-      bodyControl: 'Attribute7',
-      isEdited: 'Bool',  // guess
-      hasPlayerSkillMods: 'Bool',
-      strength: 'Attribute7',
-      unknown12: 'uint32',
-      // ^ +48 bits = 18 bytes
+    // 4 bytes
+    block2: [
+      PackedBits, 'uint32',
+      [
+        {key: 'finishing', bits: 7},
+        {key: 'lowPass', bits: 7},
+        {key: 'loftedPass', bits: 7},
+        {key: 'header', bits: 7},
+        {key: 'form', bits: 3},
+        {key: 'isCreated', bits: 1},
+      ] as Definition[]
+    ],
 
-      ballControl: 'Attribute7',
-      hasBasicSettingMods: 'Bool',  // guess
-      hasAbilityMods: 'Bool',       // guess
-      ballWinning: 'Attribute7',
-      // ^ +16 bits = 20 bytes
+    // 4 bytes
+    block3: [
+      PackedBits, 'uint32',
+      [
+        {key: 'swerve', bits: 7},
+        {key: 'catching', bits: 7},
+        {key: 'clearing', bits: 7},
+        {key: 'reflexes', bits: 7},
+        {key: 'injuryResistance', bits: 2},
+        {key: 'unknown', bits: 1},
+        {key: 'isBasicsEdited', bits: 1},
+      ] as Definition[]
+    ],
 
-      jump: 'Attribute7',
-      unknown22: ['bitfield', 9],
-      // ^ +16 bits = 22 bytes
+    // 4 bytes
+    block4: [
+      PackedBits, 'uint32',
+      [
+        {key: 'bodyControl', bits: 7},
+        {key: 'physicalContact', bits: 7},
+        {key: 'kickingPower', bits: 7},
+        {key: 'explosivePower', bits: 7},
+        {key: 'motionDribblingArms', bits: 3},
+        {key: 'isRegisteredPositionEdited', bits: 1},
+      ] as Definition[]
+    ],
 
-      skip: ['skip', 8],
-      // // to be assigned
-      // age: 'Age6',  // guess
-      // coverage: 'Attribute7',
-      // unknown25: 'uint32',
+    // 4 bytes
+    block5: [
+      PackedBits, 'uint32',
+      [
+        {key: 'age', bits: 6},
+        {key: 'registeredPosition', bits: 4},
+        {key: 'unknown', bits: 1},
+        {key: 'playingStyles', bits: 5},
+        {key: 'ballControl', bits: 7},
+        {key: 'ballWinning', bits: 7},
+        {key: 'weakFootAccuracy', bits: 2},
+      ] as Definition[]
+    ],
 
-      // placeKicking: 'Attribute7',
-      // stamina: 'Attribute7',
-      // speed: 'Attribute7',
-      // unknown23: 'Age6',
-      // form: 'Motion3',         // guess
-      // hasRegisteredPositionMod: 'Bool',  // guess
-      // motionFreeKick: ['bitfield', 4],
-      // lowPass: 'Attribute7',
-      // loftedPass: 'Attribute7',
-      // header: 'Attribute7',
-      // clearing: 'Attribute7',
-      // reflexes: 'Attribute7',
-      // dribbling: 'Attribute7',
-      // physicalContact: 'Attribute7',
-      // kickingPower: 'Attribute7',
-      // explosivePower: 'Attribute7',
-      // motionArmMovementDribbling: 'Motion3',
-      // registeredPosition: 'Position4',
-      // playingStyles: ['bitfield', 5],
-      // motionArmMovementRunning: 'Motion3',
-      // motionCornerKick: 'Motion3',
-      // weakFootUsage: 'Bit2',
-      // playablePosition: ['array', 'Bit2', 13],
-      // motionHunchingDribbling: 'Bit2',
-      // motionHunchingRunning: 'Bit2',
-      // motionPenaltyKick: 'Bit2',
-      // isPlayablePositionChanged: 'Bool',
-      // hasPlayingStyleMods: 'Bool',
-      // hasMotionMods: 'Bool',
-    },
+    // 8 bytes
+    block6: [
+      PackedBits, 'uint64',
+      [
+        {key: 'jump', bits: 7},                      // for clang-format
+        {key: 'motionRunningArms', bits: 3},         //
+        {key: 'motionCornerKick', bits: 3},          //
+        {key: 'coverage', bits: 7},                  //
+        {key: 'weakFootUsage', bits: 2},             //
+        {key: 'playablePosition', bits: 26},         // TODO: separate this
+        {key: 'motionDribblingHunching', bits: 2},   //
+        {key: 'motionRunningHunching', bits: 2},     //
+        {key: 'motionPenaltyKick', bits: 2},         //
+        {key: 'placeKicking', bits: 7},              //
+        {key: 'isPlayablePositionEdited', bits: 1},  //
+        {key: 'isAbilitiesEdited', bits: 1},         //
+        {key: 'isPlayerSkillsEdited', bits: 1},      //
+      ] as Definition[],
+    ],
 
-    isBaseCopy: 'Bool',              // guess
-    comPlayingStyles: 'Attribute7',  //
-    unknown06: ['bitfield', 4],      //
-    playerSkills: ['bitfield', 28],  // = 5 bytes
+    // 8 bytes
+    block7: [
+      PackedBits, 'uint64',
+      [
+        {key: 'stamina', bits: 7},                   //
+        {key: 'speed', bits: 7},                     //
+        {key: 'isPlayingStylesEdited', bits: 1},     //
+        {key: 'isComPlayingStylesEdited', bits: 1},  //
+        {key: 'isMotionEdited', bits: 1},            //
+        {key: 'isBaseCopy', bits: 1},                //
+        {key: 'unknown', bits: 1},                   //
+        {key: 'strongFoot', bits: 1},                //
+        {key: 'unknown2', bits: 1},                  //
+        {key: 'comPlayingStyles', bits: 7},          //
+        {key: 'playerSkills', bits: 28},             //
+        {key: 'unknown3', bits: 8},                  //
+      ] as Definition[],
+      'uint64'
+    ],
 
-    name: ['string0', 46],
-    printName: ['string0', 18],
+    name: ['string0', 46, 'utf-8'],
+    printName: ['string0', 18, 'utf-8'],
     appearance: 'PlayerAppearance',  // = 72 bytes
   },
 
@@ -172,7 +202,7 @@ export const EditFile = {
     nationality: 'uint16',
     pictureId: 'uint16',
     unknown01: 'byte',
-    name: ['string0', 79],
+    name: ['string0', 79, 'utf-8'],
   },
 
   Team: {
@@ -214,16 +244,16 @@ export const EditFile = {
     rivals: ['array', 'uint32', 3],
     '<bytes>': ['skip', 68],
     bannerEnabled: ['array', 'uint8', 4],
-    name: ['string0', 70],
-    scoreboard: ['string0', 4],
-    stadiumText: ['string0', 121],
-    banners: ['array', ['string0', 16], 4],
+    name: ['string0', 70, 'utf-8'],
+    scoreboard: ['string0', 4, 'utf-8'],
+    stadiumText: ['string0', 121, 'utf-8'],
+    banners: ['array', ['string0', 16, 'utf-8'], 4],
     skip: ['skip', 69],
   },
 
   Stadium: {
     id: 'uint32',
-    name: ['string0', 124],
+    name: ['string0', 124, 'utf-8'],
   },
 
   Competition: ['skip', 124],
@@ -266,29 +296,68 @@ export interface Player {
   weight: number;
   motionGoalCelebration1: number;
   motionGoalCelebration2: number;
-  abilities: {
-    hasComPlayingStyleMods: boolean; attackingProwess: number;
-    weakFootAccuracy: number;
-    defensiveProwess: number;
-    unknown02: number;
-    finishing: number;
-    unknown03: number;
-    preferredFoot: boolean;
-
-    swerve: number;
+  block1: {
+    attackingProwess: number; defensiveProwess: number; goalkeeping: number;
+    dribbling: number;
+    motionFreeKick: number;
+  };
+  block2: {
+    finishing: number; loftedPass: number; lowPass: number; header: number;
+    form: number;
+    isCreated: number;
+  };
+  block3: {
+    swerve: number; catching: number; clearing: number; reflexes: number;
     injuryResistance: number;
-    catching: number;
-    unknown10: number;
+    unknown: number;
+    isBasicsEdited: number;
+  };
+  block4: {
+    bodyControl: number;                 // clang-format
+    physicalContact: number;             //
+    kickingPower: number;                //
+    explosivePower: number;              //
+    motionDribblingArms: number;         //
+    isRegisteredPositionEdited: number;  //
+  };
+  block5: {
+    age: number;                 // clang-format
+    registeredPosition: number;  //
+    unknown: number;             //
+    playingStyles: number;       //
+    ballControl: number;         //
+    ballWinning: number;         //
+    weakFootAccuracy: number;    //
+  };
+  block6: {
+    jump: number;                      // clang-format
+    motionRunningArms: number;         //
+    motionCornerKick: number;          //
+    coverage: number;                  //
+    weakFootUsage: number;             //
+    playablePosition: number;          //
+    motionDribblingHunching: number;   //
+    motionRunningHunching: number;     //
+    motionPenaltyKick: number;         //
+    placeKicking: number;              //
+    isPlayablePositionEdited: number;  //
+    isAbilitiesEdited: number;         //
+    isPlayerSkillsEdited: number;      //
+  };
 
-    bodyControl: number;
-    isEdited: boolean;
-    strength: number;
-    unknown12: number;
-    ballControl: number;
-    unknown04: boolean;
-    ballWinning: number;
-    jump: number;
-    unknown22: number;
+  block7: {
+    stamina: number;                   //
+    speed: number;                     //
+    isPlayingStylesEdited: number;     //
+    isComPlayingStylesEdited: number;  //
+    isMotionEdited: number;            //
+    isBaseCopy: number;                //
+    unknown: number;                   //
+    strongFoot: number;                //
+    unknown2: number;                  //
+    comPlayingStyles: number;          //
+    playerSkills: number;              //
+    unknown3: number;                  //
   };
   isBaseCopy: boolean;
   comPlayingStyles: number;

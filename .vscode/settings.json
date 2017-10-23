@@ -1,6 +1,7 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
   "cSpell.words": [
+    "bitarray",
     "jbinary",
     "proto",
     "protobuf",
@@ -11,5 +12,6 @@
     "node_modules/": true,
     "functions/node_modules/": true,
     "functions/build/": true
-  }
+  },
+  "editor.formatOnSave": true
 }

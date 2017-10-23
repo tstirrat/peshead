@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+FILE=$1
+BASE="player-attrs-64.bin"
+XXD_ARGS="-b -c 4 -len 50"
+
+if [[ -f $1 ]]; then
+  xxd $XXD_ARGS $BASE > tmp/$BASE.txt
+  xxd $XXD_ARGS $1 > tmp/$1.txt
+  ./xor.py $BASE $1
+  xxd $XXD_ARGS tmp/$1.xor > tmp/$1.xor.txt
+  paste -d '\n' tmp/$BASE.txt tmp/$1.txt tmp/$1.xor.txt foo
+else
+  echo "Supply a .bin file"
+  exit 1
+fi
+
