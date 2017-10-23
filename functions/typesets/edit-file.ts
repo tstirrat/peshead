@@ -187,8 +187,8 @@ export const EditFile = {
       'uint64'
     ],
 
-    name: ['string0', 46],
-    printName: ['string0', 18],
+    name: ['string0', 46, 'utf-8'],
+    printName: ['string0', 18, 'utf-8'],
     appearance: 'PlayerAppearance',  // = 72 bytes
   },
 
@@ -202,7 +202,7 @@ export const EditFile = {
     nationality: 'uint16',
     pictureId: 'uint16',
     unknown01: 'byte',
-    name: ['string0', 79],
+    name: ['string0', 79, 'utf-8'],
   },
 
   Team: {
@@ -244,16 +244,16 @@ export const EditFile = {
     rivals: ['array', 'uint32', 3],
     '<bytes>': ['skip', 68],
     bannerEnabled: ['array', 'uint8', 4],
-    name: ['string0', 70],
-    scoreboard: ['string0', 4],
-    stadiumText: ['string0', 121],
-    banners: ['array', ['string0', 16], 4],
+    name: ['string0', 70, 'utf-8'],
+    scoreboard: ['string0', 4, 'utf-8'],
+    stadiumText: ['string0', 121, 'utf-8'],
+    banners: ['array', ['string0', 16, 'utf-8'], 4],
     skip: ['skip', 69],
   },
 
   Stadium: {
     id: 'uint32',
-    name: ['string0', 124],
+    name: ['string0', 124, 'utf-8'],
   },
 
   Competition: ['skip', 124],
