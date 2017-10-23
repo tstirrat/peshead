@@ -11,5 +11,6 @@
     "build/": true,
     "functions/node_modules/": true,
     "functions/build/": true
-  }
+  },
+  "editor.formatOnSave": true
 }
