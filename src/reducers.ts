@@ -1,10 +1,11 @@
-import { combineReducers } from 'redux';
-import { routerReducer, RouterState } from 'react-router-redux';
+import {routerReducer, RouterState} from 'react-router-redux';
+import {combineReducers} from 'redux';
+
 import * as app from './containers/App/reducer';
 import * as league from './containers/League/reducer';
-import * as team from './containers/Team/reducer';
 import * as player from './containers/Player/reducer';
 import * as search from './containers/Search/reducer';
+import * as team from './containers/Team/reducer';
 
 export interface State {
   app: app.State;
@@ -15,7 +16,7 @@ export interface State {
   routing: RouterState;
 }
 
-export default combineReducers({
+export const reducer = combineReducers({
   app: app.reducer,
   league: league.reducer,
   team: team.reducer,
