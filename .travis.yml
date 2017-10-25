@@ -10,5 +10,5 @@ branches:
   - master
 script:
   - npm run build
-  - npm test
-  - cd functions && npm install && npm test
+  - npm test -- --maxWorkers=2
+  - cd functions && npm install && npm test -- --maxWorkers=2
