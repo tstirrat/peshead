@@ -9,6 +9,7 @@
   ],
   "files.exclude": {
     "build/": true,
+    "node_modules/": true,
     "functions/node_modules/": true,
     "functions/build/": true
   },
