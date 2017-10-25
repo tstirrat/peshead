@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-class Team extends React.Component {
+export class Team extends React.Component {
   render() {
     return (
       <div className="Team">
@@ -11,5 +11,3 @@ class Team extends React.Component {
     );
   }
 }
-
-export default Team;

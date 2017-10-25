@@ -8,7 +8,7 @@ export interface Props {
   search: search.State;
 }
 
-class Search extends React.Component<Props & RouteProps, {}> {
+export class Search extends React.Component<Props & RouteProps, {}> {
   render() {
     return (
       <div className="Search">
@@ -26,4 +26,4 @@ function mapStateToProps(state: GlobalState): Props {
   return { search: state.search };
 }
 
-export default connect(mapStateToProps)(Search);
+export const ConnectedSearch = connect(mapStateToProps)(Search);

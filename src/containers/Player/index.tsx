@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-class Player extends React.Component {
+export class Player extends React.Component {
   render() {
     return (
       <div className="Player">
@@ -11,5 +11,3 @@ class Player extends React.Component {
     );
   }
 }
-
-export default Player;

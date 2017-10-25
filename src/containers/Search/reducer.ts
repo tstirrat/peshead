@@ -11,7 +11,7 @@ export interface State {
   };
 }
 
-const initialState: State = {
+export const initialState: State = {
   ui: {isLoading: true},
   data: {results: []},
 };
