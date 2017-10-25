@@ -9,6 +9,8 @@ const DEFAULT_PROPS = {
   app: {},
 };
 
+const context = {};
+
 const mockStore = configureMockStore();
 
 it('renders without crashing', () => {
@@ -16,7 +18,7 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   render(
     <Provider store={store}>
-      <StaticRouter>
+      <StaticRouter location="/" context={context}>
         <App {...DEFAULT_PROPS} />
       </StaticRouter>
     </Provider>,

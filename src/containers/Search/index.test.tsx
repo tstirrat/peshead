@@ -12,12 +12,14 @@ const DEFAULT_PROPS: Props = {
 
 const mockStore = configureMockStore();
 
+const context = {};
+
 it('renders without crashing', () => {
   const store = mockStore({ search: {} });
   const div = document.createElement('div');
   render(
     <Provider store={store}>
-      <StaticRouter>
+      <StaticRouter location="/" context={context}>
         <Search {...DEFAULT_PROPS} />
       </StaticRouter>
     </Provider>,
