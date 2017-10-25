@@ -7,7 +7,6 @@ import {configureFirebase} from './configureFirebase';
 import {EpicDependencies, epics as rootEpic} from './epics';
 import {reducer as rootReducer} from './reducers';
 
-
 export const history = createHistory();
 
 const initialState = {};

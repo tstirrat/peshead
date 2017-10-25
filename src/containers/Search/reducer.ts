@@ -5,14 +5,18 @@ import {Player} from '../../../functions/@types/api';
 import * as search from './actions';
 
 export interface State {
-  ui: {isLoading: boolean;};
+  ui: {
+    isLoading: boolean;  // TODO: clang-format, tslint don't like each other
+  };
   data: {
     results: Player[];  // for now, should be something else here
   };
 }
 
 export const initialState: State = {
-  ui: {isLoading: true},
+  ui: {
+    isLoading: true,
+  },
   data: {results: []},
 };
 
