@@ -3,8 +3,10 @@ import {routerMiddleware} from 'react-router-redux';
 import {applyMiddleware, compose, createStore} from 'redux';
 import {createEpicMiddleware} from 'redux-observable';
 
-import {epics as rootEpic} from './epics';
+import {configureFirebase} from './configureFirebase';
+import {EpicDependencies, epics as rootEpic} from './epics';
 import {reducer as rootReducer} from './reducers';
+
 
 export const history = createHistory();
 
@@ -12,7 +14,11 @@ const initialState = {};
 const enhancers = [];
 const middleware = [
   routerMiddleware(history),
-  createEpicMiddleware(rootEpic),
+  createEpicMiddleware(rootEpic, {
+    dependencies: {
+      firebaseApp: configureFirebase(),
+    } as EpicDependencies,
+  }),
 ];
 
 interface MyWindow extends Window {
