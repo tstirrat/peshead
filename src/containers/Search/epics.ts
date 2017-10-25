@@ -4,7 +4,6 @@ import {switchMap} from 'rxjs/operators/switchMap';
 
 import {EpicDependencies} from '../../epics';
 import {State as GlobalState} from '../../reducers';
-import {Player} from '../../shared/service/api';
 
 import * as search from './actions';
 
@@ -19,9 +18,9 @@ export const doSearch: Epic<search.Actions, GlobalState, EpicDependencies> =
               return db.collection('players')
                   .get()
                   .then(snapshot => snapshot.docs)
-                  .then(docs => docs.map(d => Player.create(d).toJSON()))
+                  .then(docs => docs.map(d => d.data()))
                   .then(players => new search.SearchSuccessAction({
-                    results: players,
+                    results: players as any[],  // TODO: massage Player type
                   }))
                   .catch(err => new search.SearchErrorAction(err));
             }));
