@@ -2,8 +2,6 @@ import * as admin from 'firebase-admin';
 
 /// <reference path="../@types/jbinary.d.ts" />
 import jBinary = require('jbinary');
-
-/// <reference path="../@types/api.d.ts" />
 import {Player as PlayerRecord, PlayerAbilities, PlayerMotion} from '../service/api';
 import {EditFile, Player} from '../typesets/edit-file';
 

@@ -1,13 +1,15 @@
 /*eslint-disable block-scoped-var, no-redeclare, no-control-regex, no-prototype-builtins*/
-import * as $protobuf from "protobufjs/minimal";
+"use strict";
+
+var $protobuf = require("protobufjs/minimal");
 
 // Common aliases
-const $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
+var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.util;
 
 // Exported root namespace
-const $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
+var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-export const API = $root.API = (() => {
+$root.API = (function() {
 
     /**
      * Constructs a new API service.
@@ -141,7 +143,7 @@ export const API = $root.API = (() => {
     return API;
 })();
 
-export const GetPlayerRequest = $root.GetPlayerRequest = (() => {
+$root.GetPlayerRequest = (function() {
 
     /**
      * Properties of a GetPlayerRequest.
@@ -159,7 +161,7 @@ export const GetPlayerRequest = $root.GetPlayerRequest = (() => {
      */
     function GetPlayerRequest(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -228,9 +230,9 @@ export const GetPlayerRequest = $root.GetPlayerRequest = (() => {
     GetPlayerRequest.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.GetPlayerRequest();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.GetPlayerRequest();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.playerId = reader.string();
@@ -287,7 +289,7 @@ export const GetPlayerRequest = $root.GetPlayerRequest = (() => {
     GetPlayerRequest.fromObject = function fromObject(object) {
         if (object instanceof $root.GetPlayerRequest)
             return object;
-        let message = new $root.GetPlayerRequest();
+        var message = new $root.GetPlayerRequest();
         if (object.playerId != null)
             message.playerId = String(object.playerId);
         return message;
@@ -305,7 +307,7 @@ export const GetPlayerRequest = $root.GetPlayerRequest = (() => {
     GetPlayerRequest.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.defaults)
             object.playerId = "";
         if (message.playerId != null && message.hasOwnProperty("playerId"))
@@ -327,7 +329,7 @@ export const GetPlayerRequest = $root.GetPlayerRequest = (() => {
     return GetPlayerRequest;
 })();
 
-export const UpdatePlayerRequest = $root.UpdatePlayerRequest = (() => {
+$root.UpdatePlayerRequest = (function() {
 
     /**
      * Properties of an UpdatePlayerRequest.
@@ -346,7 +348,7 @@ export const UpdatePlayerRequest = $root.UpdatePlayerRequest = (() => {
      */
     function UpdatePlayerRequest(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -425,9 +427,9 @@ export const UpdatePlayerRequest = $root.UpdatePlayerRequest = (() => {
     UpdatePlayerRequest.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.UpdatePlayerRequest();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.UpdatePlayerRequest();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.playerId = reader.string();
@@ -474,7 +476,7 @@ export const UpdatePlayerRequest = $root.UpdatePlayerRequest = (() => {
             if (!$util.isString(message.playerId))
                 return "playerId: string expected";
         if (message.player != null && message.hasOwnProperty("player")) {
-            let error = $root.Player.verify(message.player);
+            var error = $root.Player.verify(message.player);
             if (error)
                 return "player." + error;
         }
@@ -492,7 +494,7 @@ export const UpdatePlayerRequest = $root.UpdatePlayerRequest = (() => {
     UpdatePlayerRequest.fromObject = function fromObject(object) {
         if (object instanceof $root.UpdatePlayerRequest)
             return object;
-        let message = new $root.UpdatePlayerRequest();
+        var message = new $root.UpdatePlayerRequest();
         if (object.playerId != null)
             message.playerId = String(object.playerId);
         if (object.player != null) {
@@ -515,7 +517,7 @@ export const UpdatePlayerRequest = $root.UpdatePlayerRequest = (() => {
     UpdatePlayerRequest.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.defaults) {
             object.playerId = "";
             object.player = null;
@@ -541,13 +543,12 @@ export const UpdatePlayerRequest = $root.UpdatePlayerRequest = (() => {
     return UpdatePlayerRequest;
 })();
 
-export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
+$root.AddPlayerRequest = (function() {
 
     /**
      * Properties of an AddPlayerRequest.
      * @exports IAddPlayerRequest
      * @interface IAddPlayerRequest
-     * @property {string} [playerId] AddPlayerRequest playerId
      * @property {IPlayer} [player] AddPlayerRequest player
      */
 
@@ -560,18 +561,10 @@ export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
      */
     function AddPlayerRequest(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
-
-    /**
-     * AddPlayerRequest playerId.
-     * @member {string}playerId
-     * @memberof AddPlayerRequest
-     * @instance
-     */
-    AddPlayerRequest.prototype.playerId = "";
 
     /**
      * AddPlayerRequest player.
@@ -605,8 +598,6 @@ export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
     AddPlayerRequest.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            writer.uint32(/* id 1, wireType 2 =*/10).string(message.playerId);
         if (message.player != null && message.hasOwnProperty("player"))
             $root.Player.encode(message.player, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
         return writer;
@@ -639,13 +630,10 @@ export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
     AddPlayerRequest.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.AddPlayerRequest();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.AddPlayerRequest();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
-            case 1:
-                message.playerId = reader.string();
-                break;
             case 2:
                 message.player = $root.Player.decode(reader, reader.uint32());
                 break;
@@ -684,11 +672,8 @@ export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
     AddPlayerRequest.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            if (!$util.isString(message.playerId))
-                return "playerId: string expected";
         if (message.player != null && message.hasOwnProperty("player")) {
-            let error = $root.Player.verify(message.player);
+            var error = $root.Player.verify(message.player);
             if (error)
                 return "player." + error;
         }
@@ -706,9 +691,7 @@ export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
     AddPlayerRequest.fromObject = function fromObject(object) {
         if (object instanceof $root.AddPlayerRequest)
             return object;
-        let message = new $root.AddPlayerRequest();
-        if (object.playerId != null)
-            message.playerId = String(object.playerId);
+        var message = new $root.AddPlayerRequest();
         if (object.player != null) {
             if (typeof object.player !== "object")
                 throw TypeError(".AddPlayerRequest.player: object expected");
@@ -729,13 +712,9 @@ export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
     AddPlayerRequest.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
-        if (options.defaults) {
-            object.playerId = "";
+        var object = {};
+        if (options.defaults)
             object.player = null;
-        }
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            object.playerId = message.playerId;
         if (message.player != null && message.hasOwnProperty("player"))
             object.player = $root.Player.toObject(message.player, options);
         return object;
@@ -946,7 +925,7 @@ export const AddPlayerRequest = $root.AddPlayerRequest = (() => {
  * @property {number} ZIMBABWE=95 ZIMBABWE value
  */
 $root.Country = (function() {
-    const valuesById = {}, values = Object.create(valuesById);
+    var valuesById = {}, values = Object.create(valuesById);
     values[valuesById[1] = "AFGHANISTAN"] = 1;
     values[valuesById[191] = "ALBANIA"] = 191;
     values[valuesById[44] = "ALGERIA"] = 44;
@@ -1135,7 +1114,7 @@ $root.Country = (function() {
     return values;
 })();
 
-export const Player = $root.Player = (() => {
+$root.Player = (function() {
 
     /**
      * Properties of a Player.
@@ -1176,7 +1155,7 @@ export const Player = $root.Player = (() => {
         this.comPlayingStyles = [];
         this.playerSkills = [];
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -1395,25 +1374,25 @@ export const Player = $root.Player = (() => {
             writer.uint32(/* id 14, wireType 0 =*/112).int32(message.registeredPosition);
         if (message.playingStyles != null && message.playingStyles.length) {
             writer.uint32(/* id 15, wireType 2 =*/122).fork();
-            for (let i = 0; i < message.playingStyles.length; ++i)
+            for (var i = 0; i < message.playingStyles.length; ++i)
                 writer.int32(message.playingStyles[i]);
             writer.ldelim();
         }
         if (message.playablePositions != null && message.playablePositions.length) {
             writer.uint32(/* id 16, wireType 2 =*/130).fork();
-            for (let i = 0; i < message.playablePositions.length; ++i)
+            for (var i = 0; i < message.playablePositions.length; ++i)
                 writer.int32(message.playablePositions[i]);
             writer.ldelim();
         }
         if (message.comPlayingStyles != null && message.comPlayingStyles.length) {
             writer.uint32(/* id 17, wireType 2 =*/138).fork();
-            for (let i = 0; i < message.comPlayingStyles.length; ++i)
+            for (var i = 0; i < message.comPlayingStyles.length; ++i)
                 writer.int32(message.comPlayingStyles[i]);
             writer.ldelim();
         }
         if (message.playerSkills != null && message.playerSkills.length) {
             writer.uint32(/* id 18, wireType 2 =*/146).fork();
-            for (let i = 0; i < message.playerSkills.length; ++i)
+            for (var i = 0; i < message.playerSkills.length; ++i)
                 writer.int32(message.playerSkills[i]);
             writer.ldelim();
         }
@@ -1451,9 +1430,9 @@ export const Player = $root.Player = (() => {
     Player.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.Player();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Player();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.id = reader.uint32();
@@ -1501,7 +1480,7 @@ export const Player = $root.Player = (() => {
                 if (!(message.playingStyles && message.playingStyles.length))
                     message.playingStyles = [];
                 if ((tag & 7) === 2) {
-                    let end2 = reader.uint32() + reader.pos;
+                    var end2 = reader.uint32() + reader.pos;
                     while (reader.pos < end2)
                         message.playingStyles.push(reader.int32());
                 } else
@@ -1511,7 +1490,7 @@ export const Player = $root.Player = (() => {
                 if (!(message.playablePositions && message.playablePositions.length))
                     message.playablePositions = [];
                 if ((tag & 7) === 2) {
-                    let end2 = reader.uint32() + reader.pos;
+                    var end2 = reader.uint32() + reader.pos;
                     while (reader.pos < end2)
                         message.playablePositions.push(reader.int32());
                 } else
@@ -1521,7 +1500,7 @@ export const Player = $root.Player = (() => {
                 if (!(message.comPlayingStyles && message.comPlayingStyles.length))
                     message.comPlayingStyles = [];
                 if ((tag & 7) === 2) {
-                    let end2 = reader.uint32() + reader.pos;
+                    var end2 = reader.uint32() + reader.pos;
                     while (reader.pos < end2)
                         message.comPlayingStyles.push(reader.int32());
                 } else
@@ -1531,7 +1510,7 @@ export const Player = $root.Player = (() => {
                 if (!(message.playerSkills && message.playerSkills.length))
                     message.playerSkills = [];
                 if ((tag & 7) === 2) {
-                    let end2 = reader.uint32() + reader.pos;
+                    var end2 = reader.uint32() + reader.pos;
                     while (reader.pos < end2)
                         message.playerSkills.push(reader.int32());
                 } else
@@ -1793,7 +1772,7 @@ export const Player = $root.Player = (() => {
                 break;
             }
         if (message.physique != null && message.hasOwnProperty("physique")) {
-            let error = $root.Physique.verify(message.physique);
+            var error = $root.Physique.verify(message.physique);
             if (error)
                 return "physique." + error;
         }
@@ -1840,7 +1819,7 @@ export const Player = $root.Player = (() => {
         if (message.playingStyles != null && message.hasOwnProperty("playingStyles")) {
             if (!Array.isArray(message.playingStyles))
                 return "playingStyles: array expected";
-            for (let i = 0; i < message.playingStyles.length; ++i)
+            for (var i = 0; i < message.playingStyles.length; ++i)
                 switch (message.playingStyles[i]) {
                 default:
                     return "playingStyles: enum value[] expected";
@@ -1868,7 +1847,7 @@ export const Player = $root.Player = (() => {
         if (message.playablePositions != null && message.hasOwnProperty("playablePositions")) {
             if (!Array.isArray(message.playablePositions))
                 return "playablePositions: array expected";
-            for (let i = 0; i < message.playablePositions.length; ++i)
+            for (var i = 0; i < message.playablePositions.length; ++i)
                 switch (message.playablePositions[i]) {
                 default:
                     return "playablePositions: enum value[] expected";
@@ -1891,7 +1870,7 @@ export const Player = $root.Player = (() => {
         if (message.comPlayingStyles != null && message.hasOwnProperty("comPlayingStyles")) {
             if (!Array.isArray(message.comPlayingStyles))
                 return "comPlayingStyles: array expected";
-            for (let i = 0; i < message.comPlayingStyles.length; ++i)
+            for (var i = 0; i < message.comPlayingStyles.length; ++i)
                 switch (message.comPlayingStyles[i]) {
                 default:
                     return "comPlayingStyles: enum value[] expected";
@@ -1908,7 +1887,7 @@ export const Player = $root.Player = (() => {
         if (message.playerSkills != null && message.hasOwnProperty("playerSkills")) {
             if (!Array.isArray(message.playerSkills))
                 return "playerSkills: array expected";
-            for (let i = 0; i < message.playerSkills.length; ++i)
+            for (var i = 0; i < message.playerSkills.length; ++i)
                 switch (message.playerSkills[i]) {
                 default:
                     return "playerSkills: enum value[] expected";
@@ -1967,7 +1946,7 @@ export const Player = $root.Player = (() => {
     Player.fromObject = function fromObject(object) {
         if (object instanceof $root.Player)
             return object;
-        let message = new $root.Player();
+        var message = new $root.Player();
         if (object.id != null)
             message.id = object.id >>> 0;
         if (object.commentaryId != null)
@@ -2812,7 +2791,7 @@ export const Player = $root.Player = (() => {
             if (!Array.isArray(object.playingStyles))
                 throw TypeError(".Player.playingStyles: array expected");
             message.playingStyles = [];
-            for (let i = 0; i < object.playingStyles.length; ++i)
+            for (var i = 0; i < object.playingStyles.length; ++i)
                 switch (object.playingStyles[i]) {
                 default:
                 case "ANCHOR_MAN":
@@ -2893,7 +2872,7 @@ export const Player = $root.Player = (() => {
             if (!Array.isArray(object.playablePositions))
                 throw TypeError(".Player.playablePositions: array expected");
             message.playablePositions = [];
-            for (let i = 0; i < object.playablePositions.length; ++i)
+            for (var i = 0; i < object.playablePositions.length; ++i)
                 switch (object.playablePositions[i]) {
                 default:
                 case "ATTACKING_MIDFIELDER":
@@ -2954,7 +2933,7 @@ export const Player = $root.Player = (() => {
             if (!Array.isArray(object.comPlayingStyles))
                 throw TypeError(".Player.comPlayingStyles: array expected");
             message.comPlayingStyles = [];
-            for (let i = 0; i < object.comPlayingStyles.length; ++i)
+            for (var i = 0; i < object.comPlayingStyles.length; ++i)
                 switch (object.comPlayingStyles[i]) {
                 default:
                 case "EARLY_CROSS":
@@ -2991,7 +2970,7 @@ export const Player = $root.Player = (() => {
             if (!Array.isArray(object.playerSkills))
                 throw TypeError(".Player.playerSkills: array expected");
             message.playerSkills = [];
-            for (let i = 0; i < object.playerSkills.length; ++i)
+            for (var i = 0; i < object.playerSkills.length; ++i)
                 switch (object.playerSkills[i]) {
                 default:
                 case "ACROBATIC_CLEAR":
@@ -3133,7 +3112,7 @@ export const Player = $root.Player = (() => {
     Player.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.arrays || options.defaults) {
             object.playingStyles = [];
             object.playablePositions = [];
@@ -3188,22 +3167,22 @@ export const Player = $root.Player = (() => {
             object.registeredPosition = options.enums === String ? $root.Position[message.registeredPosition] : message.registeredPosition;
         if (message.playingStyles && message.playingStyles.length) {
             object.playingStyles = [];
-            for (let j = 0; j < message.playingStyles.length; ++j)
+            for (var j = 0; j < message.playingStyles.length; ++j)
                 object.playingStyles[j] = options.enums === String ? $root.PlayingStyle[message.playingStyles[j]] : message.playingStyles[j];
         }
         if (message.playablePositions && message.playablePositions.length) {
             object.playablePositions = [];
-            for (let j = 0; j < message.playablePositions.length; ++j)
+            for (var j = 0; j < message.playablePositions.length; ++j)
                 object.playablePositions[j] = options.enums === String ? $root.Position[message.playablePositions[j]] : message.playablePositions[j];
         }
         if (message.comPlayingStyles && message.comPlayingStyles.length) {
             object.comPlayingStyles = [];
-            for (let j = 0; j < message.comPlayingStyles.length; ++j)
+            for (var j = 0; j < message.comPlayingStyles.length; ++j)
                 object.comPlayingStyles[j] = options.enums === String ? $root.ComPlayingStyle[message.comPlayingStyles[j]] : message.comPlayingStyles[j];
         }
         if (message.playerSkills && message.playerSkills.length) {
             object.playerSkills = [];
-            for (let j = 0; j < message.playerSkills.length; ++j)
+            for (var j = 0; j < message.playerSkills.length; ++j)
                 object.playerSkills[j] = options.enums === String ? $root.Skill[message.playerSkills[j]] : message.playerSkills[j];
         }
         if (message.appearance != null && message.hasOwnProperty("appearance"))
@@ -3227,7 +3206,7 @@ export const Player = $root.Player = (() => {
     return Player;
 })();
 
-export const Physique = $root.Physique = (() => {
+$root.Physique = (function() {
 
     /**
      * Properties of a Physique.
@@ -3257,7 +3236,7 @@ export const Physique = $root.Physique = (() => {
      */
     function Physique(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -3446,9 +3425,9 @@ export const Physique = $root.Physique = (() => {
     Physique.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.Physique();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Physique();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.height = reader.uint32();
@@ -3577,7 +3556,7 @@ export const Physique = $root.Physique = (() => {
     Physique.fromObject = function fromObject(object) {
         if (object instanceof $root.Physique)
             return object;
-        let message = new $root.Physique();
+        var message = new $root.Physique();
         if (object.height != null)
             message.height = object.height >>> 0;
         if (object.weight != null)
@@ -3619,7 +3598,7 @@ export const Physique = $root.Physique = (() => {
     Physique.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.defaults) {
             object.height = 0;
             object.weight = 0;
@@ -3678,7 +3657,7 @@ export const Physique = $root.Physique = (() => {
     return Physique;
 })();
 
-export const PlayerAbilities = $root.PlayerAbilities = (() => {
+$root.PlayerAbilities = (function() {
 
     /**
      * Properties of a PlayerAbilities.
@@ -3722,7 +3701,7 @@ export const PlayerAbilities = $root.PlayerAbilities = (() => {
      */
     function PlayerAbilities(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -4051,9 +4030,9 @@ export const PlayerAbilities = $root.PlayerAbilities = (() => {
     PlayerAbilities.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.PlayerAbilities();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.PlayerAbilities();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.attackingProwess = reader.uint32();
@@ -4266,7 +4245,7 @@ export const PlayerAbilities = $root.PlayerAbilities = (() => {
     PlayerAbilities.fromObject = function fromObject(object) {
         if (object instanceof $root.PlayerAbilities)
             return object;
-        let message = new $root.PlayerAbilities();
+        var message = new $root.PlayerAbilities();
         if (object.attackingProwess != null)
             message.attackingProwess = object.attackingProwess >>> 0;
         if (object.ballControl != null)
@@ -4336,7 +4315,7 @@ export const PlayerAbilities = $root.PlayerAbilities = (() => {
     PlayerAbilities.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.defaults) {
             object.attackingProwess = 0;
             object.ballControl = 0;
@@ -4445,7 +4424,7 @@ export const PlayerAbilities = $root.PlayerAbilities = (() => {
  * @property {number} LEFT=1 LEFT value
  */
 $root.Foot = (function() {
-    const valuesById = {}, values = Object.create(valuesById);
+    var valuesById = {}, values = Object.create(valuesById);
     values[valuesById[0] = "RIGHT"] = 0;
     values[valuesById[1] = "LEFT"] = 1;
     return values;
@@ -4475,7 +4454,7 @@ $root.Foot = (function() {
  * @property {number} THE_DESTROYER=9 THE_DESTROYER value
  */
 $root.PlayingStyle = (function() {
-    const valuesById = {}, values = Object.create(valuesById);
+    var valuesById = {}, values = Object.create(valuesById);
     values[valuesById[8] = "ANCHOR_MAN"] = 8;
     values[valuesById[7] = "BOX_TO_BOX"] = 7;
     values[valuesById[15] = "BUILD_UP"] = 15;
@@ -4510,7 +4489,7 @@ $root.PlayingStyle = (function() {
  * @property {number} TRICKSTER=0 TRICKSTER value
  */
 $root.ComPlayingStyle = (function() {
-    const valuesById = {}, values = Object.create(valuesById);
+    var valuesById = {}, values = Object.create(valuesById);
     values[valuesById[5] = "EARLY_CROSS"] = 5;
     values[valuesById[3] = "INCISIVE_RUN"] = 3;
     values[valuesById[4] = "LONG_BALL_EXPERT"] = 4;
@@ -4540,7 +4519,7 @@ $root.ComPlayingStyle = (function() {
  * @property {number} SECOND_STRIKER=11 SECOND_STRIKER value
  */
 $root.Position = (function() {
-    const valuesById = {}, values = Object.create(valuesById);
+    var valuesById = {}, values = Object.create(valuesById);
     values[valuesById[8] = "ATTACKING_MIDFIELDER"] = 8;
     values[valuesById[1] = "CENTRE_BACK"] = 1;
     values[valuesById[12] = "CENTRE_FORWARD"] = 12;
@@ -4591,7 +4570,7 @@ $root.Position = (function() {
  * @property {number} WEIGHTED_PASS=13 WEIGHTED_PASS value
  */
 $root.Skill = (function() {
-    const valuesById = {}, values = Object.create(valuesById);
+    var valuesById = {}, values = Object.create(valuesById);
     values[valuesById[24] = "ACROBATIC_CLEAR"] = 24;
     values[valuesById[9] = "ACROBATIC_FINISHING"] = 9;
     values[valuesById[25] = "CAPTAINCY"] = 25;
@@ -4623,7 +4602,7 @@ $root.Skill = (function() {
     return values;
 })();
 
-export const PlayerAppearance = $root.PlayerAppearance = (() => {
+$root.PlayerAppearance = (function() {
 
     /**
      * Properties of a PlayerAppearance.
@@ -4640,7 +4619,7 @@ export const PlayerAppearance = $root.PlayerAppearance = (() => {
      */
     function PlayerAppearance(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -4699,9 +4678,9 @@ export const PlayerAppearance = $root.PlayerAppearance = (() => {
     PlayerAppearance.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.PlayerAppearance();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.PlayerAppearance();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             default:
                 reader.skipType(tag & 7);
@@ -4782,7 +4761,7 @@ export const PlayerAppearance = $root.PlayerAppearance = (() => {
     return PlayerAppearance;
 })();
 
-export const PlayerMotion = $root.PlayerMotion = (() => {
+$root.PlayerMotion = (function() {
 
     /**
      * Properties of a PlayerMotion.
@@ -4808,7 +4787,7 @@ export const PlayerMotion = $root.PlayerMotion = (() => {
      */
     function PlayerMotion(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -4957,9 +4936,9 @@ export const PlayerMotion = $root.PlayerMotion = (() => {
     PlayerMotion.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.PlayerMotion();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.PlayerMotion();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.armDribbling = reader.uint32();
@@ -5064,7 +5043,7 @@ export const PlayerMotion = $root.PlayerMotion = (() => {
     PlayerMotion.fromObject = function fromObject(object) {
         if (object instanceof $root.PlayerMotion)
             return object;
-        let message = new $root.PlayerMotion();
+        var message = new $root.PlayerMotion();
         if (object.armDribbling != null)
             message.armDribbling = object.armDribbling >>> 0;
         if (object.armRunning != null)
@@ -5098,7 +5077,7 @@ export const PlayerMotion = $root.PlayerMotion = (() => {
     PlayerMotion.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.defaults) {
             object.armDribbling = 0;
             object.armRunning = 0;
@@ -5145,7 +5124,7 @@ export const PlayerMotion = $root.PlayerMotion = (() => {
     return PlayerMotion;
 })();
 
-export const Edits = $root.Edits = (() => {
+$root.Edits = (function() {
 
     /**
      * Properties of an Edits.
@@ -5170,7 +5149,7 @@ export const Edits = $root.Edits = (() => {
      */
     function Edits(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -5309,9 +5288,9 @@ export const Edits = $root.Edits = (() => {
     Edits.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.Edits();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Edits();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.registeredPosition = reader.bool();
@@ -5410,7 +5389,7 @@ export const Edits = $root.Edits = (() => {
     Edits.fromObject = function fromObject(object) {
         if (object instanceof $root.Edits)
             return object;
-        let message = new $root.Edits();
+        var message = new $root.Edits();
         if (object.registeredPosition != null)
             message.registeredPosition = Boolean(object.registeredPosition);
         if (object.playablePositions != null)
@@ -5442,7 +5421,7 @@ export const Edits = $root.Edits = (() => {
     Edits.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.defaults) {
             object.registeredPosition = false;
             object.playablePositions = false;
@@ -5486,7 +5465,7 @@ export const Edits = $root.Edits = (() => {
     return Edits;
 })();
 
-export const UnknownOptions = $root.UnknownOptions = (() => {
+$root.UnknownOptions = (function() {
 
     /**
      * Properties of an UnknownOptions.
@@ -5508,7 +5487,7 @@ export const UnknownOptions = $root.UnknownOptions = (() => {
      */
     function UnknownOptions(properties) {
         if (properties)
-            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                 if (properties[keys[i]] != null)
                     this[keys[i]] = properties[keys[i]];
     }
@@ -5617,9 +5596,9 @@ export const UnknownOptions = $root.UnknownOptions = (() => {
     UnknownOptions.decode = function decode(reader, length) {
         if (!(reader instanceof $Reader))
             reader = $Reader.create(reader);
-        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.UnknownOptions();
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.UnknownOptions();
         while (reader.pos < end) {
-            let tag = reader.uint32();
+            var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
                 message.unknown02 = reader.bool();
@@ -5700,7 +5679,7 @@ export const UnknownOptions = $root.UnknownOptions = (() => {
     UnknownOptions.fromObject = function fromObject(object) {
         if (object instanceof $root.UnknownOptions)
             return object;
-        let message = new $root.UnknownOptions();
+        var message = new $root.UnknownOptions();
         if (object.unknown02 != null)
             message.unknown02 = Boolean(object.unknown02);
         if (object.unknown03 != null)
@@ -5726,7 +5705,7 @@ export const UnknownOptions = $root.UnknownOptions = (() => {
     UnknownOptions.toObject = function toObject(message, options) {
         if (!options)
             options = {};
-        let object = {};
+        var object = {};
         if (options.defaults) {
             object.unknown02 = false;
             object.unknown03 = false;
@@ -5761,4 +5740,4 @@ export const UnknownOptions = $root.UnknownOptions = (() => {
     return UnknownOptions;
 })();
 
-export { $root as default };
+module.exports = $root;
