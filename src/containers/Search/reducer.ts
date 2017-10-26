@@ -1,6 +1,6 @@
 import {Reducer} from 'redux';
 
-import {Player} from '../../../functions/@types/api';
+import {Player} from '../../shared/service/api';
 
 import * as search from './actions';
 

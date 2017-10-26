@@ -276,9 +276,6 @@ export class UpdatePlayerRequest {
 /** Properties of an AddPlayerRequest. */
 export interface IAddPlayerRequest {
 
-    /** AddPlayerRequest playerId */
-    playerId?: string;
-
     /** AddPlayerRequest player */
     player?: IPlayer;
 }
@@ -291,9 +288,6 @@ export class AddPlayerRequest {
      * @param [properties] Properties to set
      */
     constructor(properties?: IAddPlayerRequest);
-
-    /** AddPlayerRequest playerId. */
-    public playerId: string;
 
     /** AddPlayerRequest player. */
     public player?: (IPlayer|null);
