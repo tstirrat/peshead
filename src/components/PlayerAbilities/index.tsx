@@ -154,25 +154,25 @@ export class PlayerAbilities extends React.PureComponent<Props> {
           <TableRow>
             <TableCell>NonDom Leg Usage</TableCell>
             <TableCell>
-              <PlayerStat value={player.abilities!.weakFootUsage!} />
+              <PlayerStat value={player.abilities!.weakFootUsage!} maxValue={4} />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>NonDom Leg Prec.</TableCell>
             <TableCell>
-              <PlayerStat value={player.abilities!.weakFootAccuracy!} />
+              <PlayerStat value={player.abilities!.weakFootAccuracy!} maxValue={4} />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Condition</TableCell>
             <TableCell>
-              <PlayerStat value={player.abilities!.form!} />
+              <PlayerStat value={player.abilities!.form!} maxValue={8} />
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Injury Resistance</TableCell>
             <TableCell>
-              <PlayerStat value={player.abilities!.injuryResistance!} />
+              <PlayerStat value={player.abilities!.injuryResistance!} maxValue={4} />
             </TableCell>
           </TableRow>
         </TableBody>
