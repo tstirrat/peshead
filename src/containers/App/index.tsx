@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { State as GlobalState } from '../../reducers';
-import * as app from './reducer';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
@@ -10,6 +9,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import MenuIcon from 'material-ui-icons/Menu';
 
+import * as app from '../../reducers/ui/app';
 import { League } from '../League';
 import { Team } from '../Team';
 import { Player } from '../Player';

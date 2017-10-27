@@ -1,6 +1,6 @@
 import {Action, Reducer} from 'redux';
 
-import {Player} from '../../shared/service/api';
+import {Player} from '../shared/service/api';
 
 export type MapLike<T> = {
   [key: string]: T

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link, RouteProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { State as GlobalState } from '../../reducers';
-import * as search from './reducer';
+import * as search from '../../reducers/search';
 
 export interface Props {
   search: search.State;

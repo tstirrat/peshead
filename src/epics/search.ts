@@ -2,11 +2,10 @@ import {firestore} from 'firebase';
 import {Epic} from 'redux-observable';
 import {switchMap} from 'rxjs/operators/switchMap';
 
-import {EpicDependencies} from '../../epics';
-import {State as GlobalState} from '../../reducers';
-import {Player} from '../../shared/service/api';
-
-import * as search from './actions';
+import * as search from '../actions/search';
+import {EpicDependencies} from '../epics';
+import {State as GlobalState} from '../reducers/search';
+import {Player} from '../shared/service/api';
 
 export const doSearch: Epic<search.Actions, GlobalState, EpicDependencies> =
     (action$, store, deps) =>
