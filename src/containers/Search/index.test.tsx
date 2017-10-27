@@ -2,7 +2,7 @@ import * as React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { render } from 'react-dom';
 import { Search, Props } from './index';
-import { initialState } from './reducer';
+import { initialState } from '../../reducers/search';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 

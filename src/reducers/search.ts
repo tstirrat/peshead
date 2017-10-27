@@ -1,8 +1,7 @@
 import {Reducer} from 'redux';
 
-import {Player} from '../../shared/service/api';
-
-import * as search from './actions';
+import * as search from '../actions/search';
+import {Player} from '../shared/service/api';
 
 export interface State {
   ui: {

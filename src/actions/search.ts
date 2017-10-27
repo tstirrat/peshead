@@ -1,6 +1,6 @@
 import {Action} from 'redux';
 
-import {Player} from '../../shared/service/api';
+import {Player} from '../shared/service/api';
 
 export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
