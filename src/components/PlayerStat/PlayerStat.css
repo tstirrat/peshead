@@ -1,0 +1,31 @@
+.PlayerStat {
+  border-radius: 2px;
+  background-color: lightgray;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* TODO: Use better PES colors here. */
+.PlayerStat.very-strong {
+  background-color: cyan;
+}
+
+.PlayerStat.strong {
+  background-color: lime;
+}
+
+.PlayerStat.average {
+  background-color: lightsalmon;
+}
+
+.PlayerStat.weak {
+  background-color: orange;
+}
+
+.PlayerStat.very-weak {
+  background-color: darkorange;
+}
