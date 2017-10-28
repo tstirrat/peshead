@@ -1,6 +1,6 @@
-import {ComPlayingStyle, Country, Foot, IPlayer, PlayingStyle, Position, Skill} from '../shared/service/api';
+import {ComPlayingStyle, Country, Foot, IPlayer, Player, PlayingStyle, Position, Skill} from '../shared/service/api';
 
-export const player: IPlayer = {
+export const base: IPlayer = {
   id: 7511,
   commentaryId: 7511,
   name: 'L. MESSI',
@@ -57,4 +57,16 @@ export const player: IPlayer = {
     weakFootAccuracy: 3,
     weakFootUsage: 1,
   }
+};
+
+function makePlayer(attrs: Partial<IPlayer>): IPlayer {
+  const merged = {
+    ...base,
+    ...attrs,
+  };
+  return Player.create(merged).toJSON();  // ensures a copy
+}
+
+export const make = {
+  player: makePlayer,
 };
