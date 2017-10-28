@@ -23,7 +23,7 @@ export class Search extends React.Component<Props & RouteProps, {}> {
 }
 
 function mapStateToProps(state: GlobalState): Props {
-  return { search: state.search };
+  return { search: state.data.search };
 }
 
 export const ConnectedSearch = connect(mapStateToProps)(Search);
