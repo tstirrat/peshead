@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import { CardContent } from 'material-ui/Card';
 import { PlayerAbilities } from '../../components/PlayerAbilities';
 import { PlayerBasics } from '../../components/PlayerBasics';
-import { player } from '../../__test__/fixtures';
+import { base } from '../../__test__/fixtures';
 
 export class Player extends React.Component {
   render() {
@@ -16,7 +16,7 @@ export class Player extends React.Component {
             <CardContent>
               <Typography type="title">Basics</Typography>
             </CardContent>
-            <PlayerBasics player={player} />
+            <PlayerBasics player={base} />
           </Card>
         </Grid>
         <Grid item={true} xs={12} sm={6}>
@@ -24,7 +24,7 @@ export class Player extends React.Component {
             <CardContent>
               <Typography type="title">Abilities</Typography>
             </CardContent>
-            <PlayerAbilities player={player} />
+            <PlayerAbilities player={base} />
           </Card>
         </Grid>
       </Grid>
