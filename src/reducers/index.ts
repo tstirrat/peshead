@@ -8,19 +8,29 @@ import * as teams from './teams';
 import * as app from './ui/app';
 
 export interface State {
-  app: app.State;
-  leagues: leagues.State;
-  teams: teams.State;
-  players: players.State;
-  search: search.State;
-  routing: RouterState;
+  /** canonical server data */
+  data: {
+    leagues: leagues.State;  // clang-format
+    teams: teams.State;      //
+    players: players.State;  //
+    search: search.State;    //
+  };
+  /** ui state */
+  ui: {
+    app: app.State;        // clang-format
+    routing: RouterState;  //
+  };
 }
 
 export const reducer = combineReducers({
-  app: app.reducer,
-  leagues: leagues.reducer,
-  teams: teams.reducer,
-  players: players.reducer,
-  search: search.reducer,
-  routing: routerReducer,
+  data: combineReducers({
+    leagues: leagues.reducer,
+    teams: teams.reducer,
+    players: players.reducer,
+    search: search.reducer,
+  }),
+  ui: combineReducers({
+    app: app.reducer,
+    routing: routerReducer,
+  }),
 });

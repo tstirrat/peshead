@@ -3,8 +3,8 @@ import {combineEpics} from 'redux-observable';
 
 // import * as app from './app';
 // import * as league from './league';
-// import * as player from './player';
-import {doSearch} from './search';
+import * as players from './players';
+import * as search from './search';
 // import * as team from './team';
 
 /**
@@ -12,4 +12,4 @@ import {doSearch} from './search';
  */
 export interface EpicDependencies { firebaseApp: app.App; }
 
-export const epics = combineEpics(doSearch);
+export const epics = combineEpics(players.epics, search.epics);

@@ -1,13 +1,14 @@
 import {firestore} from 'firebase';
-import {Epic} from 'redux-observable';
+import {Action} from 'redux';
+import {combineEpics, Epic} from 'redux-observable';
 import {switchMap} from 'rxjs/operators/switchMap';
 
 import * as search from '../actions/search';
 import {EpicDependencies} from '../epics';
-import {State as GlobalState} from '../reducers/search';
+import {State as GlobalState} from '../reducers';
 import {Player} from '../shared/service/api';
 
-export const doSearch: Epic<search.Actions, GlobalState, EpicDependencies> =
+export const doSearch: Epic<Action, GlobalState, EpicDependencies> =
     (action$, store, deps) =>
         action$.ofType(search.SEARCH_REQUEST)
             .pipe(switchMap((action: search.SearchRequestAction) => {
@@ -23,3 +24,5 @@ export const doSearch: Epic<search.Actions, GlobalState, EpicDependencies> =
                   .then(results => new search.SearchSuccessAction({results}))
                   .catch(err => new search.SearchErrorAction(err));
             }));
+
+export const epics = combineEpics(doSearch);

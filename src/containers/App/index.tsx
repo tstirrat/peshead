@@ -52,7 +52,7 @@ export class App extends React.Component<Props & RouteProps, State> {
 }
 
 function mapStateToProps(state: GlobalState) {
-  return { app: state.app };
+  return { app: state.ui.app };
 }
 
 export const ConnectedApp = connect(mapStateToProps)(App);
