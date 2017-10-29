@@ -1,10 +1,10 @@
 import {Action, Reducer} from 'redux';
 
 export interface State {}
-const initialState: State = {};
+export const INITIAL_STATE: State = {};
 
 export const reducer: Reducer<State> =
-    (state = initialState, action: Action) => {
+    (state = INITIAL_STATE, action: Action) => {
       switch (action.type) {
         default:
           return state;

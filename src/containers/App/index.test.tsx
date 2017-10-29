@@ -14,7 +14,7 @@ const context = {};
 const mockStore = configureMockStore();
 
 it('renders without crashing', () => {
-  const store = mockStore({ search: {} });
+  const store = mockStore({ data: { search: {} } });
   const div = document.createElement('div');
   render(
     <Provider store={store}>

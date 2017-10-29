@@ -556,10 +556,10 @@ export enum Country {
 export interface IPlayer {
 
     /** Player id */
-    id?: number;
+    id: string;
 
     /** Player commentaryId */
-    commentaryId?: number;
+    commentaryId?: string;
 
     /** Player name */
     name?: string;
@@ -626,10 +626,10 @@ export class Player {
     constructor(properties?: IPlayer);
 
     /** Player id. */
-    public id: number;
+    public id: string;
 
     /** Player commentaryId. */
-    public commentaryId: number;
+    public commentaryId: string;
 
     /** Player name. */
     public name: string;

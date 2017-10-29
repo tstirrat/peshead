@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, RouteProps } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { State as GlobalState } from '../../reducers';
 import * as search from '../../reducers/search';
@@ -8,7 +8,7 @@ export interface Props {
   search: search.State;
 }
 
-export class Search extends React.Component<Props & RouteProps, {}> {
+export class Search extends React.Component<Props> {
   render() {
     return (
       <div className="Search">
@@ -26,4 +26,5 @@ function mapStateToProps(state: GlobalState): Props {
   return { search: state.data.search };
 }
 
-export const ConnectedSearch = connect(mapStateToProps)(Search);
+// tslint:disable-next-line:variable-name
+export const ConnectedSearch = withRouter(connect(mapStateToProps)(Search));
