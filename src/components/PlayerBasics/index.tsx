@@ -26,11 +26,11 @@ export class PlayerBasics extends React.PureComponent<Props> {
           </TableRow>
           <TableRow>
             <TableCell>Height</TableCell>
-            <TableCell>{player.physique!.height} cm</TableCell>
+            <TableCell>{/* player.physique!.height */} cm</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Weight</TableCell>
-            <TableCell>{player.physique!.weight} kg</TableCell>
+            <TableCell>{/* player.physique!.weight */} kg</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Age</TableCell>
