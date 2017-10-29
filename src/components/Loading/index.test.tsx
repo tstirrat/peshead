@@ -4,12 +4,45 @@ import { Loading } from './index';
 
 describe('<Loading>', () => {
 
-  it('displays spinner', () => {
+  it('displays spinner when [when] is true', () => {
     const div = document.createElement('div');
     render(
-      <Loading />,
+      <Loading when={true}>
+        <div className="child"></div>
+      </Loading>,
       div);
-    expect(div.querySelector('[role=progressbar]')).toBeDefined();
+    expect(div.querySelector('[role=progressbar]')).not.toBeNull();
+  });
+
+  it('does not display children when [when] is true', () => {
+    const div = document.createElement('div');
+    render(
+      <Loading when={true}>
+        <div className="child"></div>
+      </Loading>,
+      div);
+    expect(div.querySelector('.child')).toBeNull();
+  });
+
+  it('displays children when [when] is false', () => {
+    const div = document.createElement('div');
+    render(
+      <Loading when={false}>
+        <div className="child"></div>
+      </Loading>,
+      div);
+    expect(div.querySelector('.child')).not.toBeNull();
+  });
+
+  it('displays ErrorPanel when [error] is defined', () => {
+    const div = document.createElement('div');
+    const err = new Error('Unable to do things');
+    render(
+      <Loading when={false} error={err}>
+        <div className="child"></div>
+      </Loading>,
+      div);
+    expect(div.querySelector('.ErrorPanel')).not.toBeNull();
   });
 
 });

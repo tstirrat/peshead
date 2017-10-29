@@ -24,7 +24,7 @@ interface Actions {
   dispatch: Dispatch<fromRoot.State>;
 }
 
-export class Player extends React.Component<ViewModel & Actions> {
+export class Player extends React.PureComponent<ViewModel & Actions> {
 
   componentDidMount() {
     if (this.props.id) {
@@ -56,7 +56,11 @@ export class Player extends React.Component<ViewModel & Actions> {
   }
 
   render() {
-    return this.props.isLoading ? <Loading /> : this.renderPlayer();
+    return (
+      <Loading when={this.props.isLoading}>
+        {this.renderPlayer()}
+      </Loading>
+    );
   }
 }
 

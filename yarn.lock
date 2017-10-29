@@ -92,6 +92,10 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
 
+"@types/elasticsearch@^5.0.17":
+  version "5.0.17"
+  resolved "https://registry.yarnpkg.com/@types/elasticsearch/-/elasticsearch-5.0.17.tgz#e2ff3a37cfa974260f6bb29990b288459687a34f"
+
 "@types/history@*", "@types/history@^4.6.1":
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.6.1.tgz#0dbaef4febad5d074d06dbdfae6b027d1d701d25"

@@ -1,3 +1,4 @@
+import {ActionCreator} from 'react-redux';
 import {Action} from 'redux';
 
 import {Player} from '../shared/service/api';
@@ -22,12 +23,41 @@ export class SearchErrorAction implements Action {
 }
 
 export interface SearchRequestPayload {
-  term: string;
-  sortField: string;
-  sortDirection: string;
+  query: string;
+  sortField?: string;
+  sortDirection?: string;
 }
 
 export interface SearchSuccessPayload { results: Player[]; }
+
+// Action creators
+
+export const search: ActionCreator<SearchRequestAction> =
+    ({query, sortField, sortDirection}: SearchRequestPayload) => {
+      return {
+        type: SEARCH_REQUEST,
+        payload: {
+          query,
+          sortField,
+          sortDirection,
+        },
+      };
+    };
+
+export const searchSuccess: ActionCreator<SearchSuccessAction> =
+    (results: Player[]) => {
+      return {
+        type: SEARCH_SUCCESS,
+        payload: {results},
+      };
+    };
+
+export const searchError: ActionCreator<SearchErrorAction> = (error: Error) => {
+  return {
+    type: SEARCH_ERROR,
+    payload: error,
+  };
+};
 
 export type Actions =
     SearchRequestAction | SearchSuccessAction | SearchErrorAction;

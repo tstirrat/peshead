@@ -7,6 +7,15 @@ import {API, GetPlayerRequest, Player} from './service/api';
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
 
+// TODO: make this into reusable middleware
+const CORS_HEADERS_DEV = {
+  'Access-Control-Allow-Origin': 'http://localhost:3000',
+  'Access-Control-Allow-Headers': 'X-Requested-With'
+};
+
+const CORS_HEADERS =
+    process.env.NODE_ENV === 'production' ? {} : CORS_HEADERS_DEV;
+
 // API
 
 exports.getPlayer = functions.https.onRequest(async (request, response) => {
@@ -25,7 +34,7 @@ exports.getPlayer = functions.https.onRequest(async (request, response) => {
     id: playerId,
   });
   console.log('created rpc player', rpcPlayer.toJSON());
-  response.send(JSON.stringify(player, null, 2));
+  response.set(CORS_HEADERS).send(JSON.stringify(player, null, 2));
 });
 
 // SEARCH
@@ -74,6 +83,9 @@ exports.updatePlayerIndex =
 
 /** Perform a search, mounted at /api/v1/search */
 exports.search = functions.https.onRequest(async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    return res.set(CORS_HEADERS).send('');
+  }
   const query: string = req.query.query;
   if (query) {
     try {
@@ -81,11 +93,15 @@ exports.search = functions.https.onRequest(async (req, res) => {
       const client = createClient(functions.config().es);
       const response = await search(client, query);
       console.log('[search] search complete', response);
-      return res.send(response);
+      console.log('updated with cors');
+      return res.set(CORS_HEADERS).send(response);
     } catch (e) {
-      return res.status(400).send(e);
+      console.warn('[search] search failed with', e);
+      return res.set(CORS_HEADERS).status(400).send(e);
     }
   }
   console.warn('[search] search with empty query');
-  return res.send({});
+  return res.set(CORS_HEADERS)
+      .status(400)
+      .send(new Error('Must supply query params'));
 });

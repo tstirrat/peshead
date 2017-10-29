@@ -10,7 +10,6 @@ import * as search from './search';
 import * as teams from './teams';
 import * as app from './ui/app';
 import * as routing from './ui/routing';
-import {RouteWithId} from './ui/routing';
 
 export interface State {
   /** canonical server data */
@@ -56,20 +55,32 @@ export const reducer = combineReducers({
 });
 
 // selector for each sub state, to find it from root
-export const getPlayersState = (state: State): players.State =>
-    state.data.players;
-export const getLeaguesState = (state: State): leagues.State =>
-    state.data.leagues;
-export const getTeamsState = (state: State): teams.State => state.data.teams;
-export const getSearchState = (state: State): search.State => state.data.search;
+export const getPlayersState = (state: State) => state.data.players;
+export const getLeaguesState = (state: State) => state.data.leagues;
+export const getTeamsState = (state: State) => state.data.teams;
+export const getSearchState = (state: State) => state.data.search;
+export const getRoutingState = (state: State) => state.ui.routing;
 
-/** Get :id from the, route, operates on component's ownProps  */
+// Routing
+
 export const getRouteId =
-    (state: State, props: RouteComponentProps<RouteWithId>): string => {
-      return props.match.params.id;
-    };
+    (state: State, props: RouteComponentProps<routing.RouteWithId>) =>
+        routing.getId(getRoutingState(state), props);
+export const getQueryParams = <T>(state: State) =>
+    routing.getQueryParams<T>(getRoutingState(state));
+
+// Player
 
 export const getSelectedPlayer = createSelector(
     [getRouteId, getPlayersState],
     (id: string, state: players.State): Player | undefined =>
         players.getPlayerById(state, id));
+
+// Search
+
+export const getSearchResults = (state: State) =>
+    search.getResults(getSearchState(state));
+export const getSearchIsLoading = (state: State) =>
+    search.getIsLoading(getSearchState(state));
+export const getSearchError = (state: State) =>
+    search.getError(getSearchState(state));

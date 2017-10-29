@@ -1,33 +1,29 @@
 import * as React from 'react';
-import configureMockStore from 'redux-mock-store';
 import { render } from 'react-dom';
-import { Search, Props } from './index';
-import { INITIAL_STATE } from '../../reducers/search';
+import { Search, ViewModel, Actions } from './index';
 import { StaticRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
-const DEFAULT_PROPS: Props = {
-  search: INITIAL_STATE,
+const props: ViewModel = {
+  isLoading: false,
+  results: [],
+  params: {
+    query: 'test',
+  }
 };
 
-const mockStore = configureMockStore();
-
-const mockStoreState = {
-  data: {
-    search: {},
-  },
-};
+const actions: Actions = {
+  search: jasmine.createSpy('search'),
+  dispatch: jasmine.createSpy('dispatch'),
+}
 
 const context = {};
 
 it('renders without crashing', () => {
-  const store = mockStore(mockStoreState);
   const div = document.createElement('div');
   render(
-    <Provider store={store}>
-      <StaticRouter location="/" context={context}>
-        <Search {...DEFAULT_PROPS} />
-      </StaticRouter>
-    </Provider>,
+
+    <StaticRouter location="/" context={context}>
+      <Search {...props} {...actions} />
+    </StaticRouter>,
     div);
 });

@@ -13,6 +13,9 @@ interface ClientConfig {
 }
 
 export function createClient(config: ClientConfig) {
+  if (!config) {
+    throw new Error('config.es is not set');
+  }
   const accessKeyId: string = config.access_key_id;
   const secretAccessKey: string = config.secret_access_key;
   const region: string = config.region || 'us-west-1';
