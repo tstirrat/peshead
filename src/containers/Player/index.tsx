@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import Grid from 'material-ui/Grid';
 import Card from 'material-ui/Card';
-import { RouteComponentProps } from 'react-router-dom';
+import { createSelector } from 'reselect';
 import Typography from 'material-ui/Typography';
 import { CardContent } from 'material-ui/Card';
 import { Loading } from '../../components/Loading';
@@ -13,8 +13,8 @@ import { PlayerBasics } from '../../components/PlayerBasics';
 import * as fromRoot from '../../reducers';
 import * as players from '../../actions/players';
 
-export interface Props {
-  id: string;
+export interface ViewModel {
+  id?: string;
   player?: PlayerModel;
   isLoading: boolean;
 }
@@ -24,10 +24,12 @@ interface Actions {
   dispatch: Dispatch<fromRoot.State>;
 }
 
-export class Player extends React.Component<Props & Actions> {
+export class Player extends React.Component<ViewModel & Actions> {
 
   componentDidMount() {
-    this.props.getPlayer(this.props.id);
+    if (this.props.id) {
+      this.props.getPlayer(this.props.id);
+    }
   }
 
   renderPlayer() {
@@ -58,23 +60,15 @@ export class Player extends React.Component<Props & Actions> {
   }
 }
 
-interface RouteWithId {
-  id: string;
-}
-
-const getRoutePlayerId = (props: RouteComponentProps<RouteWithId>): string => {
-  return props.match.params.id;
-};
-
-const getSelectedPlayer = (state: fromRoot.State, ownProps: RouteComponentProps<RouteWithId>): Props => {
-  const id = getRoutePlayerId(ownProps);
-  const player = fromRoot.getPlayerById(state, id);
-  return {
-    id,
-    player,
-    isLoading: !player,
-  };
-};
+const getViewModel = createSelector(
+  [fromRoot.getRouteId, fromRoot.getSelectedPlayer],
+  (id: string, player: PlayerModel | undefined): ViewModel => {
+    return {
+      id,
+      player,
+      isLoading: !player,
+    };
+  });
 
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
@@ -85,4 +79,4 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
 
 // tslint:disable-next-line:variable-name
 export const ConnectedPlayer =
-  withRouter(connect(getSelectedPlayer, getActions)(Player));
+  withRouter(connect(getViewModel, getActions)(Player));

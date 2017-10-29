@@ -1,8 +1,8 @@
 import {ComPlayingStyle, Country, Foot, IPlayer, Player, PlayingStyle, Position, Skill} from '../shared/service/api';
 
 export const base: IPlayer = {
-  id: 7511,
-  commentaryId: 7511,
+  id: '7511',
+  commentaryId: '7511',
   name: 'L. MESSI',
   kitName: 'L. MESSI',
   age: 30,

@@ -1,11 +1,16 @@
-import {routerReducer, RouterState} from 'react-router-redux';
+import {RouteComponentProps} from 'react-router';
 import {combineReducers} from 'redux';
+import {createSelector} from 'reselect';
+
+import {Player} from '../shared/service/api';
 
 import * as leagues from './leagues';
 import * as players from './players';
 import * as search from './search';
 import * as teams from './teams';
 import * as app from './ui/app';
+import * as routing from './ui/routing';
+import {RouteWithId} from './ui/routing';
 
 export interface State {
   /** canonical server data */
@@ -17,8 +22,8 @@ export interface State {
   };
   /** ui state */
   ui: {
-    app: app.State;        // clang-format
-    routing: RouterState;  //
+    app: app.State;          // clang-format
+    routing: routing.State;  //
   };
 }
 
@@ -46,7 +51,7 @@ export const reducer = combineReducers({
   }),
   ui: combineReducers({
     app: app.reducer,
-    routing: routerReducer,
+    routing: routing.reducer,
   }),
 });
 
@@ -58,5 +63,13 @@ export const getLeaguesState = (state: State): leagues.State =>
 export const getTeamsState = (state: State): teams.State => state.data.teams;
 export const getSearchState = (state: State): search.State => state.data.search;
 
-export const getPlayerById = (state: State, id: string) =>
-    players.getPlayerById(getPlayersState(state), id);
+/** Get :id from the, route, operates on component's ownProps  */
+export const getRouteId =
+    (state: State, props: RouteComponentProps<RouteWithId>): string => {
+      return props.match.params.id;
+    };
+
+export const getSelectedPlayer = createSelector(
+    [getRouteId, getPlayersState],
+    (id: string, state: players.State): Player | undefined =>
+        players.getPlayerById(state, id));
