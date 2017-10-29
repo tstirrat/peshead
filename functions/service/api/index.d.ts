@@ -556,7 +556,7 @@ export enum Country {
 export interface IPlayer {
 
     /** Player id */
-    id: string;
+    id?: string;
 
     /** Player commentaryId */
     commentaryId?: string;
