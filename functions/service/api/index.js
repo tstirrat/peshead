@@ -1120,7 +1120,7 @@ $root.Player = (function() {
      * Properties of a Player.
      * @exports IPlayer
      * @interface IPlayer
-     * @property {string} id Player id
+     * @property {string} [id] Player id
      * @property {string} [commentaryId] Player commentaryId
      * @property {string} [name] Player name
      * @property {string} [kitName] Player kitName
@@ -1344,7 +1344,8 @@ $root.Player = (function() {
     Player.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+        if (message.id != null && message.hasOwnProperty("id"))
+            writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
         if (message.commentaryId != null && message.hasOwnProperty("commentaryId"))
             writer.uint32(/* id 2, wireType 2 =*/18).string(message.commentaryId);
         if (message.name != null && message.hasOwnProperty("name"))
@@ -1526,8 +1527,6 @@ $root.Player = (function() {
                 break;
             }
         }
-        if (!message.hasOwnProperty("id"))
-            throw $util.ProtocolError("missing required 'id'", { instance: message });
         return message;
     };
 
@@ -1558,8 +1557,9 @@ $root.Player = (function() {
     Player.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (!$util.isString(message.id))
-            return "id: string expected";
+        if (message.id != null && message.hasOwnProperty("id"))
+            if (!$util.isString(message.id))
+                return "id: string expected";
         if (message.commentaryId != null && message.hasOwnProperty("commentaryId"))
             if (!$util.isString(message.commentaryId))
                 return "commentaryId: string expected";
