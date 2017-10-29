@@ -59,12 +59,12 @@ export const base: IPlayer = {
   }
 };
 
-function makePlayer(attrs: Partial<IPlayer>): IPlayer {
+function makePlayer(attrs: Partial<IPlayer>): Player {
   const merged = {
     ...base,
     ...attrs,
   };
-  return Player.create(merged).toJSON();  // ensures a copy
+  return Player.create(merged);  // ensures a copy
 }
 
 export const make = {

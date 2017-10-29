@@ -3,8 +3,8 @@ syntax = "proto3";
 import "common.proto";
 
 message Player {
-  uint32 id = 1;
-  uint32 commentaryId = 2;
+  required string id = 1;
+  string commentaryId = 2;
   string name = 3;
   string kitName = 4;
   uint32 age = 5;

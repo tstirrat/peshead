@@ -12,7 +12,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import * as app from '../../reducers/ui/app';
 import { League } from '../League';
 import { Team } from '../Team';
-import { Player } from '../Player';
+import { ConnectedPlayer } from '../Player';
 import { ConnectedSearch } from '../Search';
 
 import './App.css';
@@ -43,7 +43,7 @@ export class App extends React.Component<Props & RouteProps, State> {
         <div className="App-container">
           <Route exact={true} path="/" component={ConnectedSearch} />
           <Route exact={true} path="/leagues/:id" component={League} />
-          <Route exact={true} path="/players/:id" component={Player} />
+          <Route exact={true} path="/players/:id" component={ConnectedPlayer} />
           <Route exact={true} path="/teams/:id" component={Team} />
         </div>
       </div>
@@ -55,4 +55,5 @@ function mapStateToProps(state: GlobalState) {
   return { app: state.ui.app };
 }
 
+// tslint:disable-next-line:variable-name
 export const ConnectedApp = connect(mapStateToProps)(App);

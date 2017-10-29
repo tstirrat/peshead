@@ -1,33 +1,49 @@
+import {firestore} from 'firebase';
 import {Action} from 'redux';
 import {combineEpics, Epic} from 'redux-observable';
-import {of as observableOf} from 'rxjs/Observable/of';
-import {delay} from 'rxjs/operators/delay';
-import {map} from 'rxjs/operators/map';
 import {switchMap} from 'rxjs/operators/switchMap';
 
-import {make} from '../__test__/fixtures';
 import * as players from '../actions/players';
 import {EpicDependencies} from '../epics';
 import {State as GlobalState} from '../reducers';
-import {IPlayer} from '../shared/service/api';
-
+import {Player} from '../shared/service/api';
 
 export const getPlayers: Epic<Action, GlobalState, EpicDependencies> =
     (action$, store, deps) =>
-        action$.ofType(players.PLAYERS_REQUEST)
-            .pipe(switchMap((action: players.PlayersRequestAction) => {
-              const fakePlayers = new Array(20).fill(null).map((_, i) => {
-                return make.player({
-                  id: i,
-                  name: `Player ${i}`,
-                });
-              });
-              return observableOf(fakePlayers)
-                  .pipe(
-                      delay(500),
-                      map((results: IPlayer[]) =>
-                              new players.PlayersSuccessAction({results})));
+        action$.ofType(players.GET_PLAYERS)
+            .pipe(switchMap((action: players.GetPlayersAction) => {
+              const {limit} = action.payload;  // TODO: sorting
+              const db: firestore.Firestore =
+                  // tslint:disable-next-line:no-any
+                  (deps.firebaseApp as any)  // firebase/firebase-js-sdk#264
+                      .firestore();
+              return db.collection('players')
+                  .limit(limit)
+                  .get()
+                  .then(snapshot => {
+                    const results: Player[] = [];
+                    snapshot.forEach(
+                        p => results.push(Player.create(p.data())));
+                    return results;
+                  })
+                  .then(results => players.getPlayersSuccess(results))
+                  .catch(error => players.getPlayersError(error));
             }));
 
+export const getPlayer: Epic<Action, GlobalState, EpicDependencies> =
+    (action$, store, deps) =>
+        action$.ofType(players.GET_PLAYER)
+            .pipe(switchMap((action: players.GetPlayerAction) => {
+              const id = action.payload;
+              const db: firestore.Firestore =
+                  // tslint:disable-next-line:no-any
+                  (deps.firebaseApp as any)  // firebase/firebase-js-sdk#264
+                      .firestore();
+              return db.doc(`players/${id}`)
+                  .get()
+                  .then(snapshot => Player.create(snapshot.data()))
+                  .then(player => players.getPlayerSuccess(player))
+                  .catch(error => players.getPlayerError({id, error}));
+            }));
 
-export const epics = combineEpics(getPlayers);
+export const epics = combineEpics(getPlayers, getPlayer);

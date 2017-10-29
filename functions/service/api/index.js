@@ -1120,8 +1120,8 @@ $root.Player = (function() {
      * Properties of a Player.
      * @exports IPlayer
      * @interface IPlayer
-     * @property {number} [id] Player id
-     * @property {number} [commentaryId] Player commentaryId
+     * @property {string} id Player id
+     * @property {string} [commentaryId] Player commentaryId
      * @property {string} [name] Player name
      * @property {string} [kitName] Player kitName
      * @property {number} [age] Player age
@@ -1162,19 +1162,19 @@ $root.Player = (function() {
 
     /**
      * Player id.
-     * @member {number}id
+     * @member {string}id
      * @memberof Player
      * @instance
      */
-    Player.prototype.id = 0;
+    Player.prototype.id = "";
 
     /**
      * Player commentaryId.
-     * @member {number}commentaryId
+     * @member {string}commentaryId
      * @memberof Player
      * @instance
      */
-    Player.prototype.commentaryId = 0;
+    Player.prototype.commentaryId = "";
 
     /**
      * Player name.
@@ -1344,10 +1344,9 @@ $root.Player = (function() {
     Player.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.id != null && message.hasOwnProperty("id"))
-            writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.id);
+        writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
         if (message.commentaryId != null && message.hasOwnProperty("commentaryId"))
-            writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.commentaryId);
+            writer.uint32(/* id 2, wireType 2 =*/18).string(message.commentaryId);
         if (message.name != null && message.hasOwnProperty("name"))
             writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
         if (message.kitName != null && message.hasOwnProperty("kitName"))
@@ -1435,10 +1434,10 @@ $root.Player = (function() {
             var tag = reader.uint32();
             switch (tag >>> 3) {
             case 1:
-                message.id = reader.uint32();
+                message.id = reader.string();
                 break;
             case 2:
-                message.commentaryId = reader.uint32();
+                message.commentaryId = reader.string();
                 break;
             case 3:
                 message.name = reader.string();
@@ -1527,6 +1526,8 @@ $root.Player = (function() {
                 break;
             }
         }
+        if (!message.hasOwnProperty("id"))
+            throw $util.ProtocolError("missing required 'id'", { instance: message });
         return message;
     };
 
@@ -1557,12 +1558,11 @@ $root.Player = (function() {
     Player.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.id != null && message.hasOwnProperty("id"))
-            if (!$util.isInteger(message.id))
-                return "id: integer expected";
+        if (!$util.isString(message.id))
+            return "id: string expected";
         if (message.commentaryId != null && message.hasOwnProperty("commentaryId"))
-            if (!$util.isInteger(message.commentaryId))
-                return "commentaryId: integer expected";
+            if (!$util.isString(message.commentaryId))
+                return "commentaryId: string expected";
         if (message.name != null && message.hasOwnProperty("name"))
             if (!$util.isString(message.name))
                 return "name: string expected";
@@ -1948,9 +1948,9 @@ $root.Player = (function() {
             return object;
         var message = new $root.Player();
         if (object.id != null)
-            message.id = object.id >>> 0;
+            message.id = String(object.id);
         if (object.commentaryId != null)
-            message.commentaryId = object.commentaryId >>> 0;
+            message.commentaryId = String(object.commentaryId);
         if (object.name != null)
             message.name = String(object.name);
         if (object.kitName != null)
@@ -3120,8 +3120,8 @@ $root.Player = (function() {
             object.playerSkills = [];
         }
         if (options.defaults) {
-            object.id = 0;
-            object.commentaryId = 0;
+            object.id = "";
+            object.commentaryId = "";
             object.name = "";
             object.kitName = "";
             object.age = 0;

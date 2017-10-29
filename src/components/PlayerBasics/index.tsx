@@ -1,14 +1,14 @@
-import { IPlayer } from '../../shared/service/api';
+import { Player } from '../../shared/service/api';
 import Table, { TableCell, TableRow, TableBody } from 'material-ui/Table';
 import * as React from 'react';
 
 export interface Props {
-  player: IPlayer;
+  player: Player;
 }
 
 export class PlayerBasics extends React.PureComponent<Props> {
   render() {
-    const { player } = this.props!;
+    const { player } = this.props;
     return (
       <Table>
         <TableBody>

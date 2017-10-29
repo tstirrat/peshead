@@ -12,7 +12,7 @@ export interface State {
   };
 }
 
-export const initialState: State = {
+export const INITIAL_STATE: State = {
   ui: {
     isLoading: true,
   },
@@ -20,7 +20,7 @@ export const initialState: State = {
 };
 
 export const reducer: Reducer<State> =
-    (state = initialState, action: search.Actions) => {
+    (state = INITIAL_STATE, action: search.Actions) => {
       switch (action.type) {
         case search.SEARCH_REQUEST: {
           return {
