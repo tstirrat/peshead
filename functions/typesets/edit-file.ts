@@ -147,16 +147,26 @@ export const EditFile = {
       ] as Definition[]
     ],
 
-    // 8 bytes
+    // 4 bytes
     block6: [
-      PackedBits, 'uint64',
+      PackedBits,
+      'uint32',
       [
-        {key: 'jump', bits: 7},                      // for clang-format
-        {key: 'motionRunningArms', bits: 3},         //
-        {key: 'motionCornerKick', bits: 3},          //
-        {key: 'coverage', bits: 7},                  //
-        {key: 'weakFootUsage', bits: 2},             //
-        {key: 'playablePosition', bits: 26},         // TODO: separate this
+        {key: 'jump', bits: 7},               // for clang-format
+        {key: 'motionRunningArms', bits: 3},  // unsure
+        {key: 'motionCornerKick', bits: 3},   // unsure
+        {key: 'unknown', bits: 3},            // unsure
+        {key: 'coverage', bits: 7},           //
+        {key: 'playablePosition', bits: 10},  // TODO: separate this
+      ] as Definition[],
+    ],
+
+    // 4 bytes
+    block7: [
+      PackedBits,
+      'uint32',
+      [
+        {key: 'playablePosition', bits: 18},         // TODO: separate this
         {key: 'motionDribblingHunching', bits: 2},   //
         {key: 'motionRunningHunching', bits: 2},     //
         {key: 'motionPenaltyKick', bits: 2},         //
@@ -167,24 +177,32 @@ export const EditFile = {
       ] as Definition[],
     ],
 
-    // 8 bytes
-    block7: [
-      PackedBits, 'uint64',
+    // 4 bytes
+    block8: [
+      PackedBits,
+      'uint32',
       [
         {key: 'stamina', bits: 7},                   //
+        {key: 'isPlayingStylesEdited', bits: 1},     // unsure
+        {key: 'isComPlayingStylesEdited', bits: 1},  // unsure
         {key: 'speed', bits: 7},                     //
-        {key: 'isPlayingStylesEdited', bits: 1},     //
-        {key: 'isComPlayingStylesEdited', bits: 1},  //
         {key: 'isMotionEdited', bits: 1},            //
         {key: 'isBaseCopy', bits: 1},                //
         {key: 'unknown', bits: 1},                   //
         {key: 'strongFoot', bits: 1},                //
         {key: 'unknown2', bits: 1},                  //
         {key: 'comPlayingStyles', bits: 7},          //
-        {key: 'playerSkills', bits: 28},             //
-        {key: 'unknown3', bits: 8},                  //
+        {key: 'unknown3', bits: 4},                  //
       ] as Definition[],
-      'uint64'
+    ],
+
+    block9: [
+      PackedBits,
+      'uint32',
+      [
+        {key: 'playerSkills', bits: 24},  //
+        {key: 'unknown3', bits: 8},       //
+      ] as Definition[],
     ],
 
     name: ['string0', 46, 'utf-8'],
@@ -330,11 +348,15 @@ export interface Player {
     weakFootAccuracy: number;    //
   };
   block6: {
-    jump: number;                      // clang-format
-    motionRunningArms: number;         //
-    motionCornerKick: number;          //
-    coverage: number;                  //
-    weakFootUsage: number;             //
+    jump: number;               // clang-format
+    motionRunningArms: number;  //
+    motionCornerKick: number;   //
+    coverage: number;           //
+    weakFootUsage: number;      //
+    playablePosition: number;   //
+  };
+
+  block7: {
     playablePosition: number;          //
     motionDribblingHunching: number;   //
     motionRunningHunching: number;     //
@@ -345,7 +367,7 @@ export interface Player {
     isPlayerSkillsEdited: number;      //
   };
 
-  block7: {
+  block8: {
     stamina: number;                   //
     speed: number;                     //
     isPlayingStylesEdited: number;     //
@@ -357,8 +379,13 @@ export interface Player {
     unknown2: number;                  //
     comPlayingStyles: number;          //
     playerSkills: number;              //
-    unknown3: number;                  //
   };
+
+  block9: {
+    playerSkills: number;  //
+    unknown3: number;      //
+  };
+
   isBaseCopy: boolean;
   comPlayingStyles: number;
   unknown06: number;
