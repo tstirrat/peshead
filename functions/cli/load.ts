@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin';
 
 /// <reference path="../@types/jbinary.d.ts" />
 import jBinary = require('jbinary');
-import {Player as PlayerRecord, PlayerAbilities, PlayerMotion} from '../service/api';
+import {IPlayer, Player as PlayerRecord, PlayerAbilities, PlayerMotion} from '../service/api';
 import {EditFile, Player} from '../typesets/edit-file';
 
 const serviceAccount =
@@ -14,10 +14,10 @@ const serviceAccount =
  */
 export async function load(fileName: string) {
   try {
-    const jb: jBinary = await jBinary.load(fileName, EditFile);
+    const jb = await jBinary.load(fileName, EditFile);
 
     console.log(`Loading ${fileName}...`);
-    const editData: EditFile = jb.readAll();
+    const editData = jb.readAll<EditFile>();
 
     admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
 
@@ -26,7 +26,11 @@ export async function load(fileName: string) {
     const playersRef = db.collection('players');
     const remaining = editData.players;
     let count = 0;
-    while (remaining.length && count < 100) {
+    const offset = 5000;
+    if (offset > 0) {
+      remaining.splice(0, offset);
+    }
+    while (remaining.length && count < 10) {
       const batch = remaining.splice(0, 50);
 
       console.log('inserting:', batch.map(p => p.id));
@@ -39,7 +43,7 @@ export async function load(fileName: string) {
         const record = createPlayer(player);
         return playersRef.doc('' + player.id).set(record);
       });
-      const results = await Promise.all(saves)
+      const results = await Promise.all(saves);
       console.log('--- Wrote: ', results.length);
       count++;
     }
@@ -58,11 +62,11 @@ export async function load(fileName: string) {
 }
 
 /** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
-function createPlayer(player: Player) {
+function createPlayer(player: Player): IPlayer {
   return PlayerRecord
       .create({
-        id: player.id,
-        commentaryId: player.commentaryId,
+        id: '' + player.id,
+        commentaryId: '' + player.commentaryId,
         nationality: player.nationality,
         name: player.name,
         kitName: player.printName,
@@ -75,7 +79,7 @@ function createPlayer(player: Player) {
           bodyControl: player.block4.bodyControl,
           catching: player.block3.catching,
           clearing: player.block3.clearing,
-          // coverage: player.block6.coverage,
+          coverage: player.block6.coverage,
           defensiveProwess: player.block1.defensiveProwess,
           dribbling: player.block1.dribbling,
           explosivePower: player.block4.explosivePower,
@@ -83,18 +87,18 @@ function createPlayer(player: Player) {
           form: player.block2.form,
           goalkeeping: player.block1.goalkeeping,
           header: player.block2.header,
-          injuryResistance: player.block3.injuryResistance,
-          // jump: player.block6.jump,
+          // injuryResistance: player.block3.injuryResistance,
+          jump: player.block6.jump,
           kickingPower: player.block4.kickingPower,
           loftedPass: player.block2.loftedPass,
           lowPass: player.block2.lowPass,
           physicalContact: player.block4.physicalContact,
-          // placeKicking: player.block6.placeKicking,
+          placeKicking: player.block7.placeKicking,
           reflexes: player.block3.reflexes,
-          // speed: player.block7.speed,
-          // stamina: player.block7.stamina,
+          speed: player.block8.speed,
+          stamina: player.block8.stamina,
           swerve: player.block3.swerve,
-          weakFootAccuracy: player.block5.weakFootAccuracy,
+          // weakFootAccuracy: player.block5.weakFootAccuracy,
           // weakFootUsage: player.block6.weakFootUsage,
         }),
         // isEdited: player.block2.isCreated,

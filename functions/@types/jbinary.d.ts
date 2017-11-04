@@ -14,10 +14,10 @@
 declare module 'jbinary' {
   class jBinary {
     static loadData(source: any, callback?: (error: string, data: any) => any):
-        any;
+        PromiseLike<jBinary>;
     static load(
         source: any, typeSet?: any,
-        callback?: (error: string, data: any) => any): any;
+        callback?: (error: string, data: any) => any): PromiseLike<jBinary>;
 
     static saveAs(
         destination: any, mimeType?: string,
@@ -29,7 +29,7 @@ declare module 'jbinary' {
     constructor(bufferSize: number, typeSet: Object);
 
     read(type: string, offset?: number): any;
-    readAll(): any;
+    readAll<T = any>(): T;
 
     write(type: string, data: any, offset?: number): number;
     writeAll(data: any): number;
