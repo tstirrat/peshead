@@ -14,6 +14,14 @@
       {
         "source": "**",
         "destination": "/index.html"
+      },
+      {
+        "source": "/api/v1/search",
+        "function": "search"
+      },
+      {
+        "source": "/api/v1/players",
+        "function": "getPlayer"
       }
     ]
   },
