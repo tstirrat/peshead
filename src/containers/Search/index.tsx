@@ -1,30 +1,78 @@
 import * as React from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { State as GlobalState } from '../../reducers';
-import * as search from '../../reducers/search';
+import { Dispatch } from 'redux';
+import Typography from 'material-ui/Typography';
 
-export interface Props {
-  search: search.State;
+import { Player } from '../../../functions/service/api';
+
+import * as search from '../../actions/search';
+import { Loading } from '../../components/Loading';
+import { PlayerTable } from '../../components/PlayerTable';
+import * as fromRoot from '../../reducers';
+
+interface QueryParams {
+  query?: string;
+  sortField?: string;
+  sortDirection?: string;
 }
 
-export class Search extends React.Component<Props> {
+export interface ViewModel {
+  isLoading: boolean;
+  error?: Error;
+  params: QueryParams;
+  results: Player[];
+}
+
+export interface Actions {
+  search: typeof search.search;
+  dispatch: Dispatch<fromRoot.State>;
+}
+
+export class Search extends React.PureComponent<ViewModel & Actions> {
+
+  componentDidMount() {
+    if (this.props.params.query && !this.props.isLoading) {
+      // TODO: needs work, prevent double searches
+      this.props.search({
+        query: this.props.params.query,
+      });
+    }
+  }
+
   render() {
+    const { isLoading, error, results } = this.props;
     return (
       <div className="Search">
         <div className="Search-header">
-          <h2>Search</h2>
-          <p><Link to="/league/1">League 1</Link></p>
-          <p><Link to="/league/2">League 2</Link></p>
+          <Typography type="title">Search results</Typography>
+        </div>
+        <div className="Search-results">
+          <Loading when={isLoading} error={error}>
+            <PlayerTable players={results} />
+          </Loading>
         </div>
       </div>
     );
   }
 }
 
-function mapStateToProps(state: GlobalState): Props {
-  return { search: state.data.search };
-}
+const getViewModel = (state: fromRoot.State): ViewModel => {
+  return {
+    isLoading: fromRoot.getSearchIsLoading(state),
+    error: fromRoot.getSearchError(state),
+    params: fromRoot.getQueryParams<QueryParams>(state),
+    results: fromRoot.getSearchResults(state),
+  };
+};
+
+const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
+  return {
+    search: (query: string) => dispatch(search.search(query)),
+    dispatch,
+  };
+};
 
 // tslint:disable-next-line:variable-name
-export const ConnectedSearch = withRouter(connect(mapStateToProps)(Search));
+export const ConnectedSearch =
+  withRouter(connect(getViewModel, getActions)(Search));

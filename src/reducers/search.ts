@@ -6,6 +6,7 @@ import {Player} from '../shared/service/api';
 export interface State {
   ui: {
     isLoading: boolean;  // TODO: clang-format, tslint don't like each other
+    error?: Error;
   };
   data: {
     results: Player[];  // for now, should be something else here
@@ -14,9 +15,11 @@ export interface State {
 
 export const INITIAL_STATE: State = {
   ui: {
-    isLoading: true,
+    isLoading: false,
   },
-  data: {results: []},
+  data: {
+    results: [],
+  },
 };
 
 export const reducer: Reducer<State> =
@@ -24,17 +27,36 @@ export const reducer: Reducer<State> =
       switch (action.type) {
         case search.SEARCH_REQUEST: {
           return {
-            ...state,
-            isLoading: true,
+            ui: {
+              isLoading: true,
+            },
+            data: {
+              results: [],
+            },
           };
         }
+
         case search.SEARCH_SUCCESS: {
           const {results} = action.payload;
           return {
-            ...state,
-            isLoading: false,
+            ui: {
+              isLoading: false,
+            },
             data: {
               results,
+            }
+          };
+        }
+
+        case search.SEARCH_ERROR: {
+          const error = action.payload;
+          return {
+            ui: {
+              isLoading: false,
+              error,
+            },
+            data: {
+              results: [],
             }
           };
         }
@@ -42,3 +64,7 @@ export const reducer: Reducer<State> =
           return state;
       }
     };
+
+export const getIsLoading = (state: State) => state.ui.isLoading;
+export const getError = (state: State) => state.ui.error;
+export const getResults = (state: State) => state.data.results;
