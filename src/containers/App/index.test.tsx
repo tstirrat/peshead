@@ -5,11 +5,18 @@ import { StaticRouter } from 'react-router-dom';
 
 const context = {};
 
+const props = {
+  login: jasmine.createSpy('login'),
+  logout: jasmine.createSpy('logout'),
+  loadSession: jasmine.createSpy('loadSession'),
+  dispatch: jasmine.createSpy('dispatch'),
+};
+
 it('renders without crashing', () => {
   const div = document.createElement('div');
   render(
     <StaticRouter location="/" context={context}>
-      <App />
+      <App {...props} />
     </StaticRouter>,
     div);
 });
