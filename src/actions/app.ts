@@ -39,7 +39,7 @@ export class AppLogoutSuccessAction implements Action {
   public type: typeof LOGOUT_SUCCESS = LOGOUT_SUCCESS;
 }
 
-export class AppSessionListenAction implements Action {
+export class AppLoadSessionAction implements Action {
   public type: typeof LOAD_SESSION = LOAD_SESSION;
 }
 
@@ -83,7 +83,7 @@ export const logoutSuccess = (): AppLogoutSuccessAction => {
   };
 };
 
-export const loadSession = (): AppSessionListenAction => {
+export const loadSession = (): AppLoadSessionAction => {
   return {
     type: LOAD_SESSION,
   };
@@ -91,4 +91,4 @@ export const loadSession = (): AppSessionListenAction => {
 
 export type Actions = AppLoginAction | AppLoginSuccessAction |
     AppLoginErrorAction | AppLogoutAction | AppLogoutSuccessAction |
-    AppSessionListenAction;
+    AppLoadSessionAction;

@@ -72,7 +72,7 @@ export const logout$: Epic<app.Actions, GlobalState, EpicDependencies> =
 export const loadSession$: Epic<app.Actions, GlobalState, EpicDependencies> =
     (action$, store, deps) =>
         action$.ofType(app.LOAD_SESSION)
-            .pipe(switchMap((action: app.AppSessionListenAction) => {
+            .pipe(switchMap((action: app.AppLoadSessionAction) => {
               const auth = deps.firebaseApp.auth();
               return new Observable<firebase.UserInfo>(
                          obs => auth.onAuthStateChanged(obs))
