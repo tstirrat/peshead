@@ -68,7 +68,7 @@ export const logout$: Epic<app.Actions, GlobalState, EpicDependencies> =
                       catchError(error => observableOf(app.loginError(error))));
             }));
 
-/** Handles the login/logout for all other methods. */
+/** Load the current user (if any) */
 export const loadSession$: Epic<app.Actions, GlobalState, EpicDependencies> =
     (action$, store, deps) =>
         action$.ofType(app.LOAD_SESSION)
@@ -77,10 +77,8 @@ export const loadSession$: Epic<app.Actions, GlobalState, EpicDependencies> =
               return new Observable<firebase.UserInfo>(
                          obs => auth.onAuthStateChanged(obs))
                   .pipe(
-                      map(user => {
-                        return app.loginSuccess(user);
-                      }),
                       filter(user => !!user), take(1),
+                      map(user => app.loginSuccess(user)),
                       catchError(error => observableOf(app.loginError(error))));
             }));
 
