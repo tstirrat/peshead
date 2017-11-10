@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, withRouter, Switch, NavLink } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { connect, Dispatch } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
@@ -9,15 +9,10 @@ import Menu, { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import MenuIcon from 'material-ui-icons/Menu';
 
-import { League } from '../League';
-import { Team } from '../Team';
-import { Home } from '../Home';
+import * as fromApp from '../../actions/app';
 import { User } from '../../models/user';
 import * as fromRoot from '../../reducers';
-import * as fromApp from '../../actions/app';
-import { NotFound } from '../../components/NotFound';
-import { ConnectedPlayer } from '../Player';
-import { ConnectedSearch } from '../Search';
+import { routes } from '../../routes';
 
 import './App.css';
 
@@ -63,14 +58,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
           </Toolbar>
         </AppBar>
         <div className="App-container">
-          <Switch>
-            <Route exact={true} path="/" component={Home} />
-            <Route exact={true} path="/search" component={ConnectedSearch} />
-            <Route exact={true} path="/leagues/:id" component={League} />
-            <Route exact={true} path="/players/:id" component={ConnectedPlayer} />
-            <Route exact={true} path="/teams/:id" component={Team} />
-            <Route exact={true} component={NotFound} />
-          </Switch>
+          {routes}
         </div>
       </div>
     );
