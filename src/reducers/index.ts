@@ -60,6 +60,7 @@ export const getLeaguesState = (state: State) => state.data.leagues;
 export const getTeamsState = (state: State) => state.data.teams;
 export const getSearchState = (state: State) => state.data.search;
 export const getRoutingState = (state: State) => state.ui.routing;
+export const getAppState = (state: State) => state.ui.app;
 
 // Routing
 
@@ -68,6 +69,11 @@ export const getRouteId =
         routing.getId(getRoutingState(state), props);
 export const getQueryParams = <T>(state: State) =>
     routing.getQueryParams<T>(getRoutingState(state));
+
+// App
+
+export const getCurrentUser = (state: State) =>
+    app.getCurrentUser(getAppState(state));
 
 // Player
 
