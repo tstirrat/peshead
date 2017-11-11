@@ -48,9 +48,11 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
           <Typography type="title">Search results</Typography>
         </div>
         <div className="Search-results">
-          <Loading when={isLoading} error={error}>
-            <PlayerTable players={results} />
-          </Loading>
+          <Loading
+            when={isLoading}
+            error={error}
+            render={() => <PlayerTable players={results} />}
+          />
         </div>
       </div>
     );

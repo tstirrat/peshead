@@ -14,6 +14,22 @@ describe('<PlayerStat>', () => {
 
   describe('coloring', () => {
 
+    it('marks 96 stat as .max', () => {
+      const div = document.createElement('div');
+      render(
+        <PlayerStat value={96} />,
+        div);
+      expect(div.querySelector('.PlayerStat')!.classList.contains('max')).toBe(true);
+    });
+
+    it('marks > 96 stat as .max', () => {
+      const div = document.createElement('div');
+      render(
+        <PlayerStat value={99} />,
+        div);
+      expect(div.querySelector('.PlayerStat')!.classList.contains('max')).toBe(true);
+    });
+
     it('marks 90 stat as .very-strong', () => {
       const div = document.createElement('div');
       render(
@@ -25,7 +41,7 @@ describe('<PlayerStat>', () => {
     it('marks > 90 stat as .very-strong', () => {
       const div = document.createElement('div');
       render(
-        <PlayerStat value={99} />,
+        <PlayerStat value={95} />,
         div);
       expect(div.querySelector('.PlayerStat')!.classList.contains('very-strong')).toBe(true);
     });

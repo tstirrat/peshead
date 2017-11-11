@@ -7,6 +7,8 @@ import { createSelector } from 'reselect';
 import Typography from 'material-ui/Typography';
 import { CardContent } from 'material-ui/Card';
 import { Loading } from '../../components/Loading';
+import { PlayerStat } from '../../components/PlayerStat';
+import { PlayerPositionRating } from '../../components/PlayerPositionRating';
 import { Player as PlayerModel } from '../../shared/service/api';
 import { PlayerAbilities } from '../../components/PlayerAbilities';
 import { PlayerBasics } from '../../components/PlayerBasics';
@@ -33,14 +35,25 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
   }
 
   renderPlayer() {
+    const player = this.props.player!;
     return (
       <Grid container={true} spacing={24}>
+        <Grid item={true} xs={12} sm={12}>
+          <Typography type="title">
+            {player.name}
+            <PlayerPositionRating
+              player={player}
+              position={player.registeredPosition}
+              render={rating => <PlayerStat value={rating} />}
+            />
+          </Typography>
+        </Grid>
         <Grid item={true} xs={12} sm={6}>
           <Card>
             <CardContent>
               <Typography type="title">Basics</Typography>
             </CardContent>
-            <PlayerBasics player={this.props.player!} />
+            <PlayerBasics player={player} />
           </Card>
         </Grid>
         <Grid item={true} xs={12} sm={6}>
@@ -48,7 +61,7 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
             <CardContent>
               <Typography type="title">Abilities</Typography>
             </CardContent>
-            <PlayerAbilities player={this.props.player!} />
+            <PlayerAbilities player={player} />
           </Card>
         </Grid>
       </Grid>
@@ -57,9 +70,10 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
 
   render() {
     return (
-      <Loading when={this.props.isLoading}>
-        {this.renderPlayer()}
-      </Loading>
+      <Loading
+        when={this.props.isLoading}
+        render={() => this.renderPlayer()}
+      />
     );
   }
 }

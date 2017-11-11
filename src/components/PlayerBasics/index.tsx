@@ -1,3 +1,4 @@
+import { PlayerPositionChart } from '../PlayerPositionChart';
 import { Player } from '../../shared/service/api';
 import Table, { TableCell, TableRow, TableBody } from 'material-ui/Table';
 import * as React from 'react';
@@ -39,6 +40,15 @@ export class PlayerBasics extends React.PureComponent<Props> {
           <TableRow>
             <TableCell>Print name</TableCell>
             <TableCell>{player.kitName}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Position</TableCell>
+            <TableCell>{player.registeredPosition}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell colSpan={2}>
+              <PlayerPositionChart player={player} />
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
