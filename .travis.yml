@@ -15,7 +15,10 @@ script:
 after_script:
   - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
 
-before_deploy: "npm run build"
+before_deploy:
+  - npm run build
+  - cd functions && npm run build
+  - cd $TRAVIS_BUILD_DIR # go back to project root
 deploy:
   provider: firebase
   token:
