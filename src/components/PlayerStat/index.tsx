@@ -15,6 +15,7 @@ enum Band {
   AVERAGE = 70,
   STRONG = 80,
   VERY_STRONG = 90,
+  MAX = 96,
 }
 
 const BAND_CLASS: { [b: number]: string } = {
@@ -22,15 +23,16 @@ const BAND_CLASS: { [b: number]: string } = {
   [Band.WEAK]: 'weak',                // dark-orange
   [Band.AVERAGE]: 'average',          // yellow
   [Band.STRONG]: 'strong',            // green
-  [Band.VERY_STRONG]: 'very-strong',  // blue green
+  [Band.VERY_STRONG]: 'very-strong',  // blue-green
+  [Band.MAX]: 'max',                  // light blue-green
 };
 
 export class PlayerStat extends React.PureComponent<Props> {
   render() {
     return (
-      <div className={'PlayerStat ' + this.getStrengthClass()}>
+      <span className={'PlayerStat ' + this.getStrengthClass()}>
         <span className="stat">{this.props.value}</span>
-      </div>
+      </span>
     );
   }
 
@@ -38,7 +40,9 @@ export class PlayerStat extends React.PureComponent<Props> {
   private getStrengthClass() {
     const maxValue = this.props.maxValue || DEFAULT_MAX;
     const percentage = (this.props.value / maxValue) * 100;
-    if (percentage >= Band.VERY_STRONG) {
+    if (percentage >= Band.MAX) {
+      return BAND_CLASS[Band.MAX];
+    } else if (percentage >= Band.VERY_STRONG) {
       return BAND_CLASS[Band.VERY_STRONG];
     } else if (percentage >= Band.STRONG) {
       return BAND_CLASS[Band.STRONG];
