@@ -25,6 +25,6 @@ deploy:
   token:
     secure: RztCvOjFQlBaUuuwOZyEwQeR+59mfclpK4cO4RvV5o/Yr5Xf9AWZQeFY+0mGsehB/L0aGQMg2fDw6BvLuNKpVHJbFrLPsPBjZZYtr5nmZETNFTIodqWvD8OH7FpHmQOSGru4MBepBhILrZ0sReBU6AA9j7I/A7GJi8sENQLzN9qhTvHQOkdFOvr7+Yz9qQAFq6iyHQOZnzV/7nf75dMh0tfxKxBilMj98pgR6L06RRVhQT4qtdEGuS0ZkFyJjBoZndhBUmWra7FQ1BYRwu+xy5/2wvH5jwt6crZwwK/b/C5vLd+4q43cVVVzNAIEo/K1/D6PbAHwN9cTIhwy+Z94EOT3oTwQq1FN+mi97pBx99YvZXRjwsXg5xMwVG0fnIffqETP2y4F93Y0sA4M2qyKUW/3CtzcNDJOzIh8XvVLMhq3q2oysYsaLu+NIVuZ75xe1wtreuyu7wo3UBYgrRSQUW2De784G+QbthYBTXj4B5yDvfBd7f589LYw9AiD6w5Xc5l91YbFWoGnvldZKSStOrriTwvv5cYPtoBcn9eCFQTkhF1EK4bzEXqu+XCuvkSgXgq6X3Xx/DmNAVzUeKcxVoU7qob2D29QxnPlxQEJ0gE2eb/hSVusPO6pAtzx6RTzx9f1+ATeDxSOGFxoBGiklwKyJ2e0qIaguzqHzc7qHmw=
   project: "pesleagues-dev"
-  message: "travis auto: $TRAVIS_PULL_REQUEST_SHA"
+  message: "[travis auto $TRAVIS_COMMIT] $TRAVIS_COMMIT_MESSAGE"
   on:
     branch: master
