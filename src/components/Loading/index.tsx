@@ -7,6 +7,7 @@ import './Loading.css';
 
 interface ViewModel {
   when: boolean;
+  render: Function;
   error?: Error;
 }
 
@@ -23,7 +24,7 @@ export class Loading extends React.PureComponent<ViewModel> {
     } else {
       return (
         <div>
-          {this.props.children}
+          {this.props.render()}
         </div>
       );
     }

@@ -57,9 +57,10 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
 
   render() {
     return (
-      <Loading when={this.props.isLoading}>
-        {this.renderPlayer()}
-      </Loading>
+      <Loading
+        when={this.props.isLoading}
+        render={() => this.renderPlayer()}
+      />
     );
   }
 }

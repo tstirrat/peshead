@@ -7,9 +7,10 @@ describe('<Loading>', () => {
   it('displays spinner when [when] is true', () => {
     const div = document.createElement('div');
     render(
-      <Loading when={true}>
-        <div className="child"></div>
-      </Loading>,
+      <Loading
+        when={true}
+        render={() => <div className="child"></div>}
+      />,
       div);
     expect(div.querySelector('[role=progressbar]')).not.toBeNull();
   });
@@ -17,9 +18,10 @@ describe('<Loading>', () => {
   it('does not display children when [when] is true', () => {
     const div = document.createElement('div');
     render(
-      <Loading when={true}>
-        <div className="child"></div>
-      </Loading>,
+      <Loading
+        when={true}
+        render={() => <div className="child"></div>}
+      />,
       div);
     expect(div.querySelector('.child')).toBeNull();
   });
@@ -27,9 +29,10 @@ describe('<Loading>', () => {
   it('displays children when [when] is false', () => {
     const div = document.createElement('div');
     render(
-      <Loading when={false}>
-        <div className="child"></div>
-      </Loading>,
+      <Loading
+        when={false}
+        render={() => <div className="child"></div>}
+      />,
       div);
     expect(div.querySelector('.child')).not.toBeNull();
   });
@@ -38,9 +41,11 @@ describe('<Loading>', () => {
     const div = document.createElement('div');
     const err = new Error('Unable to do things');
     render(
-      <Loading when={false} error={err}>
-        <div className="child"></div>
-      </Loading>,
+      <Loading
+        when={false}
+        error={err}
+        render={() => <div className="child"></div>}
+      />,
       div);
     expect(div.querySelector('.ErrorPanel')).not.toBeNull();
   });
