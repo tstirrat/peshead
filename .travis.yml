@@ -9,7 +9,7 @@ branches:
   only:
   - master
 script:
-  - npm run build
+  # - npm run build
   - npm test -- --maxWorkers=2 --coverage
   - cd functions && npm install && npm test -- --maxWorkers=2
   - cd $TRAVIS_BUILD_DIR # go back into main folder
