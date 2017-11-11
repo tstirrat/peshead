@@ -9,6 +9,7 @@ config/service-account.json
 
 # testing
 /coverage
+/functions/coverage
 
 # production
 /build
