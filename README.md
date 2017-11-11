@@ -1,7 +1,7 @@
 PES League Editor
 =========================
 
-[![Build Status](https://travis-ci.org/tstirrat/pesleagues.svg?branch=master)](https://travis-ci.org/tstirrat/pesleagues)
+[![Build Status](https://travis-ci.org/tstirrat/pesleagues.svg?branch=master)](https://travis-ci.org/tstirrat/pesleagues) [![Coverage Status](https://coveralls.io/repos/github/tstirrat/pesleagues/badge.svg)](https://coveralls.io/github/tstirrat/pesleagues)
 
 Edit players, teams, leagues online.
 

@@ -48,6 +48,11 @@
       "ts",
       "tsx",
       "json"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx,ts,tsx}",
+      "!{build,coverage,@types}/**",
+      "!service/api/*.{js,jsx,ts,tsx}"
     ]
   }
 }

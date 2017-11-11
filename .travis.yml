@@ -9,6 +9,9 @@ branches:
   only:
   - master
 script:
-  - npm run build
-  - npm test -- --maxWorkers=2
-  - cd functions && npm install && npm test -- --maxWorkers=2
+  # - npm run build
+  - npm test -- --maxWorkers=2 --coverage
+  - cd functions && npm install && npm test -- --maxWorkers=2 --coverage
+  - cd $TRAVIS_BUILD_DIR # go back to project root
+after_script:
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
