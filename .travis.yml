@@ -10,5 +10,7 @@ branches:
   - master
 script:
   - npm run build
-  - npm test -- --maxWorkers=2
+  - npm test -- --maxWorkers=2 --coverage
   - cd functions && npm install && npm test -- --maxWorkers=2
+after_script:
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
