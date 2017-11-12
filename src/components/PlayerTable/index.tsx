@@ -7,12 +7,13 @@ export interface Props {
   players: Player[];
 }
 
+const cellProps: TableCellProps = {
+  padding: 'none'
+};
+
 export class PlayerTable extends React.PureComponent<Props> {
   render() {
     const { players } = this.props;
-    const cellProps: TableCellProps = {
-      padding: 'none'
-    };
     return (
       <Table className="PlayerTable">
         <TableHead>

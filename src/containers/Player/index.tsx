@@ -44,7 +44,7 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
             <PlayerPositionRating
               player={player}
               position={player.registeredPosition}
-              render={rating => <PlayerStat value={rating} />}
+              render={this.renderPlayerStat}
             />
           </Typography>
         </Grid>
@@ -75,6 +75,10 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
         render={() => this.renderPlayer()}
       />
     );
+  }
+
+  renderPlayerStat(rating: number) {
+    return <PlayerStat value={rating} />;
   }
 }
 
