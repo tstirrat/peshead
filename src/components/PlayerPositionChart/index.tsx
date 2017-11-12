@@ -26,21 +26,21 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
               <PlayerPositionRating
                 player={player}
                 position={Position.LEFT_WING_FORWARD}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
             <td className="cf">
               <PlayerPositionRating
                 player={player}
                 position={Position.CENTRE_FORWARD}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
             <td rowSpan={2} className="rwf">
               <PlayerPositionRating
                 player={player}
                 position={Position.RIGHT_WING_FORWARD}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
           </tr>
@@ -49,7 +49,7 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
               <PlayerPositionRating
                 player={player}
                 position={Position.SECOND_STRIKER}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
           </tr>
@@ -59,21 +59,21 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
               <PlayerPositionRating
                 player={player}
                 position={Position.LEFT_MIDFIELDER}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
             <td className="amf">
               <PlayerPositionRating
                 player={player}
                 position={Position.ATTACKING_MIDFIELDER}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
             <td rowSpan={3} className="rmf">
               <PlayerPositionRating
                 player={player}
                 position={Position.RIGHT_MIDFIELDER}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
           </tr>
@@ -82,7 +82,7 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
               <PlayerPositionRating
                 player={player}
                 position={Position.CENTRE_MIDFIELDER}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
           </tr>
@@ -91,7 +91,7 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
               <PlayerPositionRating
                 player={player}
                 position={Position.DEFENSIVE_MIDFIELDER}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
           </tr>
@@ -101,21 +101,21 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
               <PlayerPositionRating
                 player={player}
                 position={Position.LEFT_BACK}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
             <td className="cb">
               <PlayerPositionRating
                 player={player}
                 position={Position.CENTRE_BACK}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
             <td rowSpan={2} className="rb">
               <PlayerPositionRating
                 player={player}
                 position={Position.RIGHT_BACK}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
           </tr>
@@ -124,7 +124,7 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
               <PlayerPositionRating
                 player={player}
                 position={Position.GOALKEEPER}
-                render={rating => <PlayerStat value={rating} />}
+                render={renderPlayerStat}
               />
             </td>
           </tr>
@@ -133,3 +133,5 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
     );
   }
 }
+
+const renderPlayerStat = (rating: number) => <PlayerStat value={rating} />;

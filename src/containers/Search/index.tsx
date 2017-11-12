@@ -41,7 +41,7 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
   }
 
   render() {
-    const { isLoading, error, results } = this.props;
+    const { isLoading, error } = this.props;
     return (
       <div className="Search">
         <div className="Search-header">
@@ -51,11 +51,16 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
           <Loading
             when={isLoading}
             error={error}
-            render={() => <PlayerTable players={results} />}
+            render={this.renderPlayerTable}
           />
         </div>
       </div>
     );
+  }
+
+  private renderPlayerTable = () => {
+    const { results } = this.props;
+    return <PlayerTable players={results} />;
   }
 }
 
