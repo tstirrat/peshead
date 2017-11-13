@@ -11,7 +11,9 @@
     "build/": true,
     "node_modules/": true,
     "functions/node_modules/": true,
-    "functions/build/": true
+    "functions/build/": true,
+    "coverage/": true,
+    "functions/coverage/": true
   },
   "editor.formatOnSave": true
 }
