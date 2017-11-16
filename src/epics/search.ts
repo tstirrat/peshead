@@ -26,7 +26,14 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> =
                   .getJSON<SearchResponse<Player>>(
                       `${url}?query=${encodeURIComponent(query)}`)
                   .pipe(
-                      map(res => res.hits.hits.map(hit => hit._source)),
+                      map(res => res.hits.hits.map(hit => {
+                        // Search results strip the player.id and
+                        // surface it in hit._id
+                        return {
+                          ...hit._source,
+                          id: hit._id,
+                        } as Player;
+                      })),
                       map(players => search.searchSuccess(players)),
                       catchError(err => of (search.searchError(err))));
             }));
