@@ -2,6 +2,7 @@ import { Player } from '../../shared/service/api';
 import { PlayerStat } from '../PlayerStat';
 import Table, { TableCell, TableRow, TableBody, TableHead, TableCellProps } from 'material-ui/Table';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 export interface Props {
   players: Player[];
@@ -33,8 +34,12 @@ export class PlayerTable extends React.PureComponent<Props> {
         </TableHead>
         <TableBody>
           {players.map(player => (
-            <TableRow key={player.id} id={player.id} onClick={this.goToPlayer} hover={true}>
-              <TableCell {...cellProps} className="name">{player.name}</TableCell>
+            <TableRow key={player.id} id={player.id} hover={true}>
+              <TableCell {...cellProps} className="name">
+                <Link to={`/players/${player.id}`}>
+                  {player.name}
+                </Link>
+              </TableCell>
               <TableCell {...cellProps} className="pos">{player.registeredPosition}</TableCell>
               <TableCell {...cellProps} className="age">{player.age}</TableCell>
               {/* Team */}
@@ -63,12 +68,5 @@ export class PlayerTable extends React.PureComponent<Props> {
         </TableBody>
       </Table>
     );
-  }
-
-  // tslint:disable-next-line:no-any possible confusion between node and DOM
-  private goToPlayer = (e: any) => {
-    e.preventDefault();
-    // const row = e.currentTarget as HTMLTableRowElement;
-    // TODO: use router to nav to player
   }
 }
