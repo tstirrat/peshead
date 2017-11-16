@@ -53,7 +53,7 @@ exports.updatePlayerIndex =
       const client = createClient(functions.config().es);
 
       // removal
-      if (player === null) {
+      if (event.data === null) {
         console.log('[search] removing player', playerId);
         return await removePlayer(client, playerId);
       }
