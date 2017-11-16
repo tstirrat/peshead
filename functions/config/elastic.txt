@@ -1,0 +1,46 @@
+DELETE /players
+
+PUT /players
+{
+    "settings": {
+        "number_of_shards": 1,
+        "analysis": {
+            "filter": {
+                "ngram_filter": {
+                    "type":     "edge_ngram",
+                    "min_gram": 1,
+                    "max_gram": 20
+                }
+            },
+            "analyzer": {
+                "partial_lowercase": {
+                    "type":      "custom",
+                    "tokenizer": "standard",
+                    "filter": [
+                        "lowercase",
+                        "ngram_filter"
+                    ]
+                }
+            }
+        }
+    }
+}
+
+PUT /players/_mapping/player
+{
+    "player": {
+        "properties": {
+            "name": {
+                "type":     "string",
+                "analyzer": "partial_lowercase"
+            },
+            "kitName": {
+                "type":     "string",
+                "analyzer": "partial_lowercase"
+            },
+            "suggest" : {
+                "type" : "completion"
+            }
+        }
+    }
+}

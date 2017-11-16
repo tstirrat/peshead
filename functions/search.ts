@@ -75,11 +75,10 @@ export async function search(client: elasticsearch.Client, query: string) {
     index: 'players',
     body: {
       query: {
-        multi_match: {
-          query,
-          fields: ['name.keyword', 'kitName.keyword'],
+        match: {
+          name: {query, analyzer: 'standard'},
         },
-      },
-    },
+      }
+    }
   });
 }
