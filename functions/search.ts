@@ -55,6 +55,16 @@ export async function addPlayer(
       kitName: player.kitName,
       abilities: player.abilities,
       age: player.age,
+      suggest: [
+        {
+          input: player.name,
+          weight: 100,
+        },
+        {
+          input: player.kitName,
+          weight: 75,
+        },
+      ]
     }
   });
 }
@@ -79,6 +89,23 @@ export async function search(client: elasticsearch.Client, query: string) {
           name: {query, analyzer: 'standard'},
         },
       }
+    }
+  });
+}
+
+
+/** Perform basic suggest. Return minial fields (position, id, name) */
+export async function suggest(client: elasticsearch.Client, prefix: string) {
+  return client.suggest({
+    index: 'players',
+    body: {
+      player_suggest: {
+        prefix,
+        completion: {
+          field: 'suggest',
+        }
+      },
+      _source: ['name'],
     }
   });
 }

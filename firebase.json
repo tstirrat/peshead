@@ -16,6 +16,10 @@
         "function": "search"
       },
       {
+        "source": "/api/v1/suggest",
+        "function": "suggest"
+      },
+      {
         "source": "/api/v1/players",
         "function": "getPlayer"
       },
