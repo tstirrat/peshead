@@ -3,7 +3,7 @@ import {Action} from 'redux';
 import {combineEpics, Epic} from 'redux-observable';
 import {ajax} from 'rxjs/observable/dom/ajax';
 import {empty} from 'rxjs/observable/empty';
-import {of } from 'rxjs/observable/of';
+import {of as obs} from 'rxjs/observable/of';
 import {catchError} from 'rxjs/operators/catchError';
 import {map} from 'rxjs/operators/map';
 import {switchMap} from 'rxjs/operators/switchMap';
@@ -26,16 +26,9 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> =
                   .getJSON<SearchResponse<Player>>(
                       `${url}?query=${encodeURIComponent(query)}`)
                   .pipe(
-                      map(res => res.hits.hits.map(hit => {
-                        // Search results strip the player.id and
-                        // surface it in hit._id
-                        return {
-                          ...hit._source,
-                          id: hit._id,
-                        } as Player;
-                      })),
+                      map(res => res.hits.hits.map(hit => hit._source)),
                       map(players => search.searchSuccess(players)),
-                      catchError(err => of (search.searchError(err))));
+                      catchError(err => obs(search.searchError(err))));
             }));
 
 export const epics = combineEpics(search$);

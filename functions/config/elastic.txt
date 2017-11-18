@@ -32,11 +32,13 @@ PUT /players/_mapping/player
         "properties": {
             "name": {
                 "type":     "string",
-                "analyzer": "partial_lowercase"
+                "analyzer": "partial_lowercase",
+                "search_analyzer": "standard"
             },
             "kitName": {
                 "type":     "string",
-                "analyzer": "partial_lowercase"
+                "analyzer": "partial_lowercase",
+                "search_analyzer": "standard"
             },
             "suggest" : {
                 "type" : "completion"

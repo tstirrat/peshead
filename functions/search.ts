@@ -5,21 +5,20 @@ import * as HttpAmazonESConnector from 'http-aws-es';
 
 import {Player} from './service/api';
 
-interface ClientConfig {
-  access_key_id: string;
-  secret_access_key: string;
+export interface ClientConfig {
+  access_key_id?: string;
+  secret_access_key?: string;
   region?: string;
-  host: string;
+  host?: string;
 }
 
-export function createClient(config: ClientConfig) {
+export function createClient(config?: ClientConfig) {
   if (!config) {
     throw new Error('config.es is not set');
   }
-  const accessKeyId: string = config.access_key_id;
-  const secretAccessKey: string = config.secret_access_key;
-  const region: string = config.region || 'us-west-1';
-  const host: string = config.host;
+  const accessKeyId = config.access_key_id;
+  const secretAccessKey = config.secret_access_key;
+  const {region = 'us-west-1', host} = config;
 
   if (!accessKeyId || !host || !secretAccessKey) {
     throw new Error('accessKeyId/secretAccessKey/host are not set');
@@ -51,6 +50,7 @@ export async function addPlayer(
     type: 'player',
     id,
     body: {
+      id: player.id,
       name: player.name,
       kitName: player.kitName,
       abilities: player.abilities,
