@@ -180,7 +180,7 @@ describe('search', () => {
     const samus = {
       id: 'samus',
       name: 'S. ARAN',
-      kitName: 'SAMUS',
+      kitName: 'SAMUS ARAN',
       age: 32,
       commentaryId: 'samus',
       nationality: Country.JAPAN,
@@ -217,6 +217,15 @@ describe('search', () => {
           kitName,
         }),
       }));
+    });
+
+    it('creates suggestion index for player and kit name', () => {
+      search.addPlayer(client, samus.id, samus);
+
+      expect(client.index.mock.calls[0][0].body.suggest).toEqual([
+        {input: ['ARAN'], weight: 100},
+        {input: ['SAMUS', 'ARAN'], weight: 75},
+      ]);
     });
 
     it('resolves on success', () => {

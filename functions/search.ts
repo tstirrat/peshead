@@ -57,16 +57,21 @@ export async function addPlayer(
       age: player.age,
       suggest: [
         {
-          input: player.name,
+          input: tokenizeName(player.name),
           weight: 100,
         },
         {
-          input: player.kitName,
+          input: tokenizeName(player.kitName),
           weight: 75,
         },
       ]
     }
   });
+}
+
+/** Remove player initial (L.) and tokenize remainder of player name (MESSI) */
+function tokenizeName(name: string) {
+  return name.split(' ').filter(piece => piece[1] !== '.');
 }
 
 /** Remove a player record from the index. */
