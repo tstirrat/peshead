@@ -1,7 +1,7 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
-import {addPlayer, createClient, removePlayer, search} from './search';
+import {addPlayer, createClient, removePlayer, search, suggest} from './search';
 import {API, GetPlayerRequest, Player} from './service/api';
 
 admin.initializeApp(functions.config().firebase);
@@ -66,7 +66,10 @@ exports.updatePlayerIndex =
 
       // add to index
       console.log('[search] indexing player', playerId);
-      await event.data.ref.update({indexState: IndexingState.INDEXING});
+      await event.data.ref.update({
+        indexState: IndexingState.INDEXING,
+        indexError: admin.firestore.FieldValue.delete(),
+      });
       try {
         await addPlayer(client, playerId, player);
         await event.data.ref.update({indexState: IndexingState.INDEXED});
@@ -101,6 +104,31 @@ exports.search = functions.https.onRequest(async (req, res) => {
     }
   }
   console.warn('[search] search with empty query');
+  return res.set(CORS_HEADERS)
+      .status(400)
+      .send(new Error('Must supply query params'));
+});
+
+/** Autocomplete suggest based on name or kitName, returns minimal fields. */
+exports.suggest = functions.https.onRequest(async (req, res) => {
+  if (req.method === 'OPTIONS') {
+    return res.set(CORS_HEADERS).send('');
+  }
+  const query: string = req.query.query;
+  if (query) {
+    try {
+      console.log('[suggest] suggesting:', query);
+      const client = createClient(functions.config().es);
+      const response = await suggest(client, query);
+      console.log('[suggest] suggest complete', response);
+      console.log('updated with cors');
+      return res.set(CORS_HEADERS).send(response);
+    } catch (e) {
+      console.warn('[suggest] suggest failed with', e);
+      return res.set(CORS_HEADERS).status(400).send(e);
+    }
+  }
+  console.warn('[suggest] suggest with empty query');
   return res.set(CORS_HEADERS)
       .status(400)
       .send(new Error('Must supply query params'));

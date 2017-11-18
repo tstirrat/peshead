@@ -42,7 +42,7 @@
     "transform": {
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
-    "testRegex": "-test\\.tsx?$",
+    "testRegex": "(-|\\.)test\\.tsx?$",
     "moduleFileExtensions": [
       "js",
       "ts",
