@@ -10,6 +10,10 @@ const props = {
   logout: jasmine.createSpy('logout'),
   loadSession: jasmine.createSpy('loadSession'),
   dispatch: jasmine.createSpy('dispatch'),
+  history: {
+    push: jasmine.createSpy('history.push'),
+    // tslint:disable-next-line:no-any
+  } as any,
 };
 
 it('renders without crashing', () => {

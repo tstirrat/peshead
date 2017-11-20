@@ -8,16 +8,20 @@ import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import MenuIcon from 'material-ui-icons/Menu';
+import { History } from 'history';
 
 import * as fromApp from '../../actions/app';
+import { SuggestPlayer } from '../../components/SuggestPlayer';
 import { User } from '../../models/user';
 import * as fromRoot from '../../reducers';
 import { routes } from '../../routes';
 
 import './App.css';
+import { RouteComponentProps } from 'react-router';
 
 interface ViewModel {
   user?: User;
+  history: History;
 }
 
 interface Actions {
@@ -53,7 +57,9 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
             <NavLink to="/">
               <Typography type="title" color="inherit">PES League Manager</Typography>
             </NavLink>
-            <div className="flex" />
+            <div className="flex">
+              <SuggestPlayer onSelect={this.handlePlayerSelect} />
+            </div>
             {user ? this.renderUser(user) : this.renderLoginButtons()}
           </Toolbar>
         </AppBar>
@@ -96,8 +102,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
     );
   }
 
-  // tslint:disable-next-line:no-any ugh, fix this
-  private openMenu = (event: any) => {
+  private openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     this.setState({ open: true, anchorEl: event.currentTarget as HTMLElement });
   }
 
@@ -108,12 +113,20 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   private login = (provider: string) => {
     this.props.login(provider);
   }
+
+  private handlePlayerSelect = (id: string) => {
+    this.props.history.push(`/players/${id}`);
+  }
 }
 
-const getViewModel = (state: fromRoot.State): ViewModel => {
+const getViewModel = (
+  state: fromRoot.State,
+  // tslint:disable-next-line:no-any
+  ownProps: RouteComponentProps<any>): ViewModel => {
   const user = fromRoot.getCurrentUser(state);
   return {
     user,
+    history: ownProps.history,
   };
 };
 

@@ -109,8 +109,7 @@ export async function suggest(client: elasticsearch.Client, prefix: string) {
         completion: {
           field: 'suggest',
         }
-      },
-      _source: ['name'],
+      }
     }
   });
 }

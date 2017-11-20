@@ -24,6 +24,7 @@ config/service-account.json
 .env.development.local
 .env.test.local
 .env.production.local
+functions/.runtimeconfig.json
 
 npm-debug.log*
 yarn-debug.log*
