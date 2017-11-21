@@ -101,16 +101,19 @@ export async function search(client: elasticsearch.Client, query: string) {
 
 /** Perform basic suggest. Return minial fields (position, id, name) */
 export async function suggest(client: elasticsearch.Client, prefix: string) {
-  return client.suggest({
+  return client.search({
     index: 'players',
+    type: 'player',
     body: {
-      player_suggest: {
-        prefix,
-        completion: {
-          field: 'suggest',
+      suggest: {
+        player_suggest: {
+          prefix,
+          completion: {
+            field: 'suggest',
+          }
         }
       },
-      _source: ['name'],
+      _source: ['name']
     }
   });
 }

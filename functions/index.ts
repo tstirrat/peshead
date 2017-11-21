@@ -54,18 +54,18 @@ exports.updatePlayerIndex =
 
       // removal
       if (event.data === null) {
-        console.log('[search] removing player', playerId);
+        console.log('[index] removing player', playerId);
         return await removePlayer(client, playerId);
       }
 
       // prevent infinite loop
       if (player.indexState) {
-        console.info('[search] player already indexed/indexing', playerId);
+        console.info('[index] player already indexed/indexing', playerId);
         return;
       }
 
       // add to index
-      console.log('[search] indexing player', playerId);
+      console.log('[index] indexing player', playerId);
       await event.data.ref.update({
         indexState: IndexingState.INDEXING,
         indexError: admin.firestore.FieldValue.delete(),
@@ -73,9 +73,9 @@ exports.updatePlayerIndex =
       try {
         await addPlayer(client, playerId, player);
         await event.data.ref.update({indexState: IndexingState.INDEXED});
-        console.log('[search] indexing complete', playerId);
+        console.log('[index] indexing complete', playerId);
       } catch (e) {
-        console.error('[search] indexing error', e);
+        console.error('[index] indexing error', e);
         return event.data.ref.update({
           indexState: IndexingState.ERROR,
           indexError: e.message,

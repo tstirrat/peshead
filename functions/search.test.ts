@@ -8,7 +8,6 @@ describe('search', () => {
   // tslint:disable-next-line:variable-name
   const MockClient = jest.fn<Client>(() => {
     return {
-      suggest: jest.fn(),
       search: jest.fn(),
       index: jest.fn(),
       delete: jest.fn(),
@@ -100,14 +99,15 @@ describe('search', () => {
 
     it('uses player index', () => {
       search.suggest(client, 'samus');
-      expect(client.suggest).toHaveBeenCalledWith(expect.objectContaining({
+      expect(client.search).toHaveBeenCalledWith(expect.objectContaining({
         index: 'players',
+        type: 'player',
       }));
     });
 
     it('limits returned fields', () => {
       search.suggest(client, 'samus');
-      expect(client.suggest).toHaveBeenCalledWith(expect.objectContaining({
+      expect(client.search).toHaveBeenCalledWith(expect.objectContaining({
         body: expect.objectContaining({
           _source: ['name'],
         }),
@@ -116,10 +116,12 @@ describe('search', () => {
 
     it('queries using supplied param', () => {
       search.suggest(client, 'samus');
-      expect(client.suggest).toHaveBeenCalledWith(expect.objectContaining({
+      expect(client.search).toHaveBeenCalledWith(expect.objectContaining({
         body: expect.objectContaining({
-          player_suggest: expect.objectContaining({
-            prefix: 'samus',
+          suggest: expect.objectContaining({
+            player_suggest: expect.objectContaining({
+              prefix: 'samus',
+            }),
           }),
         }),
       }));
@@ -127,23 +129,25 @@ describe('search', () => {
 
     it('queries against the `suggest` field', () => {
       search.suggest(client, 'samus');
-      expect(client.suggest).toHaveBeenCalledWith(expect.objectContaining({
+      expect(client.search).toHaveBeenCalledWith(expect.objectContaining({
         body: expect.objectContaining({
-          player_suggest: expect.objectContaining({
-            completion: {field: 'suggest'},
+          suggest: expect.objectContaining({
+            player_suggest: expect.objectContaining({
+              completion: {field: 'suggest'},
+            }),
           }),
         }),
       }));
     });
 
     it('resolves on success', () => {
-      client.suggest.mockImplementation(() => Promise.resolve('success'));
+      client.search.mockImplementation(() => Promise.resolve('success'));
       const result = search.suggest(client, 'samus');
       return expect(result).resolves.toBe('success');
     });
 
     it('rejects on error', () => {
-      client.suggest.mockImplementation(() => Promise.reject('error'));
+      client.search.mockImplementation(() => Promise.reject('error'));
       const result = search.suggest(client, 'samus');
       return expect(result).rejects.toBe('error');
     });
