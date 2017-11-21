@@ -59,6 +59,7 @@
       "!src/__test__/**",
       "!src/configure*.ts",
       "!src/shared/service/**",
+      "!src/@types/**",
       "!functions/**"
     ]
   }
