@@ -31,7 +31,9 @@ interface State {
 }
 
 interface SuggestResponse<T> {
-  player_suggest: [SuggestResponseHit<T>];
+  suggest: {
+    player_suggest: [SuggestResponseHit<T>];
+  };
 }
 
 interface SuggestResponseHit<T> {
@@ -69,7 +71,7 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
     switchMap(query => {
       return ajax.getJSON<SuggestResponse<PlayerNameOnly>>(
         `${process.env.REACT_APP_API_ROOT}/suggest?query=${query}`).pipe(
-        map(response => response.player_suggest[0].options.map(hit => hit._source)),
+        map(response => response.suggest.player_suggest[0].options.map(hit => hit._source)),
         map(players => players.map<Suggestion>(player => ({
           value: player.id,
           label: player.name,
