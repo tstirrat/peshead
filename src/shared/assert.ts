@@ -5,8 +5,10 @@ export class AssertionError extends Error {}
  * undefined removed from its type.
  */
 export function assert<T>(
-    condition: T | null | undefined, message: string = 'value must be truthy',
-    ...messageParams: Array<{}>) {
+  condition: T | null | undefined,
+  message: string = 'value must be truthy',
+  ...messageParams: Array<{}>
+) {
   if (!condition) {
     throw new AssertionError(`Assertion failed: ${message}`);
   }
