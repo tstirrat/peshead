@@ -1,5 +1,5 @@
-import {load} from './load';
-import {search} from './search';
+import { load } from './load';
+import { search } from './search';
 
 const command = process.argv[2];
 
@@ -36,10 +36,10 @@ if (command === 'search') {
 }
 
 action
-    .then(() => {
-      process.exit(0);
-    })
-    .catch((err: Error) => {
-      console.log(err);
-      process.exit(1);
-    });
+  .then(() => {
+    process.exit(0);
+  })
+  .catch((err: Error) => {
+    console.log(err);
+    process.exit(1);
+  });

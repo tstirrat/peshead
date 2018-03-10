@@ -1,8 +1,14 @@
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
-import {addPlayer, createClient, removePlayer, search, suggest} from './search';
-import {API, GetPlayerRequest, Player} from './service/api';
+import {
+  addPlayer,
+  createClient,
+  removePlayer,
+  search,
+  suggest
+} from './search';
+import { API, GetPlayerRequest, Player } from './service/api';
 
 admin.initializeApp(functions.config().firebase);
 const db = admin.firestore();
@@ -14,7 +20,7 @@ const CORS_HEADERS_DEV = {
 };
 
 const CORS_HEADERS =
-    process.env.NODE_ENV === 'production' ? {} : CORS_HEADERS_DEV;
+  process.env.NODE_ENV === 'production' ? {} : CORS_HEADERS_DEV;
 
 // API
 
@@ -22,16 +28,19 @@ exports.getPlayer = functions.https.onRequest(async (request, response) => {
   const api = API.create((method, request, callback) => {
     callback(null, new Uint8Array([]));
   });
-  const playerId = '811';  // TODO: get this from url params
-  const req = GetPlayerRequest.create({playerId});
+  const playerId = '811'; // TODO: get this from url params
+  const req = GetPlayerRequest.create({ playerId });
   api.getPlayer(req, () => console.log('getPlayer rpc callback'));
 
-  const snapshot = await db.collection('players').doc(playerId).get();
+  const snapshot = await db
+    .collection('players')
+    .doc(playerId)
+    .get();
   const player = snapshot.data();
   console.log('got player from db:', player);
 
   const rpcPlayer = Player.create({
-    id: playerId,
+    id: playerId
   });
   console.log('created rpc player', rpcPlayer.toJSON());
   response.set(CORS_HEADERS).send(JSON.stringify(player, null, 2));
@@ -42,47 +51,48 @@ exports.getPlayer = functions.https.onRequest(async (request, response) => {
 enum IndexingState {
   INDEXING = 'INDEXING',
   INDEXED = 'INDEXED',
-  ERROR = 'ERROR',
+  ERROR = 'ERROR'
 }
 
 /** Checks for changes to players and updates/removes the search index entry */
-exports.updatePlayerIndex =
-    functions.firestore.document('players/{id}').onWrite(async (event) => {
-      const player = event.data.data();
-      const playerId: string = event.params!.id;
-      const client = createClient(functions.config().es);
+exports.updatePlayerIndex = functions.firestore
+  .document('players/{id}')
+  .onWrite(async event => {
+    const player = event.data.data();
+    const playerId: string = event.params!.id;
+    const client = createClient(functions.config().es);
 
-      // removal
-      if (event.data === null) {
-        console.log('[index] removing player', playerId);
-        return await removePlayer(client, playerId);
-      }
+    // removal
+    if (event.data === null) {
+      console.log('[index] removing player', playerId);
+      return await removePlayer(client, playerId);
+    }
 
-      // prevent infinite loop
-      if (player.indexState) {
-        console.info('[index] player already indexed/indexing', playerId);
-        return;
-      }
-
-      // add to index
-      console.log('[index] indexing player', playerId);
-      await event.data.ref.update({
-        indexState: IndexingState.INDEXING,
-        indexError: admin.firestore.FieldValue.delete(),
-      });
-      try {
-        await addPlayer(client, playerId, player);
-        await event.data.ref.update({indexState: IndexingState.INDEXED});
-        console.log('[index] indexing complete', playerId);
-      } catch (e) {
-        console.error('[index] indexing error', e);
-        return event.data.ref.update({
-          indexState: IndexingState.ERROR,
-          indexError: e.message,
-        });
-      }
+    // prevent infinite loop
+    if (player.indexState) {
+      console.info('[index] player already indexed/indexing', playerId);
       return;
+    }
+
+    // add to index
+    console.log('[index] indexing player', playerId);
+    await event.data.ref.update({
+      indexState: IndexingState.INDEXING,
+      indexError: admin.firestore.FieldValue.delete()
     });
+    try {
+      await addPlayer(client, playerId, player);
+      await event.data.ref.update({ indexState: IndexingState.INDEXED });
+      console.log('[index] indexing complete', playerId);
+    } catch (e) {
+      console.error('[index] indexing error', e);
+      return event.data.ref.update({
+        indexState: IndexingState.ERROR,
+        indexError: e.message
+      });
+    }
+    return;
+  });
 
 /** Perform a search, mounted at /api/v1/search */
 exports.search = functions.https.onRequest(async (req, res) => {
@@ -100,13 +110,17 @@ exports.search = functions.https.onRequest(async (req, res) => {
       return res.set(CORS_HEADERS).send(response);
     } catch (e) {
       console.warn('[search] search failed with', e);
-      return res.set(CORS_HEADERS).status(400).send(e);
+      return res
+        .set(CORS_HEADERS)
+        .status(400)
+        .send(e);
     }
   }
   console.warn('[search] search with empty query');
-  return res.set(CORS_HEADERS)
-      .status(400)
-      .send(new Error('Must supply query params'));
+  return res
+    .set(CORS_HEADERS)
+    .status(400)
+    .send(new Error('Must supply query params'));
 });
 
 /** Autocomplete suggest based on name or kitName, returns minimal fields. */
@@ -125,11 +139,15 @@ exports.suggest = functions.https.onRequest(async (req, res) => {
       return res.set(CORS_HEADERS).send(response);
     } catch (e) {
       console.warn('[suggest] suggest failed with', e);
-      return res.set(CORS_HEADERS).status(400).send(e);
+      return res
+        .set(CORS_HEADERS)
+        .status(400)
+        .send(e);
     }
   }
   console.warn('[suggest] suggest with empty query');
-  return res.set(CORS_HEADERS)
-      .status(400)
-      .send(new Error('Must supply query params'));
+  return res
+    .set(CORS_HEADERS)
+    .status(400)
+    .send(new Error('Must supply query params'));
 });

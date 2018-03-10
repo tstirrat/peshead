@@ -1,4 +1,13 @@
-import {ComPlayingStyle, Country, Foot, IPlayer, Player, PlayingStyle, Position, Skill} from '../shared/service/api';
+import {
+  ComPlayingStyle,
+  Country,
+  Foot,
+  IPlayer,
+  Player,
+  PlayingStyle,
+  Position,
+  Skill
+} from '../shared/service/api';
 
 export const base: IPlayer = {
   id: '7511',
@@ -11,22 +20,20 @@ export const base: IPlayer = {
   preferredFoot: Foot.LEFT,
   isEdited: false,
   isBaseCopy: false,
-  playingStyles: [
-    PlayingStyle.CREATIVE_PLAYMAKER,
-  ],
+  playingStyles: [PlayingStyle.CREATIVE_PLAYMAKER],
   comPlayingStyles: [
     ComPlayingStyle.MAZING_RUN,
-    ComPlayingStyle.SPEEDING_BULLET,
+    ComPlayingStyle.SPEEDING_BULLET
   ],
   playerSkills: [Skill.LONG_RANGE_DRIVE],
   physique: {
     height: 170,
-    weight: 72,
+    weight: 72
   },
   playablePositions: [
     Position.ATTACKING_MIDFIELDER,
     Position.SECOND_STRIKER,
-    Position.CENTRE_FORWARD,
+    Position.CENTRE_FORWARD
   ],
   abilities: {
     attackingProwess: 95,
@@ -55,18 +62,18 @@ export const base: IPlayer = {
     stamina: 76,
     swerve: 89,
     weakFootAccuracy: 3,
-    weakFootUsage: 1,
+    weakFootUsage: 1
   }
 };
 
 function makePlayer(attrs: Partial<IPlayer>): Player {
   const merged = {
     ...base,
-    ...attrs,
+    ...attrs
   };
-  return Player.create(merged);  // ensures a copy
+  return Player.create(merged); // ensures a copy
 }
 
 export const make = {
-  player: makePlayer,
+  player: makePlayer
 };

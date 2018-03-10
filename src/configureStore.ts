@@ -1,25 +1,29 @@
 import createHistory from 'history/createBrowserHistory';
-import {routerMiddleware} from 'react-router-redux';
-import {applyMiddleware, compose, createStore, GenericStoreEnhancer, Middleware} from 'redux';
-import {devToolsEnhancer} from 'redux-devtools-extension/logOnlyInProduction';
-import {createEpicMiddleware} from 'redux-observable';
+import { routerMiddleware } from 'react-router-redux';
+import {
+  applyMiddleware,
+  compose,
+  createStore,
+  GenericStoreEnhancer,
+  Middleware
+} from 'redux';
+import { devToolsEnhancer } from 'redux-devtools-extension/logOnlyInProduction';
+import { createEpicMiddleware } from 'redux-observable';
 
-import {configureFirebase} from './configureFirebase';
-import {EpicDependencies, epics as rootEpic} from './epics';
-import {INITIAL_STATE, reducer as rootReducer} from './reducers';
+import { configureFirebase } from './configureFirebase';
+import { EpicDependencies, epics as rootEpic } from './epics';
+import { INITIAL_STATE, reducer as rootReducer } from './reducers';
 
 export const history = createHistory();
 
-const enhancers: GenericStoreEnhancer[] = [
-  devToolsEnhancer({}),
-];
+const enhancers: GenericStoreEnhancer[] = [devToolsEnhancer({})];
 const middleware: Middleware[] = [
   routerMiddleware(history),
   createEpicMiddleware(rootEpic, {
     dependencies: {
-      firebaseApp: configureFirebase(),
-    } as EpicDependencies,
-  }),
+      firebaseApp: configureFirebase()
+    } as EpicDependencies
+  })
 ];
 
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);

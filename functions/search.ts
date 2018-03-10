@@ -1,9 +1,8 @@
 import * as AWS from 'aws-sdk';
 import * as elasticsearch from 'elasticsearch';
-import * as functions from 'firebase-functions';
 import * as HttpAmazonESConnector from 'http-aws-es';
 
-import {Player} from './service/api';
+import { Player } from './service/api';
 
 export interface ClientConfig {
   access_key_id?: string;
@@ -18,7 +17,7 @@ export function createClient(config?: ClientConfig) {
   }
   const accessKeyId = config.access_key_id;
   const secretAccessKey = config.secret_access_key;
-  const {region = 'us-west-1', host} = config;
+  const { region = 'us-west-1', host } = config;
 
   if (!accessKeyId || !host || !secretAccessKey) {
     throw new Error('accessKeyId/secretAccessKey/host are not set');
@@ -26,7 +25,7 @@ export function createClient(config?: ClientConfig) {
 
   const awsConfig = new AWS.Config({
     credentials: new AWS.Credentials(accessKeyId, secretAccessKey),
-    region,
+    region
   });
 
   const options = {
@@ -44,7 +43,10 @@ export function createClient(config?: ClientConfig) {
  * present.
  */
 export async function addPlayer(
-    client: elasticsearch.Client, id: string, player: Player) {
+  client: elasticsearch.Client,
+  id: string,
+  player: Player
+) {
   return client.index({
     index: 'players',
     type: 'player',
@@ -58,12 +60,12 @@ export async function addPlayer(
       suggest: [
         {
           input: tokenizeName(player.name),
-          weight: 100,
+          weight: 100
         },
         {
           input: tokenizeName(player.kitName),
-          weight: 75,
-        },
+          weight: 75
+        }
       ]
     }
   });
@@ -79,7 +81,7 @@ export async function removePlayer(client: elasticsearch.Client, id: string) {
   return client.delete({
     index: 'players',
     type: 'player',
-    id,
+    id
   });
 }
 
@@ -91,13 +93,12 @@ export async function search(client: elasticsearch.Client, query: string) {
     body: {
       query: {
         match: {
-          name: {query, analyzer: 'standard'},
-        },
+          name: { query, analyzer: 'standard' }
+        }
       }
     }
   });
 }
-
 
 /** Perform basic suggest. Return minial fields (position, id, name) */
 export async function suggest(client: elasticsearch.Client, prefix: string) {
@@ -109,7 +110,7 @@ export async function suggest(client: elasticsearch.Client, prefix: string) {
         player_suggest: {
           prefix,
           completion: {
-            field: 'suggest',
+            field: 'suggest'
           }
         }
       },

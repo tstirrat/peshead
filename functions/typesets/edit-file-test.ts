@@ -1,6 +1,6 @@
-import { EditFile, Player } from './edit-file';
-
 import jBinary = require('jbinary');
+
+import { EditFile, Player } from './edit-file';
 
 const attrs64File = `${__dirname}/../test/player-attrs-64.bin`;
 const attrs99File = `${__dirname}/../test/player-attrs-99-descending.bin`;
