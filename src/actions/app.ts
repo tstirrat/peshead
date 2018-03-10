@@ -1,7 +1,7 @@
-import {ActionCreator} from 'react-redux';
-import {Action} from 'redux';
+import { ActionCreator } from 'react-redux';
+import { Action } from 'redux';
 
-import {User} from '../models/user';
+import { User } from '../models/user';
 
 export const LOGIN = '[app] LOGIN';
 export const LOGIN_SUCCESS = '[app] LOGIN_SUCCESS';
@@ -45,50 +45,57 @@ export class AppLoadSessionAction implements Action {
 
 // Action creators
 
-export const login =
-    (provider: string, id?: string, password?: string): AppLoginAction => {
-      return {
-        type: LOGIN,
-        payload: {
-          provider,
-          id,
-          password,
-        },
-      };
-    };
+export const login = (
+  provider: string,
+  id?: string,
+  password?: string
+): AppLoginAction => {
+  return {
+    type: LOGIN,
+    payload: {
+      provider,
+      id,
+      password
+    }
+  };
+};
 
 export const loginSuccess = (user: User): AppLoginSuccessAction => {
   return {
     type: LOGIN_SUCCESS,
-    payload: user,
+    payload: user
   };
 };
 
 export const loginError = (error: Error): AppLoginErrorAction => {
   return {
     type: LOGIN_ERROR,
-    payload: error,
+    payload: error
   };
 };
 
 export const logout: ActionCreator<AppLogoutAction> = (): AppLogoutAction => {
   return {
-    type: LOGOUT,
+    type: LOGOUT
   };
 };
 
 export const logoutSuccess = (): AppLogoutSuccessAction => {
   return {
-    type: LOGOUT_SUCCESS,
+    type: LOGOUT_SUCCESS
   };
 };
 
 export const loadSession = (): AppLoadSessionAction => {
   return {
-    type: LOAD_SESSION,
+    type: LOAD_SESSION
   };
 };
 
-export type Actions = AppLoginAction | AppLoginSuccessAction |
-    AppLoginErrorAction | AppLogoutAction | AppLogoutSuccessAction |
-    AppLoadSessionAction;
+export type Actions =
+  | AppLoginAction
+  | AppLoginSuccessAction
+  | AppLoginErrorAction
+  | AppLogoutAction
+  | AppLogoutSuccessAction
+  | AppLoadSessionAction;

@@ -1,5 +1,5 @@
-import {Definition, PackedBits} from './packed-bits';
-import {ZeroPaddedArray} from './zero-padded-array';
+import { Definition, PackedBits } from './packed-bits';
+import { ZeroPaddedArray } from './zero-padded-array';
 
 // const TEAM_PLAYER_COUNT = 650;
 // const STADIUM_COUNT = 40;
@@ -18,7 +18,7 @@ export const EditFile = {
   'jBinary.littleEndian': true,
 
   // Types
-  Attribute7: ['bitfield', 7],  // Attr between 40 and 99
+  Attribute7: ['bitfield', 7], // Attr between 40 and 99
   Motion3: ['bitfield', 3],
   Bit2: ['bitfield', 2],
   Age6: ['bitfield', 6],
@@ -27,23 +27,29 @@ export const EditFile = {
   Color24: {
     r: ['bitfield', 6],
     g: ['bitfield', 6],
-    b: ['bitfield', 6],
+    b: ['bitfield', 6]
   },
 
   File: {
     header: 'Header',
     players: [
-      ZeroPaddedArray, 'Player', PLAYER_COUNT_MAX,
+      ZeroPaddedArray,
+      'Player',
+      PLAYER_COUNT_MAX,
       (data: EditFile) => data.header.playerCount
     ],
     teams: [
-      ZeroPaddedArray, 'Team', TEAM_COUNT_MAX,
+      ZeroPaddedArray,
+      'Team',
+      TEAM_COUNT_MAX,
       (data: EditFile) => data.header.teamCount
     ],
     managers: [
-      ZeroPaddedArray, 'Manager', MANAGER_COUNT_MAX,
+      ZeroPaddedArray,
+      'Manager',
+      MANAGER_COUNT_MAX,
       (data: EditFile) => data.header.managerCount
-    ],
+    ]
     // competitions: [ZeroPaddedArray, 'blob', 50],
     // stadiums: [ZeroPaddedArray, 'Stadium', STADIUM_COUNT],
     // unknown: ['skip', 0x475A90 - 0x425180],  // 132 bytes
@@ -58,15 +64,12 @@ export const EditFile = {
     managerCount: 'uint16',
     competitionCount: 'uint16',
     stadiumCount: 'uint16',
-    unknown1: ['skip', 2],  // more unknowns
-    unknown2: ['skip', 2],  // more unknowns
+    unknown1: ['skip', 2], // more unknowns
+    unknown2: ['skip', 2], // more unknowns
     teamPlayerCount: 'uint16',
-    unknown3: ['skip', 2],  // more unknowns
+    unknown3: ['skip', 2], // more unknowns
     gamePlanCount: 'uint16',
-    post: [
-      'skip', HEADER_SIZE_BYTES - HEADER_KNOWN_OFFSET - HEADER_KNOWN_BYTES
-    ],  // more unknowns
-
+    post: ['skip', HEADER_SIZE_BYTES - HEADER_KNOWN_OFFSET - HEADER_KNOWN_BYTES] // more unknowns
   },
 
   // Total size = 188 bytes
@@ -83,67 +86,72 @@ export const EditFile = {
 
     // 4 bytes
     block1: [
-      PackedBits, 'uint32',
+      PackedBits,
+      'uint32',
       [
-        {key: 'attackingProwess', bits: 7},
-        {key: 'defensiveProwess', bits: 7},
-        {key: 'goalkeeping', bits: 7},
-        {key: 'dribbling', bits: 7},
-        {key: 'motionFreeKick', bits: 4},
+        { key: 'attackingProwess', bits: 7 },
+        { key: 'defensiveProwess', bits: 7 },
+        { key: 'goalkeeping', bits: 7 },
+        { key: 'dribbling', bits: 7 },
+        { key: 'motionFreeKick', bits: 4 }
       ] as Definition[]
     ],
 
     // 4 bytes
     block2: [
-      PackedBits, 'uint32',
+      PackedBits,
+      'uint32',
       [
-        {key: 'finishing', bits: 7},
-        {key: 'lowPass', bits: 7},
-        {key: 'loftedPass', bits: 7},
-        {key: 'header', bits: 7},
-        {key: 'form', bits: 3},
-        {key: 'isCreated', bits: 1},
+        { key: 'finishing', bits: 7 },
+        { key: 'lowPass', bits: 7 },
+        { key: 'loftedPass', bits: 7 },
+        { key: 'header', bits: 7 },
+        { key: 'form', bits: 3 },
+        { key: 'isCreated', bits: 1 }
       ] as Definition[]
     ],
 
     // 4 bytes
     block3: [
-      PackedBits, 'uint32',
+      PackedBits,
+      'uint32',
       [
-        {key: 'swerve', bits: 7},
-        {key: 'catching', bits: 7},
-        {key: 'clearing', bits: 7},
-        {key: 'reflexes', bits: 7},
-        {key: 'injuryResistance', bits: 2},
-        {key: 'unknown', bits: 1},
-        {key: 'isBasicsEdited', bits: 1},
+        { key: 'swerve', bits: 7 },
+        { key: 'catching', bits: 7 },
+        { key: 'clearing', bits: 7 },
+        { key: 'reflexes', bits: 7 },
+        { key: 'injuryResistance', bits: 2 },
+        { key: 'unknown', bits: 1 },
+        { key: 'isBasicsEdited', bits: 1 }
       ] as Definition[]
     ],
 
     // 4 bytes
     block4: [
-      PackedBits, 'uint32',
+      PackedBits,
+      'uint32',
       [
-        {key: 'bodyControl', bits: 7},
-        {key: 'physicalContact', bits: 7},
-        {key: 'kickingPower', bits: 7},
-        {key: 'explosivePower', bits: 7},
-        {key: 'motionDribblingArms', bits: 3},
-        {key: 'isRegisteredPositionEdited', bits: 1},
+        { key: 'bodyControl', bits: 7 },
+        { key: 'physicalContact', bits: 7 },
+        { key: 'kickingPower', bits: 7 },
+        { key: 'explosivePower', bits: 7 },
+        { key: 'motionDribblingArms', bits: 3 },
+        { key: 'isRegisteredPositionEdited', bits: 1 }
       ] as Definition[]
     ],
 
     // 4 bytes
     block5: [
-      PackedBits, 'uint32',
+      PackedBits,
+      'uint32',
       [
-        {key: 'age', bits: 6},
-        {key: 'registeredPosition', bits: 4},
-        {key: 'unknown', bits: 1},
-        {key: 'playingStyles', bits: 5},
-        {key: 'ballControl', bits: 7},
-        {key: 'ballWinning', bits: 7},
-        {key: 'weakFootAccuracy', bits: 2},
+        { key: 'age', bits: 6 },
+        { key: 'registeredPosition', bits: 4 },
+        { key: 'unknown', bits: 1 },
+        { key: 'playingStyles', bits: 5 },
+        { key: 'ballControl', bits: 7 },
+        { key: 'ballWinning', bits: 7 },
+        { key: 'weakFootAccuracy', bits: 2 }
       ] as Definition[]
     ],
 
@@ -152,13 +160,13 @@ export const EditFile = {
       PackedBits,
       'uint32',
       [
-        {key: 'jump', bits: 7},               // for clang-format
-        {key: 'motionRunningArms', bits: 3},  // unsure
-        {key: 'motionCornerKick', bits: 3},   // unsure
-        {key: 'unknown', bits: 3},            // unsure
-        {key: 'coverage', bits: 7},           //
-        {key: 'playablePosition', bits: 10},  // TODO: separate this
-      ] as Definition[],
+        { key: 'jump', bits: 7 },
+        { key: 'motionRunningArms', bits: 3 }, // unsure
+        { key: 'motionCornerKick', bits: 3 }, // unsure
+        { key: 'unknown', bits: 3 }, // unsure
+        { key: 'coverage', bits: 7 },
+        { key: 'playablePosition', bits: 10 } // TODO: separate this
+      ] as Definition[]
     ],
 
     // 4 bytes
@@ -166,15 +174,15 @@ export const EditFile = {
       PackedBits,
       'uint32',
       [
-        {key: 'playablePosition', bits: 18},         // TODO: separate this
-        {key: 'motionDribblingHunching', bits: 2},   //
-        {key: 'motionRunningHunching', bits: 2},     //
-        {key: 'motionPenaltyKick', bits: 2},         //
-        {key: 'placeKicking', bits: 7},              //
-        {key: 'isPlayablePositionEdited', bits: 1},  //
-        {key: 'isAbilitiesEdited', bits: 1},         //
-        {key: 'isPlayerSkillsEdited', bits: 1},      //
-      ] as Definition[],
+        { key: 'playablePosition', bits: 18 }, // TODO: separate this
+        { key: 'motionDribblingHunching', bits: 2 },
+        { key: 'motionRunningHunching', bits: 2 },
+        { key: 'motionPenaltyKick', bits: 2 },
+        { key: 'placeKicking', bits: 7 },
+        { key: 'isPlayablePositionEdited', bits: 1 },
+        { key: 'isAbilitiesEdited', bits: 1 },
+        { key: 'isPlayerSkillsEdited', bits: 1 }
+      ] as Definition[]
     ],
 
     // 4 bytes
@@ -182,37 +190,37 @@ export const EditFile = {
       PackedBits,
       'uint32',
       [
-        {key: 'stamina', bits: 7},                   //
-        {key: 'isPlayingStylesEdited', bits: 1},     // unsure
-        {key: 'isComPlayingStylesEdited', bits: 1},  // unsure
-        {key: 'speed', bits: 7},                     //
-        {key: 'isMotionEdited', bits: 1},            //
-        {key: 'isBaseCopy', bits: 1},                //
-        {key: 'unknown', bits: 1},                   //
-        {key: 'strongFoot', bits: 1},                //
-        {key: 'unknown2', bits: 1},                  //
-        {key: 'comPlayingStyles', bits: 7},          //
-        {key: 'unknown3', bits: 4},                  //
-      ] as Definition[],
+        { key: 'stamina', bits: 7 },
+        { key: 'isPlayingStylesEdited', bits: 1 }, // unsure
+        { key: 'isComPlayingStylesEdited', bits: 1 }, // unsure
+        { key: 'speed', bits: 7 },
+        { key: 'isMotionEdited', bits: 1 },
+        { key: 'isBaseCopy', bits: 1 },
+        { key: 'unknown', bits: 1 },
+        { key: 'strongFoot', bits: 1 },
+        { key: 'unknown2', bits: 1 },
+        { key: 'comPlayingStyles', bits: 7 },
+        { key: 'unknown3', bits: 4 }
+      ] as Definition[]
     ],
 
     block9: [
       PackedBits,
       'uint32',
       [
-        {key: 'playerSkills', bits: 24},  //
-        {key: 'unknown3', bits: 8},       //
-      ] as Definition[],
+        { key: 'playerSkills', bits: 24 },
+        { key: 'unknown3', bits: 8 }
+      ] as Definition[]
     ],
 
     name: ['string0', 46, 'utf-8'],
     printName: ['string0', 18, 'utf-8'],
-    appearance: 'PlayerAppearance',  // = 72 bytes
+    appearance: 'PlayerAppearance' // = 72 bytes
   },
 
   PlayerAppearance: {
     playerId: 'uint32',
-    skip: ['skip', APPEARANCE_SIZE_BYTES - 4],
+    skip: ['skip', APPEARANCE_SIZE_BYTES - 4]
   },
 
   Manager: {
@@ -220,7 +228,7 @@ export const EditFile = {
     nationality: 'uint16',
     pictureId: 'uint16',
     unknown01: 'byte',
-    name: ['string0', 79, 'utf-8'],
+    name: ['string0', 79, 'utf-8']
   },
 
   Team: {
@@ -243,7 +251,7 @@ export const EditFile = {
       bits2: ['bitfield', 2],
       stadiumTurfPattern: ['bitfield', 4],
       stadiumSidelineColor: ['bitfield', 4],
-      stadiumSeatColor: ['bitfield', 4],
+      stadiumSeatColor: ['bitfield', 4]
     },
     isNameEdited: 'Bool',
     isStadiumEdited: 'Bool',
@@ -266,12 +274,12 @@ export const EditFile = {
     scoreboard: ['string0', 4, 'utf-8'],
     stadiumText: ['string0', 121, 'utf-8'],
     banners: ['array', ['string0', 16, 'utf-8'], 4],
-    skip: ['skip', 69],
+    skip: ['skip', 69]
   },
 
   Stadium: {
     id: 'uint32',
-    name: ['string0', 124, 'utf-8'],
+    name: ['string0', 124, 'utf-8']
   },
 
   Competition: ['skip', 124],
@@ -279,11 +287,9 @@ export const EditFile = {
   TeamRoster: {
     teamId: 'uint8',
     assignments: ['array', 'uint32', 32],
-    shirtNumbers: ['array', 'uint8', 32],
-  },
+    shirtNumbers: ['array', 'uint8', 32]
+  }
 };
-
-
 
 export interface EditFile {
   header: Header;
@@ -315,75 +321,83 @@ export interface Player {
   motionGoalCelebration1: number;
   motionGoalCelebration2: number;
   block1: {
-    attackingProwess: number; defensiveProwess: number; goalkeeping: number;
+    attackingProwess: number;
+    defensiveProwess: number;
+    goalkeeping: number;
     dribbling: number;
     motionFreeKick: number;
   };
   block2: {
-    finishing: number; loftedPass: number; lowPass: number; header: number;
+    finishing: number;
+    loftedPass: number;
+    lowPass: number;
+    header: number;
     form: number;
     isCreated: number;
   };
   block3: {
-    swerve: number; catching: number; clearing: number; reflexes: number;
+    swerve: number;
+    catching: number;
+    clearing: number;
+    reflexes: number;
     injuryResistance: number;
     unknown: number;
     isBasicsEdited: number;
   };
   block4: {
-    bodyControl: number;                 // clang-format
-    physicalContact: number;             //
-    kickingPower: number;                //
-    explosivePower: number;              //
-    motionDribblingArms: number;         //
-    isRegisteredPositionEdited: number;  //
+    bodyControl: number;
+    physicalContact: number;
+    kickingPower: number;
+    explosivePower: number;
+    motionDribblingArms: number;
+    isRegisteredPositionEdited: number;
   };
   block5: {
-    age: number;                 // clang-format
-    registeredPosition: number;  //
-    unknown: number;             //
-    playingStyles: number;       //
-    ballControl: number;         //
-    ballWinning: number;         //
-    weakFootAccuracy: number;    //
+    age: number;
+    registeredPosition: number;
+    unknown: number;
+    playingStyles: number;
+    ballControl: number;
+    ballWinning: number;
+    weakFootAccuracy: number;
   };
   block6: {
-    jump: number;               // clang-format
-    motionRunningArms: number;  //
-    motionCornerKick: number;   //
-    coverage: number;           //
-    weakFootUsage: number;      //
-    playablePosition: number;   //
+    jump: number;
+    motionRunningArms: number;
+    motionCornerKick: number;
+    coverage: number;
+    weakFootUsage: number;
+    playablePosition: number;
   };
 
   block7: {
-    playablePosition: number;          //
-    motionDribblingHunching: number;   //
-    motionRunningHunching: number;     //
-    motionPenaltyKick: number;         //
-    placeKicking: number;              //
-    isPlayablePositionEdited: number;  //
-    isAbilitiesEdited: number;         //
-    isPlayerSkillsEdited: number;      //
+    playablePosition: number;
+    motionDribblingHunching: number;
+    motionRunningHunching: number;
+    motionPenaltyKick: number;
+    placeKicking: number;
+    isPlayablePositionEdited: number;
+    isAbilitiesEdited: number;
+    isPlayerSkillsEdited: number;
   };
 
   block8: {
-    stamina: number;                   //
-    speed: number;                     //
-    isPlayingStylesEdited: number;     //
-    isComPlayingStylesEdited: number;  //
-    isMotionEdited: number;            //
-    isBaseCopy: number;                //
-    unknown: number;                   //
-    strongFoot: number;                //
-    unknown2: number;                  //
-    comPlayingStyles: number;          //
-    playerSkills: number;              //
+    stamina: number;
+    speed: number;
+    isPlayingStylesEdited: number;
+    isComPlayingStylesEdited: number;
+    isMotionEdited: number;
+    isBaseCopy: number;
+    unknown: number;
+    strongFoot: number;
+    unknown2: number;
+    comPlayingStyles: number;
+    playerSkills: number;
   };
 
   block9: {
-    playerSkills: number;  //
-    unknown3: number;      //
+    playerSkills: number;
+    unknown3: number;
   };
 
   isBaseCopy: boolean;
@@ -414,7 +428,9 @@ export interface Team {
   color2: Color24;
   color1b: number;
   stadium: {
-    isStadiumNetEnabled: boolean; bits1: number; stadiumGoalType: number;
+    isStadiumNetEnabled: boolean;
+    bits1: number;
+    stadiumGoalType: number;
     bits2: number;
     stadiumTurfPattern: number;
     stadiumSidelineColor: number;

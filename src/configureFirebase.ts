@@ -9,6 +9,6 @@ export function configureFirebase() {
     authDomain: 'pesleagues-dev.firebaseapp.com',
     projectId: 'pesleagues-dev',
     storageBucket: 'pesleagues-dev.appspot.com',
-    messagingSenderId: '483322023704',
+    messagingSenderId: '483322023704'
   });
 }

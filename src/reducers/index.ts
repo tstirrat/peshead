@@ -1,9 +1,8 @@
-import {RouteComponentProps} from 'react-router';
-import {combineReducers} from 'redux';
-import {createSelector} from 'reselect';
+import { RouteComponentProps } from 'react-router';
+import { combineReducers } from 'redux';
+import { createSelector } from 'reselect';
 
-import {Player} from '../shared/service/api';
-
+import { Player } from '../shared/service/api';
 import * as leagues from './leagues';
 import * as players from './players';
 import * as search from './search';
@@ -14,15 +13,15 @@ import * as routing from './ui/routing';
 export interface State {
   /** canonical server data */
   data: {
-    leagues: leagues.State;  // clang-format
-    players: players.State;  //
-    search: search.State;    //
-    teams: teams.State;      //
+    leagues: leagues.State;
+    players: players.State;
+    search: search.State;
+    teams: teams.State;
   };
   /** ui state */
   ui: {
-    app: app.State;          // clang-format
-    routing: routing.State;  //
+    app: app.State;
+    routing: routing.State;
   };
 }
 
@@ -31,12 +30,12 @@ export const INITIAL_STATE: State = {
     leagues: leagues.INITIAL_STATE,
     players: players.INITIAL_STATE,
     search: search.INITIAL_STATE,
-    teams: teams.INITIAL_STATE,
+    teams: teams.INITIAL_STATE
   },
   ui: {
     app: app.INITIAL_STATE,
     routing: {
-      location: null,
+      location: null
     }
   }
 };
@@ -46,12 +45,12 @@ export const reducer = combineReducers({
     leagues: leagues.reducer,
     players: players.reducer,
     search: search.reducer,
-    teams: teams.reducer,
+    teams: teams.reducer
   }),
   ui: combineReducers({
     app: app.reducer,
-    routing: routing.reducer,
-  }),
+    routing: routing.reducer
+  })
 });
 
 // selector for each sub state, to find it from root
@@ -64,33 +63,36 @@ export const getAppState = (state: State) => state.ui.app;
 
 // Routing
 
-export const getRouteId =
-    (state: State, props: RouteComponentProps<routing.RouteWithId>) =>
-        routing.getId(getRoutingState(state), props);
+export const getRouteId = (
+  state: State,
+  props: RouteComponentProps<routing.RouteWithId>
+) => routing.getId(getRoutingState(state), props);
 export const getQueryParams = <T>(state: State) =>
-    routing.getQueryParams<T>(getRoutingState(state));
+  routing.getQueryParams<T>(getRoutingState(state));
 
-export const getRoutePlayerCompareOptions =
-    (state: State, props: RouteComponentProps<routing.RouteWithPlayerIds>) =>
-        routing.getPlayerCompareOptions(getRoutingState(state), props);
+export const getRoutePlayerCompareOptions = (
+  state: State,
+  props: RouteComponentProps<routing.RouteWithPlayerIds>
+) => routing.getPlayerCompareOptions(getRoutingState(state), props);
 
 // App
 
 export const getCurrentUser = (state: State) =>
-    app.getCurrentUser(getAppState(state));
+  app.getCurrentUser(getAppState(state));
 
 // Player
 
 export const getSelectedPlayer = createSelector(
-    [getRouteId, getPlayersState],
-    (id: string, state: players.State): Player | undefined =>
-        players.getPlayerById(state, id));
+  [getRouteId, getPlayersState],
+  (id: string, state: players.State): Player | undefined =>
+    players.getPlayerById(state, id)
+);
 
 // Search
 
 export const getSearchResults = (state: State) =>
-    search.getResults(getSearchState(state));
+  search.getResults(getSearchState(state));
 export const getSearchIsLoading = (state: State) =>
-    search.getIsLoading(getSearchState(state));
+  search.getIsLoading(getSearchState(state));
 export const getSearchError = (state: State) =>
-    search.getError(getSearchState(state));
+  search.getError(getSearchState(state));

@@ -5,8 +5,11 @@ declare module 'node-bitarray' {
      * Array.map(), if a buffer is passed in, the asOctet will always be set to
      * true.
      */
-    static factory(bitArray: number[], length?: number, asOctet?: boolean):
-        BitArray;
+    static factory(
+      bitArray: number[],
+      length?: number,
+      asOctet?: boolean
+    ): BitArray;
 
     /**
      * Convert a 32bit integer into a bit array, the asOctet will always be
