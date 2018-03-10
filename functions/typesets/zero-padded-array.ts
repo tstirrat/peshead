@@ -1,4 +1,3 @@
-/// <reference path="../@types/jbinary.d.ts" />
 import jBinary = require('jbinary');
 
 // TODO(tstirrat/pesleagues#1): Fix jBinary types

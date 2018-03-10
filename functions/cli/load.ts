@@ -1,13 +1,14 @@
 import * as admin from 'firebase-admin';
-
-/// <reference path="../@types/jbinary.d.ts" />
 import jBinary = require('jbinary');
-import {IPlayer, Player as PlayerRecord, PlayerAbilities, PlayerMotion} from '../service/api';
-import {EditFile, Player} from '../typesets/edit-file';
 
-const serviceAccount =
-    require(`${__dirname}/../../../config/service-account.json`);
+import {
+  IPlayer,
+  Player as PlayerRecord,
+  PlayerAbilities
+} from '../service/api';
+import { EditFile, Player } from '../typesets/edit-file';
 
+const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);
 
 /**
  * Load EDIT00000000 data and save into DB.
@@ -17,9 +18,9 @@ export async function load(fileName: string) {
     const jb = await jBinary.load(fileName, EditFile);
 
     console.log(`Loading ${fileName}...`);
-    const editData = jb.readAll<EditFile>();
+    const editData: EditFile = jb.readAll();
 
-    admin.initializeApp({credential: admin.credential.cert(serviceAccount)});
+    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
     const db = admin.firestore();
 
@@ -63,59 +64,57 @@ export async function load(fileName: string) {
 
 /** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
 function createPlayer(player: Player): IPlayer {
-  return PlayerRecord
-      .create({
-        id: '' + player.id,
-        commentaryId: '' + player.commentaryId,
-        nationality: player.nationality,
-        name: player.name,
-        kitName: player.printName,
-        age: player.block5.age,
-        // preferredFoot: player.block7.strongFoot ? 'LEFT' : 'RIGHT',
-        abilities: PlayerAbilities.create({
-          attackingProwess: player.block1.attackingProwess,
-          ballControl: player.block5.ballControl,
-          ballWinning: player.block5.ballWinning,
-          bodyControl: player.block4.bodyControl,
-          catching: player.block3.catching,
-          clearing: player.block3.clearing,
-          coverage: player.block6.coverage,
-          defensiveProwess: player.block1.defensiveProwess,
-          dribbling: player.block1.dribbling,
-          explosivePower: player.block4.explosivePower,
-          finishing: player.block2.finishing,
-          form: player.block2.form,
-          goalkeeping: player.block1.goalkeeping,
-          header: player.block2.header,
-          // injuryResistance: player.block3.injuryResistance,
-          jump: player.block6.jump,
-          kickingPower: player.block4.kickingPower,
-          loftedPass: player.block2.loftedPass,
-          lowPass: player.block2.lowPass,
-          physicalContact: player.block4.physicalContact,
-          placeKicking: player.block7.placeKicking,
-          reflexes: player.block3.reflexes,
-          speed: player.block8.speed,
-          stamina: player.block8.stamina,
-          swerve: player.block3.swerve,
-          // weakFootAccuracy: player.block5.weakFootAccuracy,
-          // weakFootUsage: player.block6.weakFootUsage,
-        }),
-        // isEdited: player.block2.isCreated,
-        // isBaseCopy: player.block7.isBaseCopy,
-        // motion: PlayerMotion.create({
-        //   armDribbling: player.block4.motionDribblingArms,
-        //   armRunning: player.block6.motionRunningArms,
-        //   cornerKick: player.block6.motionCornerKick,
-        //   freeKick: player.block1.motionFreeKick,
-        //   goalCelebration1: player.motionGoalCelebration1,
-        //   goalCelebration2: player.motionGoalCelebration2,
-        //   hunchingDribbling: player.block6.motionDribblingHunching,
-        //   hunchingRunning: player.block6.motionRunningHunching,
-        //   penaltyKick: player.block6.motionPenaltyKick,
-        // }),
-      })
-      .toJSON();
+  return PlayerRecord.create({
+    id: '' + player.id,
+    commentaryId: '' + player.commentaryId,
+    nationality: player.nationality,
+    name: player.name,
+    kitName: player.printName,
+    age: player.block5.age,
+    // preferredFoot: player.block7.strongFoot ? 'LEFT' : 'RIGHT',
+    abilities: PlayerAbilities.create({
+      attackingProwess: player.block1.attackingProwess,
+      ballControl: player.block5.ballControl,
+      ballWinning: player.block5.ballWinning,
+      bodyControl: player.block4.bodyControl,
+      catching: player.block3.catching,
+      clearing: player.block3.clearing,
+      coverage: player.block6.coverage,
+      defensiveProwess: player.block1.defensiveProwess,
+      dribbling: player.block1.dribbling,
+      explosivePower: player.block4.explosivePower,
+      finishing: player.block2.finishing,
+      form: player.block2.form,
+      goalkeeping: player.block1.goalkeeping,
+      header: player.block2.header,
+      // injuryResistance: player.block3.injuryResistance,
+      jump: player.block6.jump,
+      kickingPower: player.block4.kickingPower,
+      loftedPass: player.block2.loftedPass,
+      lowPass: player.block2.lowPass,
+      physicalContact: player.block4.physicalContact,
+      placeKicking: player.block7.placeKicking,
+      reflexes: player.block3.reflexes,
+      speed: player.block8.speed,
+      stamina: player.block8.stamina,
+      swerve: player.block3.swerve
+      // weakFootAccuracy: player.block5.weakFootAccuracy,
+      // weakFootUsage: player.block6.weakFootUsage,
+    })
+    // isEdited: player.block2.isCreated,
+    // isBaseCopy: player.block7.isBaseCopy,
+    // motion: PlayerMotion.create({
+    //   armDribbling: player.block4.motionDribblingArms,
+    //   armRunning: player.block6.motionRunningArms,
+    //   cornerKick: player.block6.motionCornerKick,
+    //   freeKick: player.block1.motionFreeKick,
+    //   goalCelebration1: player.motionGoalCelebration1,
+    //   goalCelebration2: player.motionGoalCelebration2,
+    //   hunchingDribbling: player.block6.motionDribblingHunching,
+    //   hunchingRunning: player.block6.motionRunningHunching,
+    //   penaltyKick: player.block6.motionPenaltyKick,
+    // }),
+  }).toJSON();
 }
 
 function hasUndefinedProperty(obj: any): boolean {
