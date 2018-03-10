@@ -70,6 +70,10 @@ export const getRouteId =
 export const getQueryParams = <T>(state: State) =>
     routing.getQueryParams<T>(getRoutingState(state));
 
+export const getRoutePlayerCompareOptions =
+    (state: State, props: RouteComponentProps<routing.RouteWithPlayerIds>) =>
+        routing.getPlayerCompareOptions(getRoutingState(state), props);
+
 // App
 
 export const getCurrentUser = (state: State) =>

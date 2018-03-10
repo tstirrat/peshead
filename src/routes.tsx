@@ -7,6 +7,7 @@ import { Home } from './containers/Home';
 import { NotFound } from './containers/../components/NotFound';
 import { ConnectedPlayer } from './containers/Player';
 import { ConnectedSearch } from './containers/Search';
+import { ConnectedComparePlayers } from './containers/ComparePlayers';
 
 export const routes = (
   <Switch>
@@ -14,6 +15,7 @@ export const routes = (
     <Route exact={true} path="/search" component={ConnectedSearch} />
     <Route exact={true} path="/leagues/:id" component={League} />
     <Route exact={true} path="/players/:id" component={ConnectedPlayer} />
+    <Route exact={true} path="/players/compare/:player1?/:player2?/:player3?" component={ConnectedComparePlayers} />
     <Route exact={true} path="/teams/:id" component={Team} />
     <Route exact={true} component={NotFound} />
   </Switch>

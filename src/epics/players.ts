@@ -1,7 +1,7 @@
 import {firestore} from 'firebase';
 import {Action} from 'redux';
 import {combineEpics, Epic} from 'redux-observable';
-import {switchMap} from 'rxjs/operators/switchMap';
+import {concatMap} from 'rxjs/operators/concatMap';
 
 import * as players from '../actions/players';
 import {EpicDependencies} from '../epics';
@@ -11,7 +11,7 @@ import {Player} from '../shared/service/api';
 export const getPlayers: Epic<Action, GlobalState, EpicDependencies> =
     (action$, store, deps) =>
         action$.ofType(players.GET_PLAYERS)
-            .pipe(switchMap((action: players.GetPlayersAction) => {
+            .pipe(concatMap((action: players.GetPlayersAction) => {
               const {limit} = action.payload;  // TODO: sorting
               const db: firestore.Firestore =
                   // tslint:disable-next-line:no-any
@@ -33,7 +33,7 @@ export const getPlayers: Epic<Action, GlobalState, EpicDependencies> =
 export const getPlayer: Epic<Action, GlobalState, EpicDependencies> =
     (action$, store, deps) =>
         action$.ofType(players.GET_PLAYER)
-            .pipe(switchMap((action: players.GetPlayerAction) => {
+            .pipe(concatMap((action: players.GetPlayerAction) => {
               const id = action.payload;
               const db: firestore.Firestore =
                   // tslint:disable-next-line:no-any
