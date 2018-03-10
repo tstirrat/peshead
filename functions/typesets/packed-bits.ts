@@ -1,4 +1,3 @@
-/// <reference path="../@types/jbinary.d.ts" />
 import jBinary = require('jbinary');
 
 export interface Definition {
@@ -21,7 +20,7 @@ export const PackedBits = (jBinary as any).Template({
     let packed: number = this.baseRead();
 
     const result: ExpandedProps = {};
-    definition.forEach(({key, bits}) => {
+    definition.forEach(({ key, bits }) => {
       const value = getRightMostBits(packed, bits);
       result[key] = value;
       packed = packed >>> bits;
@@ -32,12 +31,11 @@ export const PackedBits = (jBinary as any).Template({
   write(values: ExpandedProps) {
     const definition: Definition[] = this.toValue(this.definition);
     const value = definition.reduce((acc, def) => {
-      return values[def.key];  // TODO: actually write correct bits.
+      return values[def.key]; // TODO: actually write correct bits.
     }, 0);
     this.baseWrite(value);
   }
 });
-
 
 /** Get the right most bits of a number */
 export function getRightMostBits(packed: number, n: number): number {

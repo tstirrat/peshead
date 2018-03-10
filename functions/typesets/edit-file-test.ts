@@ -1,6 +1,5 @@
-import {EditFile, Player} from './edit-file';
+import { EditFile, Player } from './edit-file';
 
-/// <reference path="../@types/jbinary.d.ts" />
 import jBinary = require('jbinary');
 
 const attrs64File = `${__dirname}/../test/player-attrs-64.bin`;
@@ -10,16 +9,16 @@ let attrs64Player: Player;
 let attrs99Player: Player;
 
 describe('Player', () => {
-
   beforeAll(() => {
-    return jBinary.load(attrs64File, EditFile)
-        .then(jb => {
-          attrs64Player = jb.read('Player', 0);
-          return jBinary.load(attrs99File, EditFile);
-        })
-        .then(jb => {
-          attrs99Player = jb.read('Player', 0);
-        });
+    return jBinary
+      .load(attrs64File, EditFile)
+      .then((jb: jBinary) => {
+        attrs64Player = jb.read('Player', 0);
+        return jBinary.load(attrs99File, EditFile);
+      })
+      .then((jb: jBinary) => {
+        attrs99Player = jb.read('Player', 0);
+      });
   });
 
   it('reads player name', () => {
@@ -41,8 +40,6 @@ describe('Player', () => {
     // style: poacher = 00001
     // com PS: Long Ranger = 000001
     // motion: all 2 = 001
-
-
 
     // Name: DESCENDING
     // DESC
@@ -96,7 +93,6 @@ describe('Player', () => {
     expect(attrs64Player.block6.coverage).toEqual(64);
     expect(attrs64Player.block8.stamina).toEqual(64);
 
-
     // --- Player with all abilities descending from 99
 
     expect(attrs99Player.block1.attackingProwess).toEqual(99);
@@ -130,5 +126,4 @@ describe('Player', () => {
     // expect(attrs99Player.block6.motionCornerKick).toEqual(5);
     // expect(attrs99Player.abilities.weakFootAccuracy).toEqual(1);
   });
-
-});  // Player
+}); // Player
