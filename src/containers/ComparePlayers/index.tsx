@@ -76,8 +76,8 @@ const getViewModel = createSelector(
     playerOptions: PlayerCompareOption[],
     state: fromPlayers.State
   ): ViewModel => {
-    const viewModels = playerOptions.map(playerOptions =>
-      createPlayerViewModel(state, playerOptions)
+    const viewModels = playerOptions.map(options =>
+      createPlayerViewModel(state, options)
     );
     return {
       players: viewModels
