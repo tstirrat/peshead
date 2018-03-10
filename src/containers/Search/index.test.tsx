@@ -7,23 +7,23 @@ const props: ViewModel = {
   isLoading: false,
   results: [],
   params: {
-    query: 'test',
+    query: 'test'
   }
 };
 
 const actions: Actions = {
   search: jasmine.createSpy('search'),
-  dispatch: jasmine.createSpy('dispatch'),
-}
+  dispatch: jasmine.createSpy('dispatch')
+};
 
 const context = {};
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   render(
-
     <StaticRouter location="/" context={context}>
       <Search {...props} {...actions} />
     </StaticRouter>,
-    div);
+    div
+  );
 });

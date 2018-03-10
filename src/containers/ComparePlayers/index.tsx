@@ -30,6 +30,20 @@ export interface Actions {
   dispatch: Dispatch<fromRoot.State>;
 }
 
+const createPlayerViewModel = (
+  state: fromPlayers.State,
+  playerOptions: PlayerCompareOption
+): PlayerViewModel => {
+  const player = fromPlayers.getPlayerById(state, playerOptions.id);
+  return {
+    id: playerOptions.id,
+    data: player,
+    isLoading: !player,
+    form: 'A',
+    level: 30
+  };
+};
+
 export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   componentDidMount() {
     this.props.players.forEach(p => this.props.getPlayer(p.id));
@@ -84,20 +98,6 @@ const getViewModel = createSelector(
     };
   }
 );
-
-const createPlayerViewModel = (
-  state: fromPlayers.State,
-  playerOptions: PlayerCompareOption
-): PlayerViewModel => {
-  const player = fromPlayers.getPlayerById(state, playerOptions.id);
-  return {
-    id: playerOptions.id,
-    data: player,
-    isLoading: !player,
-    form: 'A',
-    level: 30
-  };
-};
 
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {

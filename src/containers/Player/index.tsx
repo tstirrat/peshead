@@ -27,7 +27,6 @@ interface Actions {
 }
 
 export class Player extends React.PureComponent<ViewModel & Actions> {
-
   componentDidMount() {
     if (this.props.id) {
       this.props.getPlayer(this.props.id);
@@ -70,10 +69,7 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
 
   render() {
     return (
-      <Loading
-        when={this.props.isLoading}
-        render={() => this.renderPlayer()}
-      />
+      <Loading when={this.props.isLoading} render={() => this.renderPlayer()} />
     );
   }
 
@@ -88,17 +84,19 @@ const getViewModel = createSelector(
     return {
       id,
       player,
-      isLoading: !player,
+      isLoading: !player
     };
-  });
+  }
+);
 
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
     getPlayer: (id: string) => dispatch(players.getPlayer(id)),
-    dispatch,
+    dispatch
   };
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedPlayer =
-  withRouter(connect(getViewModel, getActions)(Player));
+export const ConnectedPlayer = withRouter(
+  connect(getViewModel, getActions)(Player)
+);

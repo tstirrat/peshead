@@ -11,6 +11,8 @@ export interface Props {
   player: Player;
 }
 
+const renderPlayerStat = (rating: number) => <PlayerStat value={rating} />;
+
 /**
  * Shows the ratings for a player at each position.
  */
@@ -133,5 +135,3 @@ export class PlayerPositionChart extends React.PureComponent<Props> {
     );
   }
 }
-
-const renderPlayerStat = (rating: number) => <PlayerStat value={rating} />;

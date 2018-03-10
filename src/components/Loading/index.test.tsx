@@ -3,37 +3,30 @@ import { render } from 'react-dom';
 import { Loading } from './index';
 
 describe('<Loading>', () => {
-
   it('displays spinner when [when] is true', () => {
     const div = document.createElement('div');
     render(
-      <Loading
-        when={true}
-        render={() => <div className="child"></div>}
-      />,
-      div);
+      <Loading when={true} render={() => <div className="child" />} />,
+      div
+    );
     expect(div.querySelector('[role=progressbar]')).not.toBeNull();
   });
 
   it('does not display children when [when] is true', () => {
     const div = document.createElement('div');
     render(
-      <Loading
-        when={true}
-        render={() => <div className="child"></div>}
-      />,
-      div);
+      <Loading when={true} render={() => <div className="child" />} />,
+      div
+    );
     expect(div.querySelector('.child')).toBeNull();
   });
 
   it('displays children when [when] is false', () => {
     const div = document.createElement('div');
     render(
-      <Loading
-        when={false}
-        render={() => <div className="child"></div>}
-      />,
-      div);
+      <Loading when={false} render={() => <div className="child" />} />,
+      div
+    );
     expect(div.querySelector('.child')).not.toBeNull();
   });
 
@@ -44,10 +37,10 @@ describe('<Loading>', () => {
       <Loading
         when={false}
         error={err}
-        render={() => <div className="child"></div>}
+        render={() => <div className="child" />}
       />,
-      div);
+      div
+    );
     expect(div.querySelector('.ErrorPanel')).not.toBeNull();
   });
-
 });

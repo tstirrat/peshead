@@ -30,12 +30,11 @@ export interface Actions {
 }
 
 export class Search extends React.PureComponent<ViewModel & Actions> {
-
   componentDidMount() {
     if (this.props.params.query && !this.props.isLoading) {
       // TODO: needs work, prevent double searches
       this.props.search({
-        query: this.props.params.query,
+        query: this.props.params.query
       });
     }
   }
@@ -61,7 +60,7 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
   private renderPlayerTable = () => {
     const { results } = this.props;
     return <PlayerTable players={results} />;
-  }
+  };
 }
 
 const getViewModel = (state: fromRoot.State): ViewModel => {
@@ -69,17 +68,18 @@ const getViewModel = (state: fromRoot.State): ViewModel => {
     isLoading: fromRoot.getSearchIsLoading(state),
     error: fromRoot.getSearchError(state),
     params: fromRoot.getQueryParams<QueryParams>(state),
-    results: fromRoot.getSearchResults(state),
+    results: fromRoot.getSearchResults(state)
   };
 };
 
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
     search: (query: string) => dispatch(search.search(query)),
-    dispatch,
+    dispatch
   };
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedSearch =
-  withRouter(connect(getViewModel, getActions)(Search));
+export const ConnectedSearch = withRouter(
+  connect(getViewModel, getActions)(Search)
+);

@@ -22,6 +22,20 @@ export enum Provider {
   PHONE = 'phone'
 }
 
+/** Get the Firebase auth provider from a simple string. */
+const getProvider = (provider: string) => {
+  switch (provider) {
+    case Provider.GOOGLE:
+      return new firebase.auth.GoogleAuthProvider();
+    case Provider.FACEBOOK:
+      return new firebase.auth.FacebookAuthProvider();
+    case Provider.TWITTER:
+      return new firebase.auth.TwitterAuthProvider();
+    default:
+      throw new Error(`Provider not available: ${provider}`);
+  }
+};
+
 /** Log a user in with various providers. */
 export const login$: Epic<app.Actions, GlobalState, EpicDependencies> = (
   action$,
@@ -99,19 +113,5 @@ export const loadSession$: Epic<app.Actions, GlobalState, EpicDependencies> = (
       );
     })
   );
-
-/** Get the Firebase auth provider from a simple string. */
-const getProvider = (provider: string) => {
-  switch (provider) {
-    case Provider.GOOGLE:
-      return new firebase.auth.GoogleAuthProvider();
-    case Provider.FACEBOOK:
-      return new firebase.auth.FacebookAuthProvider();
-    case Provider.TWITTER:
-      return new firebase.auth.TwitterAuthProvider();
-    default:
-      throw new Error(`Provider not available: ${provider}`);
-  }
-};
 
 export const epics = combineEpics(login$, logout$, loadSession$);

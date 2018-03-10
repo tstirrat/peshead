@@ -9,12 +9,10 @@ import { PlayerPositionChart, Props } from './index';
 const player = Player.create(base);
 
 const props: Props = {
-  player,
-}
+  player
+};
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  render(
-    <PlayerPositionChart {...props} />,
-    div);
+  render(<PlayerPositionChart {...props} />, div);
 });
