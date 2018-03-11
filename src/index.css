@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.search-input {
+  margin-left: 1rem;
+}
