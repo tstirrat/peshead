@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect, Dispatch } from 'react-redux';
+import './App.css';
+
+import { History } from 'history';
+import HomeIcon from 'material-ui-icons/Home';
+import AccountCircleIcon from 'material-ui-icons/AccountCircle';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
-import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import Typography from 'material-ui/Typography';
-import MenuIcon from 'material-ui-icons/Menu';
-import { History } from 'history';
+import Toolbar from 'material-ui/Toolbar';
+import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 import * as fromApp from '../../actions/app';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
 import { User } from '../../models/user';
 import * as fromRoot from '../../reducers';
 import { routes } from '../../routes';
-
-import './App.css';
-import { RouteComponentProps } from 'react-router';
 
 interface ViewModel {
   user?: User;
@@ -51,12 +51,9 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
       <div className="App">
         <AppBar>
           <Toolbar>
-            <IconButton color="accent">
-              <MenuIcon />
+            <IconButton color="inherit">
+              <HomeIcon onClick={this.goHome} />
             </IconButton>
-            <Typography type="title" color="inherit">
-              PES League Manager
-            </Typography>
             <div className="search-input flex">
               <SuggestPlayer onSelect={this.handlePlayerSelect} />
             </div>
@@ -71,21 +68,21 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   renderUser(user: User) {
     return (
       <div className="session">
-        <Button
+        <IconButton
           color="contrast"
           aria-owns={this.state.open ? 'user-menu' : null}
           aria-haspopup="true"
           onClick={this.openMenu}
         >
-          {user.displayName}
-        </Button>
+          <AccountCircleIcon />
+        </IconButton>
         <Menu
           id="user-menu"
           anchorEl={this.state.anchorEl}
           open={this.state.open}
           onRequestClose={this.closeMenu}
         >
-          <MenuItem onClick={this.closeMenu}>Profile</MenuItem>
+          <MenuItem onClick={this.closeMenu}>{user.displayName}</MenuItem>
           <MenuItem onClick={this.props.logout}>Logout</MenuItem>
         </Menu>
       </div>
@@ -114,6 +111,10 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
 
   private handlePlayerSelect = (id: string) => {
     this.props.history.push(`/players/${id}`);
+  };
+
+  private goHome = () => {
+    this.props.history.push(`/`);
   };
 }
 
