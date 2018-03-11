@@ -14,6 +14,7 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Observable } from 'rxjs/Observable';
 
 export interface Props {
   placeholder?: string;
@@ -47,38 +48,45 @@ interface SuggestResponseHitOptions<T> {
   text: string;
   _index: string;
   _type: string;
-  _id: number;
+  _id: string;
   _score: number;
   _source: T;
 }
 
 interface PlayerNameOnly {
-  id: string;
   name: string;
 }
+
+type SuggestPlayerResponse = SuggestResponse<PlayerNameOnly>;
 
 /** Auto-complete text field that allows quick lookup of players by name. */
 class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
   state: State = {
     value: '',
-    suggestions: [],
+    suggestions: []
   };
 
   private querySubject = new Subject<string>();
   private destroy$ = new Subject<void>();
-  private fetch$ = this.querySubject.asObservable().pipe(
+  private fetch$: Observable<
+    Suggestion[]
+  > = this.querySubject.asObservable().pipe(
     debounceTime(500),
     switchMap(query => {
-      return ajax.getJSON<SuggestResponse<PlayerNameOnly>>(
-        `${process.env.REACT_APP_API_ROOT}/suggest?query=${query}`).pipe(
-        map(response => response.suggest.player_suggest[0].options.map(hit => hit._source)),
-        map(players => players.map<Suggestion>(player => ({
-          value: player.id,
-          label: player.name,
-        }))),
-        catchError((err: Error) => {
-          return of<Suggestion[]>([{ value: 'error', label: 'Error!' }]);
-        }));
+      return ajax
+        .getJSON<SuggestPlayerResponse>(
+          `${process.env.REACT_APP_API_ROOT}/suggest?query=${query}`
+        )
+        .pipe(
+          map(response =>
+            response.suggest.player_suggest[0].options.map(hit => {
+              return { label: hit._source.name, value: hit._id };
+            })
+          ),
+          catchError((err: Error) => {
+            return of<Suggestion[]>([{ value: 'error', label: 'Error!' }]);
+          })
+        );
     })
   );
 
@@ -101,7 +109,7 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
           container: classes.container,
           suggestionsContainerOpen: classes.suggestionsContainerOpen,
           suggestionsList: classes.suggestionsList,
-          suggestion: classes.suggestion,
+          suggestion: classes.suggestion
         }}
         renderInputComponent={renderInput}
         suggestions={this.state.suggestions}
@@ -116,60 +124,63 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
           classes,
           placeholder: this.props.placeholder || 'Find player',
           value: this.state.value,
-          onChange: this.handleChange,
+          onChange: this.handleChange
         }}
       />
     );
   }
 
-  private handleSuggestionsFetchRequested = ({ value }: Autosuggest.SuggestionsFetchRequest) => {
+  private handleSuggestionsFetchRequested = ({
+    value
+  }: Autosuggest.SuggestionsFetchRequest) => {
     this.querySubject.next(value);
-  }
+  };
 
   private handleSuggestionsClearRequested = () => {
     this.setState({ suggestions: [] });
-  }
+  };
 
   private handleChange = (
     event: React.FormEvent<HTMLInputElement>,
-    { newValue }: Autosuggest.ChangeEvent) => {
+    { newValue }: Autosuggest.ChangeEvent
+  ) => {
     this.setState({ value: newValue });
-  }
+  };
 
   private handleSuggestionSelected = (
     event: React.FormEvent<HTMLInputElement>,
-    { suggestion }: Autosuggest.SuggestionSelectedEventData<Suggestion>) => {
+    { suggestion }: Autosuggest.SuggestionSelectedEventData<Suggestion>
+  ) => {
     if (this.props.onSelect && suggestion.value !== 'error') {
       this.props.onSelect(suggestion.value);
       this.setState({ value: '' });
     }
-  }
+  };
 }
 
 const styles: StyleRulesCallback = theme => ({
   container: {
     flexGrow: 1,
-    position: 'relative',
-    // height: 200,
+    position: 'relative'
   },
   suggestionsContainerOpen: {
     position: 'absolute',
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit * 3,
     left: 0,
-    right: 0,
+    right: 0
   },
   suggestion: {
-    display: 'block',
+    display: 'block'
   },
   suggestionsList: {
     margin: 0,
     padding: 0,
-    listStyleType: 'none',
+    listStyleType: 'none'
   },
   textField: {
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 // tslint:disable-next-line:variable-name
@@ -187,9 +198,9 @@ function renderInput(inputProps: Autosuggest.InputProps) {
       inputRef={ref}
       InputProps={{
         classes: {
-          input: classes.input,
+          input: classes.input
         },
-        ...other,
+        ...other
       }}
     />
   );
@@ -198,9 +209,11 @@ function renderInput(inputProps: Autosuggest.InputProps) {
 const normalStyle: React.CSSProperties = { fontWeight: 300 };
 const boldStyle: React.CSSProperties = { fontWeight: 500 };
 
+/** Render a single suggestion item, bolding the matched query. */
 function renderSuggestion(
   suggestion: Suggestion,
-  { query, isHighlighted }: Autosuggest.RenderSuggestionParams) {
+  { query, isHighlighted }: Autosuggest.RenderSuggestionParams
+) {
   const matches = match(suggestion.label, query);
   const parts = parse(suggestion.label, matches);
 
@@ -213,10 +226,10 @@ function renderSuggestion(
               {part.text}
             </span>
           ) : (
-              <strong key={index} style={normalStyle}>
-                {part.text}
-              </strong>
-            );
+            <strong key={index} style={normalStyle}>
+              {part.text}
+            </strong>
+          );
         })}
       </div>
     </MenuItem>
