@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect, Dispatch } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
@@ -38,7 +38,7 @@ interface State {
 
 export class App extends React.PureComponent<ViewModel & Actions, State> {
   state: State = {
-    open: false,
+    open: false
   };
 
   componentDidMount() {
@@ -51,21 +51,19 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
       <div className="App">
         <AppBar>
           <Toolbar>
-            <IconButton color="contrast">
+            <IconButton color="accent">
               <MenuIcon />
             </IconButton>
-            <NavLink to="/">
-              <Typography type="title" color="inherit">PES League Manager</Typography>
-            </NavLink>
-            <div className="flex">
+            <Typography type="title" color="inherit">
+              PES League Manager
+            </Typography>
+            <div className="search-input flex">
               <SuggestPlayer onSelect={this.handlePlayerSelect} />
             </div>
             {user ? this.renderUser(user) : this.renderLoginButtons()}
           </Toolbar>
         </AppBar>
-        <div className="App-container">
-          {routes}
-        </div>
+        <div className="App-container">{routes}</div>
       </div>
     );
   }
@@ -104,29 +102,30 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
 
   private openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     this.setState({ open: true, anchorEl: event.currentTarget as HTMLElement });
-  }
+  };
 
   private closeMenu = () => {
     this.setState({ open: false });
-  }
+  };
 
   private login = (provider: string) => {
     this.props.login(provider);
-  }
+  };
 
   private handlePlayerSelect = (id: string) => {
     this.props.history.push(`/players/${id}`);
-  }
+  };
 }
 
 const getViewModel = (
   state: fromRoot.State,
   // tslint:disable-next-line:no-any
-  ownProps: RouteComponentProps<any>): ViewModel => {
+  ownProps: RouteComponentProps<any>
+): ViewModel => {
   const user = fromRoot.getCurrentUser(state);
   return {
     user,
-    history: ownProps.history,
+    history: ownProps.history
   };
 };
 
@@ -136,7 +135,7 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
       dispatch(fromApp.login(provider, id, password)),
     logout: () => dispatch(fromApp.logout()),
     loadSession: () => dispatch(fromApp.loadSession()),
-    dispatch,
+    dispatch
   };
 };
 
