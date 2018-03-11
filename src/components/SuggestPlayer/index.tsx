@@ -71,7 +71,7 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
   private fetch$: Observable<
     Suggestion[]
   > = this.querySubject.asObservable().pipe(
-    debounceTime(500),
+    debounceTime(250),
     switchMap(query => {
       return ajax
         .getJSON<SuggestPlayerResponse>(

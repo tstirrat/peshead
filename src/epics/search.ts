@@ -30,7 +30,13 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
           `${url}?query=${encodeURIComponent(query)}`
         )
         .pipe(
-          map(res => res.hits.hits.map(hit => hit._source)),
+          map(res =>
+            res.hits.hits.map(hit => {
+              const player = hit._source;
+              player.id = hit._id;
+              return player;
+            })
+          ),
           map(players => search.searchSuccess(players)),
           catchError(err => obs(search.searchError(err)))
         );
