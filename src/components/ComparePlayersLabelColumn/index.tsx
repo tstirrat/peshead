@@ -34,7 +34,7 @@ export function ComparePlayersLabelColumn() {
     'Condition',
     'Injury Resistance'
   ].map(skill => (
-    <div>
+    <div key={skill}>
       <Divider />
       <ListItem>
         <ListItemText primary={skill} />
