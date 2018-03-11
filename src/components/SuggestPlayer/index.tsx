@@ -19,6 +19,7 @@ import { Observable } from 'rxjs/Observable';
 export interface Props {
   placeholder?: string;
   onSelect?: (value: string) => void;
+  onSearch?: (value: string) => void;
 }
 
 interface Suggestion {
@@ -58,6 +59,8 @@ interface PlayerNameOnly {
 }
 
 type SuggestPlayerResponse = SuggestResponse<PlayerNameOnly>;
+
+const KC_ENTER = 13; // TODO: get this from some lib or DOM
 
 /** Auto-complete text field that allows quick lookup of players by name. */
 class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
@@ -124,7 +127,8 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
           classes,
           placeholder: this.props.placeholder || 'Find player',
           value: this.state.value,
-          onChange: this.handleChange
+          onChange: this.handleChange,
+          onKeyDown: this.searchIfEnterKey
         }}
       />
     );
@@ -145,6 +149,14 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
     { newValue }: Autosuggest.ChangeEvent
   ) => {
     this.setState({ value: newValue });
+  };
+
+  private searchIfEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { keyCode } = event;
+    if (keyCode === KC_ENTER && this.props.onSearch) {
+      this.props.onSearch(this.state.value);
+      this.setState({ value: '' });
+    }
   };
 
   private handleSuggestionSelected = (

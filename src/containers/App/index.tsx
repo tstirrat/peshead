@@ -55,7 +55,10 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
               <HomeIcon onClick={this.goHome} />
             </IconButton>
             <div className="search-input flex">
-              <SuggestPlayer onSelect={this.handlePlayerSelect} />
+              <SuggestPlayer
+                onSelect={this.handlePlayerSelect}
+                onSearch={this.handleSearch}
+              />
             </div>
             {user ? this.renderUser(user) : this.renderLoginButtons()}
           </Toolbar>
@@ -111,6 +114,10 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
 
   private handlePlayerSelect = (id: string) => {
     this.props.history.push(`/players/${id}`);
+  };
+
+  private handleSearch = (query: string) => {
+    this.props.history.push(`/search?query=${query}`);
   };
 
   private goHome = () => {
