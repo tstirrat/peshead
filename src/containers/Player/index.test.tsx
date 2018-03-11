@@ -11,19 +11,17 @@ const player = PlayerModel.create(base);
 const props = {
   id: '1',
   player,
-  isLoading: false,
+  isLoading: false
 };
 
 const dispatch = jasmine.createSpy('dispatch');
 
 const actions = {
   getPlayer: players.getPlayer,
-  dispatch,
+  dispatch
 };
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  render(
-    <Player {...props} {...actions} />,
-    div);
+  render(<Player {...props} {...actions} />, div);
 });

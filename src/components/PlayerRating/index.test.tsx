@@ -11,15 +11,13 @@ const player = Player.create(base);
 const props: Props = {
   player,
   weights: {
-    kickingPower: 0.60,
-    finishing: 0.40,
+    kickingPower: 0.6,
+    finishing: 0.4
   },
-  render: rating => <div>{rating}</div>,
-}
+  render: rating => <div>{rating}</div>
+};
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  render(
-    <PlayerRating {...props} />,
-    div);
+  render(<PlayerRating {...props} />, div);
 });
