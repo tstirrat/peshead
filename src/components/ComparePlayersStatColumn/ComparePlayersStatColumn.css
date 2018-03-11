@@ -1,0 +1,10 @@
+.ComparePlayersStatColumn li {
+  justify-content: center;
+}
+
+.ComparePlayersStatColumn .player-name {
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
