@@ -3,8 +3,6 @@ import './Home.css';
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 
-import { SearchBox } from '../../components/SearchBox';
-
 export type Props = RouteComponentProps<{}>;
 
 interface State {
@@ -20,9 +18,6 @@ export class Home extends React.PureComponent<Props, State> {
     return (
       <div className="Home">
         <div className="Home-header">
-          <div className="search-container">
-            <SearchBox onSubmit={query => this.search(query)} />
-          </div>
           <h3>Profiles</h3>
           <ul>
             <li>
@@ -57,8 +52,4 @@ export class Home extends React.PureComponent<Props, State> {
       </div>
     );
   }
-
-  private search = (query: string) => {
-    this.props.history.push(`/search?query=${query}`);
-  };
 }
