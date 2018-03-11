@@ -1,4 +1,4 @@
-import Card from 'material-ui/Card';
+import { Paper } from 'material-ui';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
@@ -7,8 +7,9 @@ import { withRouter } from 'react-router';
 import { createSelector } from 'reselect';
 
 import * as playerActions from '../../actions/players';
+import { ComparePlayersLabelColumn } from '../../components/ComparePlayersLabelColumn';
+import { ComparePlayersStatColumn } from '../../components/ComparePlayersStatColumn';
 import { Loading } from '../../components/Loading';
-import { PlayerAbilities } from '../../components/PlayerAbilities';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { PlayerCompareOption } from '../../reducers/ui/routing';
@@ -52,20 +53,27 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   render() {
     const { players } = this.props;
     return (
-      <Grid container={true} spacing={24}>
+      <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
           <Typography type="title">Compare players</Typography>
         </Grid>
-        {players.map(player => (
-          <Grid item={true} xs={4} sm={6} key={player.id}>
-            <Card>
-              <Loading
-                when={player.isLoading}
-                render={() => this.renderPlayer(player)}
-              />
-            </Card>
-          </Grid>
-        ))}
+        <Grid item={true} xs={12} sm={12}>
+          <Paper>
+            <Grid container={true} spacing={0}>
+              <Grid item={true} xs={6} md={3}>
+                <ComparePlayersLabelColumn />
+              </Grid>
+              {players.map(player => (
+                <Grid item={true} xs={2} md={3} key={player.id}>
+                  <Loading
+                    when={player.isLoading}
+                    render={() => this.renderPlayer(player)}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </Paper>
+        </Grid>
       </Grid>
     );
   }
@@ -75,12 +83,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
       viewModel.data,
       'Player should exist when !isLoading'
     );
-    return (
-      <div>
-        <Typography type="title">{player.name}</Typography>
-        <PlayerAbilities player={player} />
-      </div>
-    );
+    return <ComparePlayersStatColumn player={player} />;
   }
 }
 
