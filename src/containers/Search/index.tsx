@@ -33,9 +33,18 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
   componentDidMount() {
     if (this.props.params.query && !this.props.isLoading) {
       // TODO: needs work, prevent double searches
-      this.props.search({
-        query: this.props.params.query
-      });
+      this.props.search({ query: this.props.params.query });
+    }
+  }
+
+  /**
+   * When search params change on the same route, component does not un-mount.
+   * This allows re-queries.
+   */
+  componentWillUpdate(nextProps: ViewModel) {
+    const { query } = nextProps.params;
+    if (query && query !== this.props.params.query) {
+      this.props.search({ query });
     }
   }
 

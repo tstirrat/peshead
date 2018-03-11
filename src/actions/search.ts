@@ -3,12 +3,12 @@ import { Action } from 'redux';
 
 import { Player } from '../shared/service/api';
 
-export const SEARCH_REQUEST = 'SEARCH_REQUEST';
+export const SEARCH = 'SEARCH';
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
 export const SEARCH_ERROR = 'SEARCH_ERROR';
 
 export class SearchRequestAction implements Action {
-  public type: typeof SEARCH_REQUEST = SEARCH_REQUEST;
+  public type: typeof SEARCH = SEARCH;
   constructor(public payload: SearchRequestPayload) {}
 }
 
@@ -40,7 +40,7 @@ export const search: ActionCreator<SearchRequestAction> = ({
   sortDirection
 }: SearchRequestPayload) => {
   return {
-    type: SEARCH_REQUEST,
+    type: SEARCH,
     payload: {
       query,
       sortField,

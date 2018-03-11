@@ -27,7 +27,7 @@ export const reducer: Reducer<State> = (
   action: search.Actions
 ) => {
   switch (action.type) {
-    case search.SEARCH_REQUEST: {
+    case search.SEARCH: {
       return {
         ui: {
           isLoading: true

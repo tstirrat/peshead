@@ -18,7 +18,7 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
   store,
   deps
 ) =>
-  action$.ofType(search.SEARCH_REQUEST).pipe(
+  action$.ofType(search.SEARCH).pipe(
     switchMap((action: search.SearchRequestAction) => {
       const { query } = action.payload;
       if (!query) {
