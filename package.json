@@ -15,11 +15,13 @@
     "jbinary": "^2.1.3",
     "material-ui": "^1.0.0-beta.18",
     "material-ui-icons": "^1.0.0-beta.17",
+    "prop-types": "^15.6.1",
     "protobufjs": "^6.8.0",
     "react": "^16.0.0",
     "react-autosuggest": "^9.3.2",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
+    "react-route-guard": "^1.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.8",
     "redux": "^3.7.2",
@@ -32,8 +34,7 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "coveralls":
-      "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
+    "coveralls": "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "@types/history": "^4.6.1",
     "@types/jest": "^21.1.2",
     "@types/node": "^8.0.34",
+    "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.10",
     "@types/react-autosuggest": "^9.3.1",
     "@types/react-dom": "^16.0.1",

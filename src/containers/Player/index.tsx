@@ -27,22 +27,22 @@ interface Actions {
 }
 
 export class Player extends React.PureComponent<ViewModel & Actions> {
-  componentDidMount() {
-    if (this.props.id) {
-      this.props.getPlayer(this.props.id);
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.id) {
+  //     this.props.getPlayer(this.props.id);
+  //   }
+  // }
 
-  /**
-   * When a player id changes on the same route, component does not un-mount.
-   * Capture and re-query player here.
-   */
-  componentWillUpdate(nextProps: ViewModel) {
-    const { id } = nextProps;
-    if (id && id !== this.props.id) {
-      this.props.getPlayer(id);
-    }
-  }
+  // /**
+  //  * When a player id changes on the same route, component does not un-mount.
+  //  * Capture and re-query player here.
+  //  */
+  // componentWillUpdate(nextProps: ViewModel) {
+  //   const { id } = nextProps;
+  //   if (id && id !== this.props.id) {
+  //     this.props.getPlayer(id);
+  //   }
+  // }
 
   renderPlayer() {
     const player = this.props.player!;
