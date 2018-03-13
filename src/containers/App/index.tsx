@@ -1,17 +1,19 @@
 import './App.css';
 
 import { History } from 'history';
-import HomeIcon from 'material-ui-icons/Home';
 import AccountCircleIcon from 'material-ui-icons/AccountCircle';
+import HomeIcon from 'material-ui-icons/Home';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Toolbar from 'material-ui/Toolbar';
+import * as PropTypes from 'prop-types';
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, RouterChildContext } from 'react-router';
 import { withRouter } from 'react-router-dom';
+import { Store } from 'redux';
 
 import * as fromApp from '../../actions/app';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
@@ -36,10 +38,17 @@ interface State {
   open: boolean;
 }
 
+interface ProviderContext {
+  store: Store<fromRoot.State>;
+}
+
 export class App extends React.PureComponent<ViewModel & Actions, State> {
-  state: State = {
-    open: false
+  static contextTypes = {
+    store: PropTypes.object.isRequired
   };
+  context: ProviderContext;
+
+  state: State = { open: false };
 
   componentDidMount() {
     this.props.loadSession();
@@ -63,7 +72,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
             {user ? this.renderUser(user) : this.renderLoginButtons()}
           </Toolbar>
         </AppBar>
-        <div className="App-container">{routes}</div>
+        <div className="App-container">{routes(this.context.store)}</div>
       </div>
     );
   }
@@ -101,7 +110,10 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   }
 
   private openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    this.setState({ open: true, anchorEl: event.currentTarget as HTMLElement });
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget as HTMLElement
+    });
   };
 
   private closeMenu = () => {

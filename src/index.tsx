@@ -1,14 +1,15 @@
+import './index.css';
+
+import { blueGrey, red, teal } from 'material-ui/colors';
+import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+
+import store, { history } from './configureStore';
 import { ConnectedApp } from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
-import { MuiThemeProvider } from 'material-ui/styles';
-import store, { history } from './configureStore';
-import { createMuiTheme } from 'material-ui/styles';
-import { teal, red, blueGrey } from 'material-ui/colors';
-import './index.css';
 
 const theme = createMuiTheme({
   palette: {
