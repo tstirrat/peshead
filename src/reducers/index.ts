@@ -75,6 +75,11 @@ export const getRoutePlayerCompareOptions = (
   props: RouteComponentProps<routing.RouteWithPlayerIds>
 ) => routing.getPlayerCompareOptions(getRoutingState(state), props);
 
+export const getRouterHistory = (
+  state: State,
+  props: RouteComponentProps<{}>
+) => props.history;
+
 // App
 
 export const getCurrentUser = (state: State) =>

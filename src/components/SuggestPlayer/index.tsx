@@ -173,7 +173,9 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
 const styles: StyleRulesCallback = theme => ({
   container: {
     flexGrow: 1,
-    position: 'relative'
+    position: 'relative',
+    background: 'white',
+    zIndex: 10
   },
   suggestionsContainerOpen: {
     position: 'absolute',

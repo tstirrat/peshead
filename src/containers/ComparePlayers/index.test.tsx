@@ -8,7 +8,9 @@ const props: ViewModel = {
   players: [
     { id: '1', form: 'A', level: 30, isLoading: true },
     { id: '2', form: 'B', level: 31, isLoading: true }
-  ]
+  ],
+  // tslint:disable-next-line:no-any
+  history: {} as any
 };
 
 const dispatch = jasmine.createSpy('dispatch');
