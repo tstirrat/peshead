@@ -1,3 +1,4 @@
+import { History } from 'history';
 import { Paper } from 'material-ui';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
@@ -15,10 +16,12 @@ import * as fromPlayers from '../../reducers/players';
 import { PlayerCompareOption } from '../../reducers/ui/routing';
 import { assert } from '../../shared/assert';
 import { Player as PlayerModel, Position } from '../../shared/service/api';
+import { SuggestPlayer } from '../../components/SuggestPlayer';
 
 export interface ViewModel {
   players: PlayerViewModel[];
   position?: Position;
+  history: History;
 }
 
 export interface PlayerViewModel extends PlayerCompareOption {
@@ -50,12 +53,21 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     this.props.players.forEach(p => this.props.getPlayer(p.id));
   }
 
+  componentWillReceiveProps(nextProps: ViewModel) {
+    if (nextProps.players !== this.props.players) {
+      nextProps.players.forEach(p => this.props.getPlayer(p.id));
+    }
+  }
+
   render() {
     const { players } = this.props;
     return (
       <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
           <Typography type="title">Compare players</Typography>
+          <div className="search-input flex">
+            <SuggestPlayer onSelect={this.handlePlayerSelect} />
+          </div>
         </Grid>
         <Grid item={true} xs={12} sm={12}>
           <Paper>
@@ -78,26 +90,38 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     );
   }
 
-  renderPlayer(viewModel: PlayerViewModel) {
+  private renderPlayer(viewModel: PlayerViewModel) {
     const player = assert(
       viewModel.data,
       'Player should exist when !isLoading'
     );
     return <ComparePlayersStatColumn player={player} />;
   }
+
+  private handlePlayerSelect = (id: string) => {
+    const { players } = this.props;
+    const ids = players.map(p => p.id).concat([id]);
+    this.props.history.push(`/players/compare/${ids.join('/')}`);
+  };
 }
 
 const getViewModel = createSelector(
-  [fromRoot.getRoutePlayerCompareOptions, fromRoot.getPlayersState],
+  [
+    fromRoot.getRoutePlayerCompareOptions,
+    fromRoot.getPlayersState,
+    fromRoot.getRouterHistory
+  ],
   (
     playerOptions: PlayerCompareOption[],
-    state: fromPlayers.State
+    state: fromPlayers.State,
+    history: History
   ): ViewModel => {
     const viewModels = playerOptions.map(options =>
       createPlayerViewModel(state, options)
     );
     return {
-      players: viewModels
+      players: viewModels,
+      history
     };
   }
 );
