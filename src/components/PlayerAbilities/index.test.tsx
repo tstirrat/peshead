@@ -10,7 +10,5 @@ const player = Player.create(base);
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  render(
-    <PlayerAbilities player={player} />,
-    div);
+  render(<PlayerAbilities player={player} level={29} />, div);
 });
