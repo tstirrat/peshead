@@ -14,11 +14,13 @@ import { PlayerAbilities } from '../../components/PlayerAbilities';
 import { PlayerBasics } from '../../components/PlayerBasics';
 import * as fromRoot from '../../reducers';
 import * as players from '../../actions/players';
+import { assert } from '../../shared/assert';
 
 export interface ViewModel {
   id?: string;
   player?: PlayerModel;
   isLoading: boolean;
+  level?: number;
 }
 
 interface Actions {
@@ -28,8 +30,9 @@ interface Actions {
 
 export class Player extends React.PureComponent<ViewModel & Actions> {
   componentDidMount() {
-    if (this.props.id) {
-      this.props.getPlayer(this.props.id);
+    const { id, player } = this.props;
+    if (id && !player) {
+      this.props.getPlayer(id);
     }
   }
 
@@ -44,8 +47,15 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
     }
   }
 
-  renderPlayer() {
-    const player = this.props.player!;
+  render() {
+    return (
+      <Loading when={this.props.isLoading} render={() => this.renderPlayer()} />
+    );
+  }
+
+  private renderPlayer() {
+    const { level } = this.props;
+    const player = assert(this.props.player, 'Player is guarded by <Loading>');
     return (
       <Grid container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
@@ -71,31 +81,49 @@ export class Player extends React.PureComponent<ViewModel & Actions> {
             <CardContent>
               <Typography type="title">Abilities</Typography>
             </CardContent>
-            <PlayerAbilities player={player} />
+            <PlayerAbilities player={player} level={level} />
           </Card>
         </Grid>
       </Grid>
     );
   }
 
-  render() {
-    return (
-      <Loading when={this.props.isLoading} render={() => this.renderPlayer()} />
-    );
-  }
-
-  renderPlayerStat(rating: number) {
+  private renderPlayerStat(rating: number) {
     return <PlayerStat value={rating} />;
   }
 }
 
+export interface PlayerQueryParams {
+  level?: number;
+  form?: string;
+  position?: string;
+}
+
+interface RawPlayerQueryParams {
+  level?: string;
+  form?: string;
+  position?: string;
+}
+
+const getPlayerQueryParams = (state: fromRoot.State): PlayerQueryParams => {
+  const { level, form, position } = fromRoot.getQueryParams<
+    RawPlayerQueryParams
+  >(state);
+  return {
+    level: level ? Number(level) : undefined,
+    form,
+    position
+  };
+};
+
 const getViewModel = createSelector(
-  [fromRoot.getRouteId, fromRoot.getSelectedPlayer],
-  (id: string, player: PlayerModel | undefined): ViewModel => {
+  [fromRoot.getRouteId, fromRoot.getSelectedPlayer, getPlayerQueryParams],
+  (id, player, params): ViewModel => {
     return {
       id,
       player,
-      isLoading: !player
+      isLoading: !player,
+      level: params.level
     };
   }
 );
