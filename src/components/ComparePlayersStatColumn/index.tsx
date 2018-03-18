@@ -3,6 +3,7 @@ import './ComparePlayersStatColumn.css';
 import { Divider, ListSubheader } from 'material-ui';
 import List, { ListItem } from 'material-ui/List';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Player } from '../../shared/service/api';
 import { PlayerStat } from '../PlayerStat';
@@ -16,7 +17,9 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
     const { player } = this.props;
     return (
       <List className="ComparePlayersStatColumn">
-        <ListSubheader className="player-name">{player.name}</ListSubheader>
+        <ListSubheader className="player-name">
+          <Link to={`/players/${player.id}`}>{player.name}</Link>
+        </ListSubheader>
         <Divider />
         <ListItem>
           <PlayerStat value={player.abilities!.attackingProwess!} />
