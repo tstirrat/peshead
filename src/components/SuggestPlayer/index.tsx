@@ -123,7 +123,7 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: true,
+          autoFocus: false,
           classes,
           placeholder: this.props.placeholder || 'Find player',
           value: this.state.value,
