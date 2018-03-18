@@ -3,6 +3,31 @@ import { IPlayerAbilities } from '../service/api';
 export type PlayerAbilityName = keyof IPlayerAbilities;
 
 /**
+ * Player form
+ *
+ * _These are numeric and 1 based to be compatible with `input[type=range]`_
+ */
+export enum PlayerForm {
+  A = 5,
+  B = 4,
+  C = 3,
+  D = 2,
+  E = 1
+}
+
+/** Human readable form for the UI. */
+export const PlayerFormValue = {
+  [PlayerForm.A]: 'A',
+  [PlayerForm.B]: 'B',
+  [PlayerForm.C]: 'C',
+  [PlayerForm.D]: 'D',
+  [PlayerForm.E]: 'E'
+};
+
+export const DEFAULT_PLAYER_FORM = PlayerForm.C;
+export const DEFAULT_PLAYER_LEVEL = 30;
+
+/**
  * Map of changed abilities at each level.
  *
  * Source: http://bit.ly/2tQjHlW#gid=949383748
@@ -66,6 +91,9 @@ const LEVEL_CHANGES: PlayerAbilityName[][] = [
  * the previous and the supplied level.
  */
 export function getChangedAbilitiesForLevel(level: number): IPlayerAbilities {
+  if (level >= LEVEL_CHANGES.length) {
+    return {};
+  }
   const changed = LEVEL_CHANGES[level].reduce<IPlayerAbilities>(
     (acc, ability) => ({ ...acc, [ability]: 1 }),
     {}
