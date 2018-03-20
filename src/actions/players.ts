@@ -5,19 +5,18 @@ import { Player } from '../shared/service/api';
 
 // Multiple players (e.g. get players in a team)
 export const GET_PLAYERS = 'GET_PLAYERS';
-export const GET_PLAYERS_SUCCESS = 'GET_PLAYERS_SUCCESS';
-export const GET_PLAYERS_ERROR = 'GET_PLAYERS_ERROR';
-
 export class GetPlayersAction implements Action {
   public type: typeof GET_PLAYERS = GET_PLAYERS;
   constructor(public payload: PlayersRequestPayload) {}
 }
 
+export const GET_PLAYERS_SUCCESS = 'GET_PLAYERS_SUCCESS';
 export class GetPlayersSuccessAction implements Action {
   public type: typeof GET_PLAYERS_SUCCESS = GET_PLAYERS_SUCCESS;
   constructor(public payload: PlayersSuccessPayload) {}
 }
 
+export const GET_PLAYERS_ERROR = 'GET_PLAYERS_ERROR';
 export class GetPlayersErrorAction implements Action {
   public type: typeof GET_PLAYERS_ERROR = GET_PLAYERS_ERROR;
   constructor(public payload: Error) {}
@@ -66,9 +65,6 @@ export const getPlayersError: ActionCreator<GetPlayersErrorAction> = (
 
 // Single player
 export const GET_PLAYER = 'GET_PLAYER';
-export const GET_PLAYER_SUCCESS = 'GET_PLAYER_SUCCESS';
-export const GET_PLAYER_ERROR = 'GET_PLAYER_ERROR';
-
 export class GetPlayerAction implements Action {
   public type: typeof GET_PLAYER = GET_PLAYER;
   constructor(
@@ -77,11 +73,13 @@ export class GetPlayerAction implements Action {
   ) {}
 }
 
+export const GET_PLAYER_SUCCESS = 'GET_PLAYER_SUCCESS';
 export class GetPlayerSuccessAction implements Action {
   public type: typeof GET_PLAYER_SUCCESS = GET_PLAYER_SUCCESS;
   constructor(public payload: Player) {}
 }
 
+export const GET_PLAYER_ERROR = 'GET_PLAYER_ERROR';
 export class GetPlayerErrorAction implements Action {
   public type: typeof GET_PLAYER_ERROR = GET_PLAYER_ERROR;
   constructor(public payload: PlayerErrorPayload) {}

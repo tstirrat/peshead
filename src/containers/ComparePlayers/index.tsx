@@ -11,12 +11,12 @@ import * as playerActions from '../../actions/players';
 import { ComparePlayersLabelColumn } from '../../components/ComparePlayersLabelColumn';
 import { ComparePlayersStatColumn } from '../../components/ComparePlayersStatColumn';
 import { Loading } from '../../components/Loading';
+import { SuggestPlayer } from '../../components/SuggestPlayer';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { PlayerCompareOption } from '../../reducers/ui/routing';
 import { assert } from '../../shared/assert';
-import { Player as PlayerModel, Position } from '../../shared/service/api';
-import { SuggestPlayer } from '../../components/SuggestPlayer';
+import { Position } from '../../shared/service/api';
 
 export interface ViewModel {
   players: PlayerViewModel[];
@@ -24,10 +24,9 @@ export interface ViewModel {
   history: History;
 }
 
-export interface PlayerViewModel extends PlayerCompareOption {
-  data?: PlayerModel;
-  isLoading: boolean;
-}
+export interface PlayerViewModel
+  extends PlayerCompareOption,
+    fromPlayers.BaseViewModel {}
 
 export interface Actions {
   getPlayer: typeof playerActions.getPlayer;
@@ -38,11 +37,9 @@ const createPlayerViewModel = (
   state: fromPlayers.State,
   playerOptions: PlayerCompareOption
 ): PlayerViewModel => {
-  const player = fromPlayers.getPlayerById(state, playerOptions.id);
+  const baseView = fromPlayers.getPlayerBaseView(state, playerOptions.id);
   return {
-    id: playerOptions.id,
-    data: player,
-    isLoading: !player,
+    ...baseView,
     form: 'A',
     level: 30
   };
@@ -50,12 +47,12 @@ const createPlayerViewModel = (
 
 export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   componentDidMount() {
-    this.props.players.forEach(p => this.props.getPlayer(p.id));
+    this.fetchMissingPlayers(this.props);
   }
 
   componentWillReceiveProps(nextProps: ViewModel) {
     if (nextProps.players !== this.props.players) {
-      nextProps.players.forEach(p => this.props.getPlayer(p.id));
+      this.fetchMissingPlayers(nextProps);
     }
   }
 
@@ -78,7 +75,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
               {players.map(player => (
                 <Grid item={true} xs={2} md={3} key={player.id}>
                   <Loading
-                    when={player.isLoading}
+                    when={!player.player || player.isLoading}
                     render={() => this.renderPlayer(player)}
                   />
                 </Grid>
@@ -92,10 +89,19 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
 
   private renderPlayer(viewModel: PlayerViewModel) {
     const player = assert(
-      viewModel.data,
+      viewModel.player,
       'Player should exist when !isLoading'
     );
     return <ComparePlayersStatColumn player={player} />;
+  }
+
+  /** Fetch any missing players. */
+  private fetchMissingPlayers(props: ViewModel) {
+    props.players.forEach(player => {
+      if (!player.player && !player.isLoading) {
+        this.props.getPlayer(player.id);
+      }
+    });
   }
 
   private handlePlayerSelect = (id: string) => {

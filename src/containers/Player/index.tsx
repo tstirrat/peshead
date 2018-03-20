@@ -19,8 +19,8 @@ import { PlayerBasics } from '../../components/PlayerBasics';
 import { PlayerPositionRating } from '../../components/PlayerPositionRating';
 import { PlayerStat } from '../../components/PlayerStat';
 import * as fromRoot from '../../reducers';
+import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
-import { Player as PlayerModel } from '../../shared/service/api';
 import {
   DEFAULT_PLAYER_FORM,
   DEFAULT_PLAYER_LEVEL,
@@ -28,10 +28,7 @@ import {
   PlayerFormValue
 } from '../../shared/utils/player';
 
-export interface ViewModel {
-  id?: string;
-  player?: PlayerModel;
-  isLoading: boolean;
+export interface ViewModel extends fromPlayers.BaseViewModel {
   level?: number;
   form?: PlayerForm;
 }
@@ -60,8 +57,8 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
   private destroy$ = new Subject<void>();
 
   componentDidMount() {
-    const { id, player } = this.props;
-    if (id && !player) {
+    const { id, player, isLoading } = this.props;
+    if (!player && !isLoading) {
       this.props.getPlayer(id);
     }
 
@@ -83,15 +80,16 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
    * Capture and re-query player here.
    */
   componentWillUpdate(nextProps: ViewModel) {
-    const { id, player } = nextProps;
-    if (id && id !== this.props.id && !player) {
+    const { id, player, isLoading } = nextProps;
+    if (id !== this.props.id && !player && !isLoading) {
       this.props.getPlayer(id);
     }
   }
 
   render() {
+    const { player, isLoading } = this.props;
     return (
-      <Loading when={this.props.isLoading} render={() => this.renderPlayer()} />
+      <Loading when={!player || isLoading} render={() => this.renderPlayer()} />
     );
   }
 
@@ -216,12 +214,10 @@ const getPlayerQueryParams = (state: fromRoot.State): PlayerQueryParams => {
 };
 
 const getViewModel = createSelector(
-  [fromRoot.getRouteId, fromRoot.getSelectedPlayer, getPlayerQueryParams],
-  (id, player, params): ViewModel => {
+  [fromRoot.getRouteId, fromRoot.getSelectedPlayerView, getPlayerQueryParams],
+  (id, playerView, params): ViewModel => {
     return {
-      id,
-      player,
-      isLoading: !player,
+      ...playerView,
       level: params.level,
       form: params.form
     };
