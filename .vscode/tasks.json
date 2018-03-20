@@ -9,7 +9,14 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      }
+      },
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "server",
+      "group": "build",
+      "problemMatcher": []
     },
     {
       "type": "typescript",
