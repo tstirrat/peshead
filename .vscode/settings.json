@@ -1,12 +1,6 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": [
-    "bitarray",
-    "jbinary",
-    "proto",
-    "protobuf",
-    "protos"
-  ],
+  "cSpell.words": ["bitarray", "jbinary", "proto", "protobuf", "protos"],
   "files.exclude": {
     "build/": true,
     "node_modules/": true,
@@ -15,5 +9,6 @@
     "coverage/": true,
     "functions/coverage/": true
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "typescriptHero.imports.organizeOnSave": true
 }
