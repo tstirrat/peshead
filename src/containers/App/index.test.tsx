@@ -10,10 +10,7 @@ const props = {
   logout: jasmine.createSpy('logout'),
   loadSession: jasmine.createSpy('loadSession'),
   dispatch: jasmine.createSpy('dispatch'),
-  history: {
-    push: jasmine.createSpy('history.push'),
-    // tslint:disable-next-line:no-any
-  } as any,
+  pushUrl: jasmine.createSpy('history.push')
 };
 
 it('renders without crashing', () => {
@@ -22,5 +19,6 @@ it('renders without crashing', () => {
     <StaticRouter location="/" context={context}>
       <App {...props} />
     </StaticRouter>,
-    div);
+    div
+  );
 });

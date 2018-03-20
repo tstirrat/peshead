@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { push } from 'react-router-redux';
 
 import { Player } from '.';
 import { base } from '../../__test__/fixtures';
@@ -19,7 +18,7 @@ const dispatch = jasmine.createSpy('dispatch');
 
 const actions = {
   getPlayer: players.getPlayer,
-  push,
+  replaceUrl: jasmine.createSpy('history.replace'),
   dispatch
 };
 

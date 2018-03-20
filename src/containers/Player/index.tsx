@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { replace } from 'react-router-redux';
 import { createSelector } from 'reselect';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -22,9 +22,9 @@ import * as fromRoot from '../../reducers';
 import { assert } from '../../shared/assert';
 import { Player as PlayerModel } from '../../shared/service/api';
 import {
-  PlayerForm,
-  DEFAULT_PLAYER_LEVEL,
   DEFAULT_PLAYER_FORM,
+  DEFAULT_PLAYER_LEVEL,
+  PlayerForm,
   PlayerFormValue
 } from '../../shared/utils/player';
 
@@ -43,7 +43,7 @@ interface State {
 
 interface Actions {
   getPlayer: typeof players.getPlayer;
-  push: typeof push;
+  replaceUrl: typeof replace;
   dispatch: Dispatch<fromRoot.State>;
 }
 
@@ -69,7 +69,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
       .pipe(
         takeUntil(this.destroy$),
         debounceTime(500),
-        tap(url => this.props.push(url))
+        tap(url => this.props.replaceUrl(url))
       )
       .subscribe();
   }
@@ -231,7 +231,7 @@ const getViewModel = createSelector(
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
     getPlayer: (id: string) => dispatch(players.getPlayer(id)),
-    push: (location: string) => dispatch(push(location)),
+    replaceUrl: (location: string) => dispatch(replace(location)),
     dispatch
   };
 };

@@ -1,8 +1,7 @@
 import './App.css';
 
-import { History } from 'history';
-import HomeIcon from 'material-ui-icons/Home';
 import AccountCircleIcon from 'material-ui-icons/AccountCircle';
+import HomeIcon from 'material-ui-icons/Home';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
@@ -12,6 +11,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
+import { push } from 'react-router-redux';
 
 import * as fromApp from '../../actions/app';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
@@ -21,13 +21,13 @@ import { routes } from '../../routes';
 
 interface ViewModel {
   user?: User;
-  history: History;
 }
 
 interface Actions {
   login: typeof fromApp.login;
   logout: typeof fromApp.logout;
   loadSession: typeof fromApp.loadSession;
+  pushUrl: typeof push;
   dispatch: Dispatch<fromRoot.State>;
 }
 
@@ -113,15 +113,15 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   };
 
   private handlePlayerSelect = (id: string) => {
-    this.props.history.push(`/players/${id}`);
+    this.props.pushUrl(`/players/${id}`);
   };
 
   private handleSearch = (query: string) => {
-    this.props.history.push(`/search?query=${query}`);
+    this.props.pushUrl(`/search?query=${query}`);
   };
 
   private goHome = () => {
-    this.props.history.push(`/`);
+    this.props.pushUrl(`/`);
   };
 }
 
@@ -132,8 +132,7 @@ const getViewModel = (
 ): ViewModel => {
   const user = fromRoot.getCurrentUser(state);
   return {
-    user,
-    history: ownProps.history
+    user
   };
 };
 
@@ -143,6 +142,7 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
       dispatch(fromApp.login(provider, id, password)),
     logout: () => dispatch(fromApp.logout()),
     loadSession: () => dispatch(fromApp.loadSession()),
+    pushUrl: (location: string) => dispatch(push(location)),
     dispatch
   };
 };
