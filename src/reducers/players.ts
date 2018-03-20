@@ -2,17 +2,18 @@ import { Reducer } from 'redux';
 
 import * as players from '../actions/players';
 import { Player } from '../shared/service/api';
-
-export type MapLike<T> = {
-  [key: string]: T;
-};
+import { MapLike } from '../shared/types';
 
 export interface State {
   byId: MapLike<Player>;
+  isLoading: MapLike<boolean>;
+  error: MapLike<Error>;
 }
 
 export const INITIAL_STATE: State = {
-  byId: {}
+  byId: {},
+  isLoading: {},
+  error: {}
 };
 
 export const reducer: Reducer<State> = (
@@ -27,9 +28,19 @@ export const reducer: Reducer<State> = (
     }
 
     // Single player
+    case players.GET_PLAYER: {
+      const id = action.payload;
+      return setLoading(state, id);
+    }
+
     case players.GET_PLAYER_SUCCESS: {
       const player = action.payload;
       return setPlayers(state, [player]);
+    }
+
+    case players.GET_PLAYER_ERROR: {
+      const { id, error } = action.payload;
+      return setError(state, id, error);
     }
 
     default:
@@ -38,17 +49,57 @@ export const reducer: Reducer<State> = (
 };
 
 /** Set players into state, return new state ref. */
-function setPlayers(state: State, results: Player[]) {
-  const newState: State = {
-    byId: {
-      ...state.byId
-    }
+function setPlayers(state: State, results: Player[]): State {
+  const byId = { ...state.byId }; // clone
+  const isLoading = { ...state.isLoading }; // clone
+
+  results.forEach(player => {
+    byId[player.id] = player;
+    delete isLoading[player.id];
+  });
+
+  return {
+    ...state,
+    byId,
+    isLoading
   };
-  results.forEach(p => (newState.byId['' + p.id] = p));
-  return newState;
+}
+
+function setLoading(state: State, id: string): State {
+  return { ...state, isLoading: { ...state.isLoading, [id]: true } };
+}
+
+function setError(state: State, id: string, error: Error): State {
+  return { ...state, error: { ...state.error, [id]: error } };
 }
 
 // Selectors
 export const getPlayerById = (state: State, id: string): Player | undefined => {
   return state.byId[id];
+};
+
+export const getPlayerIsLoading = (state: State, id: string): boolean => {
+  return !!state.isLoading[id];
+};
+
+export const getPlayerError = (state: State, id: string): Error | undefined => {
+  return state.error[id];
+};
+
+/** Common attributes for multiple views */
+export interface BaseViewModel {
+  id: string;
+  player?: Player;
+  isLoading: boolean;
+  error?: Error;
+}
+
+/** Used as a basis for multiple view models. */
+export const getPlayerBaseView = (state: State, id: string): BaseViewModel => {
+  return {
+    id,
+    player: getPlayerById(state, id),
+    isLoading: getPlayerIsLoading(state, id),
+    error: getPlayerError(state, id)
+  };
 };

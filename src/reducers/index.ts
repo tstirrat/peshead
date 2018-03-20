@@ -93,6 +93,11 @@ export const getSelectedPlayer = createSelector(
     players.getPlayerById(state, id)
 );
 
+export const getSelectedPlayerView = createSelector(
+  [getRouteId, getPlayersState],
+  (id: string, state: players.State) => players.getPlayerBaseView(state, id)
+);
+
 // Search
 
 export const getSearchResults = (state: State) =>
