@@ -1,12 +1,12 @@
-import * as React from 'react';
-import * as Autosuggest from 'react-autosuggest';
-import TextField from 'material-ui/TextField';
-import Paper, { PaperProps } from 'material-ui/Paper';
-import { MenuItem } from 'material-ui/Menu';
-import { withStyles, StyleRulesCallback, WithStyles } from 'material-ui/styles';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import { Subject } from 'rxjs/Subject';
+import { MenuItem } from 'material-ui/Menu';
+import Paper, { PaperProps } from 'material-ui/Paper';
+import { StyleRulesCallback, WithStyles, withStyles } from 'material-ui/styles';
+import TextField from 'material-ui/TextField';
+import * as React from 'react';
+import * as Autosuggest from 'react-autosuggest';
+import { Observable } from 'rxjs/Observable';
 import { ajax } from 'rxjs/observable/dom/ajax';
 import { of } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
@@ -14,7 +14,7 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 export interface Props {
   placeholder?: string;
@@ -174,7 +174,7 @@ const styles: StyleRulesCallback = theme => ({
   container: {
     flexGrow: 1,
     position: 'relative',
-    background: 'white',
+    background: 'rgba(255, 255, 255, 0.15)',
     zIndex: 10
   },
   suggestionsContainerOpen: {
@@ -194,6 +194,10 @@ const styles: StyleRulesCallback = theme => ({
   },
   textField: {
     width: '100%'
+  },
+  input: {
+    color: 'white',
+    paddingLeft: '0.5rem'
   }
 });
 
@@ -211,9 +215,8 @@ function renderInput(inputProps: Autosuggest.InputProps) {
       value={value}
       inputRef={ref}
       InputProps={{
-        classes: {
-          input: classes.input
-        },
+        disableUnderline: true,
+        classes: { input: classes.input },
         ...other
       }}
     />
