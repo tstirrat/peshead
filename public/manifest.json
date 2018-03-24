@@ -3,8 +3,8 @@
   "name": "PES 2018 Players",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "volleyball.png",
+      "sizes": "any",
       "type": "image/png"
     }
   ],
