@@ -50,7 +50,7 @@
     "@types/react-router-dom": "^4.0.8",
     "@types/react-router-redux": "^5.0.8",
     "@types/redux-devtools-extension": "^2.13.2",
-    "@types/redux-mock-store": "^0.0.11",
+    "@types/redux-mock-store": "^0.0.13",
     "coveralls": "^3.0.0",
     "eslint-config-prettier": "^2.9.0",
     "react-scripts-ts": "^2.13.0",
