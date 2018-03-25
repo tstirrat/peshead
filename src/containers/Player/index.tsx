@@ -16,9 +16,9 @@ import { Subject } from 'rxjs/Subject';
 import * as players from '../../actions/players';
 import { Loading } from '../../components/Loading';
 import { PlayerAbilities } from '../../components/PlayerAbilities';
+import { PlayerActionMenu } from '../../components/PlayerActionMenu';
 import { PlayerBasics } from '../../components/PlayerBasics';
-import { PlayerPositionRating } from '../../components/PlayerPositionRating';
-import { PlayerStat } from '../../components/PlayerStat';
+import { PlayerNameplate } from '../../components/PlayerNameplate';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
@@ -101,16 +101,15 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
         <Helmet>
           <title>PESto - {player.name}</title>
         </Helmet>
+
         <Grid item={true} xs={12} sm={12}>
-          <Typography type="title">
-            {player.name}
-            <PlayerPositionRating
-              player={player}
-              position={player.registeredPosition}
-              render={this.renderPlayerStat}
-            />
-          </Typography>
+          <div className="layout-row">
+            <PlayerNameplate player={player} />
+            <div className="flex" />
+            <PlayerActionMenu player={player} />
+          </div>
         </Grid>
+
         <Grid item={true} xs={12} sm={6}>
           <Card>
             <CardContent>
@@ -149,10 +148,6 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
         </Grid>
       </Grid>
     );
-  }
-
-  private renderPlayerStat(rating: number) {
-    return <PlayerStat value={rating} />;
   }
 
   /**

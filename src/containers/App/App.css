@@ -10,6 +10,16 @@
   flex: 1;
 }
 
+.layout-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .App a:link,
 .App a:visited {
   color: #03a9f4;

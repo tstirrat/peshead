@@ -18,6 +18,7 @@ import * as fromPlayers from '../../reducers/players';
 import { PlayerCompareOption } from '../../reducers/ui/routing';
 import { assert } from '../../shared/assert';
 import { Position } from '../../shared/service/api';
+import { AbilityFlags, getHighestAbilities } from '../../shared/utils/player';
 
 export interface ViewModel {
   players: PlayerViewModel[];
@@ -59,12 +60,12 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
 
   render() {
     const { players } = this.props;
-    const playerCompareSummary = this.getSummary();
+    const highlights = this.calculateHighlights(players);
     return (
       <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
           <Helmet>
-            <title>PESto - Compare{playerCompareSummary}</title>
+            <title>PESto - {this.getSummary()}</title>
           </Helmet>
           <Typography type="title">Compare players</Typography>
           <div className="search-input flex">
@@ -77,11 +78,11 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
               <Grid item={true} xs={6} md={3}>
                 <ComparePlayersLabelColumn />
               </Grid>
-              {players.map(player => (
+              {players.map((player, index) => (
                 <Grid item={true} xs={2} md={3} key={player.id}>
                   <Loading
                     when={!player.player || player.isLoading}
-                    render={() => this.renderPlayer(player)}
+                    render={() => this.renderPlayer(player, highlights[index])}
                   />
                 </Grid>
               ))}
@@ -92,12 +93,18 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     );
   }
 
-  private renderPlayer(viewModel: PlayerViewModel) {
+  private renderPlayer(viewModel: PlayerViewModel, highlights: AbilityFlags) {
     const player = assert(
       viewModel.player,
       'Player should exist when !isLoading'
     );
-    return <ComparePlayersStatColumn player={player} />;
+    return (
+      <ComparePlayersStatColumn
+        player={player}
+        highlights={highlights}
+        onDelete={this.handlePlayerDelete}
+      />
+    );
   }
 
   /** Fetch any missing players. */
@@ -115,12 +122,23 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
       .map(player => player.player && player.player.name)
       .filter(name => !!name)
       .join(' / ');
-    return summary ? `: ${summary}` : '';
+    return summary ? `Compare: ${summary}` : 'Compare';
+  }
+
+  private calculateHighlights(viewModels: PlayerViewModel[]) {
+    const players = viewModels.map(vm => vm.player!).filter(p => !!p);
+    return getHighestAbilities(players);
   }
 
   private handlePlayerSelect = (id: string) => {
     const { players } = this.props;
     const ids = players.map(p => p.id).concat([id]);
+    this.props.history.push(`/players/compare/${ids.join('/')}`);
+  };
+
+  private handlePlayerDelete = (id: string) => {
+    const { players } = this.props;
+    const ids = players.map(p => p.id).filter(playerId => playerId !== id);
     this.props.history.push(`/players/compare/${ids.join('/')}`);
   };
 }

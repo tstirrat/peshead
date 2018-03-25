@@ -1,7 +1,9 @@
-import { PlayerPositionChart } from '../PlayerPositionChart';
-import { Player } from '../../shared/service/api';
-import Table, { TableCell, TableRow, TableBody } from 'material-ui/Table';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import * as React from 'react';
+
+import { Player } from '../../shared/service/api';
+import { PositionLabel } from '../../shared/utils/player';
+import { PlayerPositionChart } from '../PlayerPositionChart';
 
 export interface Props {
   player: Player;
@@ -13,18 +15,6 @@ export class PlayerBasics extends React.PureComponent<Props> {
     return (
       <Table>
         <TableBody>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>{player.id}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Commentary ID</TableCell>
-            <TableCell>{player.commentaryId}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Nationality</TableCell>
-            <TableCell>{player.nationality}</TableCell>
-          </TableRow>
           <TableRow>
             <TableCell>Height</TableCell>
             <TableCell>{/* player.physique!.height */} cm</TableCell>
@@ -38,12 +28,16 @@ export class PlayerBasics extends React.PureComponent<Props> {
             <TableCell>{player.age}</TableCell>
           </TableRow>
           <TableRow>
+            <TableCell>Nationality</TableCell>
+            <TableCell>{player.nationality}</TableCell>
+          </TableRow>
+          <TableRow>
             <TableCell>Print name</TableCell>
             <TableCell>{player.kitName}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Position</TableCell>
-            <TableCell>{player.registeredPosition}</TableCell>
+            <TableCell>{PositionLabel[player.registeredPosition]}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell colSpan={2}>

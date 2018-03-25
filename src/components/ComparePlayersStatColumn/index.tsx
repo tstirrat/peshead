@@ -1,140 +1,139 @@
-import './ComparePlayersStatColumn.css';
-
-import { Divider, ListSubheader } from 'material-ui';
-import List, { ListItem } from 'material-ui/List';
+import RemoveCircleIcon from 'material-ui-icons/RemoveCircle';
+import ButtonBase from 'material-ui/ButtonBase';
+import Divider from 'material-ui/Divider';
+import List, { ListItem, ListSubheader } from 'material-ui/List';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { Player } from '../../shared/service/api';
+import { IPlayerAbilities, Player } from '../../shared/service/api';
+import { AbilityFlags } from '../../shared/utils/player';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
   player: Player;
+  highlights?: AbilityFlags;
+  onDelete?: (id: string) => void;
 }
+
+const Header = styled(ListSubheader)`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  .link {
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+`;
+
+const StyledStat = styled.div`
+  background-color: ${props =>
+    props.role === 'highest' ? 'rgba(0, 238, 171, 0.08)' : ''};
+
+  li {
+    justify-content: center;
+  }
+`;
+
+/** Stats which have max value of 99 */
+const SIMPLE_ABILITIES: Array<keyof IPlayerAbilities> = [
+  'attackingProwess',
+  'ballControl',
+  'dribbling',
+  'lowPass',
+  'loftedPass',
+  'finishing',
+  'placeKicking',
+  'swerve',
+  'header',
+  'defensiveProwess',
+  'ballWinning',
+  'kickingPower',
+  'speed',
+  'explosivePower',
+  'bodyControl',
+  'physicalContact',
+  'jump',
+  'goalkeeping',
+  'catching',
+  'clearing',
+  'reflexes',
+  'coverage',
+  'stamina'
+];
 
 export class ComparePlayersStatColumn extends React.PureComponent<Props> {
   render() {
-    const { player } = this.props;
+    const { player, highlights = {} } = this.props;
     return (
-      <List className="ComparePlayersStatColumn">
-        <ListSubheader className="player-name">
-          <Link to={`/players/${player.id}`}>{player.name}</Link>
-        </ListSubheader>
+      <List>
+        <Header>
+          <Link className="link" to={`/players/${player.id}`}>
+            {player.name}
+          </Link>
+          <ButtonBase
+            aria-label="Delete"
+            onClick={this.handleDelete}
+            disableRipple={true}
+          >
+            <RemoveCircleIcon />
+          </ButtonBase>
+        </Header>
         <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.attackingProwess!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.ballControl!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.dribbling!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.lowPass!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.loftedPass!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.finishing!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.placeKicking!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.swerve!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.header!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.defensiveProwess!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.ballWinning!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.kickingPower!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.speed!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.explosivePower!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.bodyControl!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.physicalContact!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.jump!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.goalkeeping!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.catching!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.clearing!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.reflexes!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.coverage!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.stamina!} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.weakFootUsage!} maxValue={4} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat
-            value={player.abilities!.weakFootAccuracy!}
-            maxValue={4}
-          />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat value={player.abilities!.form!} maxValue={8} />
-        </ListItem>
-        <Divider />
-        <ListItem>
-          <PlayerStat
-            value={player.abilities!.injuryResistance!}
-            maxValue={4}
-          />
-        </ListItem>
+
+        {SIMPLE_ABILITIES.map(key => (
+          <StyledStat key={key} role={highlights[key] ? 'highest' : ''}>
+            <ListItem>
+              <PlayerStat value={player.abilities![key]!} />
+            </ListItem>
+            <Divider />
+          </StyledStat>
+        ))}
+
+        <StyledStat role={highlights.weakFootUsage ? 'highest' : ''}>
+          <ListItem>
+            <PlayerStat value={player.abilities!.weakFootUsage!} maxValue={4} />
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat role={highlights.weakFootAccuracy ? 'highest' : ''}>
+          <ListItem>
+            <PlayerStat
+              value={player.abilities!.weakFootAccuracy!}
+              maxValue={4}
+            />
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat role={highlights.form ? 'highest' : ''}>
+          <ListItem>
+            <PlayerStat value={player.abilities!.form!} maxValue={8} />
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat role={highlights.injuryResistance ? 'highest' : ''}>
+          <ListItem>
+            <PlayerStat
+              value={player.abilities!.injuryResistance!}
+              maxValue={4}
+            />
+          </ListItem>
+        </StyledStat>
       </List>
     );
   }
+
+  private handleDelete = () => {
+    const { player, onDelete } = this.props;
+    if (onDelete) {
+      onDelete(player.id);
+    }
+  };
 }
