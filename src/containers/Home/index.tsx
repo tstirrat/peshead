@@ -3,6 +3,7 @@ import './Home.css';
 import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import { Link, RouteComponentProps } from 'react-router-dom';
 
 export type Props = RouteComponentProps<{}>;
@@ -19,6 +20,9 @@ export class Home extends React.PureComponent<Props, State> {
   render() {
     return (
       <div>
+        <Helmet>
+          <title>PESto - Home</title>
+        </Helmet>
         <Typography type="title">Players</Typography>
         <Card className="Home">
           <ul>

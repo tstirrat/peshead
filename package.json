@@ -19,6 +19,7 @@
     "react": "^16.0.0",
     "react-autosuggest": "^9.3.2",
     "react-dom": "^16.0.0",
+    "react-helmet": "^5.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
@@ -33,8 +34,7 @@
     "server": "firebase serve --only 'hosting,functions'",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "coveralls":
-      "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
+    "coveralls": "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -45,6 +45,7 @@
     "@types/react": "^16.0.10",
     "@types/react-autosuggest": "^9.3.1",
     "@types/react-dom": "^16.0.1",
+    "@types/react-helmet": "^5.0.5",
     "@types/react-redux": "^5.0.10",
     "@types/react-router": "^4.0.16",
     "@types/react-router-dom": "^4.0.8",

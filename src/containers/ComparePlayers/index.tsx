@@ -3,6 +3,7 @@ import { Paper } from 'material-ui';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { createSelector } from 'reselect';
@@ -58,9 +59,13 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
 
   render() {
     const { players } = this.props;
+    const playerCompareSummary = this.getSummary();
     return (
       <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
+          <Helmet>
+            <title>PESto - Compare{playerCompareSummary}</title>
+          </Helmet>
           <Typography type="title">Compare players</Typography>
           <div className="search-input flex">
             <SuggestPlayer onSelect={this.handlePlayerSelect} />
@@ -102,6 +107,15 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
         this.props.getPlayer(player.id);
       }
     });
+  }
+
+  private getSummary() {
+    const { players } = this.props;
+    const summary = players
+      .map(player => player.player && player.player.name)
+      .filter(name => !!name)
+      .join(' / ');
+    return summary ? `: ${summary}` : '';
   }
 
   private handlePlayerSelect = (id: string) => {

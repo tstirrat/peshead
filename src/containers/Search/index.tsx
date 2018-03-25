@@ -1,6 +1,7 @@
 import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Dispatch } from 'redux';
@@ -52,6 +53,9 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
     const { isLoading, error } = this.props;
     return (
       <div className="Search">
+        <Helmet>
+          <title>PESto - Search results</title>
+        </Helmet>
         <Typography type="title">Search results</Typography>
         <Card>
           <Loading
