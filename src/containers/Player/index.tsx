@@ -3,6 +3,7 @@ import Grid from 'material-ui/Grid';
 import Input from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
@@ -21,12 +22,7 @@ import { PlayerStat } from '../../components/PlayerStat';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
-import {
-  DEFAULT_PLAYER_FORM,
-  DEFAULT_PLAYER_LEVEL,
-  PlayerForm,
-  PlayerFormValue
-} from '../../shared/utils/player';
+import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm, PlayerFormValue } from '../../shared/utils/player';
 
 export interface ViewModel extends fromPlayers.BaseViewModel {
   level?: number;
@@ -102,6 +98,9 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
     const maxLevel = 50; // TODO: need to get this from data files
     return (
       <Grid container={true} spacing={24}>
+        <Helmet>
+          <title>PESto - {player.name}</title>
+        </Helmet>
         <Grid item={true} xs={12} sm={12}>
           <Typography type="title">
             {player.name}

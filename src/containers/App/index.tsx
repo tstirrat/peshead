@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Toolbar from 'material-ui/Toolbar';
 import * as React from 'react';
+import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router-dom';
@@ -49,6 +50,9 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
     const { user } = this.props;
     return (
       <div className="App">
+        <Helmet>
+          <title>PESto</title>
+        </Helmet>
         <AppBar>
           <Toolbar>
             <IconButton color="inherit">
