@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tstirrat/pesleagues.svg?branch=master)](https://travis-ci.org/tstirrat/pesleagues) [![Coverage Status](https://coveralls.io/repos/github/tstirrat/pesleagues/badge.svg)](https://coveralls.io/github/tstirrat/pesleagues)
 
-Edit players, teams, leagues online.
+Compare PES players online.
 
 _Work in progress_
 
@@ -15,7 +15,7 @@ cd functions
 yarn watch
 
 # in a separate terminal
-firebase serve --only hosting,functions
+yarn server
 ```
 
 **Note:** we only care about the functions emulation on port 5001 here.
