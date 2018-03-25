@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
 
 import { Player } from '../../../functions/service/api';
-
 import * as search from '../../actions/search';
 import { Loading } from '../../components/Loading';
 import { PlayerTable } from '../../components/PlayerTable';
@@ -52,16 +52,14 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
     const { isLoading, error } = this.props;
     return (
       <div className="Search">
-        <div className="Search-header">
-          <Typography type="title">Search results</Typography>
-        </div>
-        <div className="Search-results">
+        <Typography type="title">Search results</Typography>
+        <Card>
           <Loading
             when={isLoading}
             error={error}
             render={this.renderPlayerTable}
           />
-        </div>
+        </Card>
       </div>
     );
   }
