@@ -1,13 +1,4 @@
-import {
-  ComPlayingStyle,
-  Country,
-  Foot,
-  IPlayer,
-  Player,
-  PlayingStyle,
-  Position,
-  Skill
-} from '../shared/service/api';
+import { ComPlayingStyle, Country, Foot, IPlayer, Player, PlayingStyle, Position, Skill } from '../shared/service/api';
 
 export const base: IPlayer = {
   id: '7511',
@@ -20,7 +11,7 @@ export const base: IPlayer = {
   preferredFoot: Foot.LEFT,
   isEdited: false,
   isBaseCopy: false,
-  playingStyles: [PlayingStyle.CREATIVE_PLAYMAKER],
+  playingStyle: PlayingStyle.CREATIVE_PLAYMAKER,
   comPlayingStyles: [
     ComPlayingStyle.MAZING_RUN,
     ComPlayingStyle.SPEEDING_BULLET
@@ -63,7 +54,9 @@ export const base: IPlayer = {
     swerve: 89,
     weakFootAccuracy: 3,
     weakFootUsage: 1
-  }
+  },
+  motion: {},
+  appearance: {}
 };
 
 function makePlayer(attrs: Partial<IPlayer>): Player {

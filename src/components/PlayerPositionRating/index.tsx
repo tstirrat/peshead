@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { Player, Position, IPlayerAbilities } from '../../shared/service/api';
-
+import { IPlayerAbilities, Player, Position } from '../../shared/service/api';
 import { PlayerRating } from '../PlayerRating';
 
 export interface Props {
@@ -18,13 +17,11 @@ export class PlayerPositionRating extends React.PureComponent<Props> {
     const { player, position, render } = this.props;
 
     const weights = getPositionWeights(position);
-    return (
-      <PlayerRating player={player} weights={weights} render={render} />
-    );
+    return <PlayerRating player={player} weights={weights} render={render} />;
   }
 }
 
-const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
+const POSITION_WEIGHTS: { [pos: string]: Partial<IPlayerAbilities> } = {
   [Position.CENTRE_FORWARD]: {
     attackingProwess: 0.33,
     ballControl: 0.25,
@@ -34,14 +31,14 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     speed: 0.05,
     explosivePower: 0.05,
     bodyControl: 0.1,
-    jump: 0.03,
+    jump: 0.03
   },
 
   [Position.GOALKEEPER]: {
     goalkeeping: 0.52,
     reflexes: 0.52,
     bodyControl: 0.12,
-    jump: 0.12,
+    jump: 0.12
   },
 
   [Position.SECOND_STRIKER]: {
@@ -55,7 +52,7 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     speed: 0.1,
     explosivePower: 0.2,
     bodyControl: 0.07,
-    stamina: 0.04,
+    stamina: 0.04
   },
 
   [Position.CENTRE_BACK]: {
@@ -65,7 +62,7 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     speed: 0.11,
     bodyControl: 0.21,
     jump: 0.21,
-    stamina: 0.1,
+    stamina: 0.1
   },
 
   [Position.DEFENSIVE_MIDFIELDER]: {
@@ -81,7 +78,7 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     explosivePower: 0.03,
     bodyControl: 0.14,
     jump: 0.05,
-    stamina: 0.15,
+    stamina: 0.15
   },
 
   [Position.CENTRE_MIDFIELDER]: {
@@ -94,7 +91,7 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     speed: 0.04,
     explosivePower: 0.06,
     bodyControl: 0.05,
-    stamina: 0.18,
+    stamina: 0.18
   },
 
   [Position.ATTACKING_MIDFIELDER]: {
@@ -107,7 +104,7 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     speed: 0.05,
     explosivePower: 0.07,
     bodyControl: 0.05,
-    stamina: 0.03,
+    stamina: 0.03
   },
 
   [Position.RIGHT_MIDFIELDER]: {
@@ -119,7 +116,7 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     swerve: 0.04,
     speed: 0.26,
     explosivePower: 0.23,
-    stamina: 0.14,
+    stamina: 0.14
   },
 
   [Position.RIGHT_BACK]: {
@@ -133,7 +130,7 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     explosivePower: 0.15,
     bodyControl: 0.12,
     jump: 0.12,
-    stamina: 0.13,
+    stamina: 0.13
   },
 
   [Position.RIGHT_WING_FORWARD]: {
@@ -147,19 +144,18 @@ const POSITION_WEIGHTS: { [pos: string]: IPlayerAbilities } = {
     speed: 0.16,
     explosivePower: 0.16,
     bodyControl: 0.06,
-    stamina: 0.06,
-  },
+    stamina: 0.06
+  }
 };
 
 POSITION_WEIGHTS[Position.LEFT_MIDFIELDER] =
   POSITION_WEIGHTS[Position.RIGHT_MIDFIELDER];
 POSITION_WEIGHTS[Position.LEFT_WING_FORWARD] =
   POSITION_WEIGHTS[Position.RIGHT_WING_FORWARD];
-POSITION_WEIGHTS[Position.LEFT_BACK] =
-  POSITION_WEIGHTS[Position.RIGHT_BACK];
+POSITION_WEIGHTS[Position.LEFT_BACK] = POSITION_WEIGHTS[Position.RIGHT_BACK];
 
 /** Return raw stat weights for a position. */
-function getPositionWeights(position: Position): IPlayerAbilities {
+function getPositionWeights(position: Position): Partial<IPlayerAbilities> {
   if (position in POSITION_WEIGHTS) {
     return POSITION_WEIGHTS[position];
   } else {

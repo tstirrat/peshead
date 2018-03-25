@@ -91,11 +91,11 @@ export namespace API {
 export interface IGetPlayerRequest {
 
     /** GetPlayerRequest playerId */
-    playerId?: string;
+    playerId?: (string|null);
 }
 
 /** Represents a GetPlayerRequest. */
-export class GetPlayerRequest {
+export class GetPlayerRequest implements IGetPlayerRequest {
 
     /**
      * Constructs a new GetPlayerRequest.
@@ -181,14 +181,14 @@ export class GetPlayerRequest {
 export interface IUpdatePlayerRequest {
 
     /** UpdatePlayerRequest playerId */
-    playerId?: string;
+    playerId?: (string|null);
 
     /** UpdatePlayerRequest player */
-    player?: IPlayer;
+    player?: (IPlayer|null);
 }
 
 /** Represents an UpdatePlayerRequest. */
-export class UpdatePlayerRequest {
+export class UpdatePlayerRequest implements IUpdatePlayerRequest {
 
     /**
      * Constructs a new UpdatePlayerRequest.
@@ -277,11 +277,11 @@ export class UpdatePlayerRequest {
 export interface IAddPlayerRequest {
 
     /** AddPlayerRequest player */
-    player?: IPlayer;
+    player?: (IPlayer|null);
 }
 
 /** Represents an AddPlayerRequest. */
-export class AddPlayerRequest {
+export class AddPlayerRequest implements IAddPlayerRequest {
 
     /**
      * Constructs a new AddPlayerRequest.
@@ -556,68 +556,68 @@ export enum Country {
 export interface IPlayer {
 
     /** Player id */
-    id?: string;
+    id: string;
 
     /** Player commentaryId */
-    commentaryId?: string;
+    commentaryId?: (string|null);
 
     /** Player name */
-    name?: string;
+    name: string;
 
     /** Player kitName */
-    kitName?: string;
+    kitName: string;
 
     /** Player age */
-    age?: number;
+    age: number;
 
     /** Player nationality */
-    nationality?: Country;
+    nationality: Country;
 
     /** Player preferredFoot */
-    preferredFoot?: Foot;
+    preferredFoot: Foot;
 
     /** Player physique */
-    physique?: IPhysique;
+    physique: IPhysique;
 
     /** Player abilities */
-    abilities?: IPlayerAbilities;
+    abilities: IPlayerAbilities;
 
     /** Player motion */
-    motion?: IPlayerMotion;
+    motion: IPlayerMotion;
 
     /** Player isEdited */
-    isEdited?: boolean;
+    isEdited: boolean;
 
     /** Player isBaseCopy */
-    isBaseCopy?: boolean;
+    isBaseCopy: boolean;
 
     /** Player edited */
-    edited?: IEdits;
+    edited?: (IEdits|null);
 
     /** Player registeredPosition */
-    registeredPosition?: Position;
+    registeredPosition: Position;
 
-    /** Player playingStyles */
-    playingStyles?: PlayingStyle[];
+    /** Player playingStyle */
+    playingStyle: PlayingStyle;
 
     /** Player playablePositions */
-    playablePositions?: Position[];
+    playablePositions?: (Position[]|null);
 
     /** Player comPlayingStyles */
-    comPlayingStyles?: ComPlayingStyle[];
+    comPlayingStyles?: (ComPlayingStyle[]|null);
 
     /** Player playerSkills */
-    playerSkills?: Skill[];
+    playerSkills?: (Skill[]|null);
 
     /** Player appearance */
-    appearance?: IPlayerAppearance;
+    appearance: IPlayerAppearance;
 
     /** Player unknowns */
-    unknowns?: IUnknownOptions;
+    unknowns?: (IUnknownOptions|null);
 }
 
 /** Represents a Player. */
-export class Player {
+export class Player implements IPlayer {
 
     /**
      * Constructs a new Player.
@@ -647,13 +647,13 @@ export class Player {
     public preferredFoot: Foot;
 
     /** Player physique. */
-    public physique?: (IPhysique|null);
+    public physique: IPhysique;
 
     /** Player abilities. */
-    public abilities?: (IPlayerAbilities|null);
+    public abilities: IPlayerAbilities;
 
     /** Player motion. */
-    public motion?: (IPlayerMotion|null);
+    public motion: IPlayerMotion;
 
     /** Player isEdited. */
     public isEdited: boolean;
@@ -667,8 +667,8 @@ export class Player {
     /** Player registeredPosition. */
     public registeredPosition: Position;
 
-    /** Player playingStyles. */
-    public playingStyles: PlayingStyle[];
+    /** Player playingStyle. */
+    public playingStyle: PlayingStyle;
 
     /** Player playablePositions. */
     public playablePositions: Position[];
@@ -680,7 +680,7 @@ export class Player {
     public playerSkills: Skill[];
 
     /** Player appearance. */
-    public appearance?: (IPlayerAppearance|null);
+    public appearance: IPlayerAppearance;
 
     /** Player unknowns. */
     public unknowns?: (IUnknownOptions|null);
@@ -760,47 +760,47 @@ export class Player {
 export interface IPhysique {
 
     /** Physique height */
-    height?: number;
+    height: number;
 
     /** Physique weight */
-    weight?: number;
+    weight: number;
 
     /** Physique neckLength */
-    neckLength?: number;
+    neckLength?: (number|null);
 
     /** Physique neckSize */
-    neckSize?: number;
+    neckSize?: (number|null);
 
     /** Physique shoulderHeight */
-    shoulderHeight?: number;
+    shoulderHeight?: (number|null);
 
     /** Physique shoulderWidth */
-    shoulderWidth?: number;
+    shoulderWidth?: (number|null);
 
     /** Physique chestSize */
-    chestSize?: number;
+    chestSize?: (number|null);
 
     /** Physique waistSize */
-    waistSize?: number;
+    waistSize?: (number|null);
 
     /** Physique armSize */
-    armSize?: number;
+    armSize?: (number|null);
 
     /** Physique thighSize */
-    thighSize?: number;
+    thighSize?: (number|null);
 
     /** Physique calfSize */
-    calfSize?: number;
+    calfSize?: (number|null);
 
     /** Physique legLength */
-    legLength?: number;
+    legLength?: (number|null);
 
     /** Physique armLength */
-    armLength?: number;
+    armLength?: (number|null);
 }
 
 /** Represents a Physique. */
-export class Physique {
+export class Physique implements IPhysique {
 
     /**
      * Constructs a new Physique.
@@ -922,89 +922,89 @@ export class Physique {
 export interface IPlayerAbilities {
 
     /** PlayerAbilities attackingProwess */
-    attackingProwess?: number;
+    attackingProwess: number;
 
     /** PlayerAbilities ballControl */
-    ballControl?: number;
+    ballControl: number;
 
     /** PlayerAbilities ballWinning */
-    ballWinning?: number;
+    ballWinning: number;
 
     /** PlayerAbilities bodyControl */
-    bodyControl?: number;
+    bodyControl: number;
 
     /** PlayerAbilities catching */
-    catching?: number;
+    catching: number;
 
     /** PlayerAbilities clearing */
-    clearing?: number;
+    clearing: number;
 
     /** PlayerAbilities coverage */
-    coverage?: number;
+    coverage: number;
 
     /** PlayerAbilities defensiveProwess */
-    defensiveProwess?: number;
+    defensiveProwess: number;
 
     /** PlayerAbilities dribbling */
-    dribbling?: number;
+    dribbling: number;
 
     /** PlayerAbilities explosivePower */
-    explosivePower?: number;
+    explosivePower: number;
 
     /** PlayerAbilities finishing */
-    finishing?: number;
+    finishing: number;
 
     /** PlayerAbilities goalkeeping */
-    goalkeeping?: number;
+    goalkeeping: number;
 
     /** PlayerAbilities header */
-    header?: number;
+    header: number;
 
     /** PlayerAbilities injuryResistance */
-    injuryResistance?: number;
+    injuryResistance: number;
 
     /** PlayerAbilities jump */
-    jump?: number;
+    jump: number;
 
     /** PlayerAbilities kickingPower */
-    kickingPower?: number;
+    kickingPower: number;
 
     /** PlayerAbilities loftedPass */
-    loftedPass?: number;
+    loftedPass: number;
 
     /** PlayerAbilities lowPass */
-    lowPass?: number;
+    lowPass: number;
 
     /** PlayerAbilities physicalContact */
-    physicalContact?: number;
+    physicalContact: number;
 
     /** PlayerAbilities placeKicking */
-    placeKicking?: number;
+    placeKicking: number;
 
     /** PlayerAbilities reflexes */
-    reflexes?: number;
+    reflexes: number;
 
     /** PlayerAbilities speed */
-    speed?: number;
+    speed: number;
 
     /** PlayerAbilities stamina */
-    stamina?: number;
+    stamina: number;
 
     /** PlayerAbilities swerve */
-    swerve?: number;
+    swerve: number;
 
     /** PlayerAbilities weakFootAccuracy */
-    weakFootAccuracy?: number;
+    weakFootAccuracy: number;
 
     /** PlayerAbilities weakFootUsage */
-    weakFootUsage?: number;
+    weakFootUsage: number;
 
     /** PlayerAbilities form */
-    form?: number;
+    form: number;
 }
 
 /** Represents a PlayerAbilities. */
-export class PlayerAbilities {
+export class PlayerAbilities implements IPlayerAbilities {
 
     /**
      * Constructs a new PlayerAbilities.
@@ -1257,7 +1257,7 @@ export interface IPlayerAppearance {
 }
 
 /** Represents a PlayerAppearance. */
-export class PlayerAppearance {
+export class PlayerAppearance implements IPlayerAppearance {
 
     /**
      * Constructs a new PlayerAppearance.
@@ -1340,35 +1340,35 @@ export class PlayerAppearance {
 export interface IPlayerMotion {
 
     /** PlayerMotion armDribbling */
-    armDribbling?: number;
+    armDribbling?: (number|null);
 
     /** PlayerMotion armRunning */
-    armRunning?: number;
+    armRunning?: (number|null);
 
     /** PlayerMotion cornerKick */
-    cornerKick?: number;
+    cornerKick?: (number|null);
 
     /** PlayerMotion freeKick */
-    freeKick?: number;
+    freeKick?: (number|null);
 
     /** PlayerMotion goalCelebration1 */
-    goalCelebration1?: number;
+    goalCelebration1?: (number|null);
 
     /** PlayerMotion goalCelebration2 */
-    goalCelebration2?: number;
+    goalCelebration2?: (number|null);
 
     /** PlayerMotion hunchingDribbling */
-    hunchingDribbling?: number;
+    hunchingDribbling?: (number|null);
 
     /** PlayerMotion hunchingRunning */
-    hunchingRunning?: number;
+    hunchingRunning?: (number|null);
 
     /** PlayerMotion penaltyKick */
-    penaltyKick?: number;
+    penaltyKick?: (number|null);
 }
 
 /** Represents a PlayerMotion. */
-export class PlayerMotion {
+export class PlayerMotion implements IPlayerMotion {
 
     /**
      * Constructs a new PlayerMotion.
@@ -1478,32 +1478,32 @@ export class PlayerMotion {
 export interface IEdits {
 
     /** Edits registeredPosition */
-    registeredPosition?: boolean;
+    registeredPosition?: (boolean|null);
 
     /** Edits playablePositions */
-    playablePositions?: boolean;
+    playablePositions?: (boolean|null);
 
     /** Edits basics */
-    basics?: boolean;
+    basics?: (boolean|null);
 
     /** Edits abilities */
-    abilities?: boolean;
+    abilities?: (boolean|null);
 
     /** Edits playerSkills */
-    playerSkills?: boolean;
+    playerSkills?: (boolean|null);
 
-    /** Edits playingStyles */
-    playingStyles?: boolean;
+    /** Edits playingStyle */
+    playingStyle?: (boolean|null);
 
     /** Edits comPlayingStyles */
-    comPlayingStyles?: boolean;
+    comPlayingStyles?: (boolean|null);
 
     /** Edits motion */
-    motion?: boolean;
+    motion?: (boolean|null);
 }
 
 /** Reports if certain parts of a player are edited. */
-export class Edits {
+export class Edits implements IEdits {
 
     /**
      * Constructs a new Edits.
@@ -1526,8 +1526,8 @@ export class Edits {
     /** Edits playerSkills. */
     public playerSkills: boolean;
 
-    /** Edits playingStyles. */
-    public playingStyles: boolean;
+    /** Edits playingStyle. */
+    public playingStyle: boolean;
 
     /** Edits comPlayingStyles. */
     public comPlayingStyles: boolean;
@@ -1610,23 +1610,23 @@ export class Edits {
 export interface IUnknownOptions {
 
     /** UnknownOptions unknown02 */
-    unknown02?: boolean;
+    unknown02?: (boolean|null);
 
     /** UnknownOptions unknown03 */
-    unknown03?: boolean;
+    unknown03?: (boolean|null);
 
     /** UnknownOptions unknown04 */
-    unknown04?: boolean;
+    unknown04?: (boolean|null);
 
     /** UnknownOptions unknown05 */
-    unknown05?: boolean;
+    unknown05?: (boolean|null);
 
     /** UnknownOptions unknown06 */
-    unknown06?: number;
+    unknown06?: (number|null);
 }
 
 /** Bytes/bits of the player data that are not yet known */
-export class UnknownOptions {
+export class UnknownOptions implements IUnknownOptions {
 
     /**
      * Constructs a new UnknownOptions.
