@@ -1,5 +1,7 @@
 import './Home.css';
 
+import Card from 'material-ui/Card';
+import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 
@@ -16,9 +18,9 @@ export class Home extends React.PureComponent<Props, State> {
 
   render() {
     return (
-      <div className="Home">
-        <div className="Home-header">
-          <h3>Profiles</h3>
+      <div>
+        <Typography type="title">Players</Typography>
+        <Card className="Home">
           <ul>
             <li>
               <Link to="/players/37134">N. CHERUBIN</Link>
@@ -30,7 +32,9 @@ export class Home extends React.PureComponent<Props, State> {
               <Link to="/players/4522">C. RONALDO</Link>
             </li>
           </ul>
-          <h3>Compare</h3>
+        </Card>
+        <Typography type="title">Compare</Typography>
+        <Card>
           <ul>
             <li>
               <Link to="/players/compare/37134/7511">
@@ -48,7 +52,7 @@ export class Home extends React.PureComponent<Props, State> {
               </Link>
             </li>
           </ul>
-        </div>
+        </Card>
       </div>
     );
   }

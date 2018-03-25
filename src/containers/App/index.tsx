@@ -63,7 +63,27 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
             {user ? this.renderUser(user) : this.renderLoginButtons()}
           </Toolbar>
         </AppBar>
-        <div className="App-container">{routes}</div>
+        <div className="App-container">
+          <div>{routes}</div>
+          <small className="canvas-controls center">
+            Icons made by{' '}
+            <a href="http://www.freepik.com" title="Freepik">
+              Freepik
+            </a>{' '}
+            from{' '}
+            <a href="https://www.flaticon.com/" title="Flaticon">
+              flaticon.com
+            </a>{' '}
+            is licensed by{' '}
+            <a
+              href="http://creativecommons.org/licenses/by/3.0/"
+              title="Creative Commons BY 3.0"
+              target="_blank"
+            >
+              CC 3.0 BY
+            </a>
+          </small>
+        </div>
       </div>
     );
   }
