@@ -52,7 +52,7 @@ $root.API = (function() {
 
     /**
      * Calls GetPlayer.
-     * @function .getPlayer
+     * @function getPlayer
      * @memberof API
      * @instance
      * @param {IGetPlayerRequest} request GetPlayerRequest message or plain object
@@ -85,7 +85,7 @@ $root.API = (function() {
 
     /**
      * Calls UpdatePlayer.
-     * @function .updatePlayer
+     * @function updatePlayer
      * @memberof API
      * @instance
      * @param {IUpdatePlayerRequest} request UpdatePlayerRequest message or plain object
@@ -118,7 +118,7 @@ $root.API = (function() {
 
     /**
      * Calls AddPlayer.
-     * @function .addPlayer
+     * @function addPlayer
      * @memberof API
      * @instance
      * @param {IAddPlayerRequest} request AddPlayerRequest message or plain object
@@ -149,13 +149,14 @@ $root.GetPlayerRequest = (function() {
      * Properties of a GetPlayerRequest.
      * @exports IGetPlayerRequest
      * @interface IGetPlayerRequest
-     * @property {string} [playerId] GetPlayerRequest playerId
+     * @property {string|null} [playerId] GetPlayerRequest playerId
      */
 
     /**
      * Constructs a new GetPlayerRequest.
      * @exports GetPlayerRequest
      * @classdesc Represents a GetPlayerRequest.
+     * @implements IGetPlayerRequest
      * @constructor
      * @param {IGetPlayerRequest=} [properties] Properties to set
      */
@@ -168,7 +169,7 @@ $root.GetPlayerRequest = (function() {
 
     /**
      * GetPlayerRequest playerId.
-     * @member {string}playerId
+     * @member {string} playerId
      * @memberof GetPlayerRequest
      * @instance
      */
@@ -335,14 +336,15 @@ $root.UpdatePlayerRequest = (function() {
      * Properties of an UpdatePlayerRequest.
      * @exports IUpdatePlayerRequest
      * @interface IUpdatePlayerRequest
-     * @property {string} [playerId] UpdatePlayerRequest playerId
-     * @property {IPlayer} [player] UpdatePlayerRequest player
+     * @property {string|null} [playerId] UpdatePlayerRequest playerId
+     * @property {IPlayer|null} [player] UpdatePlayerRequest player
      */
 
     /**
      * Constructs a new UpdatePlayerRequest.
      * @exports UpdatePlayerRequest
      * @classdesc Represents an UpdatePlayerRequest.
+     * @implements IUpdatePlayerRequest
      * @constructor
      * @param {IUpdatePlayerRequest=} [properties] Properties to set
      */
@@ -355,7 +357,7 @@ $root.UpdatePlayerRequest = (function() {
 
     /**
      * UpdatePlayerRequest playerId.
-     * @member {string}playerId
+     * @member {string} playerId
      * @memberof UpdatePlayerRequest
      * @instance
      */
@@ -363,7 +365,7 @@ $root.UpdatePlayerRequest = (function() {
 
     /**
      * UpdatePlayerRequest player.
-     * @member {(IPlayer|null|undefined)}player
+     * @member {IPlayer|null|undefined} player
      * @memberof UpdatePlayerRequest
      * @instance
      */
@@ -549,13 +551,14 @@ $root.AddPlayerRequest = (function() {
      * Properties of an AddPlayerRequest.
      * @exports IAddPlayerRequest
      * @interface IAddPlayerRequest
-     * @property {IPlayer} [player] AddPlayerRequest player
+     * @property {IPlayer|null} [player] AddPlayerRequest player
      */
 
     /**
      * Constructs a new AddPlayerRequest.
      * @exports AddPlayerRequest
      * @classdesc Represents an AddPlayerRequest.
+     * @implements IAddPlayerRequest
      * @constructor
      * @param {IAddPlayerRequest=} [properties] Properties to set
      */
@@ -568,7 +571,7 @@ $root.AddPlayerRequest = (function() {
 
     /**
      * AddPlayerRequest player.
-     * @member {(IPlayer|null|undefined)}player
+     * @member {IPlayer|null|undefined} player
      * @memberof AddPlayerRequest
      * @instance
      */
@@ -1120,37 +1123,37 @@ $root.Player = (function() {
      * Properties of a Player.
      * @exports IPlayer
      * @interface IPlayer
-     * @property {string} [id] Player id
-     * @property {string} [commentaryId] Player commentaryId
-     * @property {string} [name] Player name
-     * @property {string} [kitName] Player kitName
-     * @property {number} [age] Player age
-     * @property {Country} [nationality] Player nationality
-     * @property {Foot} [preferredFoot] Player preferredFoot
-     * @property {IPhysique} [physique] Player physique
-     * @property {IPlayerAbilities} [abilities] Player abilities
-     * @property {IPlayerMotion} [motion] Player motion
-     * @property {boolean} [isEdited] Player isEdited
-     * @property {boolean} [isBaseCopy] Player isBaseCopy
-     * @property {IEdits} [edited] Player edited
-     * @property {Position} [registeredPosition] Player registeredPosition
-     * @property {Array.<PlayingStyle>} [playingStyles] Player playingStyles
-     * @property {Array.<Position>} [playablePositions] Player playablePositions
-     * @property {Array.<ComPlayingStyle>} [comPlayingStyles] Player comPlayingStyles
-     * @property {Array.<Skill>} [playerSkills] Player playerSkills
-     * @property {IPlayerAppearance} [appearance] Player appearance
-     * @property {IUnknownOptions} [unknowns] Player unknowns
+     * @property {string} id Player id
+     * @property {string|null} [commentaryId] Player commentaryId
+     * @property {string} name Player name
+     * @property {string} kitName Player kitName
+     * @property {number} age Player age
+     * @property {Country} nationality Player nationality
+     * @property {Foot} preferredFoot Player preferredFoot
+     * @property {IPhysique} physique Player physique
+     * @property {IPlayerAbilities} abilities Player abilities
+     * @property {IPlayerMotion} motion Player motion
+     * @property {boolean} isEdited Player isEdited
+     * @property {boolean} isBaseCopy Player isBaseCopy
+     * @property {IEdits|null} [edited] Player edited
+     * @property {Position} registeredPosition Player registeredPosition
+     * @property {PlayingStyle} playingStyle Player playingStyle
+     * @property {Array.<Position>|null} [playablePositions] Player playablePositions
+     * @property {Array.<ComPlayingStyle>|null} [comPlayingStyles] Player comPlayingStyles
+     * @property {Array.<Skill>|null} [playerSkills] Player playerSkills
+     * @property {IPlayerAppearance} appearance Player appearance
+     * @property {IUnknownOptions|null} [unknowns] Player unknowns
      */
 
     /**
      * Constructs a new Player.
      * @exports Player
      * @classdesc Represents a Player.
+     * @implements IPlayer
      * @constructor
      * @param {IPlayer=} [properties] Properties to set
      */
     function Player(properties) {
-        this.playingStyles = [];
         this.playablePositions = [];
         this.comPlayingStyles = [];
         this.playerSkills = [];
@@ -1162,7 +1165,7 @@ $root.Player = (function() {
 
     /**
      * Player id.
-     * @member {string}id
+     * @member {string} id
      * @memberof Player
      * @instance
      */
@@ -1170,7 +1173,7 @@ $root.Player = (function() {
 
     /**
      * Player commentaryId.
-     * @member {string}commentaryId
+     * @member {string} commentaryId
      * @memberof Player
      * @instance
      */
@@ -1178,7 +1181,7 @@ $root.Player = (function() {
 
     /**
      * Player name.
-     * @member {string}name
+     * @member {string} name
      * @memberof Player
      * @instance
      */
@@ -1186,7 +1189,7 @@ $root.Player = (function() {
 
     /**
      * Player kitName.
-     * @member {string}kitName
+     * @member {string} kitName
      * @memberof Player
      * @instance
      */
@@ -1194,7 +1197,7 @@ $root.Player = (function() {
 
     /**
      * Player age.
-     * @member {number}age
+     * @member {number} age
      * @memberof Player
      * @instance
      */
@@ -1202,7 +1205,7 @@ $root.Player = (function() {
 
     /**
      * Player nationality.
-     * @member {Country}nationality
+     * @member {Country} nationality
      * @memberof Player
      * @instance
      */
@@ -1210,7 +1213,7 @@ $root.Player = (function() {
 
     /**
      * Player preferredFoot.
-     * @member {Foot}preferredFoot
+     * @member {Foot} preferredFoot
      * @memberof Player
      * @instance
      */
@@ -1218,7 +1221,7 @@ $root.Player = (function() {
 
     /**
      * Player physique.
-     * @member {(IPhysique|null|undefined)}physique
+     * @member {IPhysique} physique
      * @memberof Player
      * @instance
      */
@@ -1226,7 +1229,7 @@ $root.Player = (function() {
 
     /**
      * Player abilities.
-     * @member {(IPlayerAbilities|null|undefined)}abilities
+     * @member {IPlayerAbilities} abilities
      * @memberof Player
      * @instance
      */
@@ -1234,7 +1237,7 @@ $root.Player = (function() {
 
     /**
      * Player motion.
-     * @member {(IPlayerMotion|null|undefined)}motion
+     * @member {IPlayerMotion} motion
      * @memberof Player
      * @instance
      */
@@ -1242,7 +1245,7 @@ $root.Player = (function() {
 
     /**
      * Player isEdited.
-     * @member {boolean}isEdited
+     * @member {boolean} isEdited
      * @memberof Player
      * @instance
      */
@@ -1250,7 +1253,7 @@ $root.Player = (function() {
 
     /**
      * Player isBaseCopy.
-     * @member {boolean}isBaseCopy
+     * @member {boolean} isBaseCopy
      * @memberof Player
      * @instance
      */
@@ -1258,7 +1261,7 @@ $root.Player = (function() {
 
     /**
      * Player edited.
-     * @member {(IEdits|null|undefined)}edited
+     * @member {IEdits|null|undefined} edited
      * @memberof Player
      * @instance
      */
@@ -1266,23 +1269,23 @@ $root.Player = (function() {
 
     /**
      * Player registeredPosition.
-     * @member {Position}registeredPosition
+     * @member {Position} registeredPosition
      * @memberof Player
      * @instance
      */
     Player.prototype.registeredPosition = 8;
 
     /**
-     * Player playingStyles.
-     * @member {Array.<PlayingStyle>}playingStyles
+     * Player playingStyle.
+     * @member {PlayingStyle} playingStyle
      * @memberof Player
      * @instance
      */
-    Player.prototype.playingStyles = $util.emptyArray;
+    Player.prototype.playingStyle = 8;
 
     /**
      * Player playablePositions.
-     * @member {Array.<Position>}playablePositions
+     * @member {Array.<Position>} playablePositions
      * @memberof Player
      * @instance
      */
@@ -1290,7 +1293,7 @@ $root.Player = (function() {
 
     /**
      * Player comPlayingStyles.
-     * @member {Array.<ComPlayingStyle>}comPlayingStyles
+     * @member {Array.<ComPlayingStyle>} comPlayingStyles
      * @memberof Player
      * @instance
      */
@@ -1298,7 +1301,7 @@ $root.Player = (function() {
 
     /**
      * Player playerSkills.
-     * @member {Array.<Skill>}playerSkills
+     * @member {Array.<Skill>} playerSkills
      * @memberof Player
      * @instance
      */
@@ -1306,7 +1309,7 @@ $root.Player = (function() {
 
     /**
      * Player appearance.
-     * @member {(IPlayerAppearance|null|undefined)}appearance
+     * @member {IPlayerAppearance} appearance
      * @memberof Player
      * @instance
      */
@@ -1314,7 +1317,7 @@ $root.Player = (function() {
 
     /**
      * Player unknowns.
-     * @member {(IUnknownOptions|null|undefined)}unknowns
+     * @member {IUnknownOptions|null|undefined} unknowns
      * @memberof Player
      * @instance
      */
@@ -1344,40 +1347,23 @@ $root.Player = (function() {
     Player.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.id != null && message.hasOwnProperty("id"))
-            writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+        writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
         if (message.commentaryId != null && message.hasOwnProperty("commentaryId"))
             writer.uint32(/* id 2, wireType 2 =*/18).string(message.commentaryId);
-        if (message.name != null && message.hasOwnProperty("name"))
-            writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
-        if (message.kitName != null && message.hasOwnProperty("kitName"))
-            writer.uint32(/* id 4, wireType 2 =*/34).string(message.kitName);
-        if (message.age != null && message.hasOwnProperty("age"))
-            writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.age);
-        if (message.nationality != null && message.hasOwnProperty("nationality"))
-            writer.uint32(/* id 6, wireType 0 =*/48).int32(message.nationality);
-        if (message.preferredFoot != null && message.hasOwnProperty("preferredFoot"))
-            writer.uint32(/* id 7, wireType 0 =*/56).int32(message.preferredFoot);
-        if (message.physique != null && message.hasOwnProperty("physique"))
-            $root.Physique.encode(message.physique, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
-        if (message.abilities != null && message.hasOwnProperty("abilities"))
-            $root.PlayerAbilities.encode(message.abilities, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
-        if (message.motion != null && message.hasOwnProperty("motion"))
-            $root.PlayerMotion.encode(message.motion, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
-        if (message.isEdited != null && message.hasOwnProperty("isEdited"))
-            writer.uint32(/* id 11, wireType 0 =*/88).bool(message.isEdited);
-        if (message.isBaseCopy != null && message.hasOwnProperty("isBaseCopy"))
-            writer.uint32(/* id 12, wireType 0 =*/96).bool(message.isBaseCopy);
+        writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+        writer.uint32(/* id 4, wireType 2 =*/34).string(message.kitName);
+        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.age);
+        writer.uint32(/* id 6, wireType 0 =*/48).int32(message.nationality);
+        writer.uint32(/* id 7, wireType 0 =*/56).int32(message.preferredFoot);
+        $root.Physique.encode(message.physique, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+        $root.PlayerAbilities.encode(message.abilities, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+        $root.PlayerMotion.encode(message.motion, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+        writer.uint32(/* id 11, wireType 0 =*/88).bool(message.isEdited);
+        writer.uint32(/* id 12, wireType 0 =*/96).bool(message.isBaseCopy);
         if (message.edited != null && message.hasOwnProperty("edited"))
             $root.Edits.encode(message.edited, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
-        if (message.registeredPosition != null && message.hasOwnProperty("registeredPosition"))
-            writer.uint32(/* id 14, wireType 0 =*/112).int32(message.registeredPosition);
-        if (message.playingStyles != null && message.playingStyles.length) {
-            writer.uint32(/* id 15, wireType 2 =*/122).fork();
-            for (var i = 0; i < message.playingStyles.length; ++i)
-                writer.int32(message.playingStyles[i]);
-            writer.ldelim();
-        }
+        writer.uint32(/* id 14, wireType 0 =*/112).int32(message.registeredPosition);
+        writer.uint32(/* id 15, wireType 0 =*/120).int32(message.playingStyle);
         if (message.playablePositions != null && message.playablePositions.length) {
             writer.uint32(/* id 16, wireType 2 =*/130).fork();
             for (var i = 0; i < message.playablePositions.length; ++i)
@@ -1396,8 +1382,7 @@ $root.Player = (function() {
                 writer.int32(message.playerSkills[i]);
             writer.ldelim();
         }
-        if (message.appearance != null && message.hasOwnProperty("appearance"))
-            $root.PlayerAppearance.encode(message.appearance, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
+        $root.PlayerAppearance.encode(message.appearance, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
         if (message.unknowns != null && message.hasOwnProperty("unknowns"))
             $root.UnknownOptions.encode(message.unknowns, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
         return writer;
@@ -1477,14 +1462,7 @@ $root.Player = (function() {
                 message.registeredPosition = reader.int32();
                 break;
             case 15:
-                if (!(message.playingStyles && message.playingStyles.length))
-                    message.playingStyles = [];
-                if ((tag & 7) === 2) {
-                    var end2 = reader.uint32() + reader.pos;
-                    while (reader.pos < end2)
-                        message.playingStyles.push(reader.int32());
-                } else
-                    message.playingStyles.push(reader.int32());
+                message.playingStyle = reader.int32();
                 break;
             case 16:
                 if (!(message.playablePositions && message.playablePositions.length))
@@ -1527,6 +1505,34 @@ $root.Player = (function() {
                 break;
             }
         }
+        if (!message.hasOwnProperty("id"))
+            throw $util.ProtocolError("missing required 'id'", { instance: message });
+        if (!message.hasOwnProperty("name"))
+            throw $util.ProtocolError("missing required 'name'", { instance: message });
+        if (!message.hasOwnProperty("kitName"))
+            throw $util.ProtocolError("missing required 'kitName'", { instance: message });
+        if (!message.hasOwnProperty("age"))
+            throw $util.ProtocolError("missing required 'age'", { instance: message });
+        if (!message.hasOwnProperty("nationality"))
+            throw $util.ProtocolError("missing required 'nationality'", { instance: message });
+        if (!message.hasOwnProperty("preferredFoot"))
+            throw $util.ProtocolError("missing required 'preferredFoot'", { instance: message });
+        if (!message.hasOwnProperty("physique"))
+            throw $util.ProtocolError("missing required 'physique'", { instance: message });
+        if (!message.hasOwnProperty("abilities"))
+            throw $util.ProtocolError("missing required 'abilities'", { instance: message });
+        if (!message.hasOwnProperty("motion"))
+            throw $util.ProtocolError("missing required 'motion'", { instance: message });
+        if (!message.hasOwnProperty("isEdited"))
+            throw $util.ProtocolError("missing required 'isEdited'", { instance: message });
+        if (!message.hasOwnProperty("isBaseCopy"))
+            throw $util.ProtocolError("missing required 'isBaseCopy'", { instance: message });
+        if (!message.hasOwnProperty("registeredPosition"))
+            throw $util.ProtocolError("missing required 'registeredPosition'", { instance: message });
+        if (!message.hasOwnProperty("playingStyle"))
+            throw $util.ProtocolError("missing required 'playingStyle'", { instance: message });
+        if (!message.hasOwnProperty("appearance"))
+            throw $util.ProtocolError("missing required 'appearance'", { instance: message });
         return message;
     };
 
@@ -1557,292 +1563,278 @@ $root.Player = (function() {
     Player.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.id != null && message.hasOwnProperty("id"))
-            if (!$util.isString(message.id))
-                return "id: string expected";
+        if (!$util.isString(message.id))
+            return "id: string expected";
         if (message.commentaryId != null && message.hasOwnProperty("commentaryId"))
             if (!$util.isString(message.commentaryId))
                 return "commentaryId: string expected";
-        if (message.name != null && message.hasOwnProperty("name"))
-            if (!$util.isString(message.name))
-                return "name: string expected";
-        if (message.kitName != null && message.hasOwnProperty("kitName"))
-            if (!$util.isString(message.kitName))
-                return "kitName: string expected";
-        if (message.age != null && message.hasOwnProperty("age"))
-            if (!$util.isInteger(message.age))
-                return "age: integer expected";
-        if (message.nationality != null && message.hasOwnProperty("nationality"))
-            switch (message.nationality) {
-            default:
-                return "nationality: enum value expected";
-            case 1:
-            case 191:
-            case 44:
-            case 192:
-            case 45:
-            case 104:
-            case 144:
-            case 193:
-            case 105:
-            case 162:
-            case 194:
-            case 195:
-            case 2:
-            case 3:
-            case 107:
-            case 196:
-            case 197:
-            case 46:
-            case 109:
-            case 145:
-            case 198:
-            case 47:
-            case 146:
-            case 199:
-            case 48:
-            case 49:
-            case 50:
-            case 110:
-            case 51:
-            case 52:
-            case 53:
-            case 147:
-            case 7:
-            case 148:
-            case 98:
-            case 55:
-            case 112:
-            case 56:
-            case 200:
-            case 113:
-            case 140:
-            case 201:
-            case 202:
-            case 203:
-            case 115:
-            case 149:
-            case 58:
-            case 116:
-            case 204:
-            case 59:
-            case 60:
-            case 205:
-            case 61:
-            case 206:
-            case 164:
-            case 207:
-            case 208:
-            case 138:
-            case 62:
-            case 209:
-            case 210:
-            case 64:
-            case 211:
-            case 117:
-            case 118:
-            case 119:
-            case 65:
-            case 66:
-            case 159:
-            case 120:
-            case 121:
-            case 212:
-            case 213:
-            case 9:
-            case 10:
-            case 11:
-            case 12:
-            case 214:
-            case 189:
-            case 215:
-            case 122:
-            case 13:
-            case 14:
-            case 216:
-            case 67:
-            case 311:
-            case 17:
-            case 40:
-            case 18:
-            case 217:
-            case 19:
-            case 69:
-            case 70:
-            case 218:
-            case 219:
-            case 220:
-            case 221:
-            case 71:
-            case 72:
-            case 21:
-            case 22:
-            case 73:
-            case 222:
-            case 123:
-            case 74:
-            case 75:
-            case 124:
-            case 223:
-            case 250:
-            case 304:
-            case 125:
-            case 76:
-            case 77:
-            case 78:
-            case 224:
-            case 126:
-            case 165:
-            case 166:
-            case 79:
-            case 80:
-            case 15:
-            case 225:
-            case 226:
-            case 26:
-            case 260:
-            case 27:
-            case 28:
-            case 128:
-            case 167:
-            case 150:
-            case 151:
-            case 29:
-            case 227:
-            case 228:
-            case 129:
-            case 30:
-            case 63:
-            case 100:
-            case 229:
-            case 230:
-            case 81:
-            case 168:
-            case 231:
-            case 31:
-            case 232:
-            case 83:
-            case 303:
-            case 85:
-            case 32:
-            case 310:
-            case 234:
-            case 235:
-            case 169:
-            case 86:
-            case 87:
-            case 16:
-            case 312:
-            case 236:
-            case 33:
-            case 88:
-            case 237:
-            case 238:
-            case 34:
-            case 170:
-            case 298:
-            case 41:
-            case 36:
-            case 54:
-            case 91:
-            case 133:
-            case 92:
-            case 190:
-            case 42:
-            case 134:
-            case 37:
-            case 93:
-            case 239:
-            case 135:
-            case 152:
-            case 240:
-            case 153:
-            case 38:
-            case 241:
-            case 94:
-            case 95:
-                break;
-            }
-        if (message.preferredFoot != null && message.hasOwnProperty("preferredFoot"))
-            switch (message.preferredFoot) {
-            default:
-                return "preferredFoot: enum value expected";
-            case 0:
-            case 1:
-                break;
-            }
-        if (message.physique != null && message.hasOwnProperty("physique")) {
+        if (!$util.isString(message.name))
+            return "name: string expected";
+        if (!$util.isString(message.kitName))
+            return "kitName: string expected";
+        if (!$util.isInteger(message.age))
+            return "age: integer expected";
+        switch (message.nationality) {
+        default:
+            return "nationality: enum value expected";
+        case 1:
+        case 191:
+        case 44:
+        case 192:
+        case 45:
+        case 104:
+        case 144:
+        case 193:
+        case 105:
+        case 162:
+        case 194:
+        case 195:
+        case 2:
+        case 3:
+        case 107:
+        case 196:
+        case 197:
+        case 46:
+        case 109:
+        case 145:
+        case 198:
+        case 47:
+        case 146:
+        case 199:
+        case 48:
+        case 49:
+        case 50:
+        case 110:
+        case 51:
+        case 52:
+        case 53:
+        case 147:
+        case 7:
+        case 148:
+        case 98:
+        case 55:
+        case 112:
+        case 56:
+        case 200:
+        case 113:
+        case 140:
+        case 201:
+        case 202:
+        case 203:
+        case 115:
+        case 149:
+        case 58:
+        case 116:
+        case 204:
+        case 59:
+        case 60:
+        case 205:
+        case 61:
+        case 206:
+        case 164:
+        case 207:
+        case 208:
+        case 138:
+        case 62:
+        case 209:
+        case 210:
+        case 64:
+        case 211:
+        case 117:
+        case 118:
+        case 119:
+        case 65:
+        case 66:
+        case 159:
+        case 120:
+        case 121:
+        case 212:
+        case 213:
+        case 9:
+        case 10:
+        case 11:
+        case 12:
+        case 214:
+        case 189:
+        case 215:
+        case 122:
+        case 13:
+        case 14:
+        case 216:
+        case 67:
+        case 311:
+        case 17:
+        case 40:
+        case 18:
+        case 217:
+        case 19:
+        case 69:
+        case 70:
+        case 218:
+        case 219:
+        case 220:
+        case 221:
+        case 71:
+        case 72:
+        case 21:
+        case 22:
+        case 73:
+        case 222:
+        case 123:
+        case 74:
+        case 75:
+        case 124:
+        case 223:
+        case 250:
+        case 304:
+        case 125:
+        case 76:
+        case 77:
+        case 78:
+        case 224:
+        case 126:
+        case 165:
+        case 166:
+        case 79:
+        case 80:
+        case 15:
+        case 225:
+        case 226:
+        case 26:
+        case 260:
+        case 27:
+        case 28:
+        case 128:
+        case 167:
+        case 150:
+        case 151:
+        case 29:
+        case 227:
+        case 228:
+        case 129:
+        case 30:
+        case 63:
+        case 100:
+        case 229:
+        case 230:
+        case 81:
+        case 168:
+        case 231:
+        case 31:
+        case 232:
+        case 83:
+        case 303:
+        case 85:
+        case 32:
+        case 310:
+        case 234:
+        case 235:
+        case 169:
+        case 86:
+        case 87:
+        case 16:
+        case 312:
+        case 236:
+        case 33:
+        case 88:
+        case 237:
+        case 238:
+        case 34:
+        case 170:
+        case 298:
+        case 41:
+        case 36:
+        case 54:
+        case 91:
+        case 133:
+        case 92:
+        case 190:
+        case 42:
+        case 134:
+        case 37:
+        case 93:
+        case 239:
+        case 135:
+        case 152:
+        case 240:
+        case 153:
+        case 38:
+        case 241:
+        case 94:
+        case 95:
+            break;
+        }
+        switch (message.preferredFoot) {
+        default:
+            return "preferredFoot: enum value expected";
+        case 0:
+        case 1:
+            break;
+        }
+        {
             var error = $root.Physique.verify(message.physique);
             if (error)
                 return "physique." + error;
         }
-        if (message.abilities != null && message.hasOwnProperty("abilities")) {
-            error = $root.PlayerAbilities.verify(message.abilities);
+        {
+            var error = $root.PlayerAbilities.verify(message.abilities);
             if (error)
                 return "abilities." + error;
         }
-        if (message.motion != null && message.hasOwnProperty("motion")) {
-            error = $root.PlayerMotion.verify(message.motion);
+        {
+            var error = $root.PlayerMotion.verify(message.motion);
             if (error)
                 return "motion." + error;
         }
-        if (message.isEdited != null && message.hasOwnProperty("isEdited"))
-            if (typeof message.isEdited !== "boolean")
-                return "isEdited: boolean expected";
-        if (message.isBaseCopy != null && message.hasOwnProperty("isBaseCopy"))
-            if (typeof message.isBaseCopy !== "boolean")
-                return "isBaseCopy: boolean expected";
+        if (typeof message.isEdited !== "boolean")
+            return "isEdited: boolean expected";
+        if (typeof message.isBaseCopy !== "boolean")
+            return "isBaseCopy: boolean expected";
         if (message.edited != null && message.hasOwnProperty("edited")) {
-            error = $root.Edits.verify(message.edited);
+            var error = $root.Edits.verify(message.edited);
             if (error)
                 return "edited." + error;
         }
-        if (message.registeredPosition != null && message.hasOwnProperty("registeredPosition"))
-            switch (message.registeredPosition) {
-            default:
-                return "registeredPosition: enum value expected";
-            case 8:
-            case 1:
-            case 12:
-            case 5:
-            case 4:
-            case 0:
-            case 2:
-            case 6:
-            case 9:
-            case 3:
-            case 7:
-            case 10:
-            case 11:
-                break;
-            }
-        if (message.playingStyles != null && message.hasOwnProperty("playingStyles")) {
-            if (!Array.isArray(message.playingStyles))
-                return "playingStyles: array expected";
-            for (var i = 0; i < message.playingStyles.length; ++i)
-                switch (message.playingStyles[i]) {
-                default:
-                    return "playingStyles: enum value[] expected";
-                case 8:
-                case 7:
-                case 15:
-                case 5:
-                case 14:
-                case 12:
-                case 18:
-                case 2:
-                case 10:
-                case 3:
-                case 1:
-                case 6:
-                case 16:
-                case 11:
-                case 17:
-                case 4:
-                case 13:
-                case 9:
-                    break;
-                }
+        switch (message.registeredPosition) {
+        default:
+            return "registeredPosition: enum value expected";
+        case 8:
+        case 1:
+        case 12:
+        case 5:
+        case 4:
+        case 0:
+        case 2:
+        case 6:
+        case 9:
+        case 3:
+        case 7:
+        case 10:
+        case 11:
+            break;
+        }
+        switch (message.playingStyle) {
+        default:
+            return "playingStyle: enum value expected";
+        case 8:
+        case 7:
+        case 15:
+        case 5:
+        case 14:
+        case 12:
+        case 18:
+        case 2:
+        case 10:
+        case 3:
+        case 1:
+        case 6:
+        case 16:
+        case 11:
+        case 17:
+        case 4:
+        case 13:
+        case 9:
+            break;
         }
         if (message.playablePositions != null && message.hasOwnProperty("playablePositions")) {
             if (!Array.isArray(message.playablePositions))
@@ -1922,13 +1914,13 @@ $root.Player = (function() {
                     break;
                 }
         }
-        if (message.appearance != null && message.hasOwnProperty("appearance")) {
-            error = $root.PlayerAppearance.verify(message.appearance);
+        {
+            var error = $root.PlayerAppearance.verify(message.appearance);
             if (error)
                 return "appearance." + error;
         }
         if (message.unknowns != null && message.hasOwnProperty("unknowns")) {
-            error = $root.UnknownOptions.verify(message.unknowns);
+            var error = $root.UnknownOptions.verify(message.unknowns);
             if (error)
                 return "unknowns." + error;
         }
@@ -2787,86 +2779,79 @@ $root.Player = (function() {
             message.registeredPosition = 11;
             break;
         }
-        if (object.playingStyles) {
-            if (!Array.isArray(object.playingStyles))
-                throw TypeError(".Player.playingStyles: array expected");
-            message.playingStyles = [];
-            for (var i = 0; i < object.playingStyles.length; ++i)
-                switch (object.playingStyles[i]) {
-                default:
-                case "ANCHOR_MAN":
-                case 8:
-                    message.playingStyles[i] = 8;
-                    break;
-                case "BOX_TO_BOX":
-                case 7:
-                    message.playingStyles[i] = 7;
-                    break;
-                case "BUILD_UP":
-                case 15:
-                    message.playingStyles[i] = 15;
-                    break;
-                case "CLASSIC_NO_10":
-                case 5:
-                    message.playingStyles[i] = 5;
-                    break;
-                case "CREATIVE_PLAYMAKER":
-                case 14:
-                    message.playingStyles[i] = 14;
-                    break;
-                case "DEFENSIVE_FULLBACK":
-                case 12:
-                    message.playingStyles[i] = 12;
-                    break;
-                case "DEFENSIVE_GOALKEEPER":
-                case 18:
-                    message.playingStyles[i] = 18;
-                    break;
-                case "DUMMY_RUNNER":
-                case 2:
-                    message.playingStyles[i] = 2;
-                    break;
-                case "EXTRA_FRONTMAN":
-                case 10:
-                    message.playingStyles[i] = 10;
-                    break;
-                case "FOX_IN_THE_BOX":
-                case 3:
-                    message.playingStyles[i] = 3;
-                    break;
-                case "GOAL_POACHER":
-                case 1:
-                    message.playingStyles[i] = 1;
-                    break;
-                case "HOLE_PLAYER":
-                case 6:
-                    message.playingStyles[i] = 6;
-                    break;
-                case "N_A":
-                case 16:
-                    message.playingStyles[i] = 16;
-                    break;
-                case "OFFENSIVE_FULLBACK":
-                case 11:
-                    message.playingStyles[i] = 11;
-                    break;
-                case "OFFENSIVE_GOALKEEPER":
-                case 17:
-                    message.playingStyles[i] = 17;
-                    break;
-                case "PROLIFIC_WINGER":
-                case 4:
-                    message.playingStyles[i] = 4;
-                    break;
-                case "TARGET_MAN":
-                case 13:
-                    message.playingStyles[i] = 13;
-                    break;
-                case "THE_DESTROYER":
-                case 9:
-                    message.playingStyles[i] = 9;
-                    break;
-                }
+        switch (object.playingStyle) {
+        case "ANCHOR_MAN":
+        case 8:
+            message.playingStyle = 8;
+            break;
+        case "BOX_TO_BOX":
+        case 7:
+            message.playingStyle = 7;
+            break;
+        case "BUILD_UP":
+        case 15:
+            message.playingStyle = 15;
+            break;
+        case "CLASSIC_NO_10":
+        case 5:
+            message.playingStyle = 5;
+            break;
+        case "CREATIVE_PLAYMAKER":
+        case 14:
+            message.playingStyle = 14;
+            break;
+        case "DEFENSIVE_FULLBACK":
+        case 12:
+            message.playingStyle = 12;
+            break;
+        case "DEFENSIVE_GOALKEEPER":
+        case 18:
+            message.playingStyle = 18;
+            break;
+        case "DUMMY_RUNNER":
+        case 2:
+            message.playingStyle = 2;
+            break;
+        case "EXTRA_FRONTMAN":
+        case 10:
+            message.playingStyle = 10;
+            break;
+        case "FOX_IN_THE_BOX":
+        case 3:
+            message.playingStyle = 3;
+            break;
+        case "GOAL_POACHER":
+        case 1:
+            message.playingStyle = 1;
+            break;
+        case "HOLE_PLAYER":
+        case 6:
+            message.playingStyle = 6;
+            break;
+        case "N_A":
+        case 16:
+            message.playingStyle = 16;
+            break;
+        case "OFFENSIVE_FULLBACK":
+        case 11:
+            message.playingStyle = 11;
+            break;
+        case "OFFENSIVE_GOALKEEPER":
+        case 17:
+            message.playingStyle = 17;
+            break;
+        case "PROLIFIC_WINGER":
+        case 4:
+            message.playingStyle = 4;
+            break;
+        case "TARGET_MAN":
+        case 13:
+            message.playingStyle = 13;
+            break;
+        case "THE_DESTROYER":
+        case 9:
+            message.playingStyle = 9;
+            break;
         }
         if (object.playablePositions) {
             if (!Array.isArray(object.playablePositions))
@@ -3114,7 +3099,6 @@ $root.Player = (function() {
             options = {};
         var object = {};
         if (options.arrays || options.defaults) {
-            object.playingStyles = [];
             object.playablePositions = [];
             object.comPlayingStyles = [];
             object.playerSkills = [];
@@ -3134,6 +3118,7 @@ $root.Player = (function() {
             object.isBaseCopy = false;
             object.edited = null;
             object.registeredPosition = options.enums === String ? "ATTACKING_MIDFIELDER" : 8;
+            object.playingStyle = options.enums === String ? "ANCHOR_MAN" : 8;
             object.appearance = null;
             object.unknowns = null;
         }
@@ -3165,11 +3150,8 @@ $root.Player = (function() {
             object.edited = $root.Edits.toObject(message.edited, options);
         if (message.registeredPosition != null && message.hasOwnProperty("registeredPosition"))
             object.registeredPosition = options.enums === String ? $root.Position[message.registeredPosition] : message.registeredPosition;
-        if (message.playingStyles && message.playingStyles.length) {
-            object.playingStyles = [];
-            for (var j = 0; j < message.playingStyles.length; ++j)
-                object.playingStyles[j] = options.enums === String ? $root.PlayingStyle[message.playingStyles[j]] : message.playingStyles[j];
-        }
+        if (message.playingStyle != null && message.hasOwnProperty("playingStyle"))
+            object.playingStyle = options.enums === String ? $root.PlayingStyle[message.playingStyle] : message.playingStyle;
         if (message.playablePositions && message.playablePositions.length) {
             object.playablePositions = [];
             for (var j = 0; j < message.playablePositions.length; ++j)
@@ -3212,25 +3194,26 @@ $root.Physique = (function() {
      * Properties of a Physique.
      * @exports IPhysique
      * @interface IPhysique
-     * @property {number} [height] Physique height
-     * @property {number} [weight] Physique weight
-     * @property {number} [neckLength] Physique neckLength
-     * @property {number} [neckSize] Physique neckSize
-     * @property {number} [shoulderHeight] Physique shoulderHeight
-     * @property {number} [shoulderWidth] Physique shoulderWidth
-     * @property {number} [chestSize] Physique chestSize
-     * @property {number} [waistSize] Physique waistSize
-     * @property {number} [armSize] Physique armSize
-     * @property {number} [thighSize] Physique thighSize
-     * @property {number} [calfSize] Physique calfSize
-     * @property {number} [legLength] Physique legLength
-     * @property {number} [armLength] Physique armLength
+     * @property {number} height Physique height
+     * @property {number} weight Physique weight
+     * @property {number|null} [neckLength] Physique neckLength
+     * @property {number|null} [neckSize] Physique neckSize
+     * @property {number|null} [shoulderHeight] Physique shoulderHeight
+     * @property {number|null} [shoulderWidth] Physique shoulderWidth
+     * @property {number|null} [chestSize] Physique chestSize
+     * @property {number|null} [waistSize] Physique waistSize
+     * @property {number|null} [armSize] Physique armSize
+     * @property {number|null} [thighSize] Physique thighSize
+     * @property {number|null} [calfSize] Physique calfSize
+     * @property {number|null} [legLength] Physique legLength
+     * @property {number|null} [armLength] Physique armLength
      */
 
     /**
      * Constructs a new Physique.
      * @exports Physique
      * @classdesc Represents a Physique.
+     * @implements IPhysique
      * @constructor
      * @param {IPhysique=} [properties] Properties to set
      */
@@ -3243,7 +3226,7 @@ $root.Physique = (function() {
 
     /**
      * Physique height.
-     * @member {number}height
+     * @member {number} height
      * @memberof Physique
      * @instance
      */
@@ -3251,7 +3234,7 @@ $root.Physique = (function() {
 
     /**
      * Physique weight.
-     * @member {number}weight
+     * @member {number} weight
      * @memberof Physique
      * @instance
      */
@@ -3259,7 +3242,7 @@ $root.Physique = (function() {
 
     /**
      * Physique neckLength.
-     * @member {number}neckLength
+     * @member {number} neckLength
      * @memberof Physique
      * @instance
      */
@@ -3267,7 +3250,7 @@ $root.Physique = (function() {
 
     /**
      * Physique neckSize.
-     * @member {number}neckSize
+     * @member {number} neckSize
      * @memberof Physique
      * @instance
      */
@@ -3275,7 +3258,7 @@ $root.Physique = (function() {
 
     /**
      * Physique shoulderHeight.
-     * @member {number}shoulderHeight
+     * @member {number} shoulderHeight
      * @memberof Physique
      * @instance
      */
@@ -3283,7 +3266,7 @@ $root.Physique = (function() {
 
     /**
      * Physique shoulderWidth.
-     * @member {number}shoulderWidth
+     * @member {number} shoulderWidth
      * @memberof Physique
      * @instance
      */
@@ -3291,7 +3274,7 @@ $root.Physique = (function() {
 
     /**
      * Physique chestSize.
-     * @member {number}chestSize
+     * @member {number} chestSize
      * @memberof Physique
      * @instance
      */
@@ -3299,7 +3282,7 @@ $root.Physique = (function() {
 
     /**
      * Physique waistSize.
-     * @member {number}waistSize
+     * @member {number} waistSize
      * @memberof Physique
      * @instance
      */
@@ -3307,7 +3290,7 @@ $root.Physique = (function() {
 
     /**
      * Physique armSize.
-     * @member {number}armSize
+     * @member {number} armSize
      * @memberof Physique
      * @instance
      */
@@ -3315,7 +3298,7 @@ $root.Physique = (function() {
 
     /**
      * Physique thighSize.
-     * @member {number}thighSize
+     * @member {number} thighSize
      * @memberof Physique
      * @instance
      */
@@ -3323,7 +3306,7 @@ $root.Physique = (function() {
 
     /**
      * Physique calfSize.
-     * @member {number}calfSize
+     * @member {number} calfSize
      * @memberof Physique
      * @instance
      */
@@ -3331,7 +3314,7 @@ $root.Physique = (function() {
 
     /**
      * Physique legLength.
-     * @member {number}legLength
+     * @member {number} legLength
      * @memberof Physique
      * @instance
      */
@@ -3339,7 +3322,7 @@ $root.Physique = (function() {
 
     /**
      * Physique armLength.
-     * @member {number}armLength
+     * @member {number} armLength
      * @memberof Physique
      * @instance
      */
@@ -3369,10 +3352,8 @@ $root.Physique = (function() {
     Physique.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.height != null && message.hasOwnProperty("height"))
-            writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.height);
-        if (message.weight != null && message.hasOwnProperty("weight"))
-            writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.weight);
+        writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.height);
+        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.weight);
         if (message.neckLength != null && message.hasOwnProperty("neckLength"))
             writer.uint32(/* id 3, wireType 0 =*/24).int32(message.neckLength);
         if (message.neckSize != null && message.hasOwnProperty("neckSize"))
@@ -3473,6 +3454,10 @@ $root.Physique = (function() {
                 break;
             }
         }
+        if (!message.hasOwnProperty("height"))
+            throw $util.ProtocolError("missing required 'height'", { instance: message });
+        if (!message.hasOwnProperty("weight"))
+            throw $util.ProtocolError("missing required 'weight'", { instance: message });
         return message;
     };
 
@@ -3503,12 +3488,10 @@ $root.Physique = (function() {
     Physique.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.height != null && message.hasOwnProperty("height"))
-            if (!$util.isInteger(message.height))
-                return "height: integer expected";
-        if (message.weight != null && message.hasOwnProperty("weight"))
-            if (!$util.isInteger(message.weight))
-                return "weight: integer expected";
+        if (!$util.isInteger(message.height))
+            return "height: integer expected";
+        if (!$util.isInteger(message.weight))
+            return "weight: integer expected";
         if (message.neckLength != null && message.hasOwnProperty("neckLength"))
             if (!$util.isInteger(message.neckLength))
                 return "neckLength: integer expected";
@@ -3663,39 +3646,40 @@ $root.PlayerAbilities = (function() {
      * Properties of a PlayerAbilities.
      * @exports IPlayerAbilities
      * @interface IPlayerAbilities
-     * @property {number} [attackingProwess] PlayerAbilities attackingProwess
-     * @property {number} [ballControl] PlayerAbilities ballControl
-     * @property {number} [ballWinning] PlayerAbilities ballWinning
-     * @property {number} [bodyControl] PlayerAbilities bodyControl
-     * @property {number} [catching] PlayerAbilities catching
-     * @property {number} [clearing] PlayerAbilities clearing
-     * @property {number} [coverage] PlayerAbilities coverage
-     * @property {number} [defensiveProwess] PlayerAbilities defensiveProwess
-     * @property {number} [dribbling] PlayerAbilities dribbling
-     * @property {number} [explosivePower] PlayerAbilities explosivePower
-     * @property {number} [finishing] PlayerAbilities finishing
-     * @property {number} [goalkeeping] PlayerAbilities goalkeeping
-     * @property {number} [header] PlayerAbilities header
-     * @property {number} [injuryResistance] PlayerAbilities injuryResistance
-     * @property {number} [jump] PlayerAbilities jump
-     * @property {number} [kickingPower] PlayerAbilities kickingPower
-     * @property {number} [loftedPass] PlayerAbilities loftedPass
-     * @property {number} [lowPass] PlayerAbilities lowPass
-     * @property {number} [physicalContact] PlayerAbilities physicalContact
-     * @property {number} [placeKicking] PlayerAbilities placeKicking
-     * @property {number} [reflexes] PlayerAbilities reflexes
-     * @property {number} [speed] PlayerAbilities speed
-     * @property {number} [stamina] PlayerAbilities stamina
-     * @property {number} [swerve] PlayerAbilities swerve
-     * @property {number} [weakFootAccuracy] PlayerAbilities weakFootAccuracy
-     * @property {number} [weakFootUsage] PlayerAbilities weakFootUsage
-     * @property {number} [form] PlayerAbilities form
+     * @property {number} attackingProwess PlayerAbilities attackingProwess
+     * @property {number} ballControl PlayerAbilities ballControl
+     * @property {number} ballWinning PlayerAbilities ballWinning
+     * @property {number} bodyControl PlayerAbilities bodyControl
+     * @property {number} catching PlayerAbilities catching
+     * @property {number} clearing PlayerAbilities clearing
+     * @property {number} coverage PlayerAbilities coverage
+     * @property {number} defensiveProwess PlayerAbilities defensiveProwess
+     * @property {number} dribbling PlayerAbilities dribbling
+     * @property {number} explosivePower PlayerAbilities explosivePower
+     * @property {number} finishing PlayerAbilities finishing
+     * @property {number} goalkeeping PlayerAbilities goalkeeping
+     * @property {number} header PlayerAbilities header
+     * @property {number} injuryResistance PlayerAbilities injuryResistance
+     * @property {number} jump PlayerAbilities jump
+     * @property {number} kickingPower PlayerAbilities kickingPower
+     * @property {number} loftedPass PlayerAbilities loftedPass
+     * @property {number} lowPass PlayerAbilities lowPass
+     * @property {number} physicalContact PlayerAbilities physicalContact
+     * @property {number} placeKicking PlayerAbilities placeKicking
+     * @property {number} reflexes PlayerAbilities reflexes
+     * @property {number} speed PlayerAbilities speed
+     * @property {number} stamina PlayerAbilities stamina
+     * @property {number} swerve PlayerAbilities swerve
+     * @property {number} weakFootAccuracy PlayerAbilities weakFootAccuracy
+     * @property {number} weakFootUsage PlayerAbilities weakFootUsage
+     * @property {number} form PlayerAbilities form
      */
 
     /**
      * Constructs a new PlayerAbilities.
      * @exports PlayerAbilities
      * @classdesc Represents a PlayerAbilities.
+     * @implements IPlayerAbilities
      * @constructor
      * @param {IPlayerAbilities=} [properties] Properties to set
      */
@@ -3708,7 +3692,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities attackingProwess.
-     * @member {number}attackingProwess
+     * @member {number} attackingProwess
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3716,7 +3700,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities ballControl.
-     * @member {number}ballControl
+     * @member {number} ballControl
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3724,7 +3708,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities ballWinning.
-     * @member {number}ballWinning
+     * @member {number} ballWinning
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3732,7 +3716,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities bodyControl.
-     * @member {number}bodyControl
+     * @member {number} bodyControl
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3740,7 +3724,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities catching.
-     * @member {number}catching
+     * @member {number} catching
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3748,7 +3732,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities clearing.
-     * @member {number}clearing
+     * @member {number} clearing
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3756,7 +3740,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities coverage.
-     * @member {number}coverage
+     * @member {number} coverage
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3764,7 +3748,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities defensiveProwess.
-     * @member {number}defensiveProwess
+     * @member {number} defensiveProwess
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3772,7 +3756,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities dribbling.
-     * @member {number}dribbling
+     * @member {number} dribbling
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3780,7 +3764,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities explosivePower.
-     * @member {number}explosivePower
+     * @member {number} explosivePower
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3788,7 +3772,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities finishing.
-     * @member {number}finishing
+     * @member {number} finishing
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3796,7 +3780,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities goalkeeping.
-     * @member {number}goalkeeping
+     * @member {number} goalkeeping
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3804,7 +3788,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities header.
-     * @member {number}header
+     * @member {number} header
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3812,7 +3796,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities injuryResistance.
-     * @member {number}injuryResistance
+     * @member {number} injuryResistance
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3820,7 +3804,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities jump.
-     * @member {number}jump
+     * @member {number} jump
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3828,7 +3812,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities kickingPower.
-     * @member {number}kickingPower
+     * @member {number} kickingPower
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3836,7 +3820,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities loftedPass.
-     * @member {number}loftedPass
+     * @member {number} loftedPass
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3844,7 +3828,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities lowPass.
-     * @member {number}lowPass
+     * @member {number} lowPass
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3852,7 +3836,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities physicalContact.
-     * @member {number}physicalContact
+     * @member {number} physicalContact
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3860,7 +3844,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities placeKicking.
-     * @member {number}placeKicking
+     * @member {number} placeKicking
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3868,7 +3852,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities reflexes.
-     * @member {number}reflexes
+     * @member {number} reflexes
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3876,7 +3860,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities speed.
-     * @member {number}speed
+     * @member {number} speed
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3884,7 +3868,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities stamina.
-     * @member {number}stamina
+     * @member {number} stamina
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3892,7 +3876,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities swerve.
-     * @member {number}swerve
+     * @member {number} swerve
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3900,7 +3884,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities weakFootAccuracy.
-     * @member {number}weakFootAccuracy
+     * @member {number} weakFootAccuracy
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3908,7 +3892,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities weakFootUsage.
-     * @member {number}weakFootUsage
+     * @member {number} weakFootUsage
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3916,7 +3900,7 @@ $root.PlayerAbilities = (function() {
 
     /**
      * PlayerAbilities form.
-     * @member {number}form
+     * @member {number} form
      * @memberof PlayerAbilities
      * @instance
      */
@@ -3946,60 +3930,33 @@ $root.PlayerAbilities = (function() {
     PlayerAbilities.encode = function encode(message, writer) {
         if (!writer)
             writer = $Writer.create();
-        if (message.attackingProwess != null && message.hasOwnProperty("attackingProwess"))
-            writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.attackingProwess);
-        if (message.ballControl != null && message.hasOwnProperty("ballControl"))
-            writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.ballControl);
-        if (message.ballWinning != null && message.hasOwnProperty("ballWinning"))
-            writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ballWinning);
-        if (message.bodyControl != null && message.hasOwnProperty("bodyControl"))
-            writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.bodyControl);
-        if (message.catching != null && message.hasOwnProperty("catching"))
-            writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.catching);
-        if (message.clearing != null && message.hasOwnProperty("clearing"))
-            writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.clearing);
-        if (message.coverage != null && message.hasOwnProperty("coverage"))
-            writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.coverage);
-        if (message.defensiveProwess != null && message.hasOwnProperty("defensiveProwess"))
-            writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.defensiveProwess);
-        if (message.dribbling != null && message.hasOwnProperty("dribbling"))
-            writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.dribbling);
-        if (message.explosivePower != null && message.hasOwnProperty("explosivePower"))
-            writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.explosivePower);
-        if (message.finishing != null && message.hasOwnProperty("finishing"))
-            writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.finishing);
-        if (message.goalkeeping != null && message.hasOwnProperty("goalkeeping"))
-            writer.uint32(/* id 12, wireType 0 =*/96).uint32(message.goalkeeping);
-        if (message.header != null && message.hasOwnProperty("header"))
-            writer.uint32(/* id 13, wireType 0 =*/104).uint32(message.header);
-        if (message.injuryResistance != null && message.hasOwnProperty("injuryResistance"))
-            writer.uint32(/* id 14, wireType 0 =*/112).uint32(message.injuryResistance);
-        if (message.jump != null && message.hasOwnProperty("jump"))
-            writer.uint32(/* id 15, wireType 0 =*/120).uint32(message.jump);
-        if (message.kickingPower != null && message.hasOwnProperty("kickingPower"))
-            writer.uint32(/* id 16, wireType 0 =*/128).uint32(message.kickingPower);
-        if (message.loftedPass != null && message.hasOwnProperty("loftedPass"))
-            writer.uint32(/* id 17, wireType 0 =*/136).uint32(message.loftedPass);
-        if (message.physicalContact != null && message.hasOwnProperty("physicalContact"))
-            writer.uint32(/* id 18, wireType 0 =*/144).uint32(message.physicalContact);
-        if (message.placeKicking != null && message.hasOwnProperty("placeKicking"))
-            writer.uint32(/* id 19, wireType 0 =*/152).uint32(message.placeKicking);
-        if (message.reflexes != null && message.hasOwnProperty("reflexes"))
-            writer.uint32(/* id 20, wireType 0 =*/160).uint32(message.reflexes);
-        if (message.speed != null && message.hasOwnProperty("speed"))
-            writer.uint32(/* id 21, wireType 0 =*/168).uint32(message.speed);
-        if (message.stamina != null && message.hasOwnProperty("stamina"))
-            writer.uint32(/* id 22, wireType 0 =*/176).uint32(message.stamina);
-        if (message.swerve != null && message.hasOwnProperty("swerve"))
-            writer.uint32(/* id 23, wireType 0 =*/184).uint32(message.swerve);
-        if (message.weakFootAccuracy != null && message.hasOwnProperty("weakFootAccuracy"))
-            writer.uint32(/* id 24, wireType 0 =*/192).uint32(message.weakFootAccuracy);
-        if (message.weakFootUsage != null && message.hasOwnProperty("weakFootUsage"))
-            writer.uint32(/* id 25, wireType 0 =*/200).uint32(message.weakFootUsage);
-        if (message.lowPass != null && message.hasOwnProperty("lowPass"))
-            writer.uint32(/* id 26, wireType 0 =*/208).uint32(message.lowPass);
-        if (message.form != null && message.hasOwnProperty("form"))
-            writer.uint32(/* id 27, wireType 0 =*/216).uint32(message.form);
+        writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.attackingProwess);
+        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.ballControl);
+        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.ballWinning);
+        writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.bodyControl);
+        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.catching);
+        writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.clearing);
+        writer.uint32(/* id 7, wireType 0 =*/56).uint32(message.coverage);
+        writer.uint32(/* id 8, wireType 0 =*/64).uint32(message.defensiveProwess);
+        writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.dribbling);
+        writer.uint32(/* id 10, wireType 0 =*/80).uint32(message.explosivePower);
+        writer.uint32(/* id 11, wireType 0 =*/88).uint32(message.finishing);
+        writer.uint32(/* id 12, wireType 0 =*/96).uint32(message.goalkeeping);
+        writer.uint32(/* id 13, wireType 0 =*/104).uint32(message.header);
+        writer.uint32(/* id 14, wireType 0 =*/112).uint32(message.injuryResistance);
+        writer.uint32(/* id 15, wireType 0 =*/120).uint32(message.jump);
+        writer.uint32(/* id 16, wireType 0 =*/128).uint32(message.kickingPower);
+        writer.uint32(/* id 17, wireType 0 =*/136).uint32(message.loftedPass);
+        writer.uint32(/* id 18, wireType 0 =*/144).uint32(message.physicalContact);
+        writer.uint32(/* id 19, wireType 0 =*/152).uint32(message.placeKicking);
+        writer.uint32(/* id 20, wireType 0 =*/160).uint32(message.reflexes);
+        writer.uint32(/* id 21, wireType 0 =*/168).uint32(message.speed);
+        writer.uint32(/* id 22, wireType 0 =*/176).uint32(message.stamina);
+        writer.uint32(/* id 23, wireType 0 =*/184).uint32(message.swerve);
+        writer.uint32(/* id 24, wireType 0 =*/192).uint32(message.weakFootAccuracy);
+        writer.uint32(/* id 25, wireType 0 =*/200).uint32(message.weakFootUsage);
+        writer.uint32(/* id 26, wireType 0 =*/208).uint32(message.lowPass);
+        writer.uint32(/* id 27, wireType 0 =*/216).uint32(message.form);
         return writer;
     };
 
@@ -4120,6 +4077,60 @@ $root.PlayerAbilities = (function() {
                 break;
             }
         }
+        if (!message.hasOwnProperty("attackingProwess"))
+            throw $util.ProtocolError("missing required 'attackingProwess'", { instance: message });
+        if (!message.hasOwnProperty("ballControl"))
+            throw $util.ProtocolError("missing required 'ballControl'", { instance: message });
+        if (!message.hasOwnProperty("ballWinning"))
+            throw $util.ProtocolError("missing required 'ballWinning'", { instance: message });
+        if (!message.hasOwnProperty("bodyControl"))
+            throw $util.ProtocolError("missing required 'bodyControl'", { instance: message });
+        if (!message.hasOwnProperty("catching"))
+            throw $util.ProtocolError("missing required 'catching'", { instance: message });
+        if (!message.hasOwnProperty("clearing"))
+            throw $util.ProtocolError("missing required 'clearing'", { instance: message });
+        if (!message.hasOwnProperty("coverage"))
+            throw $util.ProtocolError("missing required 'coverage'", { instance: message });
+        if (!message.hasOwnProperty("defensiveProwess"))
+            throw $util.ProtocolError("missing required 'defensiveProwess'", { instance: message });
+        if (!message.hasOwnProperty("dribbling"))
+            throw $util.ProtocolError("missing required 'dribbling'", { instance: message });
+        if (!message.hasOwnProperty("explosivePower"))
+            throw $util.ProtocolError("missing required 'explosivePower'", { instance: message });
+        if (!message.hasOwnProperty("finishing"))
+            throw $util.ProtocolError("missing required 'finishing'", { instance: message });
+        if (!message.hasOwnProperty("goalkeeping"))
+            throw $util.ProtocolError("missing required 'goalkeeping'", { instance: message });
+        if (!message.hasOwnProperty("header"))
+            throw $util.ProtocolError("missing required 'header'", { instance: message });
+        if (!message.hasOwnProperty("injuryResistance"))
+            throw $util.ProtocolError("missing required 'injuryResistance'", { instance: message });
+        if (!message.hasOwnProperty("jump"))
+            throw $util.ProtocolError("missing required 'jump'", { instance: message });
+        if (!message.hasOwnProperty("kickingPower"))
+            throw $util.ProtocolError("missing required 'kickingPower'", { instance: message });
+        if (!message.hasOwnProperty("loftedPass"))
+            throw $util.ProtocolError("missing required 'loftedPass'", { instance: message });
+        if (!message.hasOwnProperty("lowPass"))
+            throw $util.ProtocolError("missing required 'lowPass'", { instance: message });
+        if (!message.hasOwnProperty("physicalContact"))
+            throw $util.ProtocolError("missing required 'physicalContact'", { instance: message });
+        if (!message.hasOwnProperty("placeKicking"))
+            throw $util.ProtocolError("missing required 'placeKicking'", { instance: message });
+        if (!message.hasOwnProperty("reflexes"))
+            throw $util.ProtocolError("missing required 'reflexes'", { instance: message });
+        if (!message.hasOwnProperty("speed"))
+            throw $util.ProtocolError("missing required 'speed'", { instance: message });
+        if (!message.hasOwnProperty("stamina"))
+            throw $util.ProtocolError("missing required 'stamina'", { instance: message });
+        if (!message.hasOwnProperty("swerve"))
+            throw $util.ProtocolError("missing required 'swerve'", { instance: message });
+        if (!message.hasOwnProperty("weakFootAccuracy"))
+            throw $util.ProtocolError("missing required 'weakFootAccuracy'", { instance: message });
+        if (!message.hasOwnProperty("weakFootUsage"))
+            throw $util.ProtocolError("missing required 'weakFootUsage'", { instance: message });
+        if (!message.hasOwnProperty("form"))
+            throw $util.ProtocolError("missing required 'form'", { instance: message });
         return message;
     };
 
@@ -4150,87 +4161,60 @@ $root.PlayerAbilities = (function() {
     PlayerAbilities.verify = function verify(message) {
         if (typeof message !== "object" || message === null)
             return "object expected";
-        if (message.attackingProwess != null && message.hasOwnProperty("attackingProwess"))
-            if (!$util.isInteger(message.attackingProwess))
-                return "attackingProwess: integer expected";
-        if (message.ballControl != null && message.hasOwnProperty("ballControl"))
-            if (!$util.isInteger(message.ballControl))
-                return "ballControl: integer expected";
-        if (message.ballWinning != null && message.hasOwnProperty("ballWinning"))
-            if (!$util.isInteger(message.ballWinning))
-                return "ballWinning: integer expected";
-        if (message.bodyControl != null && message.hasOwnProperty("bodyControl"))
-            if (!$util.isInteger(message.bodyControl))
-                return "bodyControl: integer expected";
-        if (message.catching != null && message.hasOwnProperty("catching"))
-            if (!$util.isInteger(message.catching))
-                return "catching: integer expected";
-        if (message.clearing != null && message.hasOwnProperty("clearing"))
-            if (!$util.isInteger(message.clearing))
-                return "clearing: integer expected";
-        if (message.coverage != null && message.hasOwnProperty("coverage"))
-            if (!$util.isInteger(message.coverage))
-                return "coverage: integer expected";
-        if (message.defensiveProwess != null && message.hasOwnProperty("defensiveProwess"))
-            if (!$util.isInteger(message.defensiveProwess))
-                return "defensiveProwess: integer expected";
-        if (message.dribbling != null && message.hasOwnProperty("dribbling"))
-            if (!$util.isInteger(message.dribbling))
-                return "dribbling: integer expected";
-        if (message.explosivePower != null && message.hasOwnProperty("explosivePower"))
-            if (!$util.isInteger(message.explosivePower))
-                return "explosivePower: integer expected";
-        if (message.finishing != null && message.hasOwnProperty("finishing"))
-            if (!$util.isInteger(message.finishing))
-                return "finishing: integer expected";
-        if (message.goalkeeping != null && message.hasOwnProperty("goalkeeping"))
-            if (!$util.isInteger(message.goalkeeping))
-                return "goalkeeping: integer expected";
-        if (message.header != null && message.hasOwnProperty("header"))
-            if (!$util.isInteger(message.header))
-                return "header: integer expected";
-        if (message.injuryResistance != null && message.hasOwnProperty("injuryResistance"))
-            if (!$util.isInteger(message.injuryResistance))
-                return "injuryResistance: integer expected";
-        if (message.jump != null && message.hasOwnProperty("jump"))
-            if (!$util.isInteger(message.jump))
-                return "jump: integer expected";
-        if (message.kickingPower != null && message.hasOwnProperty("kickingPower"))
-            if (!$util.isInteger(message.kickingPower))
-                return "kickingPower: integer expected";
-        if (message.loftedPass != null && message.hasOwnProperty("loftedPass"))
-            if (!$util.isInteger(message.loftedPass))
-                return "loftedPass: integer expected";
-        if (message.lowPass != null && message.hasOwnProperty("lowPass"))
-            if (!$util.isInteger(message.lowPass))
-                return "lowPass: integer expected";
-        if (message.physicalContact != null && message.hasOwnProperty("physicalContact"))
-            if (!$util.isInteger(message.physicalContact))
-                return "physicalContact: integer expected";
-        if (message.placeKicking != null && message.hasOwnProperty("placeKicking"))
-            if (!$util.isInteger(message.placeKicking))
-                return "placeKicking: integer expected";
-        if (message.reflexes != null && message.hasOwnProperty("reflexes"))
-            if (!$util.isInteger(message.reflexes))
-                return "reflexes: integer expected";
-        if (message.speed != null && message.hasOwnProperty("speed"))
-            if (!$util.isInteger(message.speed))
-                return "speed: integer expected";
-        if (message.stamina != null && message.hasOwnProperty("stamina"))
-            if (!$util.isInteger(message.stamina))
-                return "stamina: integer expected";
-        if (message.swerve != null && message.hasOwnProperty("swerve"))
-            if (!$util.isInteger(message.swerve))
-                return "swerve: integer expected";
-        if (message.weakFootAccuracy != null && message.hasOwnProperty("weakFootAccuracy"))
-            if (!$util.isInteger(message.weakFootAccuracy))
-                return "weakFootAccuracy: integer expected";
-        if (message.weakFootUsage != null && message.hasOwnProperty("weakFootUsage"))
-            if (!$util.isInteger(message.weakFootUsage))
-                return "weakFootUsage: integer expected";
-        if (message.form != null && message.hasOwnProperty("form"))
-            if (!$util.isInteger(message.form))
-                return "form: integer expected";
+        if (!$util.isInteger(message.attackingProwess))
+            return "attackingProwess: integer expected";
+        if (!$util.isInteger(message.ballControl))
+            return "ballControl: integer expected";
+        if (!$util.isInteger(message.ballWinning))
+            return "ballWinning: integer expected";
+        if (!$util.isInteger(message.bodyControl))
+            return "bodyControl: integer expected";
+        if (!$util.isInteger(message.catching))
+            return "catching: integer expected";
+        if (!$util.isInteger(message.clearing))
+            return "clearing: integer expected";
+        if (!$util.isInteger(message.coverage))
+            return "coverage: integer expected";
+        if (!$util.isInteger(message.defensiveProwess))
+            return "defensiveProwess: integer expected";
+        if (!$util.isInteger(message.dribbling))
+            return "dribbling: integer expected";
+        if (!$util.isInteger(message.explosivePower))
+            return "explosivePower: integer expected";
+        if (!$util.isInteger(message.finishing))
+            return "finishing: integer expected";
+        if (!$util.isInteger(message.goalkeeping))
+            return "goalkeeping: integer expected";
+        if (!$util.isInteger(message.header))
+            return "header: integer expected";
+        if (!$util.isInteger(message.injuryResistance))
+            return "injuryResistance: integer expected";
+        if (!$util.isInteger(message.jump))
+            return "jump: integer expected";
+        if (!$util.isInteger(message.kickingPower))
+            return "kickingPower: integer expected";
+        if (!$util.isInteger(message.loftedPass))
+            return "loftedPass: integer expected";
+        if (!$util.isInteger(message.lowPass))
+            return "lowPass: integer expected";
+        if (!$util.isInteger(message.physicalContact))
+            return "physicalContact: integer expected";
+        if (!$util.isInteger(message.placeKicking))
+            return "placeKicking: integer expected";
+        if (!$util.isInteger(message.reflexes))
+            return "reflexes: integer expected";
+        if (!$util.isInteger(message.speed))
+            return "speed: integer expected";
+        if (!$util.isInteger(message.stamina))
+            return "stamina: integer expected";
+        if (!$util.isInteger(message.swerve))
+            return "swerve: integer expected";
+        if (!$util.isInteger(message.weakFootAccuracy))
+            return "weakFootAccuracy: integer expected";
+        if (!$util.isInteger(message.weakFootUsage))
+            return "weakFootUsage: integer expected";
+        if (!$util.isInteger(message.form))
+            return "form: integer expected";
         return null;
     };
 
@@ -4614,6 +4598,7 @@ $root.PlayerAppearance = (function() {
      * Constructs a new PlayerAppearance.
      * @exports PlayerAppearance
      * @classdesc Represents a PlayerAppearance.
+     * @implements IPlayerAppearance
      * @constructor
      * @param {IPlayerAppearance=} [properties] Properties to set
      */
@@ -4767,21 +4752,22 @@ $root.PlayerMotion = (function() {
      * Properties of a PlayerMotion.
      * @exports IPlayerMotion
      * @interface IPlayerMotion
-     * @property {number} [armDribbling] PlayerMotion armDribbling
-     * @property {number} [armRunning] PlayerMotion armRunning
-     * @property {number} [cornerKick] PlayerMotion cornerKick
-     * @property {number} [freeKick] PlayerMotion freeKick
-     * @property {number} [goalCelebration1] PlayerMotion goalCelebration1
-     * @property {number} [goalCelebration2] PlayerMotion goalCelebration2
-     * @property {number} [hunchingDribbling] PlayerMotion hunchingDribbling
-     * @property {number} [hunchingRunning] PlayerMotion hunchingRunning
-     * @property {number} [penaltyKick] PlayerMotion penaltyKick
+     * @property {number|null} [armDribbling] PlayerMotion armDribbling
+     * @property {number|null} [armRunning] PlayerMotion armRunning
+     * @property {number|null} [cornerKick] PlayerMotion cornerKick
+     * @property {number|null} [freeKick] PlayerMotion freeKick
+     * @property {number|null} [goalCelebration1] PlayerMotion goalCelebration1
+     * @property {number|null} [goalCelebration2] PlayerMotion goalCelebration2
+     * @property {number|null} [hunchingDribbling] PlayerMotion hunchingDribbling
+     * @property {number|null} [hunchingRunning] PlayerMotion hunchingRunning
+     * @property {number|null} [penaltyKick] PlayerMotion penaltyKick
      */
 
     /**
      * Constructs a new PlayerMotion.
      * @exports PlayerMotion
      * @classdesc Represents a PlayerMotion.
+     * @implements IPlayerMotion
      * @constructor
      * @param {IPlayerMotion=} [properties] Properties to set
      */
@@ -4794,7 +4780,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion armDribbling.
-     * @member {number}armDribbling
+     * @member {number} armDribbling
      * @memberof PlayerMotion
      * @instance
      */
@@ -4802,7 +4788,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion armRunning.
-     * @member {number}armRunning
+     * @member {number} armRunning
      * @memberof PlayerMotion
      * @instance
      */
@@ -4810,7 +4796,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion cornerKick.
-     * @member {number}cornerKick
+     * @member {number} cornerKick
      * @memberof PlayerMotion
      * @instance
      */
@@ -4818,7 +4804,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion freeKick.
-     * @member {number}freeKick
+     * @member {number} freeKick
      * @memberof PlayerMotion
      * @instance
      */
@@ -4826,7 +4812,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion goalCelebration1.
-     * @member {number}goalCelebration1
+     * @member {number} goalCelebration1
      * @memberof PlayerMotion
      * @instance
      */
@@ -4834,7 +4820,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion goalCelebration2.
-     * @member {number}goalCelebration2
+     * @member {number} goalCelebration2
      * @memberof PlayerMotion
      * @instance
      */
@@ -4842,7 +4828,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion hunchingDribbling.
-     * @member {number}hunchingDribbling
+     * @member {number} hunchingDribbling
      * @memberof PlayerMotion
      * @instance
      */
@@ -4850,7 +4836,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion hunchingRunning.
-     * @member {number}hunchingRunning
+     * @member {number} hunchingRunning
      * @memberof PlayerMotion
      * @instance
      */
@@ -4858,7 +4844,7 @@ $root.PlayerMotion = (function() {
 
     /**
      * PlayerMotion penaltyKick.
-     * @member {number}penaltyKick
+     * @member {number} penaltyKick
      * @memberof PlayerMotion
      * @instance
      */
@@ -5130,20 +5116,21 @@ $root.Edits = (function() {
      * Properties of an Edits.
      * @exports IEdits
      * @interface IEdits
-     * @property {boolean} [registeredPosition] Edits registeredPosition
-     * @property {boolean} [playablePositions] Edits playablePositions
-     * @property {boolean} [basics] Edits basics
-     * @property {boolean} [abilities] Edits abilities
-     * @property {boolean} [playerSkills] Edits playerSkills
-     * @property {boolean} [playingStyles] Edits playingStyles
-     * @property {boolean} [comPlayingStyles] Edits comPlayingStyles
-     * @property {boolean} [motion] Edits motion
+     * @property {boolean|null} [registeredPosition] Edits registeredPosition
+     * @property {boolean|null} [playablePositions] Edits playablePositions
+     * @property {boolean|null} [basics] Edits basics
+     * @property {boolean|null} [abilities] Edits abilities
+     * @property {boolean|null} [playerSkills] Edits playerSkills
+     * @property {boolean|null} [playingStyle] Edits playingStyle
+     * @property {boolean|null} [comPlayingStyles] Edits comPlayingStyles
+     * @property {boolean|null} [motion] Edits motion
      */
 
     /**
      * Constructs a new Edits.
      * @exports Edits
      * @classdesc Reports if certain parts of a player are edited.
+     * @implements IEdits
      * @constructor
      * @param {IEdits=} [properties] Properties to set
      */
@@ -5156,7 +5143,7 @@ $root.Edits = (function() {
 
     /**
      * Edits registeredPosition.
-     * @member {boolean}registeredPosition
+     * @member {boolean} registeredPosition
      * @memberof Edits
      * @instance
      */
@@ -5164,7 +5151,7 @@ $root.Edits = (function() {
 
     /**
      * Edits playablePositions.
-     * @member {boolean}playablePositions
+     * @member {boolean} playablePositions
      * @memberof Edits
      * @instance
      */
@@ -5172,7 +5159,7 @@ $root.Edits = (function() {
 
     /**
      * Edits basics.
-     * @member {boolean}basics
+     * @member {boolean} basics
      * @memberof Edits
      * @instance
      */
@@ -5180,7 +5167,7 @@ $root.Edits = (function() {
 
     /**
      * Edits abilities.
-     * @member {boolean}abilities
+     * @member {boolean} abilities
      * @memberof Edits
      * @instance
      */
@@ -5188,23 +5175,23 @@ $root.Edits = (function() {
 
     /**
      * Edits playerSkills.
-     * @member {boolean}playerSkills
+     * @member {boolean} playerSkills
      * @memberof Edits
      * @instance
      */
     Edits.prototype.playerSkills = false;
 
     /**
-     * Edits playingStyles.
-     * @member {boolean}playingStyles
+     * Edits playingStyle.
+     * @member {boolean} playingStyle
      * @memberof Edits
      * @instance
      */
-    Edits.prototype.playingStyles = false;
+    Edits.prototype.playingStyle = false;
 
     /**
      * Edits comPlayingStyles.
-     * @member {boolean}comPlayingStyles
+     * @member {boolean} comPlayingStyles
      * @memberof Edits
      * @instance
      */
@@ -5212,7 +5199,7 @@ $root.Edits = (function() {
 
     /**
      * Edits motion.
-     * @member {boolean}motion
+     * @member {boolean} motion
      * @memberof Edits
      * @instance
      */
@@ -5252,8 +5239,8 @@ $root.Edits = (function() {
             writer.uint32(/* id 4, wireType 0 =*/32).bool(message.abilities);
         if (message.playerSkills != null && message.hasOwnProperty("playerSkills"))
             writer.uint32(/* id 5, wireType 0 =*/40).bool(message.playerSkills);
-        if (message.playingStyles != null && message.hasOwnProperty("playingStyles"))
-            writer.uint32(/* id 6, wireType 0 =*/48).bool(message.playingStyles);
+        if (message.playingStyle != null && message.hasOwnProperty("playingStyle"))
+            writer.uint32(/* id 6, wireType 0 =*/48).bool(message.playingStyle);
         if (message.comPlayingStyles != null && message.hasOwnProperty("comPlayingStyles"))
             writer.uint32(/* id 7, wireType 0 =*/56).bool(message.comPlayingStyles);
         if (message.motion != null && message.hasOwnProperty("motion"))
@@ -5308,7 +5295,7 @@ $root.Edits = (function() {
                 message.playerSkills = reader.bool();
                 break;
             case 6:
-                message.playingStyles = reader.bool();
+                message.playingStyle = reader.bool();
                 break;
             case 7:
                 message.comPlayingStyles = reader.bool();
@@ -5366,9 +5353,9 @@ $root.Edits = (function() {
         if (message.playerSkills != null && message.hasOwnProperty("playerSkills"))
             if (typeof message.playerSkills !== "boolean")
                 return "playerSkills: boolean expected";
-        if (message.playingStyles != null && message.hasOwnProperty("playingStyles"))
-            if (typeof message.playingStyles !== "boolean")
-                return "playingStyles: boolean expected";
+        if (message.playingStyle != null && message.hasOwnProperty("playingStyle"))
+            if (typeof message.playingStyle !== "boolean")
+                return "playingStyle: boolean expected";
         if (message.comPlayingStyles != null && message.hasOwnProperty("comPlayingStyles"))
             if (typeof message.comPlayingStyles !== "boolean")
                 return "comPlayingStyles: boolean expected";
@@ -5400,8 +5387,8 @@ $root.Edits = (function() {
             message.abilities = Boolean(object.abilities);
         if (object.playerSkills != null)
             message.playerSkills = Boolean(object.playerSkills);
-        if (object.playingStyles != null)
-            message.playingStyles = Boolean(object.playingStyles);
+        if (object.playingStyle != null)
+            message.playingStyle = Boolean(object.playingStyle);
         if (object.comPlayingStyles != null)
             message.comPlayingStyles = Boolean(object.comPlayingStyles);
         if (object.motion != null)
@@ -5428,7 +5415,7 @@ $root.Edits = (function() {
             object.basics = false;
             object.abilities = false;
             object.playerSkills = false;
-            object.playingStyles = false;
+            object.playingStyle = false;
             object.comPlayingStyles = false;
             object.motion = false;
         }
@@ -5442,8 +5429,8 @@ $root.Edits = (function() {
             object.abilities = message.abilities;
         if (message.playerSkills != null && message.hasOwnProperty("playerSkills"))
             object.playerSkills = message.playerSkills;
-        if (message.playingStyles != null && message.hasOwnProperty("playingStyles"))
-            object.playingStyles = message.playingStyles;
+        if (message.playingStyle != null && message.hasOwnProperty("playingStyle"))
+            object.playingStyle = message.playingStyle;
         if (message.comPlayingStyles != null && message.hasOwnProperty("comPlayingStyles"))
             object.comPlayingStyles = message.comPlayingStyles;
         if (message.motion != null && message.hasOwnProperty("motion"))
@@ -5471,17 +5458,18 @@ $root.UnknownOptions = (function() {
      * Properties of an UnknownOptions.
      * @exports IUnknownOptions
      * @interface IUnknownOptions
-     * @property {boolean} [unknown02] UnknownOptions unknown02
-     * @property {boolean} [unknown03] UnknownOptions unknown03
-     * @property {boolean} [unknown04] UnknownOptions unknown04
-     * @property {boolean} [unknown05] UnknownOptions unknown05
-     * @property {number} [unknown06] UnknownOptions unknown06
+     * @property {boolean|null} [unknown02] UnknownOptions unknown02
+     * @property {boolean|null} [unknown03] UnknownOptions unknown03
+     * @property {boolean|null} [unknown04] UnknownOptions unknown04
+     * @property {boolean|null} [unknown05] UnknownOptions unknown05
+     * @property {number|null} [unknown06] UnknownOptions unknown06
      */
 
     /**
      * Constructs a new UnknownOptions.
      * @exports UnknownOptions
      * @classdesc Bytes/bits of the player data that are not yet known
+     * @implements IUnknownOptions
      * @constructor
      * @param {IUnknownOptions=} [properties] Properties to set
      */
@@ -5494,7 +5482,7 @@ $root.UnknownOptions = (function() {
 
     /**
      * UnknownOptions unknown02.
-     * @member {boolean}unknown02
+     * @member {boolean} unknown02
      * @memberof UnknownOptions
      * @instance
      */
@@ -5502,7 +5490,7 @@ $root.UnknownOptions = (function() {
 
     /**
      * UnknownOptions unknown03.
-     * @member {boolean}unknown03
+     * @member {boolean} unknown03
      * @memberof UnknownOptions
      * @instance
      */
@@ -5510,7 +5498,7 @@ $root.UnknownOptions = (function() {
 
     /**
      * UnknownOptions unknown04.
-     * @member {boolean}unknown04
+     * @member {boolean} unknown04
      * @memberof UnknownOptions
      * @instance
      */
@@ -5518,7 +5506,7 @@ $root.UnknownOptions = (function() {
 
     /**
      * UnknownOptions unknown05.
-     * @member {boolean}unknown05
+     * @member {boolean} unknown05
      * @memberof UnknownOptions
      * @instance
      */
@@ -5526,7 +5514,7 @@ $root.UnknownOptions = (function() {
 
     /**
      * UnknownOptions unknown06.
-     * @member {number}unknown06
+     * @member {number} unknown06
      * @memberof UnknownOptions
      * @instance
      */

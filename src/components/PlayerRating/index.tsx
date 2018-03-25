@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Player, IPlayerAbilities } from '../../shared/service/api';
+import { IPlayerAbilities, Player } from '../../shared/service/api';
 
 export interface Props {
   player: Player;
-  weights: IPlayerAbilities;
+  weights: Partial<IPlayerAbilities>;
   render: (rating: number) => JSX.Element;
 }
 
@@ -21,9 +21,13 @@ export class PlayerRating extends React.PureComponent<Props> {
 }
 
 /** calculate a rating given a set of stat weights. */
-function calcRating(player: Player, weights: IPlayerAbilities): number {
-  const BASE = 7;  // ?
+function calcRating(
+  player: Player,
+  weights: Partial<IPlayerAbilities>
+): number {
+  const BASE = 7; // ?
   const rating = Object.keys(weights).reduce(
+    // fixes prettier/tslint alignment
     (sum, stat) => {
       if (!player.abilities || !weights) {
         throw new Error('Player or weights are undefined');
