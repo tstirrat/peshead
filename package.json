@@ -27,7 +27,8 @@
     "redux-devtools-extension": "^2.13.2",
     "redux-observable": "^0.16.0",
     "reselect": "^3.0.1",
-    "rxjs": "^5.5.2"
+    "rxjs": "^5.5.2",
+    "styled-components": "^3.2.3"
   },
   "scripts": {
     "start": "react-scripts-ts start",
