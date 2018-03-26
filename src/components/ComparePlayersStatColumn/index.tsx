@@ -2,12 +2,13 @@ import RemoveCircleIcon from 'material-ui-icons/RemoveCircle';
 import ButtonBase from 'material-ui/ButtonBase';
 import Divider from 'material-ui/Divider';
 import List, { ListItem, ListSubheader } from 'material-ui/List';
+import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { IPlayerAbilities, Player } from '../../shared/service/api';
-import { AbilityFlags } from '../../shared/utils/player';
+import { Player } from '../../shared/service/api';
+import { AbilityFlags, getTotalStats, SIMPLE_ABILITIES } from '../../shared/utils/player';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
@@ -39,33 +40,6 @@ const StyledStat = styled.div`
   }
 `;
 
-/** Stats which have max value of 99 */
-const SIMPLE_ABILITIES: Array<keyof IPlayerAbilities> = [
-  'attackingProwess',
-  'ballControl',
-  'dribbling',
-  'lowPass',
-  'loftedPass',
-  'finishing',
-  'placeKicking',
-  'swerve',
-  'header',
-  'defensiveProwess',
-  'ballWinning',
-  'kickingPower',
-  'speed',
-  'explosivePower',
-  'bodyControl',
-  'physicalContact',
-  'jump',
-  'goalkeeping',
-  'catching',
-  'clearing',
-  'reflexes',
-  'coverage',
-  'stamina'
-];
-
 export class ComparePlayersStatColumn extends React.PureComponent<Props> {
   render() {
     const { player, highlights = {} } = this.props;
@@ -84,6 +58,34 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
           </ButtonBase>
         </Header>
         <Divider />
+
+        <StyledStat>
+          <ListItem>
+            <Typography type="subheading">{player.age}</Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <Typography type="subheading">{0}</Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <Typography type="subheading">{0}</Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <Typography type="subheading">{getTotalStats(player)}</Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
 
         {SIMPLE_ABILITIES.map(key => (
           <StyledStat key={key} role={highlights[key] ? 'highest' : ''}>

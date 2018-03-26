@@ -55,8 +55,8 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
         </Helmet>
         <AppBar>
           <Toolbar>
-            <IconButton color="inherit">
-              <HomeIcon onClick={this.goHome} />
+            <IconButton color="inherit" onClick={this.goHome}>
+              <HomeIcon />
             </IconButton>
             <div className="search-input flex">
               <SuggestPlayer
