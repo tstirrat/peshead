@@ -102,6 +102,43 @@ export const ABILITY_PROPS: PlayerAbilityName[] = [
   'form'
 ];
 
+/** Stats which have min of 40 and max value of 99 */
+export const SIMPLE_ABILITIES: PlayerAbilityName[] = [
+  'attackingProwess',
+  'ballControl',
+  'dribbling',
+  'lowPass',
+  'loftedPass',
+  'finishing',
+  'placeKicking',
+  'swerve',
+  'header',
+  'defensiveProwess',
+  'ballWinning',
+  'kickingPower',
+  'speed',
+  'explosivePower',
+  'bodyControl',
+  'physicalContact',
+  'jump',
+  'goalkeeping',
+  'catching',
+  'clearing',
+  'reflexes',
+  'coverage',
+  'stamina'
+];
+
+export function getTotalStats(player: Player) {
+  return SIMPLE_ABILITIES.reduce<number>(
+    // alignment
+    (total, key) => {
+      return total + (player.abilities[key] || 0);
+    },
+    0
+  );
+}
+
 /**
  * Map of changed abilities at each level.
  *

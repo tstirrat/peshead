@@ -1,9 +1,0 @@
-.ComparePlayersLabelColumn li {
-  justify-content: left;
-}
-
-.ComparePlayersLabelColumn h3 {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}

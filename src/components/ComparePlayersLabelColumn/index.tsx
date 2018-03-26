@@ -1,11 +1,28 @@
-import './ComparePlayersLabelColumn.css';
-
 import { Divider, ListItemText, ListSubheader } from 'material-ui';
 import List, { ListItem } from 'material-ui/List';
 import * as React from 'react';
+import styled from 'styled-components';
+
+const Label = styled(ListItem)`
+  > div {
+    overflow: hidden;
+    padding-right: 0;
+  }
+
+  h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 0;
+  }
+`;
 
 export function ComparePlayersLabelColumn() {
   const skills = [
+    'Age',
+    'Height',
+    'Weight',
+    'Total stats',
     'Attacking Prowess',
     'Ball Control',
     'Dribbling',
@@ -36,9 +53,9 @@ export function ComparePlayersLabelColumn() {
   ].map(skill => (
     <div key={skill}>
       <Divider />
-      <ListItem>
+      <Label>
         <ListItemText primary={skill} />
-      </ListItem>
+      </Label>
     </div>
   ));
 

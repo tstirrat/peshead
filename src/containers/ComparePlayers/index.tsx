@@ -61,6 +61,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   render() {
     const { players } = this.props;
     const highlights = this.calculateHighlights(players);
+    const colWidth = players.length === 3 ? 3 : 4;
     return (
       <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
@@ -75,11 +76,11 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
         <Grid item={true} xs={12} sm={12}>
           <Paper>
             <Grid container={true} spacing={0}>
-              <Grid item={true} xs={6} md={3}>
+              <Grid item={true} xs={colWidth}>
                 <ComparePlayersLabelColumn />
               </Grid>
               {players.map((player, index) => (
-                <Grid item={true} xs={2} md={3} key={player.id}>
+                <Grid item={true} xs={colWidth} key={player.id}>
                   <Loading
                     when={!player.player || player.isLoading}
                     render={() => this.renderPlayer(player, highlights[index])}
