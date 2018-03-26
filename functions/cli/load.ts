@@ -1,12 +1,9 @@
+// tslint:disable:no-console
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import {
-  IPlayer,
-  Player as PlayerRecord,
-  PlayerAbilities
-} from '../service/api';
-import { EditFile, Player } from '../typesets/edit-file';
+import { IPlayer, Player, PlayerAbilities, PlayerMotion, PlayingStyle } from '../service/api';
+import { EditFile, Player as PlayerBinary } from '../typesets/edit-file';
 
 const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);
 
@@ -36,7 +33,8 @@ export async function load(fileName: string) {
 
       console.log('inserting:', batch.map(p => p.id));
 
-      const saves: Promise<any>[] = batch.map((player: Player) => {
+      // tslint:disable-next-line:no-any
+      const saves: Promise<any>[] = batch.map((player: PlayerBinary) => {
         // console.log(`Inserting ${player.id}...`);
         if (hasUndefinedProperty(player)) {
           return Promise.resolve();
@@ -63,15 +61,22 @@ export async function load(fileName: string) {
 }
 
 /** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
-function createPlayer(player: Player): IPlayer {
-  return PlayerRecord.create({
+function createPlayer(player: PlayerBinary): IPlayer {
+  return Player.create({
     id: '' + player.id,
     commentaryId: '' + player.commentaryId,
     nationality: player.nationality,
     name: player.name,
     kitName: player.printName,
     age: player.block5.age,
-    // preferredFoot: player.block7.strongFoot ? 'LEFT' : 'RIGHT',
+    preferredFoot: 0, // player.block7.strongFoot ? 'LEFT' : 'RIGHT',
+    registeredPosition: 0,
+    physique: {
+      height: player.height,
+      weight: player.weight
+    },
+    appearance: {},
+    playingStyle: PlayingStyle.ANCHOR_MAN,
     abilities: PlayerAbilities.create({
       attackingProwess: player.block1.attackingProwess,
       ballControl: player.block5.ballControl,
@@ -87,7 +92,7 @@ function createPlayer(player: Player): IPlayer {
       form: player.block2.form,
       goalkeeping: player.block1.goalkeeping,
       header: player.block2.header,
-      // injuryResistance: player.block3.injuryResistance,
+      injuryResistance: -1, // player.block3.injuryResistance,
       jump: player.block6.jump,
       kickingPower: player.block4.kickingPower,
       loftedPass: player.block2.loftedPass,
@@ -97,26 +102,27 @@ function createPlayer(player: Player): IPlayer {
       reflexes: player.block3.reflexes,
       speed: player.block8.speed,
       stamina: player.block8.stamina,
-      swerve: player.block3.swerve
-      // weakFootAccuracy: player.block5.weakFootAccuracy,
-      // weakFootUsage: player.block6.weakFootUsage,
+      swerve: player.block3.swerve,
+      weakFootAccuracy: -1, //  player.block5.weakFootAccuracy,
+      weakFootUsage: -1 //  player.block6.weakFootUsage,
+    }),
+    isEdited: false,
+    isBaseCopy: !!player.block8.isBaseCopy,
+    motion: PlayerMotion.create({
+      armDribbling: player.block4.motionDribblingArms,
+      armRunning: player.block6.motionRunningArms,
+      cornerKick: player.block6.motionCornerKick,
+      freeKick: player.block1.motionFreeKick,
+      goalCelebration1: player.motionGoalCelebration1,
+      goalCelebration2: player.motionGoalCelebration2,
+      hunchingDribbling: player.block7.motionDribblingHunching,
+      hunchingRunning: player.block7.motionRunningHunching,
+      penaltyKick: player.block7.motionPenaltyKick
     })
-    // isEdited: player.block2.isCreated,
-    // isBaseCopy: player.block7.isBaseCopy,
-    // motion: PlayerMotion.create({
-    //   armDribbling: player.block4.motionDribblingArms,
-    //   armRunning: player.block6.motionRunningArms,
-    //   cornerKick: player.block6.motionCornerKick,
-    //   freeKick: player.block1.motionFreeKick,
-    //   goalCelebration1: player.motionGoalCelebration1,
-    //   goalCelebration2: player.motionGoalCelebration2,
-    //   hunchingDribbling: player.block6.motionDribblingHunching,
-    //   hunchingRunning: player.block6.motionRunningHunching,
-    //   penaltyKick: player.block6.motionPenaltyKick,
-    // }),
-  }).toJSON();
+  }).toJSON() as IPlayer;
 }
 
+// tslint:disable-next-line:no-any
 function hasUndefinedProperty(obj: any): boolean {
   return Object.keys(obj).some(k => {
     if (typeof obj[k] === 'object') {
