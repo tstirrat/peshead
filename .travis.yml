@@ -9,15 +9,15 @@ branches:
   only:
   - master
 script:
-  - npm test -- --maxWorkers=2 --coverage
-  - cd functions && npm install && npm test -- --maxWorkers=2 --coverage
+  - yarn test --maxWorkers=2 --coverage
+  - cd functions && yarn install && yarn test --maxWorkers=2 --coverage
   - cd $TRAVIS_BUILD_DIR # go back to project root
 after_script:
-  - COVERALLS_REPO_TOKEN=$coveralls_repo_token npm run coveralls
+  - COVERALLS_REPO_TOKEN=$coveralls_repo_token yarn coveralls
 
 before_deploy:
-  - npm run build
-  - cd functions && npm run build
+  - yarn build
+  - cd functions && yarn build
   - cd $TRAVIS_BUILD_DIR # go back to project root
 deploy:
   skip_cleanup: true
