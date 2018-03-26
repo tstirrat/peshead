@@ -10,7 +10,7 @@ branches:
   - master
 script:
   - yarn test -- --maxWorkers=2 --coverage
-  - cd functions && yarn && yarn test -- --maxWorkers=2 --coverage
+  - cd functions && yarn install && yarn test -- --maxWorkers=2 --coverage
   - cd $TRAVIS_BUILD_DIR # go back to project root
 after_script:
   - COVERALLS_REPO_TOKEN=$coveralls_repo_token yarn coveralls
