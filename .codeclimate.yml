@@ -1,0 +1,4 @@
+## other configuration excluded from example...
+exclude_patterns:
+- "functions/service/api/"
+- "src/shared/service/api/"
