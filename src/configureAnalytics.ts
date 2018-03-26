@@ -4,13 +4,16 @@ import { LOCATION_CHANGE, LocationChangeAction } from 'react-router-redux';
 import { createMiddleware } from 'redux-beacon';
 import { GoogleAnalytics, PageView } from 'redux-beacon/targets/google-analytics';
 
+import { assert } from './shared/assert';
+
 /** Standard router location change -> pageview */
 const pageView = (action: LocationChangeAction): PageView => {
   const location: Location = action.payload;
   const page = location.pathname + location.search;
   return {
     hitType: 'pageview',
-    page
+    page,
+    title: 'PESto' // TODO: incorrectly uses the page title before transition
   };
 };
 
@@ -20,8 +23,8 @@ const eventsMap = {
 };
 
 export const analyticsMiddleware = () => {
-  // tslint:disable-next-line:no-console
-  console.log(`property: ${process.env.GA_PROPERTY_ID}`);
-  ReactGA.initialize(`${process.env.GA_PROPERTY_ID}`);
+  const propertyId = `${process.env.REACT_APP_GA_PROPERTY_ID}`;
+  assert(propertyId, 'GA property id is missing');
+  ReactGA.initialize(propertyId);
   return createMiddleware(eventsMap, GoogleAnalytics);
 };
