@@ -5470,6 +5470,13 @@ react-flow-types@^0.2.0-beta.3:
   version "0.2.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-flow-types/-/react-flow-types-0.2.0-beta.3.tgz#93e7e3c95a75a1a941de05b9d7287e3ca6871046"
 
+react-ga@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.4.1.tgz#dfbd5f028ed39a07067f7a8bf57dc0d240000767"
+  optionalDependencies:
+    prop-types "^15.6.0"
+    react "^15.6.2 || ^16.0"
+
 react-helmet@^5.2.0:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/react-helmet/-/react-helmet-5.2.0.tgz#a81811df21313a6d55c5f058c4aeba5d6f3d97a7"
@@ -5617,6 +5624,15 @@ react@^15.5.4:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+"react@^15.6.2 || ^16.0":
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
 react@^16.0.0:
   version "16.0.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
@@ -5721,6 +5737,10 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+redux-beacon@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/redux-beacon/-/redux-beacon-1.2.1.tgz#4461005227b15861dba9340f502a9586e4a4983f"
 
 redux-devtools-extension@*, redux-devtools-extension@^2.13.2:
   version "2.13.2"
