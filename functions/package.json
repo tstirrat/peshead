@@ -36,7 +36,7 @@
     "@types/jdataview": "^0.0.30",
     "@types/jest": "^21.1.3",
     "fs-extra": "^5.0.0",
-    "jest": "^21.2.1",
+    "jest": "^22.4.3",
     "node-bitarray": "^0.1.0",
     "ts-jest": "^22.4.2",
     "typescript": "^2.5.3"
