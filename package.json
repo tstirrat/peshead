@@ -41,6 +41,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@firebase/app-types": "^0.1.2",
     "@types/elasticsearch": "^5.0.17",
     "@types/history": "^4.6.1",
     "@types/jest": "^21.1.2",
