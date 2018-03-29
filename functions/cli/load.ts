@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import { IPlayer, Player, PlayerAbilities, PlayerMotion } from '../service/api';
+import { Physique, Player, PlayerAbilities, PlayerMotion } from '../service/api';
 import { EditFile, Player as PlayerBinary } from '../typesets/edit-file';
 
 const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);
@@ -10,59 +10,78 @@ const serviceAccount = require(`${__dirname}/../../../config/service-account.jso
 /**
  * Load EDIT00000000 data and save into DB.
  */
-export async function load(fileName: string) {
-  try {
-    const jb = await jBinary.load(fileName, EditFile);
-
-    console.log(`Loading ${fileName}...`);
-    const editData: EditFile = jb.readAll();
-
-    admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-
-    const db = admin.firestore();
-
-    const playersRef = db.collection('players');
-    const remaining = editData.players;
-    let count = 0;
-    const offset = 0;
-    if (offset > 0) {
-      remaining.splice(0, offset);
-    }
-    while (remaining.length && count < 100) {
-      const batch = remaining.splice(0, 50);
-
-      console.log('inserting:', batch.map(p => p.id));
-
-      // tslint:disable-next-line:no-any
-      const saves: Promise<any>[] = batch.map((player: PlayerBinary) => {
-        // console.log(`Inserting ${player.id}...`);
-        if (hasUndefinedProperty(player)) {
-          return Promise.resolve();
-        }
-        const record = createPlayer(player);
-        return playersRef.doc('' + player.id).set(record);
-      });
-      const results = await Promise.all(saves);
-      console.log('--- Wrote: ', results.length);
-      count++;
-    }
-
-    // const teamsRef = db.collection('teams');
-    // const teams = editData.teams.map(async (team: any) => {
-    //   console.log(`Inserting ${team.id}...`);
-    //   return teamsRef.doc('' + team.id).set(team);
-    // });
-    // await Promise.all(teams);
-    // console.log(`Inserted ${teams.length} teams`);
-  } catch (err) {
-    console.log(err);
-    throw err;
+export async function load(
+  fileName: string,
+  limit: number = 100,
+  offset: number = 0,
+  batchSize: number = 500
+) {
+  if (batchSize > 500) {
+    throw new Error('batch size cannot be > 500');
   }
+  const jb = await jBinary.load(fileName, EditFile);
+
+  console.log(`Loading ${fileName}...`);
+  const editData: EditFile = jb.readAll();
+
+  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+
+  const db = admin.firestore();
+
+  const playersRef = db.collection('players');
+  const remaining = editData.players;
+  let count = 0;
+  if (offset > 0) {
+    remaining.splice(0, offset);
+  }
+  const maxChunks = Math.ceil(limit / batchSize);
+  let inserted = 0;
+  while (remaining.length && count < maxChunks) {
+    const players = remaining.splice(0, batchSize);
+    const batch = db.batch();
+
+    players.forEach((player: PlayerBinary) => {
+      const record = createPlayer(player);
+      console.log(
+        `inserting ${record.id}: ${record.registeredPosition} ` +
+          `${record.name}...`
+      );
+      const payload = record.toJSON();
+      try {
+        batch.set(playersRef.doc('' + player.id), payload);
+      } catch (e) {
+        console.log(`could not insert player ${player.id}`, e);
+        hasUndefinedProperty(payload);
+      }
+    });
+    try {
+      const results = await batch.commit();
+      console.log(`--- Wrote: ${inserted + results.length}/${limit}`);
+    } catch (e) {
+      console.log('xxx Failed to write batch:', e);
+    }
+    count++;
+    inserted += players.length;
+  }
+
+  const startIndex = offset;
+  const endIndex = offset + limit;
+  console.log(
+    `Wrote player offsets: ${startIndex} - ${endIndex} (wrote: ${inserted})`
+  );
+
+  // const teamsRef = db.collection('teams');
+  // const teams = editData.teams.map(async (team: any) => {
+  //   console.log(`Inserting ${team.id}...`);
+  //   return teamsRef.doc('' + team.id).set(team);
+  // });
+  // await Promise.all(teams);
+  // console.log(`Inserted ${teams.length} teams`);
 }
 
 /** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
-function createPlayer(player: PlayerBinary): IPlayer {
-  return Player.create({
+function createPlayer(player: PlayerBinary) {
+  return new Player({
     id: '' + player.id,
     commentaryId: '' + player.commentaryId,
     nationality: player.nationality,
@@ -71,13 +90,13 @@ function createPlayer(player: PlayerBinary): IPlayer {
     age: player.block5.age,
     preferredFoot: 0, // player.block7.strongFoot ? 'LEFT' : 'RIGHT',
     registeredPosition: player.block5.registeredPosition,
-    physique: {
+    physique: new Physique({
       height: player.height,
       weight: player.weight
-    },
+    }),
     appearance: {},
     playingStyle: player.block5.playingStyle,
-    abilities: PlayerAbilities.create({
+    abilities: new PlayerAbilities({
       attackingProwess: player.block1.attackingProwess,
       ballControl: player.block5.ballControl,
       ballWinning: player.block5.ballWinning,
@@ -108,7 +127,7 @@ function createPlayer(player: PlayerBinary): IPlayer {
     }),
     isEdited: false,
     isBaseCopy: !!player.block8.isBaseCopy,
-    motion: PlayerMotion.create({
+    motion: new PlayerMotion({
       armDribbling: player.block4.motionDribblingArms,
       armRunning: player.block6.motionRunningArms,
       cornerKick: player.block6.motionCornerKick,
@@ -119,7 +138,7 @@ function createPlayer(player: PlayerBinary): IPlayer {
       hunchingRunning: player.block7.motionRunningHunching,
       penaltyKick: player.block7.motionPenaltyKick
     })
-  }).toJSON() as IPlayer;
+  });
 }
 
 // tslint:disable-next-line:no-any
@@ -130,7 +149,7 @@ function hasUndefinedProperty(obj: any): boolean {
     }
     const isUndefined = obj[k] === undefined;
     if (isUndefined) {
-      console.log('-- undefined', k);
+      console.log(`-- undefined prop: ${k}`);
     }
     return isUndefined;
   });

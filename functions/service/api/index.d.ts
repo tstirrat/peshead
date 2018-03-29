@@ -1185,6 +1185,7 @@ export enum PlayingStyle {
     GOAL_POACHER = 1,
     HOLE_PLAYER = 6,
     N_A = 16,
+    NONE = 0,
     OFFENSIVE_FULLBACK = 11,
     OFFENSIVE_GOALKEEPER = 17,
     PROLIFIC_WINGER = 4,

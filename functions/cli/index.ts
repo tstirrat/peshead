@@ -8,7 +8,7 @@ const USAGE = `
 Usage: pesleagues <command> [args]
 
 Commands:
-  load <file-name>
+  load <file-name> [limit = 100] [offset = 0] [batchSize = 100]
       Loads an EDIT00000000 file into the DB.
 
   search <bit-length> <needle> <file1> [<file2>,  <filen>...]
@@ -17,13 +17,16 @@ Commands:
       Used for discovering binary offsets.
 `;
 
-// default action is to reject with usage
-let action: Promise<void> = Promise.reject(new Error(USAGE));
+// default action, do nothing
+let action: Promise<void> | undefined = undefined;
 
 if (command === 'load') {
   const fileName = process.argv[3];
+  const limit = process.argv[4] ? Number(process.argv[4]) : undefined;
+  const offset = process.argv[5] ? Number(process.argv[5]) : undefined;
+  const chunkSize = process.argv[6] ? Number(process.argv[6]) : undefined;
   if (fileName) {
-    action = load(fileName);
+    action = load(fileName, limit, offset, chunkSize);
   }
 }
 if (command === 'search') {
@@ -36,11 +39,15 @@ if (command === 'search') {
   }
 }
 
-action
-  .then(() => {
-    process.exit(0);
-  })
-  .catch((err: Error) => {
-    console.log(err);
-    process.exit(1);
-  });
+if (action) {
+  action
+    .then(() => {
+      process.exit(0);
+    })
+    .catch((err: Error) => {
+      console.log(err);
+      process.exit(1);
+    });
+} else {
+  console.log(USAGE);
+}

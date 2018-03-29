@@ -30,12 +30,13 @@
       "program": "${workspaceFolder}/functions/build/cli/index.js",
       "args": [
         "load",
-        "./functions/test/base-EDIT00000000"
+        "./functions/test/lu-2018-03-27-EDIT00000000",
+        "5000", // amount
+        "11000" // startAt
+        // batchSize = 500 default
       ],
       "preLaunchTask": "tsc: build - functions/tsconfig.json",
-      "outFiles": [
-        "${workspaceFolder}/functions/build/**/*.js"
-      ]
+      "outFiles": ["${workspaceFolder}/functions/build/**/*.js"]
     }
   ]
 }
