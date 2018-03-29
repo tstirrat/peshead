@@ -150,12 +150,13 @@
     "@types/react" "*"
     "@types/react-router" "*"
 
-"@types/react-router-redux@^5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@types/react-router-redux/-/react-router-redux-5.0.8.tgz#168117d79ec5095246fb11b1fdea65ec412218d9"
+"@types/react-router-redux@^5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@types/react-router-redux/-/react-router-redux-5.0.13.tgz#46dc040afc150ff7bbc8bb837b14ef4fa6a0b07e"
   dependencies:
     "@types/history" "*"
     "@types/react" "*"
+    "@types/react-router" "*"
     redux "^3.7.2"
 
 "@types/react-router@*", "@types/react-router@^4.0.16":

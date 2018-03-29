@@ -52,7 +52,7 @@
     "@types/react-redux": "^5.0.15",
     "@types/react-router": "^4.0.16",
     "@types/react-router-dom": "^4.2.6",
-    "@types/react-router-redux": "^5.0.8",
+    "@types/react-router-redux": "^5.0.13",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/redux-mock-store": "^0.0.13",
     "coveralls": "^3.0.0",
