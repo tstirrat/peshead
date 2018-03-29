@@ -32,19 +32,19 @@ export const PlayerFormValue = {
 // TODO: i18n
 /** Position names */
 export const PositionLabel = {
-  [Position.ATTACKING_MIDFIELDER]: 'AMF',
-  [Position.CENTRE_BACK]: 'CB',
-  [Position.CENTRE_FORWARD]: 'CF',
-  [Position.CENTRE_MIDFIELDER]: 'CMF',
-  [Position.DEFENSIVE_MIDFIELDER]: 'DMF',
-  [Position.GOALKEEPER]: 'GK',
-  [Position.LEFT_BACK]: 'LB',
-  [Position.LEFT_MIDFIELDER]: 'LMF',
-  [Position.LEFT_WING_FORWARD]: 'LWF',
-  [Position.RIGHT_BACK]: 'RB',
-  [Position.RIGHT_MIDFIELDER]: 'RMF',
-  [Position.RIGHT_WING_FORWARD]: 'RWF',
-  [Position.SECOND_STRIKER]: 'SS'
+  [Position.AMF]: 'AMF',
+  [Position.CB]: 'CB',
+  [Position.CF]: 'CF',
+  [Position.CMF]: 'CMF',
+  [Position.DMF]: 'DMF',
+  [Position.GK]: 'GK',
+  [Position.LB]: 'LB',
+  [Position.LMF]: 'LMF',
+  [Position.LWF]: 'LWF',
+  [Position.RB]: 'RB',
+  [Position.RMF]: 'RMF',
+  [Position.RWF]: 'RWF',
+  [Position.SS]: 'SS'
 };
 
 /** Playing styles names */

@@ -97,7 +97,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
       <div className="session">
         <IconButton
           color="contrast"
-          aria-owns={this.state.open ? 'user-menu' : null}
+          aria-owns={this.state.open ? 'user-menu' : undefined}
           aria-haspopup="true"
           onClick={this.openMenu}
         >

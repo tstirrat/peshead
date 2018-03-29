@@ -24,7 +24,7 @@ export class PlayerActionMenu extends React.PureComponent<Props, State> {
       <div className="actions">
         <IconButton
           aria-label="More"
-          aria-owns={anchorEl ? 'player-menu' : null}
+          aria-owns={anchorEl ? 'player-menu' : undefined}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
