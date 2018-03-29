@@ -41,7 +41,7 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
-    "@types/elasticsearch": "^5.0.17",
+    "@types/elasticsearch": "^5.0.22",
     "@types/history": "^4.6.1",
     "@types/jest": "^21.1.2",
     "@types/node": "^9.6.0",
