@@ -7,7 +7,7 @@ export const base: IPlayer = {
   kitName: 'L. MESSI',
   age: 30,
   nationality: Country.ARGENTINA,
-  registeredPosition: Position.RIGHT_WING_FORWARD,
+  registeredPosition: Position.RWF,
   preferredFoot: Foot.LEFT,
   isEdited: false,
   isBaseCopy: false,
@@ -21,11 +21,7 @@ export const base: IPlayer = {
     height: 170,
     weight: 72
   },
-  playablePositions: [
-    Position.ATTACKING_MIDFIELDER,
-    Position.SECOND_STRIKER,
-    Position.CENTRE_FORWARD
-  ],
+  playablePositions: [Position.AMF, Position.SS, Position.CF],
   abilities: {
     attackingProwess: 95,
     ballControl: 96,

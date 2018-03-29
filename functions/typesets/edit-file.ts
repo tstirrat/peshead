@@ -148,7 +148,7 @@ export const EditFile = {
         { key: 'age', bits: 6 },
         { key: 'registeredPosition', bits: 4 },
         { key: 'unknown', bits: 1 },
-        { key: 'playingStyles', bits: 5 },
+        { key: 'playingStyle', bits: 5 },
         { key: 'ballControl', bits: 7 },
         { key: 'ballWinning', bits: 7 },
         { key: 'weakFootAccuracy', bits: 2 }
@@ -356,7 +356,7 @@ export interface Player {
     age: number;
     registeredPosition: number;
     unknown: number;
-    playingStyles: number;
+    playingStyle: number;
     ballControl: number;
     ballWinning: number;
     weakFootAccuracy: number;

@@ -2726,55 +2726,55 @@ $root.Player = (function() {
             message.edited = $root.Edits.fromObject(object.edited);
         }
         switch (object.registeredPosition) {
-        case "ATTACKING_MIDFIELDER":
+        case "AMF":
         case 8:
             message.registeredPosition = 8;
             break;
-        case "CENTRE_BACK":
+        case "CB":
         case 1:
             message.registeredPosition = 1;
             break;
-        case "CENTRE_FORWARD":
+        case "CF":
         case 12:
             message.registeredPosition = 12;
             break;
-        case "CENTRE_MIDFIELDER":
+        case "CMF":
         case 5:
             message.registeredPosition = 5;
             break;
-        case "DEFENSIVE_MIDFIELDER":
+        case "DMF":
         case 4:
             message.registeredPosition = 4;
             break;
-        case "GOALKEEPER":
+        case "GK":
         case 0:
             message.registeredPosition = 0;
             break;
-        case "LEFT_BACK":
+        case "LB":
         case 2:
             message.registeredPosition = 2;
             break;
-        case "LEFT_MIDFIELDER":
+        case "LMF":
         case 6:
             message.registeredPosition = 6;
             break;
-        case "LEFT_WING_FORWARD":
+        case "LWF":
         case 9:
             message.registeredPosition = 9;
             break;
-        case "RIGHT_BACK":
+        case "RB":
         case 3:
             message.registeredPosition = 3;
             break;
-        case "RIGHT_MIDFIELDER":
+        case "RMF":
         case 7:
             message.registeredPosition = 7;
             break;
-        case "RIGHT_WING_FORWARD":
+        case "RWF":
         case 10:
             message.registeredPosition = 10;
             break;
-        case "SECOND_STRIKER":
+        case "SS":
         case 11:
             message.registeredPosition = 11;
             break;
@@ -2860,55 +2860,55 @@ $root.Player = (function() {
             for (var i = 0; i < object.playablePositions.length; ++i)
                 switch (object.playablePositions[i]) {
                 default:
-                case "ATTACKING_MIDFIELDER":
+                case "AMF":
                 case 8:
                     message.playablePositions[i] = 8;
                     break;
-                case "CENTRE_BACK":
+                case "CB":
                 case 1:
                     message.playablePositions[i] = 1;
                     break;
-                case "CENTRE_FORWARD":
+                case "CF":
                 case 12:
                     message.playablePositions[i] = 12;
                     break;
-                case "CENTRE_MIDFIELDER":
+                case "CMF":
                 case 5:
                     message.playablePositions[i] = 5;
                     break;
-                case "DEFENSIVE_MIDFIELDER":
+                case "DMF":
                 case 4:
                     message.playablePositions[i] = 4;
                     break;
-                case "GOALKEEPER":
+                case "GK":
                 case 0:
                     message.playablePositions[i] = 0;
                     break;
-                case "LEFT_BACK":
+                case "LB":
                 case 2:
                     message.playablePositions[i] = 2;
                     break;
-                case "LEFT_MIDFIELDER":
+                case "LMF":
                 case 6:
                     message.playablePositions[i] = 6;
                     break;
-                case "LEFT_WING_FORWARD":
+                case "LWF":
                 case 9:
                     message.playablePositions[i] = 9;
                     break;
-                case "RIGHT_BACK":
+                case "RB":
                 case 3:
                     message.playablePositions[i] = 3;
                     break;
-                case "RIGHT_MIDFIELDER":
+                case "RMF":
                 case 7:
                     message.playablePositions[i] = 7;
                     break;
-                case "RIGHT_WING_FORWARD":
+                case "RWF":
                 case 10:
                     message.playablePositions[i] = 10;
                     break;
-                case "SECOND_STRIKER":
+                case "SS":
                 case 11:
                     message.playablePositions[i] = 11;
                     break;
@@ -3117,7 +3117,7 @@ $root.Player = (function() {
             object.isEdited = false;
             object.isBaseCopy = false;
             object.edited = null;
-            object.registeredPosition = options.enums === String ? "ATTACKING_MIDFIELDER" : 8;
+            object.registeredPosition = options.enums === String ? "AMF" : 8;
             object.playingStyle = options.enums === String ? "ANCHOR_MAN" : 8;
             object.appearance = null;
             object.unknowns = null;
@@ -4488,35 +4488,35 @@ $root.ComPlayingStyle = (function() {
  * Position enum.
  * @exports Position
  * @enum {string}
- * @property {number} ATTACKING_MIDFIELDER=8 ATTACKING_MIDFIELDER value
- * @property {number} CENTRE_BACK=1 CENTRE_BACK value
- * @property {number} CENTRE_FORWARD=12 CENTRE_FORWARD value
- * @property {number} CENTRE_MIDFIELDER=5 CENTRE_MIDFIELDER value
- * @property {number} DEFENSIVE_MIDFIELDER=4 DEFENSIVE_MIDFIELDER value
- * @property {number} GOALKEEPER=0 GOALKEEPER value
- * @property {number} LEFT_BACK=2 LEFT_BACK value
- * @property {number} LEFT_MIDFIELDER=6 LEFT_MIDFIELDER value
- * @property {number} LEFT_WING_FORWARD=9 LEFT_WING_FORWARD value
- * @property {number} RIGHT_BACK=3 RIGHT_BACK value
- * @property {number} RIGHT_MIDFIELDER=7 RIGHT_MIDFIELDER value
- * @property {number} RIGHT_WING_FORWARD=10 RIGHT_WING_FORWARD value
- * @property {number} SECOND_STRIKER=11 SECOND_STRIKER value
+ * @property {number} AMF=8 AMF value
+ * @property {number} CB=1 CB value
+ * @property {number} CF=12 CF value
+ * @property {number} CMF=5 CMF value
+ * @property {number} DMF=4 DMF value
+ * @property {number} GK=0 GK value
+ * @property {number} LB=2 LB value
+ * @property {number} LMF=6 LMF value
+ * @property {number} LWF=9 LWF value
+ * @property {number} RB=3 RB value
+ * @property {number} RMF=7 RMF value
+ * @property {number} RWF=10 RWF value
+ * @property {number} SS=11 SS value
  */
 $root.Position = (function() {
     var valuesById = {}, values = Object.create(valuesById);
-    values[valuesById[8] = "ATTACKING_MIDFIELDER"] = 8;
-    values[valuesById[1] = "CENTRE_BACK"] = 1;
-    values[valuesById[12] = "CENTRE_FORWARD"] = 12;
-    values[valuesById[5] = "CENTRE_MIDFIELDER"] = 5;
-    values[valuesById[4] = "DEFENSIVE_MIDFIELDER"] = 4;
-    values[valuesById[0] = "GOALKEEPER"] = 0;
-    values[valuesById[2] = "LEFT_BACK"] = 2;
-    values[valuesById[6] = "LEFT_MIDFIELDER"] = 6;
-    values[valuesById[9] = "LEFT_WING_FORWARD"] = 9;
-    values[valuesById[3] = "RIGHT_BACK"] = 3;
-    values[valuesById[7] = "RIGHT_MIDFIELDER"] = 7;
-    values[valuesById[10] = "RIGHT_WING_FORWARD"] = 10;
-    values[valuesById[11] = "SECOND_STRIKER"] = 11;
+    values[valuesById[8] = "AMF"] = 8;
+    values[valuesById[1] = "CB"] = 1;
+    values[valuesById[12] = "CF"] = 12;
+    values[valuesById[5] = "CMF"] = 5;
+    values[valuesById[4] = "DMF"] = 4;
+    values[valuesById[0] = "GK"] = 0;
+    values[valuesById[2] = "LB"] = 2;
+    values[valuesById[6] = "LMF"] = 6;
+    values[valuesById[9] = "LWF"] = 9;
+    values[valuesById[3] = "RB"] = 3;
+    values[valuesById[7] = "RMF"] = 7;
+    values[valuesById[10] = "RWF"] = 10;
+    values[valuesById[11] = "SS"] = 11;
     return values;
 })();
 

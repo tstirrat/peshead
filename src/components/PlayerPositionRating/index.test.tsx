@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
+import { PlayerPositionRating, Props } from '.';
 import { base } from '../../__test__/fixtures';
 import { Player, Position } from '../../shared/service/api';
-
-import { PlayerPositionRating, Props } from './index';
 
 const player = Player.create(base);
 
 const props: Props = {
   player,
-  position: Position.CENTRE_FORWARD,
+  position: Position.CF,
   render: rating => <div>{rating}</div>
 };
 

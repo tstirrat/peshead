@@ -1205,19 +1205,19 @@ export enum ComPlayingStyle {
 
 /** Position enum. */
 export enum Position {
-    ATTACKING_MIDFIELDER = 8,
-    CENTRE_BACK = 1,
-    CENTRE_FORWARD = 12,
-    CENTRE_MIDFIELDER = 5,
-    DEFENSIVE_MIDFIELDER = 4,
-    GOALKEEPER = 0,
-    LEFT_BACK = 2,
-    LEFT_MIDFIELDER = 6,
-    LEFT_WING_FORWARD = 9,
-    RIGHT_BACK = 3,
-    RIGHT_MIDFIELDER = 7,
-    RIGHT_WING_FORWARD = 10,
-    SECOND_STRIKER = 11
+    AMF = 8,
+    CB = 1,
+    CF = 12,
+    CMF = 5,
+    DMF = 4,
+    GK = 0,
+    LB = 2,
+    LMF = 6,
+    LWF = 9,
+    RB = 3,
+    RMF = 7,
+    RWF = 10,
+    SS = 11
 }
 
 /** Skill enum. */
