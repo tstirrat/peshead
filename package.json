@@ -18,7 +18,7 @@
     "protobufjs": "^6.8.0",
     "react": "^16.0.0",
     "react-autosuggest": "^9.3.2",
-    "react-dom": "^16.0.0",
+    "react-dom": "^16.2.0",
     "react-ga": "^2.4.1",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
