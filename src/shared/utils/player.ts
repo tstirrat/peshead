@@ -234,7 +234,7 @@ export function getHighestAbilities(players: Player[]): AbilityFlags[] {
 }
 
 export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
-  [Position.CENTRE_FORWARD]: {
+  [Position.CF]: {
     attackingProwess: 0.33,
     ballControl: 0.25,
     dribbling: 0.15,
@@ -246,14 +246,14 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     jump: 0.03
   },
 
-  [Position.GOALKEEPER]: {
+  [Position.GK]: {
     goalkeeping: 0.52,
     reflexes: 0.52,
     bodyControl: 0.12,
     jump: 0.12
   },
 
-  [Position.SECOND_STRIKER]: {
+  [Position.SS]: {
     attackingProwess: 0.16,
     ballControl: 0.2,
     dribbling: 0.2,
@@ -267,7 +267,7 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     stamina: 0.04
   },
 
-  [Position.CENTRE_BACK]: {
+  [Position.CB]: {
     header: 0.2,
     defensiveProwess: 0.27,
     ballWinning: 0.27,
@@ -277,7 +277,7 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     stamina: 0.1
   },
 
-  [Position.DEFENSIVE_MIDFIELDER]: {
+  [Position.DMF]: {
     attackingProwess: 0.07,
     ballControl: 0.19,
     dribbling: 0.16,
@@ -293,7 +293,7 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     stamina: 0.15
   },
 
-  [Position.CENTRE_MIDFIELDER]: {
+  [Position.CMF]: {
     attackingProwess: 0.05,
     ballControl: 0.25,
     dribbling: 0.25,
@@ -306,7 +306,7 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     stamina: 0.18
   },
 
-  [Position.ATTACKING_MIDFIELDER]: {
+  [Position.AMF]: {
     attackingProwess: 0.15,
     ballControl: 0.23,
     dribbling: 0.23,
@@ -319,7 +319,7 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     stamina: 0.03
   },
 
-  [Position.RIGHT_MIDFIELDER]: {
+  [Position.RMF]: {
     attackingProwess: 0.07,
     ballControl: 0.16,
     dribbling: 0.26,
@@ -331,7 +331,7 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     stamina: 0.14
   },
 
-  [Position.RIGHT_BACK]: {
+  [Position.RB]: {
     attackingProwess: 0.06,
     ballControl: 0.1,
     dribbling: 0.15,
@@ -345,7 +345,7 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
     stamina: 0.13
   },
 
-  [Position.RIGHT_WING_FORWARD]: {
+  [Position.RWF]: {
     attackingProwess: 0.18,
     ballControl: 0.22,
     dribbling: 0.22,
@@ -360,10 +360,9 @@ export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
   }
 };
 
-OVR_WEIGHTS[Position.LEFT_MIDFIELDER] = OVR_WEIGHTS[Position.RIGHT_MIDFIELDER];
-OVR_WEIGHTS[Position.LEFT_WING_FORWARD] =
-  OVR_WEIGHTS[Position.RIGHT_WING_FORWARD];
-OVR_WEIGHTS[Position.LEFT_BACK] = OVR_WEIGHTS[Position.RIGHT_BACK];
+OVR_WEIGHTS[Position.LMF] = OVR_WEIGHTS[Position.RMF];
+OVR_WEIGHTS[Position.LWF] = OVR_WEIGHTS[Position.RWF];
+OVR_WEIGHTS[Position.LB] = OVR_WEIGHTS[Position.RB];
 
 /** Return raw stat weights for a position. */
 export function getPositionWeights(

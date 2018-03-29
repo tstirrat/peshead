@@ -1,5 +1,6 @@
 import jBinary = require('jbinary');
 
+import { Foot, PlayingStyle, Position, Skill } from '../service/api';
 import { EditFile, Player } from './edit-file';
 
 const attrs64File = `${__dirname}/../test/player-attrs-64.bin`;
@@ -62,9 +63,37 @@ describe('Player', () => {
     expect(attrs64Player.id).toEqual(1048576);
   });
 
-  // it('reads player age', () => {
-  //   expect(attrs64Player.abilities.age).toEqual(15);
-  // });
+  it('reads player age', () => {
+    expect(attrs64Player.block5.age).toEqual(15);
+    expect(attrs99Player.block5.age).toEqual(32);
+  });
+
+  it('reads player position', () => {
+    expect(attrs64Player.block5.registeredPosition).toEqual(Position.CB);
+    expect(attrs99Player.block5.registeredPosition).toEqual(Position.AMF);
+  });
+
+  it('reads player playing style', () => {
+    expect(attrs64Player.block5.playingStyle).toEqual(
+      PlayingStyle.GOAL_POACHER
+    );
+    // possibly incorrect
+    // expect(attrs99Player.block5.playingStyle).toEqual(
+    //   PlayingStyle.OFFENSIVE_GOALKEEPER
+    // );
+  });
+
+  // incorrect
+  it.skip('reads player preferred foot', () => {
+    expect(attrs64Player.block8.strongFoot).toEqual(Foot.LEFT);
+    expect(attrs99Player.block8.strongFoot).toEqual(Foot.RIGHT);
+  });
+
+  // incorrect
+  it.skip('reads player skills', () => {
+    expect(attrs64Player.block9.playerSkills).toEqual(Skill.FIGHTING_SPIRIT);
+    // expect(attrs99Player.block8.strongFoot).toEqual(Foot.RIGHT);
+  });
 
   it('reads player abilities', () => {
     // --- Player with all abilities set to 64

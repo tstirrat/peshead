@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import { IPlayer, Player, PlayerAbilities, PlayerMotion, PlayingStyle } from '../service/api';
+import { IPlayer, Player, PlayerAbilities, PlayerMotion } from '../service/api';
 import { EditFile, Player as PlayerBinary } from '../typesets/edit-file';
 
 const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);
@@ -24,11 +24,11 @@ export async function load(fileName: string) {
     const playersRef = db.collection('players');
     const remaining = editData.players;
     let count = 0;
-    const offset = 5000;
+    const offset = 0;
     if (offset > 0) {
       remaining.splice(0, offset);
     }
-    while (remaining.length && count < 10) {
+    while (remaining.length && count < 100) {
       const batch = remaining.splice(0, 50);
 
       console.log('inserting:', batch.map(p => p.id));
@@ -70,13 +70,13 @@ function createPlayer(player: PlayerBinary): IPlayer {
     kitName: player.printName,
     age: player.block5.age,
     preferredFoot: 0, // player.block7.strongFoot ? 'LEFT' : 'RIGHT',
-    registeredPosition: 0,
+    registeredPosition: player.block5.registeredPosition,
     physique: {
       height: player.height,
       weight: player.weight
     },
     appearance: {},
-    playingStyle: PlayingStyle.ANCHOR_MAN,
+    playingStyle: player.block5.playingStyle,
     abilities: PlayerAbilities.create({
       attackingProwess: player.block1.attackingProwess,
       ballControl: player.block5.ballControl,
