@@ -1829,6 +1829,7 @@ $root.Player = (function() {
         case 1:
         case 6:
         case 16:
+        case 0:
         case 11:
         case 17:
         case 4:
@@ -2831,6 +2832,10 @@ $root.Player = (function() {
         case "N_A":
         case 16:
             message.playingStyle = 16;
+            break;
+        case "NONE":
+        case 0:
+            message.playingStyle = 0;
             break;
         case "OFFENSIVE_FULLBACK":
         case 11:
@@ -4431,6 +4436,7 @@ $root.Foot = (function() {
  * @property {number} GOAL_POACHER=1 GOAL_POACHER value
  * @property {number} HOLE_PLAYER=6 HOLE_PLAYER value
  * @property {number} N_A=16 N_A value
+ * @property {number} NONE=0 NONE value
  * @property {number} OFFENSIVE_FULLBACK=11 OFFENSIVE_FULLBACK value
  * @property {number} OFFENSIVE_GOALKEEPER=17 OFFENSIVE_GOALKEEPER value
  * @property {number} PROLIFIC_WINGER=4 PROLIFIC_WINGER value
@@ -4452,6 +4458,7 @@ $root.PlayingStyle = (function() {
     values[valuesById[1] = "GOAL_POACHER"] = 1;
     values[valuesById[6] = "HOLE_PLAYER"] = 6;
     values[valuesById[16] = "N_A"] = 16;
+    values[valuesById[0] = "NONE"] = 0;
     values[valuesById[11] = "OFFENSIVE_FULLBACK"] = 11;
     values[valuesById[17] = "OFFENSIVE_GOALKEEPER"] = 17;
     values[valuesById[4] = "PROLIFIC_WINGER"] = 4;
