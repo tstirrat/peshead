@@ -35,7 +35,7 @@
   "devDependencies": {
     "@firebase/app-types": "^0.1.2",
     "@firebase/database-types": "^0.2.0",
-    "@types/fs-extra": "^4.0.2",
+    "@types/fs-extra": "^5.0.1",
     "@types/jbinary": "^0.0.30",
     "@types/jdataview": "^0.0.30",
     "@types/jest": "^22.2.2",
