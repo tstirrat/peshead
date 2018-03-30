@@ -46,7 +46,7 @@
     "@firebase/app-types": "^0.1.2",
     "@types/elasticsearch": "^5.0.17",
     "@types/history": "^4.6.1",
-    "@types/jest": "^21.1.2",
+    "@types/jest": "^22.2.2",
     "@types/node": "^9.6.0",
     "@types/react": "^16.1.0",
     "@types/react-autosuggest": "^9.3.1",
