@@ -1,6 +1,7 @@
 {
-  "name": "pesleagues",
+  "name": "pesto",
   "version": "0.1.0",
+  "private": true,
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -37,7 +38,8 @@
     "server": "firebase serve --only 'hosting,functions'",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "coveralls": "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
+    "coveralls":
+      "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {

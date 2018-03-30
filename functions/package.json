@@ -1,6 +1,7 @@
 {
-  "name": "pesleagues-functions",
-  "description": "PESLeagues Cloud Functions",
+  "name": "pesto-functions",
+  "description": "PESto's Firebase Functions",
+  "private": true,
   "license": "Apache-2.0",
   "licenses": [
     {

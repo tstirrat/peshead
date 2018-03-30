@@ -1,10 +1,23 @@
-# PES League Editor
+# PESto
 
 [![Build Status](https://travis-ci.org/tstirrat/pesleagues.svg?branch=master)](https://travis-ci.org/tstirrat/pesleagues) [![Coverage Status](https://coveralls.io/repos/github/tstirrat/pesleagues/badge.svg)](https://coveralls.io/github/tstirrat/pesleagues)
 
-Compare PES players online.
+A Progressive Web App to find and compare PES 2018 players.
 
 _Work in progress_
+
+Immediate goals:
+
+* Compare players
+  * Show form arrow effects on player stats (especially while comparing)
+  * Compare players with different myClub levels
+* Be mobile friendly (responsive layout, offline support, fast, cache data often)
+
+Eventual goals (help wanted):
+
+* Show team information e.g. tactics, positions
+* Show player progress (form and stat changes for each live update/data pack)
+* Edit players, leagues, teams and export to PC/PS4
 
 ## Running locally
 
