@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import * as search from '../actions/search';
 import { EpicDependencies } from '../epics';
 import { State as GlobalState } from '../reducers';
-import { Player } from '../shared/service/api';
+import { IPlayer } from '../shared/service/api';
 
 export const search$: Epic<Action, GlobalState, EpicDependencies> = (
   action$,
@@ -26,7 +26,7 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
       }
       const url = `${process.env.REACT_APP_API_ROOT}/search`;
       return ajax
-        .getJSON<SearchResponse<Player>>(
+        .getJSON<SearchResponse<IPlayer>>(
           `${url}?query=${encodeURIComponent(query)}`
         )
         .pipe(

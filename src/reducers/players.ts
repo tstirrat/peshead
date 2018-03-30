@@ -1,11 +1,11 @@
 import { Reducer } from 'redux';
 
 import * as players from '../actions/players';
-import { Player } from '../shared/service/api';
+import { IPlayer, Player } from '../shared/service/api';
 import { MapLike } from '../shared/types';
 
 export interface State {
-  byId: MapLike<Player>;
+  byId: MapLike<IPlayer>;
   isLoading: MapLike<boolean>;
   error: MapLike<Error>;
 }
@@ -49,7 +49,7 @@ export const reducer: Reducer<State> = (
 };
 
 /** Set players into state, return new state ref. */
-function setPlayers(state: State, results: Player[]): State {
+function setPlayers(state: State, results: IPlayer[]): State {
   const byId = { ...state.byId }; // clone
   const isLoading = { ...state.isLoading }; // clone
 
@@ -74,7 +74,10 @@ function setError(state: State, id: string, error: Error): State {
 }
 
 // Selectors
-export const getPlayerById = (state: State, id: string): Player | undefined => {
+export const getPlayerById = (
+  state: State,
+  id: string
+): IPlayer | undefined => {
   return state.byId[id];
 };
 
@@ -96,9 +99,11 @@ export interface BaseViewModel {
 
 /** Used as a basis for multiple view models. */
 export const getPlayerBaseView = (state: State, id: string): BaseViewModel => {
+  const playerData = getPlayerById(state, id);
+  let player = playerData ? Player.fromObject(playerData) : undefined;
   return {
     id,
-    player: getPlayerById(state, id),
+    player,
     isLoading: getPlayerIsLoading(state, id),
     error: getPlayerError(state, id)
   };

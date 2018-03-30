@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
 
 import * as search from '../actions/search';
-import { Player } from '../shared/service/api';
+import { IPlayer } from '../shared/service/api';
 
 export interface State {
   ui: {
@@ -9,7 +9,7 @@ export interface State {
     error?: Error;
   };
   data: {
-    results: Player[]; // for now, should be something else here
+    results: IPlayer[]; // for now, should be something else here
   };
 }
 

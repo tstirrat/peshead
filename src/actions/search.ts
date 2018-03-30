@@ -1,39 +1,18 @@
 import { ActionCreator } from 'react-redux';
 import { Action } from 'redux';
 
-import { Player } from '../shared/service/api';
+import { IPlayer } from '../shared/service/api';
 
 export const SEARCH = 'SEARCH';
-export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
-export const SEARCH_ERROR = 'SEARCH_ERROR';
-
 export class SearchRequestAction implements Action {
   public type: typeof SEARCH = SEARCH;
   constructor(public payload: SearchRequestPayload) {}
 }
-
-export class SearchSuccessAction implements Action {
-  public type: typeof SEARCH_SUCCESS = SEARCH_SUCCESS;
-  constructor(public payload: SearchSuccessPayload) {}
-}
-
-export class SearchErrorAction implements Action {
-  public type: typeof SEARCH_ERROR = SEARCH_ERROR;
-  constructor(public payload: Error) {}
-}
-
 export interface SearchRequestPayload {
   query: string;
   sortField?: string;
   sortDirection?: string;
 }
-
-export interface SearchSuccessPayload {
-  results: Player[];
-}
-
-// Action creators
-
 export const search: ActionCreator<SearchRequestAction> = ({
   query,
   sortField,
@@ -49,8 +28,16 @@ export const search: ActionCreator<SearchRequestAction> = ({
   };
 };
 
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export class SearchSuccessAction implements Action {
+  public type: typeof SEARCH_SUCCESS = SEARCH_SUCCESS;
+  constructor(public payload: SearchSuccessPayload) {}
+}
+export interface SearchSuccessPayload {
+  results: IPlayer[];
+}
 export const searchSuccess: ActionCreator<SearchSuccessAction> = (
-  results: Player[]
+  results: IPlayer[]
 ) => {
   return {
     type: SEARCH_SUCCESS,
@@ -58,6 +45,11 @@ export const searchSuccess: ActionCreator<SearchSuccessAction> = (
   };
 };
 
+export const SEARCH_ERROR = 'SEARCH_ERROR';
+export class SearchErrorAction implements Action {
+  public type: typeof SEARCH_ERROR = SEARCH_ERROR;
+  constructor(public payload: Error) {}
+}
 export const searchError: ActionCreator<SearchErrorAction> = (error: Error) => {
   return {
     type: SEARCH_ERROR,

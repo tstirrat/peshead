@@ -89,8 +89,10 @@ export const getCurrentUser = (state: State) =>
 
 export const getSelectedPlayer = createSelector(
   [getRouteId, getPlayersState],
-  (id: string, state: players.State): Player | undefined =>
-    players.getPlayerById(state, id)
+  (id: string, state: players.State): Player | undefined => {
+    const playerData = players.getPlayerById(state, id);
+    return playerData ? Player.fromObject(playerData) : undefined;
+  }
 );
 
 export const getSelectedPlayerView = createSelector(
@@ -100,8 +102,10 @@ export const getSelectedPlayerView = createSelector(
 
 // Search
 
-export const getSearchResults = (state: State) =>
-  search.getResults(getSearchState(state));
+export const getSearchResults = createSelector(getSearchState, searchState => {
+  const results = search.getResults(searchState);
+  return results.map(p => Player.fromObject(p));
+});
 export const getSearchIsLoading = (state: State) =>
   search.getIsLoading(getSearchState(state));
 export const getSearchError = (state: State) =>

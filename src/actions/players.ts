@@ -1,7 +1,7 @@
 import { ActionCreator } from 'react-redux';
 import { Action } from 'redux';
 
-import { Player } from '../shared/service/api';
+import { IPlayer } from '../shared/service/api';
 
 // Multiple players (e.g. get players in a team)
 export const GET_PLAYERS = 'GET_PLAYERS';
@@ -9,30 +9,11 @@ export class GetPlayersAction implements Action {
   public type: typeof GET_PLAYERS = GET_PLAYERS;
   constructor(public payload: PlayersRequestPayload) {}
 }
-
-export const GET_PLAYERS_SUCCESS = 'GET_PLAYERS_SUCCESS';
-export class GetPlayersSuccessAction implements Action {
-  public type: typeof GET_PLAYERS_SUCCESS = GET_PLAYERS_SUCCESS;
-  constructor(public payload: PlayersSuccessPayload) {}
-}
-
-export const GET_PLAYERS_ERROR = 'GET_PLAYERS_ERROR';
-export class GetPlayersErrorAction implements Action {
-  public type: typeof GET_PLAYERS_ERROR = GET_PLAYERS_ERROR;
-  constructor(public payload: Error) {}
-}
-
 export interface PlayersRequestPayload {
   limit: number;
   sortField: string;
   sortDirection: string;
 }
-
-export interface PlayersSuccessPayload {
-  results: Player[];
-}
-
-// Action creators
 export const getPlayers: ActionCreator<GetPlayersAction> = () => {
   return {
     type: GET_PLAYERS,
@@ -45,8 +26,16 @@ export const getPlayers: ActionCreator<GetPlayersAction> = () => {
   };
 };
 
+export const GET_PLAYERS_SUCCESS = 'GET_PLAYERS_SUCCESS';
+export class GetPlayersSuccessAction implements Action {
+  public type: typeof GET_PLAYERS_SUCCESS = GET_PLAYERS_SUCCESS;
+  constructor(public payload: PlayersSuccessPayload) {}
+}
+export interface PlayersSuccessPayload {
+  results: IPlayer[];
+}
 export const getPlayersSuccess: ActionCreator<GetPlayersSuccessAction> = (
-  players: Player[]
+  players: IPlayer[]
 ) => {
   return {
     type: GET_PLAYERS_SUCCESS,
@@ -54,6 +43,11 @@ export const getPlayersSuccess: ActionCreator<GetPlayersSuccessAction> = (
   };
 };
 
+export const GET_PLAYERS_ERROR = 'GET_PLAYERS_ERROR';
+export class GetPlayersErrorAction implements Action {
+  public type: typeof GET_PLAYERS_ERROR = GET_PLAYERS_ERROR;
+  constructor(public payload: Error) {}
+}
 export const getPlayersError: ActionCreator<GetPlayersErrorAction> = (
   error: Error
 ) => {
@@ -72,25 +66,6 @@ export class GetPlayerAction implements Action {
     public payload: string
   ) {}
 }
-
-export const GET_PLAYER_SUCCESS = 'GET_PLAYER_SUCCESS';
-export class GetPlayerSuccessAction implements Action {
-  public type: typeof GET_PLAYER_SUCCESS = GET_PLAYER_SUCCESS;
-  constructor(public payload: Player) {}
-}
-
-export const GET_PLAYER_ERROR = 'GET_PLAYER_ERROR';
-export class GetPlayerErrorAction implements Action {
-  public type: typeof GET_PLAYER_ERROR = GET_PLAYER_ERROR;
-  constructor(public payload: PlayerErrorPayload) {}
-}
-
-export interface PlayerErrorPayload {
-  id: string;
-  error: Error;
-}
-
-// Action creators
 export const getPlayer: ActionCreator<GetPlayerAction> = (id: string) => {
   return {
     type: GET_PLAYER,
@@ -98,8 +73,13 @@ export const getPlayer: ActionCreator<GetPlayerAction> = (id: string) => {
   };
 };
 
+export const GET_PLAYER_SUCCESS = 'GET_PLAYER_SUCCESS';
+export class GetPlayerSuccessAction implements Action {
+  public type: typeof GET_PLAYER_SUCCESS = GET_PLAYER_SUCCESS;
+  constructor(public payload: IPlayer) {}
+}
 export const getPlayerSuccess: ActionCreator<GetPlayerSuccessAction> = (
-  player: Player
+  player: IPlayer
 ) => {
   return {
     type: GET_PLAYER_SUCCESS,
@@ -107,6 +87,15 @@ export const getPlayerSuccess: ActionCreator<GetPlayerSuccessAction> = (
   };
 };
 
+export const GET_PLAYER_ERROR = 'GET_PLAYER_ERROR';
+export class GetPlayerErrorAction implements Action {
+  public type: typeof GET_PLAYER_ERROR = GET_PLAYER_ERROR;
+  constructor(public payload: PlayerErrorPayload) {}
+}
+export interface PlayerErrorPayload {
+  id: string;
+  error: Error;
+}
 export const getPlayerError: ActionCreator<GetPlayerErrorAction> = (
   id: string,
   error: Error
