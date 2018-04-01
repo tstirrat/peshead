@@ -7,7 +7,7 @@ export interface Props {
   maxValue?: number;
 }
 
-export interface FixedProps {
+export interface InternalProps {
   className: string;
 }
 
@@ -31,11 +31,13 @@ const BAND_CLASS: { [b: number]: string } = {
   [Band.MAX]: 'max' // light blue-green
 };
 
-const Container = pure<Props & FixedProps>(({ value, maxValue, className }) => (
-  <span className={className + ' ' + getStrengthClass(value, maxValue)}>
-    <span className="stat">{value}</span>
-  </span>
-));
+const Container = pure<Props & InternalProps>(
+  ({ value, maxValue, className }) => (
+    <span className={className + ' ' + getStrengthClass(value, maxValue)}>
+      <span className="stat">{value}</span>
+    </span>
+  )
+);
 
 export const PlayerStat = styled<Props>(Container)`
   border-radius: 2px;
