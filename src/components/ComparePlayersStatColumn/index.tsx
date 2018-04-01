@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Player } from '../../shared/service/api';
-import { AbilityFlags, getTotalStats, SIMPLE_ABILITIES } from '../../shared/utils/player';
+import { AbilityFlags, getTotalStats, PositionLabel, SIMPLE_ABILITIES } from '../../shared/utils/player';
+import { PlayerPositionRating } from '../PlayerPositionRating';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
@@ -76,6 +77,26 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
         <StyledStat>
           <ListItem>
             <Typography type="subheading">{0}</Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <Typography type="subheading">
+              {PositionLabel[player.registeredPosition]}
+            </Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <PlayerPositionRating
+              player={player}
+              position={player.registeredPosition}
+              render={rating => <PlayerStat value={rating} />}
+            />
           </ListItem>
           <Divider />
         </StyledStat>

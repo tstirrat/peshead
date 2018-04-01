@@ -22,6 +22,8 @@ export function ComparePlayersLabelColumn() {
     'Age',
     'Height',
     'Weight',
+    'Position',
+    'OVR',
     'Total stats',
     'Attacking Prowess',
     'Ball Control',
