@@ -1,5 +1,6 @@
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
+import { pure } from 'recompose';
 import styled from 'styled-components';
 
 import { Player } from '../../shared/service/api';
@@ -25,30 +26,25 @@ const Wrapper = styled.div`
   }
 `;
 
-export class PlayerNameplate extends React.PureComponent<Props> {
-  render() {
-    const { player } = this.props;
-    return (
-      <Wrapper>
-        <img className="image" src="/player-avatar.png" alt="player image" />
-        <div className="details">
-          <Typography type="title" className="name">
-            {player.name}
-          </Typography>
-          <Typography className="details">
-            <span className="position">
-              {PositionLabel[player.registeredPosition]}
-            </span>{' '}
-            <PlayerPositionRating
-              player={player}
-              position={player.registeredPosition}
-              render={rating => <span className="Player-rating">{rating}</span>}
-            />
-            {' | '}
-            {PlayingStyleLabel[player.playingStyle]}
-          </Typography>
-        </div>
-      </Wrapper>
-    );
-  }
-}
+export const PlayerNameplate = pure<Props>(({ player }) => (
+  <Wrapper>
+    <img className="image" src="/player-avatar.png" alt="player image" />
+    <div className="details">
+      <Typography type="title" className="name">
+        {player.name}
+      </Typography>
+      <Typography className="details">
+        <span className="position">
+          {PositionLabel[player.registeredPosition]}
+        </span>{' '}
+        <PlayerPositionRating
+          player={player}
+          position={player.registeredPosition}
+          render={rating => <span className="Player-rating">{rating}</span>}
+        />
+        {' | '}
+        {PlayingStyleLabel[player.playingStyle]}
+      </Typography>
+    </div>
+  </Wrapper>
+));

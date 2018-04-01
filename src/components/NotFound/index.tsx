@@ -1,13 +1,8 @@
 import * as React from 'react';
+import { pure } from 'recompose';
 
-export class NotFound extends React.PureComponent {
-  render() {
-    return (
-      <div className="NotFound">
-        <div className="NotFound-header">
-          <h2>Not Found</h2>
-        </div>
-      </div>
-    );
-  }
-}
+export const NotFound = pure(() => (
+  <div>
+    <h2>Not Found</h2>
+  </div>
+));

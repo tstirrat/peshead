@@ -1,23 +1,26 @@
-import * as React from 'react';
 import Typography from 'material-ui/Typography';
-
-import './ErrorPanel.css';
+import * as React from 'react';
+import { pure } from 'recompose';
+import styled from 'styled-components';
 
 interface ViewModel {
   error: Error;
 }
 
-export class ErrorPanel extends React.PureComponent<ViewModel> {
-  render() {
-    const { error } = this.props;
+const Centered = styled.div`
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
 
-    return (
-      <div className="ErrorPanel">
-        <div className="ErrorPanel-body">
-          <Typography type="title">An error has occurred</Typography>
-          <Typography type="body1">{error.message}</Typography>
-        </div>
-      </div>
-    );
-  }
-}
+export const ErrorPanel = pure<ViewModel>(({ error }) => (
+  <Centered>
+    <div>
+      <Typography type="title">An error has occurred</Typography>
+      <Typography type="body1">{error.message}</Typography>
+    </div>
+  </Centered>
+));

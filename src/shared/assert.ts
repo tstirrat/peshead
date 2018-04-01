@@ -6,7 +6,7 @@ export class AssertionError extends Error {}
  */
 export function assert<T>(
   condition: T | null | undefined,
-  message: string = 'value must be truthy',
+  message = 'value must be truthy',
   ...messageParams: Array<{}>
 ) {
   if (!condition) {

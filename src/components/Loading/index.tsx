@@ -1,32 +1,35 @@
-import * as React from 'react';
 import { CircularProgress } from 'material-ui/Progress';
+import * as React from 'react';
+import { pure } from 'recompose';
+import styled from 'styled-components';
 
 import { ErrorPanel } from '../ErrorPanel';
 
-import './Loading.css';
-
 interface ViewModel {
   when: boolean;
-  render: Function;
+  render: () => JSX.Element;
   error?: Error;
 }
 
-export class Loading extends React.PureComponent<ViewModel> {
-  render() {
-    if (this.props.when) {
-      return (
-        <div className="Loading">
-          <CircularProgress />
-        </div>
-      );
-    } else if (this.props.error) {
-      return (<ErrorPanel error={this.props.error} />);
-    } else {
-      return (
-        <div>
-          {this.props.render()}
-        </div>
-      );
-    }
+const Centered = styled.div`
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+export const Loading = pure<ViewModel>(({ when, error, render }) => {
+  if (when) {
+    return (
+      <Centered>
+        <CircularProgress />
+      </Centered>
+    );
+  } else if (error) {
+    return <ErrorPanel error={error} />;
+  } else {
+    return render();
   }
-}
+});

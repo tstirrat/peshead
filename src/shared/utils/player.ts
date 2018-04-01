@@ -1,4 +1,4 @@
-import { IPlayerAbilities, Player, PlayingStyle, Position } from '../service/api';
+import { IPlayer, IPlayerAbilities, Player, PlayingStyle, Position } from '../service/api';
 
 export type PlayerAbilityName = keyof IPlayerAbilities;
 
@@ -373,4 +373,28 @@ export function getPositionWeights(
   } else {
     throw new Error(`Unknown position: ${position}`);
   }
+}
+
+/** Calculate a rating given a set of stat weights. */
+export function getWeightedRating(
+  player: IPlayer,
+  weights: Partial<IPlayerAbilities>
+): number {
+  const BASE = 7; // ?
+  const rating = Object.keys(weights).reduce(
+    // fixes prettier/tslint alignment
+    (sum, stat) => {
+      if (!player.abilities || !weights) {
+        throw new Error('Player or weights are undefined');
+      }
+      if (stat in player.abilities) {
+        const weight = (player.abilities[stat] - 25) * weights[stat];
+        return sum + weight;
+      }
+      throw new Error(`Unknown stat: ${stat}`);
+    },
+    BASE
+  );
+
+  return Math.floor(rating);
 }
