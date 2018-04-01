@@ -1,7 +1,7 @@
 import { Action, Reducer } from 'redux';
 
 export interface State {}
-export const INITIAL_STATE: State = {};
+const INITIAL_STATE: State = {};
 
 export const reducer: Reducer<State> = (
   state = INITIAL_STATE,

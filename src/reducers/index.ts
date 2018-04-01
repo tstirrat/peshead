@@ -1,14 +1,13 @@
-import { RouteComponentProps } from 'react-router';
 import { combineReducers } from 'redux';
 import { createSelector } from 'reselect';
 
 import { Player } from '../shared/service/api';
 import * as leagues from './leagues';
 import * as players from './players';
+import * as routing from './routing';
 import * as search from './search';
 import * as teams from './teams';
 import * as app from './ui/app';
-import * as routing from './ui/routing';
 
 export interface State {
   /** canonical server data */
@@ -21,26 +20,11 @@ export interface State {
   /** ui state */
   ui: {
     app: app.State;
-    routing: routing.State;
   };
+  router: routing.State;
 }
 
-export const INITIAL_STATE: State = {
-  data: {
-    leagues: leagues.INITIAL_STATE,
-    players: players.INITIAL_STATE,
-    search: search.INITIAL_STATE,
-    teams: teams.INITIAL_STATE
-  },
-  ui: {
-    app: app.INITIAL_STATE,
-    routing: {
-      location: null
-    }
-  }
-};
-
-export const reducer = combineReducers({
+export const reducer = {
   data: combineReducers({
     leagues: leagues.reducer,
     players: players.reducer,
@@ -48,37 +32,27 @@ export const reducer = combineReducers({
     teams: teams.reducer
   }),
   ui: combineReducers({
-    app: app.reducer,
-    routing: routing.reducer
+    app: app.reducer
   })
-});
+};
 
 // selector for each sub state, to find it from root
 export const getPlayersState = (state: State) => state.data.players;
 export const getLeaguesState = (state: State) => state.data.leagues;
 export const getTeamsState = (state: State) => state.data.teams;
 export const getSearchState = (state: State) => state.data.search;
-export const getRoutingState = (state: State) => state.ui.routing;
+export const getRoutingState = (state: State) => state.router;
 export const getAppState = (state: State) => state.ui.app;
 
 // Routing
 
-export const getRouteId = (
-  state: State,
-  props: RouteComponentProps<routing.RouteWithId>
-) => routing.getId(getRoutingState(state), props);
+export const getRouteId = (state: State) =>
+  routing.getId(getRoutingState(state));
 export const getQueryParams = <T>(state: State) =>
   routing.getQueryParams<T>(getRoutingState(state));
 
-export const getRoutePlayerCompareOptions = (
-  state: State,
-  props: RouteComponentProps<routing.RouteWithPlayerIds>
-) => routing.getPlayerCompareOptions(getRoutingState(state), props);
-
-export const getRouterHistory = (
-  state: State,
-  props: RouteComponentProps<{}>
-) => props.history;
+export const getRoutePlayerCompareOptions = (state: State) =>
+  routing.getPlayerCompareOptions(getRoutingState(state));
 
 // App
 

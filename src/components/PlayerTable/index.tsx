@@ -1,7 +1,7 @@
 import Table, { TableBody, TableCell, TableCellProps, TableHead, TableRow } from 'material-ui/Table';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { pure } from 'recompose';
+import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
 import { PlayerStat } from '../PlayerStat';
@@ -35,7 +35,7 @@ export const PlayerTable = pure<Props>(({ players }) => (
       {players.map(player => (
         <TableRow key={player.id} id={player.id} hover={true}>
           <TableCell {...cellProps} className="name">
-            <Link to={`/players/${player.id}`}>{player.name}</Link>
+            <Link href={`/players/${player.id}`}>{player.name}</Link>
           </TableCell>
           <TableCell {...cellProps} className="pos">
             {player.registeredPosition}

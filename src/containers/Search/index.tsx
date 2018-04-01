@@ -3,7 +3,6 @@ import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Dispatch } from 'redux';
 
 import { Player } from '../../../functions/service/api';
@@ -91,6 +90,4 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedSearch = withRouter(
-  connect(getViewModel, getActions)(Search)
-);
+export const ConnectedSearch = connect(getViewModel, getActions)(Search);

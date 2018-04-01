@@ -1,11 +1,10 @@
-import { History } from 'history';
 import { Paper } from 'material-ui';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
-import { withRouter } from 'react-router';
+import { push } from 'redux-little-router';
 import { createSelector } from 'reselect';
 
 import * as playerActions from '../../actions/players';
@@ -15,7 +14,7 @@ import { Loading } from '../../components/Loading';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
-import { PlayerCompareOption } from '../../reducers/ui/routing';
+import { PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
 import { Position } from '../../shared/service/api';
 import { AbilityFlags, getHighestAbilities } from '../../shared/utils/player';
@@ -23,7 +22,6 @@ import { AbilityFlags, getHighestAbilities } from '../../shared/utils/player';
 export interface ViewModel {
   players: PlayerViewModel[];
   position?: Position;
-  history: History;
 }
 
 export interface PlayerViewModel
@@ -32,6 +30,7 @@ export interface PlayerViewModel
 
 export interface Actions {
   getPlayer: typeof playerActions.getPlayer;
+  pushUrl: typeof push;
   dispatch: Dispatch<fromRoot.State>;
 }
 
@@ -134,33 +133,27 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   private handlePlayerSelect = (id: string) => {
     const { players } = this.props;
     const ids = players.map(p => p.id).concat([id]);
-    this.props.history.push(`/players/compare/${ids.join('/')}`);
+    this.props.pushUrl(`/players/compare/${ids.join('/')}`, {});
   };
 
   private handlePlayerDelete = (id: string) => {
     const { players } = this.props;
     const ids = players.map(p => p.id).filter(playerId => playerId !== id);
-    this.props.history.push(`/players/compare/${ids.join('/')}`);
+    this.props.pushUrl(`/players/compare/${ids.join('/')}`, {});
   };
 }
 
 const getViewModel = createSelector(
-  [
-    fromRoot.getRoutePlayerCompareOptions,
-    fromRoot.getPlayersState,
-    fromRoot.getRouterHistory
-  ],
+  [fromRoot.getRoutePlayerCompareOptions, fromRoot.getPlayersState],
   (
     playerOptions: PlayerCompareOption[],
-    state: fromPlayers.State,
-    history: History
+    state: fromPlayers.State
   ): ViewModel => {
     const viewModels = playerOptions.map(options =>
       createPlayerViewModel(state, options)
     );
     return {
-      players: viewModels,
-      history
+      players: viewModels
     };
   }
 );
@@ -168,11 +161,12 @@ const getViewModel = createSelector(
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
     getPlayer: (id: string) => dispatch(playerActions.getPlayer(id)),
+    pushUrl: (href: string) => dispatch(push(href, {})),
     dispatch
   };
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedComparePlayers = withRouter(
-  connect(getViewModel, getActions)(ComparePlayers)
+export const ConnectedComparePlayers = connect(getViewModel, getActions)(
+  ComparePlayers
 );

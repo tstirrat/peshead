@@ -13,7 +13,7 @@ export interface State {
   };
 }
 
-export const INITIAL_STATE: State = {
+const INITIAL_STATE: State = {
   ui: {
     isLoading: false
   },

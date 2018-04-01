@@ -2,7 +2,7 @@ import MoreVertIcon from 'material-ui-icons/MoreVert';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
 
@@ -37,7 +37,7 @@ export class PlayerActionMenu extends React.PureComponent<Props, State> {
           onRequestClose={this.handleClose}
         >
           <MenuItem>
-            <Link to={`/players/compare/${player.id}`}>Compare</Link>
+            <Link href={`/players/compare/${player.id}`}>Compare</Link>
           </MenuItem>
         </Menu>
       </div>

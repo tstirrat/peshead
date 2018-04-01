@@ -1,11 +1,8 @@
-import { RouteComponentProps } from 'react-router';
-import { routerReducer, RouterState } from 'react-router-redux';
+import { Location } from 'redux-little-router';
 
-import { assert } from '../../shared/assert';
+import { assert } from '../shared/assert';
 
-export type State = RouterState;
-
-export const reducer = routerReducer;
+export type State = Location;
 
 export interface RouteWithId {
   id: string;
@@ -24,20 +21,16 @@ export interface PlayerCompareOption {
 }
 
 /** Get :id from the, route, operates on component's ownProps  */
-export const getId = (
-  state: State,
-  props: RouteComponentProps<RouteWithId>
-) => {
-  return props.match.params.id;
+export const getId = (state: State) => {
+  return state.params!.id;
 };
 
 /** Get :player1, :player2, :player3 from the route  */
 export const getPlayerCompareOptions = (
-  state: State,
-  props: RouteComponentProps<RouteWithPlayerIds>
+  state: State
 ): PlayerCompareOption[] => {
   return ['player1', 'player2', 'player3']
-    .map(key => props.match.params[key])
+    .map(key => state.params![key])
     .filter(id => !!id)
     .map(playerString => extractPlayerOptions(playerString));
 };
@@ -61,16 +54,10 @@ function extractPlayerOptions(playerString: string): PlayerCompareOption {
  * Get typed query params from the current url.
  */
 export function getQueryParams<T>(state: State): T {
-  const location = state.location;
-  if (!location) {
+  const { query } = state;
+  if (!query) {
     return {} as T;
   }
-  const statements = location.search.substr(1).split('&');
-  const params = {};
-  statements.forEach(s => {
-    const [key, value] = s.split('=').map(part => decodeURIComponent(part));
-    params[key] = value;
-  });
-
-  return params as T;
+  // tslint:disable-next-line:no-any :(
+  return query as any;
 }

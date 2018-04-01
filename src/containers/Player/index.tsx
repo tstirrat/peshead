@@ -5,8 +5,7 @@ import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
-import { withRouter } from 'react-router';
-import { replace } from 'react-router-redux';
+import { replace } from 'redux-little-router';
 import { createSelector } from 'reselect';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -62,7 +61,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
       .pipe(
         takeUntil(this.destroy$),
         debounceTime(500),
-        tap(url => this.props.replaceUrl(url))
+        tap(url => this.props.replaceUrl(url, {}))
       )
       .subscribe();
   }
@@ -221,12 +220,10 @@ const getViewModel = createSelector(
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
     getPlayer: (id: string) => dispatch(players.getPlayer(id)),
-    replaceUrl: (location: string) => dispatch(replace(location)),
+    replaceUrl: (href: string) => dispatch(replace(href, {})),
     dispatch
   };
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedPlayer = withRouter(
-  connect(getViewModel, getActions)(Player)
-);
+export const ConnectedPlayer = connect(getViewModel, getActions)(Player);

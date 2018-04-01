@@ -4,15 +4,13 @@ import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link, RouteComponentProps } from 'react-router-dom';
-
-export type Props = RouteComponentProps<{}>;
+import { Link } from 'redux-little-router';
 
 interface State {
   query: string;
 }
 
-export class Home extends React.PureComponent<Props, State> {
+export class Home extends React.PureComponent<{}, State> {
   state: State = {
     query: ''
   };
@@ -27,13 +25,13 @@ export class Home extends React.PureComponent<Props, State> {
         <Card className="Home">
           <ul>
             <li>
-              <Link to="/players/37134">N. CHERUBIN</Link>
+              <Link href="/players/37134">N. CHERUBIN</Link>
             </li>
             <li>
-              <Link to="/players/7511">L. MESSI</Link>
+              <Link href="/players/7511">L. MESSI</Link>
             </li>
             <li>
-              <Link to="/players/4522">C. RONALDO</Link>
+              <Link href="/players/4522">C. RONALDO</Link>
             </li>
           </ul>
         </Card>
@@ -41,17 +39,17 @@ export class Home extends React.PureComponent<Props, State> {
         <Card>
           <ul>
             <li>
-              <Link to="/players/compare/37134/7511">
+              <Link href="/players/compare/37134/7511">
                 N. CHERUBIN vs. L. MESSI
               </Link>
             </li>
             <li>
-              <Link to="/players/compare/7511/4522">
+              <Link href="/players/compare/7511/4522">
                 L. MESSI vs. C. RONALDO
               </Link>
             </li>
             <li>
-              <Link to="/players/compare/4522/7511-A-L1">
+              <Link href="/players/compare/4522/7511-A-L1">
                 C. RONALDO vs. L1A MESSI
               </Link>
             </li>

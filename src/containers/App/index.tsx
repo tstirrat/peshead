@@ -10,9 +10,7 @@ import Toolbar from 'material-ui/Toolbar';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
-import { RouteComponentProps } from 'react-router';
-import { withRouter } from 'react-router-dom';
-import { push } from 'react-router-redux';
+import { push } from 'redux-little-router';
 
 import * as fromApp from '../../actions/app';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
@@ -137,23 +135,19 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   };
 
   private handlePlayerSelect = (id: string) => {
-    this.props.pushUrl(`/players/${id}`);
+    this.props.pushUrl(`/players/${id}`, {});
   };
 
   private handleSearch = (query: string) => {
-    this.props.pushUrl(`/search?query=${query}`);
+    this.props.pushUrl(`/search?query=${query}`, {});
   };
 
   private goHome = () => {
-    this.props.pushUrl(`/`);
+    this.props.pushUrl(`/`, {});
   };
 }
 
-const getViewModel = (
-  state: fromRoot.State,
-  // tslint:disable-next-line:no-any
-  ownProps: RouteComponentProps<any>
-): ViewModel => {
+const getViewModel = (state: fromRoot.State): ViewModel => {
   const user = fromRoot.getCurrentUser(state);
   return {
     user
@@ -166,10 +160,10 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
       dispatch(fromApp.login(provider, id, password)),
     logout: () => dispatch(fromApp.logout()),
     loadSession: () => dispatch(fromApp.loadSession()),
-    pushUrl: (location: string) => dispatch(push(location)),
+    pushUrl: (location: string) => dispatch(push(location, {})),
     dispatch
   };
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedApp = withRouter(connect(getViewModel, getActions)(App));
+export const ConnectedApp = connect(getViewModel, getActions)(App);
