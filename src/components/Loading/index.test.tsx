@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Loading } from './index';
+
+import { Loading } from '.';
 
 describe('<Loading>', () => {
   it('displays spinner when [when] is true', () => {
@@ -30,7 +31,7 @@ describe('<Loading>', () => {
     expect(div.querySelector('.child')).not.toBeNull();
   });
 
-  it('displays ErrorPanel when [error] is defined', () => {
+  it('displays error message when [error] is defined', () => {
     const div = document.createElement('div');
     const err = new Error('Unable to do things');
     render(
@@ -41,6 +42,20 @@ describe('<Loading>', () => {
       />,
       div
     );
-    expect(div.querySelector('.ErrorPanel')).not.toBeNull();
+    expect(div.querySelector('p')!.textContent).toBe('Unable to do things');
+  });
+
+  it('does not display children when [error] is defined', () => {
+    const div = document.createElement('div');
+    const err = new Error('Unable to do things');
+    render(
+      <Loading
+        when={false}
+        error={err}
+        render={() => <div className="child" />}
+      />,
+      div
+    );
+    expect(div.querySelector('.child')).toBeNull();
   });
 });

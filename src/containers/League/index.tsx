@@ -1,13 +1,8 @@
 import * as React from 'react';
+import { pure } from 'recompose';
 
-export class League extends React.PureComponent {
-  render() {
-    return (
-      <div className="League">
-        <div className="League-header">
-          <h2>League</h2>
-        </div>
-      </div>
-    );
-  }
-}
+export const League = pure(() => (
+  <div>
+    <h2>League</h2>
+  </div>
+));

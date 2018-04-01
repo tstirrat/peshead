@@ -1,13 +1,8 @@
 import * as React from 'react';
+import { pure } from 'recompose';
 
-export class Team extends React.PureComponent {
-  render() {
-    return (
-      <div className="Team">
-        <div className="Team-header">
-          <h2>Team</h2>
-        </div>
-      </div>
-    );
-  }
-}
+export const Team = pure(() => (
+  <div>
+    <h2>Team</h2>
+  </div>
+));

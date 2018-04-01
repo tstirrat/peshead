@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { pure } from 'recompose';
 
 import { Player, Position } from '../../shared/service/api';
 import { getPositionWeights } from '../../shared/utils/player';
@@ -13,11 +14,9 @@ export interface Props {
 /**
  * Renders a player rating at a specific position.
  */
-export class PlayerPositionRating extends React.PureComponent<Props> {
-  render() {
-    const { player, position, render } = this.props;
-
+export const PlayerPositionRating = pure<Props>(
+  ({ player, position, render }) => {
     const weights = getPositionWeights(position);
     return <PlayerRating player={player} weights={weights} render={render} />;
   }
-}
+);

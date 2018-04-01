@@ -25,6 +25,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
+    "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-beacon": "^1.2.1",
     "redux-devtools-extension": "^2.13.2",
@@ -38,8 +39,7 @@
     "server": "firebase serve --only 'hosting,functions'",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "coveralls":
-      "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
+    "coveralls": "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -56,6 +56,7 @@
     "@types/react-router": "^4.0.16",
     "@types/react-router-dom": "^4.2.6",
     "@types/react-router-redux": "^5.0.8",
+    "@types/recompose": "^0.24.7",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/redux-mock-store": "^0.0.13",
     "coveralls": "^3.0.0",
