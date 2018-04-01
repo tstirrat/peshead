@@ -1,11 +1,14 @@
-import './PlayerStat.css';
-
 import * as React from 'react';
 import { pure } from 'recompose';
+import styled from 'styled-components';
 
 export interface Props {
   value: number;
   maxValue?: number;
+}
+
+export interface FixedProps {
+  className: string;
 }
 
 const DEFAULT_MAX = 100; // technically 99, but 100 makes it easier to calc
@@ -28,11 +31,47 @@ const BAND_CLASS: { [b: number]: string } = {
   [Band.MAX]: 'max' // light blue-green
 };
 
-export const PlayerStat = pure<Props>(({ value, maxValue }) => (
-  <span className={'PlayerStat ' + getStrengthClass(value, maxValue)}>
+const Container = pure<Props & FixedProps>(({ value, maxValue, className }) => (
+  <span className={className + ' ' + getStrengthClass(value, maxValue)}>
     <span className="stat">{value}</span>
   </span>
 ));
+
+export const PlayerStat = styled<Props>(Container)`
+  border-radius: 2px;
+  background-color: lightgray;
+  height: 24px;
+  width: 24px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  /* TODO: Use better PES colors here. */
+  &.max {
+    background-color: rgb(0, 255, 229);
+  }
+
+  &.very-strong {
+    background-color: rgb(0, 238, 171);
+  }
+
+  &.strong {
+    background-color: rgb(162, 255, 0);
+  }
+
+  &.average {
+    background-color: rgb(255, 234, 0);
+  }
+
+  &.weak {
+    background-color: rgb(255, 140, 0);
+  }
+
+  &.very-weak {
+    background-color: rgb(255, 0, 0);
+  }
+`;
 
 /** Get the strength class, for color grading */
 function getStrengthClass(value: number, maxValue = DEFAULT_MAX) {

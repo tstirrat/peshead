@@ -12,7 +12,6 @@ export interface Props {
 /**
  * Renders a player rating at a specific position.
  */
-export const PlayerRating = pure<Props>(({ player, weights, render }) => {
-  const rating = getWeightedRating(player, weights);
-  return render(rating);
-});
+export const PlayerRating = pure<Props>(({ player, weights, render }) =>
+  render(getWeightedRating(player, weights))
+);
