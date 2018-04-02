@@ -10,7 +10,7 @@ export interface State {
   error: MapLike<Error>;
 }
 
-export const INITIAL_STATE: State = {
+const INITIAL_STATE: State = {
   byId: {},
   isLoading: {},
   error: {}

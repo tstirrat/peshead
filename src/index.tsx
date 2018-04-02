@@ -5,9 +5,8 @@ import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
 
-import store, { history } from './configureStore';
+import store from './configureStore';
 import { ConnectedApp } from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -25,9 +24,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <ConnectedApp />
-      </ConnectedRouter>
+      <ConnectedApp />
     </Provider>
   </MuiThemeProvider>,
   document.getElementById('root') as HTMLElement

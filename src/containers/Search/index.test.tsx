@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Search, ViewModel, Actions } from './index';
-import { StaticRouter } from 'react-router-dom';
+
+import { Actions, Search, ViewModel } from '.';
 
 const props: ViewModel = {
   isLoading: false,
@@ -16,14 +16,7 @@ const actions: Actions = {
   dispatch: jasmine.createSpy('dispatch')
 };
 
-const context = {};
-
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  render(
-    <StaticRouter location="/" context={context}>
-      <Search {...props} {...actions} />
-    </StaticRouter>,
-    div
-  );
+  render(<Search {...props} {...actions} />, div);
 });

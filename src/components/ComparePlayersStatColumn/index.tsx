@@ -4,7 +4,7 @@ import Divider from 'material-ui/Divider';
 import List, { ListItem, ListSubheader } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'redux-little-router';
 import styled from 'styled-components';
 
 import { Player } from '../../shared/service/api';
@@ -47,7 +47,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
     return (
       <List>
         <Header>
-          <Link className="link" to={`/players/${player.id}`}>
+          <Link className="link" href={`/players/${player.id}`}>
             {player.name}
           </Link>
           <ButtonBase

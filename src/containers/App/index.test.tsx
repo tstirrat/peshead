@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { App } from './index';
-import { StaticRouter } from 'react-router-dom';
 
-const context = {};
+import { App } from '.';
+import { StaticRouter } from '../../__test__/StaticRouter';
 
 const props = {
   login: jasmine.createSpy('login'),
@@ -16,7 +15,7 @@ const props = {
 it('renders without crashing', () => {
   const div = document.createElement('div');
   render(
-    <StaticRouter location="/" context={context}>
+    <StaticRouter>
       <App {...props} />
     </StaticRouter>,
     div
