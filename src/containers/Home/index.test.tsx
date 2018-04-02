@@ -4,12 +4,14 @@ import { render } from 'react-dom';
 import { Home } from '.';
 import { StaticRouter } from '../../__test__';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(
-    <StaticRouter>
-      <Home />
-    </StaticRouter>,
-    div
-  );
+describe('<Home>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(
+      <StaticRouter>
+        <Home />
+      </StaticRouter>,
+      div
+    );
+  });
 });

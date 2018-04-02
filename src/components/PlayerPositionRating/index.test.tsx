@@ -13,7 +13,9 @@ const props: Props = {
   render: rating => <div>{rating}</div>
 };
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<PlayerPositionRating {...props} />, div);
+describe('<PlayerPositionRating>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<PlayerPositionRating {...props} />, div);
+  });
 });

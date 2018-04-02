@@ -8,12 +8,14 @@ import { Player } from '../../shared/service/api';
 
 const player = Player.create(base);
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(
-    <StaticRouter url="/players/1">
-      <PlayerActionMenu player={player} />
-    </StaticRouter>,
-    div
-  );
+describe('<PlayerActionMenu>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(
+      <StaticRouter url="/players/1">
+        <PlayerActionMenu player={player} />
+      </StaticRouter>,
+      div
+    );
+  });
 });

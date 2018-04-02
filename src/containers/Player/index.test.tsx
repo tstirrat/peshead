@@ -22,7 +22,9 @@ const actions = {
   dispatch
 };
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<Player {...props} {...actions} />, div);
+describe('<Player>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<Player {...props} {...actions} />, div);
+  });
 });

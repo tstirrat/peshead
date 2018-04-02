@@ -16,7 +16,9 @@ const actions: Actions = {
   dispatch: jasmine.createSpy('dispatch')
 };
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<Search {...props} {...actions} />, div);
+describe('<Search>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<Search {...props} {...actions} />, div);
+  });
 });

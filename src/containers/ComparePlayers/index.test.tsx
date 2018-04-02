@@ -20,7 +20,9 @@ const actions: Actions = {
   dispatch
 };
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<ComparePlayers {...props} {...actions} />, div);
+describe('<ComparePlayers>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<ComparePlayers {...props} {...actions} />, div);
+  });
 });

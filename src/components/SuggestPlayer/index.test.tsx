@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { SuggestPlayer, Props } from './index';
 
-const props: Props = {
-};
+import { Props, SuggestPlayer } from '.';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(
-    <SuggestPlayer {...props} />,
-    div);
+const props: Props = {};
+
+describe('<SuggestPlayer>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<SuggestPlayer {...props} />, div);
+  });
 });

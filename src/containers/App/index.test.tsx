@@ -12,12 +12,14 @@ const props = {
   pushUrl: jasmine.createSpy('history.push')
 };
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(
-    <StaticRouter>
-      <App {...props} />
-    </StaticRouter>,
-    div
-  );
+describe('<App>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(
+      <StaticRouter>
+        <App {...props} />
+      </StaticRouter>,
+      div
+    );
+  });
 });

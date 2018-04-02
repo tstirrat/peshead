@@ -8,12 +8,14 @@ import { Player } from '../../shared/service/api';
 
 const player = Player.create(base);
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(
-    <StaticRouter url="/players/compare/1/2">
-      <ComparePlayersStatColumn player={player} />
-    </StaticRouter>,
-    div
-  );
+describe('<ComparePlayersStatColumn>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(
+      <StaticRouter url="/players/compare/1/2">
+        <ComparePlayersStatColumn player={player} />
+      </StaticRouter>,
+      div
+    );
+  });
 });

@@ -7,7 +7,9 @@ import { Player } from '../../shared/service/api';
 
 const player = Player.create(base);
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<PlayerNameplate player={player} />, div);
+describe('<PlayerNameplate>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<PlayerNameplate player={player} />, div);
+  });
 });

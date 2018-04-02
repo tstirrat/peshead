@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
+import { PlayerRating, Props } from '.';
 import { base } from '../../__test__/fixtures';
 import { Player } from '../../shared/service/api';
-
-import { PlayerRating, Props } from './index';
 
 const player = Player.create(base);
 
@@ -17,7 +16,9 @@ const props: Props = {
   render: rating => <div>{rating}</div>
 };
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  render(<PlayerRating {...props} />, div);
+describe('<PlayerRating>', () => {
+  it('renders without crashing', () => {
+    const div = document.createElement('div');
+    render(<PlayerRating {...props} />, div);
+  });
 });
