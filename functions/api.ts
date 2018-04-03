@@ -16,7 +16,7 @@ const CORS_HEADERS_DEV: cors.CorsOptions = {
 // Allow cross-origin requests in dev only
 app.use(cors(process.env.NODE_ENV === 'production' ? {} : CORS_HEADERS_DEV));
 
-/** Api root, mounted at /api/v1/... */
+/** Api root, mounted at /api/... */
 export const api = functions.https.onRequest(app);
 
 /** Perform a search */

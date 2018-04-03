@@ -78,7 +78,7 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
     switchMap(query => {
       return ajax
         .getJSON<SuggestPlayerResponse>(
-          `${process.env.REACT_APP_API_ROOT}/api/suggest?query=${query}`
+          `${process.env.REACT_APP_API_ROOT}/suggest?query=${query}`
         )
         .pipe(
           map(response =>

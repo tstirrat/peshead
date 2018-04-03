@@ -39,7 +39,7 @@ export const getPlayer: Epic<Action, GlobalState, EpicDependencies> = (
   action$.ofType(players.GET_PLAYER).pipe(
     concatMap((action: players.GetPlayerAction) => {
       const id = assert(action.payload, 'Player id should be supplied');
-      const url = `${process.env.REACT_APP_API_ROOT}/api/players/${id}`;
+      const url = `${process.env.REACT_APP_API_ROOT}/players/${id}`;
       return ajax
         .getJSON<IPlayer>(url)
         .pipe(
