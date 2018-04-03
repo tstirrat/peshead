@@ -1,7 +1,7 @@
 import { Client } from 'elasticsearch';
 
 import * as search from './search';
-import { Country, Player } from './shared/service/api';
+import { Country, Player } from './service/api';
 
 describe('search', () => {
   // tslint:disable-next-line:variable-name

@@ -2,7 +2,7 @@ import * as AWS from 'aws-sdk';
 import * as elasticsearch from 'elasticsearch';
 import * as HttpAmazonESConnector from 'http-aws-es';
 
-import { Player } from './shared/service/api';
+import { Player } from './service/api';
 
 export interface ClientConfig {
   access_key_id?: string;

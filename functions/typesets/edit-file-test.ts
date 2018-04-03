@@ -1,6 +1,6 @@
 import jBinary = require('jbinary');
 
-import { Foot, PlayingStyle, Position, Skill } from '../shared/service/api';
+import { Foot, PlayingStyle, Position, Skill } from '../service/api';
 import { EditFile, Player } from './edit-file';
 
 const attrs64File = `${__dirname}/../test/player-attrs-64.bin`;
