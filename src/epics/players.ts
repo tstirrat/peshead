@@ -1,10 +1,15 @@
 import { Action } from 'redux';
 import { combineEpics, Epic } from 'redux-observable';
+import { ajax } from 'rxjs/observable/dom/ajax';
+import { of as obs } from 'rxjs/observable/of';
+import { catchError } from 'rxjs/operators/catchError';
 import { concatMap } from 'rxjs/operators/concatMap';
+import { map } from 'rxjs/operators/map';
 
 import * as players from '../actions/players';
 import { EpicDependencies } from '../epics';
 import { State as GlobalState } from '../reducers';
+import { assert } from '../shared/assert';
 import { IPlayer } from '../shared/service/api';
 
 export const getPlayers: Epic<Action, GlobalState, EpicDependencies> = (
@@ -33,14 +38,14 @@ export const getPlayer: Epic<Action, GlobalState, EpicDependencies> = (
 ) =>
   action$.ofType(players.GET_PLAYER).pipe(
     concatMap((action: players.GetPlayerAction) => {
-      const id = action.payload;
-      const db = deps.firebaseApp.firestore();
-      return db
-        .doc(`players/${id}`)
-        .get()
-        .then(snapshot => snapshot.data() as IPlayer)
-        .then(player => players.getPlayerSuccess(player))
-        .catch(error => players.getPlayerError({ id, error }));
+      const id = assert(action.payload, 'Player id should be supplied');
+      const url = `${process.env.REACT_APP_API_ROOT}/api/players/${id}`;
+      return ajax
+        .getJSON<IPlayer>(url)
+        .pipe(
+          map(player => players.getPlayerSuccess(player)),
+          catchError(err => obs(players.getPlayerError(err)))
+        );
     })
   );
 
