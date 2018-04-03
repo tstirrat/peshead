@@ -24,7 +24,7 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
       if (!query) {
         return empty();
       }
-      const url = `${process.env.REACT_APP_API_ROOT}/search`;
+      const url = `${process.env.REACT_APP_API_ROOT}/api/search`;
       return ajax
         .getJSON<SearchResponse<IPlayer>>(
           `${url}?query=${encodeURIComponent(query)}`
