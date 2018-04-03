@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import { Physique, Player, PlayerAbilities, PlayerMotion } from '../service/api';
+import { Physique, Player, PlayerAbilities, PlayerMotion } from '../shared/service/api';
 import { EditFile, Player as PlayerBinary } from '../typesets/edit-file';
 
 const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);
@@ -12,9 +12,9 @@ const serviceAccount = require(`${__dirname}/../../../config/service-account.jso
  */
 export async function load(
   fileName: string,
-  limit: number = 100,
-  offset: number = 0,
-  batchSize: number = 500
+  limit = 100,
+  offset = 0,
+  batchSize = 500
 ) {
   if (batchSize > 500) {
     throw new Error('batch size cannot be > 500');

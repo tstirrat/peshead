@@ -74,7 +74,6 @@ exports.search = functions.https.onRequest(async (req, res) => {
       const client = createClient(functions.config().es);
       const response = await search(client, query);
       console.log('[search] search complete', response);
-      console.log('updated with cors');
       return res.set(CORS_HEADERS).send(response);
     } catch (e) {
       console.warn('[search] search failed with', e);
@@ -103,7 +102,6 @@ exports.suggest = functions.https.onRequest(async (req, res) => {
       const client = createClient(functions.config().es);
       const response = await suggest(client, query);
       console.log('[suggest] suggest complete', response);
-      console.log('updated with cors');
       return res.set(CORS_HEADERS).send(response);
     } catch (e) {
       console.warn('[suggest] suggest failed with', e);
