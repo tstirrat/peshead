@@ -1,11 +1,8 @@
 // tslint:disable:no-console
-import * as admin from 'firebase-admin';
+import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
 import { addPlayer, createClient, removePlayer } from './search';
-
-admin.initializeApp(functions.config().firebase);
-const db = admin.firestore();
 
 enum IndexingState {
   INDEXING = 'INDEXING',
@@ -37,7 +34,7 @@ export const updatePlayerIndex = functions.firestore
     console.log('[index] indexing player', playerId);
     await event.data.ref.update({
       indexState: IndexingState.INDEXING,
-      indexError: admin.firestore.FieldValue.delete()
+      indexError: firestore.FieldValue.delete()
     });
     try {
       await addPlayer(client, playerId, player);
