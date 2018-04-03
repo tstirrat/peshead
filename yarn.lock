@@ -434,7 +434,7 @@ array-flatten@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
 
-array-flatten@^2.1.0:
+array-flatten@2.1.1, array-flatten@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-2.1.1.tgz#426bb9da84090c1838d812c8150af20a8331e296"
 
@@ -6593,9 +6593,11 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-redux-beacon@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/redux-beacon/-/redux-beacon-1.2.1.tgz#4461005227b15861dba9340f502a9586e4a4983f"
+redux-beacon@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/redux-beacon/-/redux-beacon-2.0.1.tgz#21af9b534361ae68dbe90277de6c69112654ce9f"
+  dependencies:
+    array-flatten "2.1.1"
 
 redux-devtools-extension@*, redux-devtools-extension@^2.13.2:
   version "2.13.2"
