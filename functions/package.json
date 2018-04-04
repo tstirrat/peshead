@@ -24,7 +24,7 @@
   "dependencies": {
     "@types/elasticsearch": "^5.0.17",
     "@types/http-aws-es": "^1.1.2",
-    "aws-sdk": "^2.217.1",
+    "aws-sdk": "^2.220.1",
     "cors": "^2.8.4",
     "elasticsearch": "^14.2.2",
     "express": "^4.16.3",
