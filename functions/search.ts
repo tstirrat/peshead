@@ -2,7 +2,7 @@ import * as AWS from 'aws-sdk';
 import * as elasticsearch from 'elasticsearch';
 import * as HttpAmazonESConnector from 'http-aws-es';
 
-import { Player } from './service/api';
+import { IPlayer } from './service/api';
 
 export interface ClientConfig {
   access_key_id?: string;
@@ -45,7 +45,7 @@ export function createClient(config?: ClientConfig) {
 export async function addPlayer(
   client: elasticsearch.Client,
   id: string,
-  player: Player
+  player: IPlayer
 ) {
   return client.index({
     index: 'players',

@@ -23,6 +23,9 @@ message Player {
   repeated Skill playerSkills = 18;
   required PlayerAppearance appearance = 19;
   UnknownOptions unknowns = 20;
+
+  string indexState = 21;
+  string indexError = 22;
 }
 
 message Physique {

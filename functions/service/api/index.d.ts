@@ -614,6 +614,12 @@ export interface IPlayer {
 
     /** Player unknowns */
     unknowns?: (IUnknownOptions|null);
+
+    /** Player indexState */
+    indexState?: (string|null);
+
+    /** Player indexError */
+    indexError?: (string|null);
 }
 
 /** Represents a Player. */
@@ -684,6 +690,12 @@ export class Player implements IPlayer {
 
     /** Player unknowns. */
     public unknowns?: (IUnknownOptions|null);
+
+    /** Player indexState. */
+    public indexState: string;
+
+    /** Player indexError. */
+    public indexError: string;
 
     /**
      * Creates a new Player instance using the specified properties.

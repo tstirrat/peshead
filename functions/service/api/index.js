@@ -1143,6 +1143,8 @@ $root.Player = (function() {
      * @property {Array.<Skill>|null} [playerSkills] Player playerSkills
      * @property {IPlayerAppearance} appearance Player appearance
      * @property {IUnknownOptions|null} [unknowns] Player unknowns
+     * @property {string|null} [indexState] Player indexState
+     * @property {string|null} [indexError] Player indexError
      */
 
     /**
@@ -1324,6 +1326,22 @@ $root.Player = (function() {
     Player.prototype.unknowns = null;
 
     /**
+     * Player indexState.
+     * @member {string} indexState
+     * @memberof Player
+     * @instance
+     */
+    Player.prototype.indexState = "";
+
+    /**
+     * Player indexError.
+     * @member {string} indexError
+     * @memberof Player
+     * @instance
+     */
+    Player.prototype.indexError = "";
+
+    /**
      * Creates a new Player instance using the specified properties.
      * @function create
      * @memberof Player
@@ -1385,6 +1403,10 @@ $root.Player = (function() {
         $root.PlayerAppearance.encode(message.appearance, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
         if (message.unknowns != null && message.hasOwnProperty("unknowns"))
             $root.UnknownOptions.encode(message.unknowns, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
+        if (message.indexState != null && message.hasOwnProperty("indexState"))
+            writer.uint32(/* id 21, wireType 2 =*/170).string(message.indexState);
+        if (message.indexError != null && message.hasOwnProperty("indexError"))
+            writer.uint32(/* id 22, wireType 2 =*/178).string(message.indexError);
         return writer;
     };
 
@@ -1499,6 +1521,12 @@ $root.Player = (function() {
                 break;
             case 20:
                 message.unknowns = $root.UnknownOptions.decode(reader, reader.uint32());
+                break;
+            case 21:
+                message.indexState = reader.string();
+                break;
+            case 22:
+                message.indexError = reader.string();
                 break;
             default:
                 reader.skipType(tag & 7);
@@ -1925,6 +1953,12 @@ $root.Player = (function() {
             if (error)
                 return "unknowns." + error;
         }
+        if (message.indexState != null && message.hasOwnProperty("indexState"))
+            if (!$util.isString(message.indexState))
+                return "indexState: string expected";
+        if (message.indexError != null && message.hasOwnProperty("indexError"))
+            if (!$util.isString(message.indexError))
+                return "indexError: string expected";
         return null;
     };
 
@@ -3087,6 +3121,10 @@ $root.Player = (function() {
                 throw TypeError(".Player.unknowns: object expected");
             message.unknowns = $root.UnknownOptions.fromObject(object.unknowns);
         }
+        if (object.indexState != null)
+            message.indexState = String(object.indexState);
+        if (object.indexError != null)
+            message.indexError = String(object.indexError);
         return message;
     };
 
@@ -3126,6 +3164,8 @@ $root.Player = (function() {
             object.playingStyle = options.enums === String ? "ANCHOR_MAN" : 8;
             object.appearance = null;
             object.unknowns = null;
+            object.indexState = "";
+            object.indexError = "";
         }
         if (message.id != null && message.hasOwnProperty("id"))
             object.id = message.id;
@@ -3176,6 +3216,10 @@ $root.Player = (function() {
             object.appearance = $root.PlayerAppearance.toObject(message.appearance, options);
         if (message.unknowns != null && message.hasOwnProperty("unknowns"))
             object.unknowns = $root.UnknownOptions.toObject(message.unknowns, options);
+        if (message.indexState != null && message.hasOwnProperty("indexState"))
+            object.indexState = message.indexState;
+        if (message.indexError != null && message.hasOwnProperty("indexError"))
+            object.indexError = message.indexError;
         return object;
     };
 

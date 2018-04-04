@@ -3,6 +3,7 @@ import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
 import { addPlayer, createClient, removePlayer } from './search';
+import { IPlayer } from './service/api';
 
 enum IndexingState {
   INDEXING = 'INDEXING',
@@ -12,17 +13,18 @@ enum IndexingState {
 
 /** Checks for changes to players and updates/removes the search index entry */
 export const updatePlayerIndex = functions.firestore
-  .document('players/{id}')
-  .onWrite(async event => {
-    const player = event.data.data();
-    const playerId: string = event.params!.id;
+  .document('/players/{id}')
+  .onWrite(async (change, context) => {
+    const playerId: string = context!.params.id;
     const client = createClient(functions.config().es);
 
     // removal
-    if (event.data === null) {
+    if (!change.after.exists) {
       console.log('[index] removing player', playerId);
       return await removePlayer(client, playerId);
     }
+
+    const player = change.after.data() as IPlayer;
 
     // prevent infinite loop
     if (player.indexState) {
@@ -32,17 +34,17 @@ export const updatePlayerIndex = functions.firestore
 
     // add to index
     console.log('[index] indexing player', playerId);
-    await event.data.ref.update({
+    await change.after.ref.update({
       indexState: IndexingState.INDEXING,
       indexError: firestore.FieldValue.delete()
     });
     try {
       await addPlayer(client, playerId, player);
-      await event.data.ref.update({ indexState: IndexingState.INDEXED });
+      await change.after.ref.update({ indexState: IndexingState.INDEXED });
       console.log('[index] indexing complete', playerId);
     } catch (e) {
       console.error('[index] indexing error', e);
-      return event.data.ref.update({
+      return change.after.ref.update({
         indexState: IndexingState.ERROR,
         indexError: e.message
       });

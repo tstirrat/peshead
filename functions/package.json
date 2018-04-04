@@ -13,10 +13,8 @@
     "build": "tsc -p ./",
     "test": "jest",
     "watch": "tsc --watch -p ./",
-    "protos":
-      "pbjs -w commonjs -t static-module -o service/api/index.js service/api.proto service/common.proto service/player.proto",
-    "api":
-      "yarn run protos; pbts -o service/api/index.d.ts service/api/index.js",
+    "protos": "pbjs -w commonjs -t static-module -o service/api/index.js service/api.proto service/common.proto service/player.proto",
+    "api": "yarn run protos; pbts -o service/api/index.d.ts service/api/index.js",
     "deploy": "yarn build && firebase deploy --only functions",
     "cli": "yarn build && node build/cli/index.js"
   },
@@ -29,7 +27,7 @@
     "elasticsearch": "^14.2.2",
     "express": "^4.16.3",
     "firebase-admin": "^5.11.0",
-    "firebase-functions": "^0.9.1",
+    "firebase-functions": "^1.0.0",
     "http-aws-es": "^4.0.0",
     "jbinary": "^2.1.3",
     "morgan": "^1.9.0",
@@ -54,7 +52,12 @@
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(-|\\.)test\\.tsx?$",
-    "moduleFileExtensions": ["js", "ts", "tsx", "json"],
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "tsx",
+      "json"
+    ],
     "collectCoverageFrom": [
       "**/*.{js,jsx,ts,tsx}",
       "!{build,coverage,@types}/**",

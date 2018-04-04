@@ -1,5 +1,4 @@
-import { firestore, initializeApp } from 'firebase-admin';
-import { config } from 'firebase-functions';
+import * as admin from 'firebase-admin';
 
-initializeApp(config().firebase);
-export const db = firestore();
+admin.initializeApp();
+export const db = admin.firestore();
