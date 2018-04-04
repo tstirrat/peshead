@@ -2,6 +2,7 @@
 import * as cors from 'cors';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
+import * as morgan from 'morgan';
 
 import { db } from './init';
 import { createClient, search, suggest } from './search';
@@ -13,14 +14,25 @@ const CORS_HEADERS_DEV: cors.CorsOptions = {
   allowedHeaders: ['X-Requested-With']
 };
 
+app.use(
+  // tslint:disable-next-line:no-any
+  (morgan as any)('tiny', {
+    stream: {
+      write: (m: string) => console.log(m)
+    }
+  })
+);
+export const api = functions.https.onRequest(app);
+
 // Allow cross-origin requests in dev only
 app.use(cors(process.env.NODE_ENV === 'production' ? {} : CORS_HEADERS_DEV));
 
 /** Api root, mounted at /api/... */
-export const api = functions.https.onRequest(app);
+const router = express.Router();
+app.use('/api', router);
 
 /** Perform a search */
-app.get('/search', async (req, res) => {
+router.get('/search', async (req, res) => {
   const query: string = req.query.query;
   if (query) {
     try {
@@ -39,7 +51,7 @@ app.get('/search', async (req, res) => {
 });
 
 /** Autocomplete suggest based on name or kitName, returns minimal fields. */
-app.get('/suggest', async (req, res) => {
+router.get('/suggest', async (req, res) => {
   const query: string = req.query.query;
   if (query) {
     try {
@@ -58,23 +70,23 @@ app.get('/suggest', async (req, res) => {
 });
 
 const HOURS = 3600;
-const STORE_6_HOURS = `public, max-age=${6 * HOURS}, s-maxage=${6 * HOURS}`;
 
 /** Get a single player */
-app.get('/players/:id', async (req, res) => {
+router.get('/players/:id', async (req, res) => {
   const playerId: string = req.params.id;
   if (playerId) {
     try {
       console.log('[getPlayer] fetching:', playerId);
       const client = createClient(functions.config().es);
       const snapshot = await db.doc(`players/${playerId}`).get();
-      console.log('[getPlayer] getPlayer complete', snapshot);
+      console.log('[getPlayer] getPlayer complete', snapshot.id);
 
       if (!snapshot.exists) {
         return res.sendStatus(404);
       }
 
-      return res.set('Cache-Control', STORE_6_HOURS).send(snapshot.data());
+      const cache = `public, max-age=${2 * HOURS}, s-maxage=${2 * HOURS}`;
+      return res.set('Cache-Control', cache).send(snapshot.data());
     } catch (e) {
       console.warn('[getPlayer] getPlayer failed with', e);
       return res.status(400).send(e);

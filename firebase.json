@@ -21,6 +21,18 @@
     "rules": "config/storage.rules"
   },
   "functions": {
-    "ignore": ["**/node_modules/**", "**/test/**"]
+    "ignore": [
+      "**/.*",
+      "**/node_modules/**",
+      "**/test/**",
+      "/design/**",
+      "firebase.json",
+      "/functions/@types/**",
+      "/functions/cli/**",
+      "/functions/config/**",
+      "/functions/service/**",
+      "/public/**",
+      "/src/**"
+    ]
   }
 }
