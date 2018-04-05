@@ -4,24 +4,18 @@
     "rootDir": "./",
     "module": "commonjs",
     "target": "es6",
-    "lib": [
-      "es7",
-      "dom"
-    ],
+    "lib": ["es7", "dom"],
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noImplicitAny": true,
+    // TODO: only until github.com/firebase/firebase-functions/pull/215
+    "noImplicitAny": false,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "jest"
-  ]
+  "exclude": ["node_modules", "build", "jest"]
 }

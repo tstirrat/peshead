@@ -1,3 +1,4 @@
+// tslint:disable:no-console
 import { open, read } from 'fs-extra';
 import BitArray = require('node-bitarray');
 
@@ -115,11 +116,11 @@ function reverseBytesAndExtract(
 function binaryDump(arr: BitArray, lineLength = 32) {
   const copy = arr.slice();
 
-  const rows = [];
+  const rows: string[] = [];
   while (copy.length) {
     const line = copy.splice(0, lineLength);
 
-    const bytes = [];
+    const bytes: string[] = [];
     while (line.length) {
       const byte = line.splice(0, BITS_PER_BYTE);
       bytes.push(byte.join('')); // [1,1,0] -> 110
