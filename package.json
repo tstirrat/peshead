@@ -38,8 +38,7 @@
     "server": "firebase serve --only 'hosting,functions'",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "coveralls":
-      "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
+    "coveralls": "cat ./coverage/lcov.info ./functions/coverage/lcov.info | node node_modules/.bin/coveralls",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
@@ -47,8 +46,8 @@
     "@types/elasticsearch": "^5.0.17",
     "@types/history": "^4.6.1",
     "@types/jest": "^22.2.2",
-    "@types/node": "^9.6.0",
-    "@types/react": "^16.3.2",
+    "@types/node": "^9.6.2",
+    "@types/react": "^16.3.5",
     "@types/react-autosuggest": "^9.3.1",
     "@types/react-dom": "^16.0.4",
     "@types/react-helmet": "^5.0.5",
