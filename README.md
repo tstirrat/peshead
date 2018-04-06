@@ -21,6 +21,13 @@ Eventual goals (help wanted):
 
 ## Running locally
 
+```sh
+# install tmux
+./start-all
+```
+
+Or, manually start things:
+
 1.  Serve + watch functions locally:
 
 ```sh

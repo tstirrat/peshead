@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Setup a work space called `pesto` with two windows
+# first window has 3 panes.
+#
+session="pesto"
+
+# set up tmux
+tmux start-server
+
+# create a new tmux session, starting vim from a saved session in the new window
+tmux new-session -d -s $session -n serve
+
+# Select pane 1, FE server
+tmux selectp -t 1
+tmux send-keys "yarn start" C-m
+
+tmux selectp -t 1
+tmux splitw -v -p 70
+
+# PANE 2, functions watch
+tmux selectp -t 2
+tmux send-keys "cd functions; yarn watch" C-m
+
+tmux selectp -t 2
+tmux splitw -v -p 66
+
+# PANE 3, functions server
+tmux selectp -t 3
+tmux send-keys "yarn server" C-m
+
+# PANE 4, general scratch
+tmux splitw -v -p 50
+
+# Select pane 1
+# tmux selectp -t 1
+
+# create a new window called scratch
+tmux new-window -t $session:1 -n scratch
+
+# return to main vim window
+tmux select-window -t $session:0
+
+# Finished setup, attach to the tmux session!
+tmux attach-session -t $session
