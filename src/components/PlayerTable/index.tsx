@@ -4,6 +4,7 @@ import { pure } from 'recompose';
 import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
+import { PositionLabel } from '../../shared/utils/player';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
@@ -22,7 +23,7 @@ export const PlayerTable = pure<Props>(({ players }) => (
         <TableCell {...cellProps}>Pos.</TableCell>
         <TableCell {...cellProps}>Age</TableCell>
         {/* Team */}
-        <TableCell {...cellProps}>Nationality</TableCell>
+        <TableCell {...cellProps}>Country</TableCell>
         <TableCell {...cellProps}>OVR</TableCell>
         <TableCell {...cellProps}>SHT</TableCell>
         <TableCell {...cellProps}>PAS</TableCell>
@@ -38,7 +39,7 @@ export const PlayerTable = pure<Props>(({ players }) => (
             <Link href={`/players/${player.id}`}>{player.name}</Link>
           </TableCell>
           <TableCell {...cellProps} className="pos">
-            {player.registeredPosition}
+            {PositionLabel[player.registeredPosition]}
           </TableCell>
           <TableCell {...cellProps} className="age">
             {player.age}
@@ -49,7 +50,7 @@ export const PlayerTable = pure<Props>(({ players }) => (
           </TableCell>
           {/* TODO: calculate OVR, SHT, PAS, DEF, PHY, DRI  */}
           <TableCell {...cellProps} className="ovr">
-            <PlayerStat value={player.abilities!.attackingProwess!} />
+            <PlayerStat value={player.ovr} />
           </TableCell>
           <TableCell {...cellProps} className="sht">
             <PlayerStat value={player.abilities!.finishing!} />

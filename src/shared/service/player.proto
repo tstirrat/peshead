@@ -24,8 +24,12 @@ message Player {
   required PlayerAppearance appearance = 19;
   UnknownOptions unknowns = 20;
 
-  string indexState = 21;
-  string indexError = 22;
+  // Not in binaries, must be calculated
+  required uint32 ovr = 30;
+
+  // remote DB states
+  string indexState = 42;
+  string indexError = 43;
 }
 
 message Physique {

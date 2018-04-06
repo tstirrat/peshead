@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message Team {
+  required string id = 1;
+  required string name = 3;
+}

@@ -21,13 +21,6 @@ export const reducer: Reducer<State> = (
   action: players.Actions
 ) => {
   switch (action.type) {
-    // Multiple players
-    case players.GET_PLAYERS_SUCCESS: {
-      const { results } = action.payload;
-      return setPlayers(state, results);
-    }
-
-    // Single player
     case players.GET_PLAYER: {
       const id = action.payload;
       return setLoading(state, id);
@@ -70,6 +63,8 @@ function setLoading(state: State, id: string): State {
 }
 
 function setError(state: State, id: string, error: Error): State {
+  // tslint:disable-next-line:no-console
+  console.log(id, error);
   return { ...state, error: { ...state.error, [id]: error } };
 }
 

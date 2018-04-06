@@ -14,7 +14,7 @@
     "test": "jest",
     "watch": "tsc --watch -p ./",
     "protos":
-      "pbjs -w commonjs -t static-module -o shared/service/api/index.js shared/service/api.proto shared/service/common.proto shared/service/player.proto",
+      "pbjs -w commonjs -t static-module -o shared/service/api/index.js shared/service/common.proto shared/service/player.proto shared/service/team.proto",
     "api":
       "yarn run protos; pbts -o shared/service/api/index.d.ts shared/service/api/index.js",
     "deploy": "yarn build && firebase deploy --only functions",
@@ -54,12 +54,7 @@
       "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(-|\\.)test\\.tsx?$",
-    "moduleFileExtensions": [
-      "js",
-      "ts",
-      "tsx",
-      "json"
-    ],
+    "moduleFileExtensions": ["js", "ts", "tsx", "json"],
     "collectCoverageFrom": [
       "**/*.{js,jsx,ts,tsx}",
       "!{build,coverage,@types}/**",

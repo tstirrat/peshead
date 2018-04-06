@@ -1,22 +1,27 @@
 // tslint:disable:no-console
+import { CollectionReference } from '@google-cloud/firestore';
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import { Physique, Player, PlayerAbilities, PlayerMotion } from '../shared/service/api';
-import { EditFile, Player as PlayerBinary } from '../typesets/edit-file';
+import { Physique, Player, PlayerAbilities, PlayerMotion, Team } from '../shared/service/api';
+import { getPositionWeights, getWeightedRating, PositionLabel } from '../shared/utils/player';
+import { EditFile, Player as PlayerBinary, Team as TeamBinary } from '../typesets/edit-file';
 
 const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);
+
+const RECORD_TYPES = ['players', 'teams'];
 
 /**
  * Load EDIT00000000 data and save into DB.
  */
 export async function load(
   fileName: string,
-  limit: number = 100,
-  offset: number = 0,
-  batchSize: number = 500
+  recordType: string,
+  limit = 100,
+  offset = 0,
+  batchSize = 500
 ) {
-  if (batchSize > 500) {
+  if (batchSize > 500 || !RECORD_TYPES.includes(recordType)) {
     throw new Error('batch size cannot be > 500');
   }
   const jb = await jBinary.load(fileName, EditFile);
@@ -27,9 +32,60 @@ export async function load(
   admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 
   const db = admin.firestore();
+  switch (recordType) {
+    case 'players':
+      await batchInsert<PlayerBinary>(
+        editData.players,
+        db.collection('players'),
+        (set, ref, player) => {
+          const record = createPlayer(player);
+          console.log(
+            `  adding ${record.id}: ` +
+              `[${record.ovr} ${PositionLabel[record.registeredPosition]}] ` +
+              `${record.name}...`
+          );
+          const payload = record.toJSON();
+          set(record.id, payload);
+        },
+        limit,
+        offset,
+        batchSize
+      );
+      break;
+    case 'teams':
+      await batchInsert<TeamBinary>(
+        editData.teams,
+        db.collection('teams'),
+        (set, ref, team) => {
+          const record = createTeam(team);
+          console.log(`  adding ${record.id}: ${record.name}...`);
+          const payload = record.toJSON();
+          set(record.id, payload);
+        },
+        limit,
+        offset,
+        batchSize
+      );
+      break;
+    default:
+      throw new Error(`unknown record type ${recordType}`);
+  }
+}
 
-  const playersRef = db.collection('players');
-  const remaining = editData.players;
+/** Insert items via Firestore batching */
+async function batchInsert<T>(
+  items: T[],
+  ref: CollectionReference,
+  callback: (
+    write: (id: string, payload: {}) => void,
+    ref: CollectionReference,
+    player: T
+  ) => void,
+  limit = 1000,
+  offset = 0,
+  batchSize = 500
+) {
+  const remaining = items;
   let count = 0;
   if (offset > 0) {
     remaining.splice(0, offset);
@@ -37,107 +93,110 @@ export async function load(
   const maxChunks = Math.ceil(limit / batchSize);
   let inserted = 0;
   while (remaining.length && count < maxChunks) {
-    const players = remaining.splice(0, batchSize);
-    const batch = db.batch();
+    const batchItems = remaining.splice(0, batchSize);
+    const batch = ref.firestore.batch();
 
-    players.forEach((player: PlayerBinary) => {
-      const record = createPlayer(player);
-      console.log(
-        `inserting ${record.id}: ${record.registeredPosition} ` +
-          `${record.name}...`
-      );
-      const payload = record.toJSON();
+    const set = (id: string, payload: {}) => {
       try {
-        batch.set(playersRef.doc('' + player.id), payload);
+        batch.set(ref.doc(id), payload);
       } catch (e) {
-        console.log(`could not insert player ${player.id}`, e);
+        console.log(`could not insert item ${id}`, e);
         hasUndefinedProperty(payload);
       }
-    });
+    };
+
+    batchItems.forEach(item => callback(set, ref, item));
+
     try {
+      console.log(`--- Writing batch: ${batchItems.length} items`);
       const results = await batch.commit();
       console.log(`--- Wrote: ${inserted + results.length}/${limit}`);
     } catch (e) {
-      console.log('xxx Failed to write batch:', e);
+      console.warn('xxx Failed to write batch:', e);
     }
     count++;
-    inserted += players.length;
+    inserted += batchItems.length;
   }
 
-  const startIndex = offset;
   const endIndex = offset + limit;
-  console.log(
-    `Wrote player offsets: ${startIndex} - ${endIndex} (wrote: ${inserted})`
-  );
-
-  // const teamsRef = db.collection('teams');
-  // const teams = editData.teams.map(async (team: any) => {
-  //   console.log(`Inserting ${team.id}...`);
-  //   return teamsRef.doc('' + team.id).set(team);
-  // });
-  // await Promise.all(teams);
-  // console.log(`Inserted ${teams.length} teams`);
+  console.log(`Wrote offsets: ${offset} - ${endIndex} (wrote: ${inserted})`);
 }
 
 /** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
-function createPlayer(player: PlayerBinary) {
-  return new Player({
-    id: '' + player.id,
-    commentaryId: '' + player.commentaryId,
-    nationality: player.nationality,
-    name: player.name,
-    kitName: player.printName,
-    age: player.block5.age,
+function createPlayer(input: PlayerBinary) {
+  const player = new Player({
+    id: '' + input.id,
+    commentaryId: '' + input.commentaryId,
+    nationality: input.nationality,
+    name: input.name,
+    kitName: input.printName,
+    age: input.block5.age,
     preferredFoot: 0, // player.block7.strongFoot ? 'LEFT' : 'RIGHT',
-    registeredPosition: player.block5.registeredPosition,
+    registeredPosition: input.block5.registeredPosition,
     physique: new Physique({
-      height: player.height,
-      weight: player.weight
+      height: input.height,
+      weight: input.weight
     }),
+    ovr: 0,
     appearance: {},
-    playingStyle: player.block5.playingStyle,
+    playingStyle: input.block5.playingStyle,
     abilities: new PlayerAbilities({
-      attackingProwess: player.block1.attackingProwess,
-      ballControl: player.block5.ballControl,
-      ballWinning: player.block5.ballWinning,
-      bodyControl: player.block4.bodyControl,
-      catching: player.block3.catching,
-      clearing: player.block3.clearing,
-      coverage: player.block6.coverage,
-      defensiveProwess: player.block1.defensiveProwess,
-      dribbling: player.block1.dribbling,
-      explosivePower: player.block4.explosivePower,
-      finishing: player.block2.finishing,
-      form: player.block2.form,
-      goalkeeping: player.block1.goalkeeping,
-      header: player.block2.header,
+      attackingProwess: input.block1.attackingProwess,
+      ballControl: input.block5.ballControl,
+      ballWinning: input.block5.ballWinning,
+      bodyControl: input.block4.bodyControl,
+      catching: input.block3.catching,
+      clearing: input.block3.clearing,
+      coverage: input.block6.coverage,
+      defensiveProwess: input.block1.defensiveProwess,
+      dribbling: input.block1.dribbling,
+      explosivePower: input.block4.explosivePower,
+      finishing: input.block2.finishing,
+      form: input.block2.form,
+      goalkeeping: input.block1.goalkeeping,
+      header: input.block2.header,
       injuryResistance: -1, // player.block3.injuryResistance,
-      jump: player.block6.jump,
-      kickingPower: player.block4.kickingPower,
-      loftedPass: player.block2.loftedPass,
-      lowPass: player.block2.lowPass,
-      physicalContact: player.block4.physicalContact,
-      placeKicking: player.block7.placeKicking,
-      reflexes: player.block3.reflexes,
-      speed: player.block8.speed,
-      stamina: player.block8.stamina,
-      swerve: player.block3.swerve,
+      jump: input.block6.jump,
+      kickingPower: input.block4.kickingPower,
+      loftedPass: input.block2.loftedPass,
+      lowPass: input.block2.lowPass,
+      physicalContact: input.block4.physicalContact,
+      placeKicking: input.block7.placeKicking,
+      reflexes: input.block3.reflexes,
+      speed: input.block8.speed,
+      stamina: input.block8.stamina,
+      swerve: input.block3.swerve,
       weakFootAccuracy: -1, //  player.block5.weakFootAccuracy,
       weakFootUsage: -1 //  player.block6.weakFootUsage,
     }),
     isEdited: false,
-    isBaseCopy: !!player.block8.isBaseCopy,
+    isBaseCopy: !!input.block8.isBaseCopy,
     motion: new PlayerMotion({
-      armDribbling: player.block4.motionDribblingArms,
-      armRunning: player.block6.motionRunningArms,
-      cornerKick: player.block6.motionCornerKick,
-      freeKick: player.block1.motionFreeKick,
-      goalCelebration1: player.motionGoalCelebration1,
-      goalCelebration2: player.motionGoalCelebration2,
-      hunchingDribbling: player.block7.motionDribblingHunching,
-      hunchingRunning: player.block7.motionRunningHunching,
-      penaltyKick: player.block7.motionPenaltyKick
+      armDribbling: input.block4.motionDribblingArms,
+      armRunning: input.block6.motionRunningArms,
+      cornerKick: input.block6.motionCornerKick,
+      freeKick: input.block1.motionFreeKick,
+      goalCelebration1: input.motionGoalCelebration1,
+      goalCelebration2: input.motionGoalCelebration2,
+      hunchingDribbling: input.block7.motionDribblingHunching,
+      hunchingRunning: input.block7.motionRunningHunching,
+      penaltyKick: input.block7.motionPenaltyKick
     })
+  });
+
+  const overallRating = getWeightedRating(
+    player,
+    getPositionWeights(player.registeredPosition)
+  );
+  player.ovr = overallRating;
+  return player;
+}
+
+/** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
+function createTeam(input: TeamBinary) {
+  return new Team({
+    id: '' + input.id,
+    name: input.name
   });
 }
 

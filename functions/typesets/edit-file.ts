@@ -415,13 +415,13 @@ export interface PlayerAppearance {
 }
 
 export interface Team {
-  id: string;
-  manager_id: string;
-  emblem_id: string;
-  stadium_id: string;
+  id: number;
+  manager_id: number;
+  emblem_id: number;
+  stadium_id: number;
   word1: string;
-  nationality_id: string;
-  callname_id: string;
+  nationality_id: number;
+  callname_id: number;
   color1r: number;
   color1g: number;
   stadium_net_id: number;

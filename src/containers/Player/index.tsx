@@ -82,9 +82,13 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
   }
 
   render() {
-    const { player, isLoading } = this.props;
+    const { player, isLoading, error } = this.props;
     return (
-      <Loading when={!player || isLoading} render={() => this.renderPlayer()} />
+      <Loading
+        when={!player || isLoading}
+        render={() => this.renderPlayer()}
+        error={error}
+      />
     );
   }
 

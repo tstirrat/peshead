@@ -1,368 +1,5 @@
 import * as $protobuf from "protobufjs";
 
-/** Represents a API */
-export class API extends $protobuf.rpc.Service {
-
-    /**
-     * Constructs a new API service.
-     * @param rpcImpl RPC implementation
-     * @param [requestDelimited=false] Whether requests are length-delimited
-     * @param [responseDelimited=false] Whether responses are length-delimited
-     */
-    constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
-
-    /**
-     * Creates new API service using the specified rpc implementation.
-     * @param rpcImpl RPC implementation
-     * @param [requestDelimited=false] Whether requests are length-delimited
-     * @param [responseDelimited=false] Whether responses are length-delimited
-     * @returns RPC service. Useful where requests and/or responses are streamed.
-     */
-    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): API;
-
-    /**
-     * Calls GetPlayer.
-     * @param request GetPlayerRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and Player
-     */
-    public getPlayer(request: IGetPlayerRequest, callback: API.GetPlayerCallback): void;
-
-    /**
-     * Calls GetPlayer.
-     * @param request GetPlayerRequest message or plain object
-     * @returns Promise
-     */
-    public getPlayer(request: IGetPlayerRequest): Promise<Player>;
-
-    /**
-     * Calls UpdatePlayer.
-     * @param request UpdatePlayerRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and Player
-     */
-    public updatePlayer(request: IUpdatePlayerRequest, callback: API.UpdatePlayerCallback): void;
-
-    /**
-     * Calls UpdatePlayer.
-     * @param request UpdatePlayerRequest message or plain object
-     * @returns Promise
-     */
-    public updatePlayer(request: IUpdatePlayerRequest): Promise<Player>;
-
-    /**
-     * Calls AddPlayer.
-     * @param request AddPlayerRequest message or plain object
-     * @param callback Node-style callback called with the error, if any, and Player
-     */
-    public addPlayer(request: IAddPlayerRequest, callback: API.AddPlayerCallback): void;
-
-    /**
-     * Calls AddPlayer.
-     * @param request AddPlayerRequest message or plain object
-     * @returns Promise
-     */
-    public addPlayer(request: IAddPlayerRequest): Promise<Player>;
-}
-
-export namespace API {
-
-    /**
-     * Callback as used by {@link API#getPlayer}.
-     * @param error Error, if any
-     * @param [response] Player
-     */
-    type GetPlayerCallback = (error: (Error|null), response?: Player) => void;
-
-    /**
-     * Callback as used by {@link API#updatePlayer}.
-     * @param error Error, if any
-     * @param [response] Player
-     */
-    type UpdatePlayerCallback = (error: (Error|null), response?: Player) => void;
-
-    /**
-     * Callback as used by {@link API#addPlayer}.
-     * @param error Error, if any
-     * @param [response] Player
-     */
-    type AddPlayerCallback = (error: (Error|null), response?: Player) => void;
-}
-
-/** Properties of a GetPlayerRequest. */
-export interface IGetPlayerRequest {
-
-    /** GetPlayerRequest playerId */
-    playerId?: (string|null);
-}
-
-/** Represents a GetPlayerRequest. */
-export class GetPlayerRequest implements IGetPlayerRequest {
-
-    /**
-     * Constructs a new GetPlayerRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IGetPlayerRequest);
-
-    /** GetPlayerRequest playerId. */
-    public playerId: string;
-
-    /**
-     * Creates a new GetPlayerRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns GetPlayerRequest instance
-     */
-    public static create(properties?: IGetPlayerRequest): GetPlayerRequest;
-
-    /**
-     * Encodes the specified GetPlayerRequest message. Does not implicitly {@link GetPlayerRequest.verify|verify} messages.
-     * @param message GetPlayerRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IGetPlayerRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified GetPlayerRequest message, length delimited. Does not implicitly {@link GetPlayerRequest.verify|verify} messages.
-     * @param message GetPlayerRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IGetPlayerRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a GetPlayerRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns GetPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): GetPlayerRequest;
-
-    /**
-     * Decodes a GetPlayerRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns GetPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): GetPlayerRequest;
-
-    /**
-     * Verifies a GetPlayerRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a GetPlayerRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns GetPlayerRequest
-     */
-    public static fromObject(object: { [k: string]: any }): GetPlayerRequest;
-
-    /**
-     * Creates a plain object from a GetPlayerRequest message. Also converts values to other types if specified.
-     * @param message GetPlayerRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: GetPlayerRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this GetPlayerRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of an UpdatePlayerRequest. */
-export interface IUpdatePlayerRequest {
-
-    /** UpdatePlayerRequest playerId */
-    playerId?: (string|null);
-
-    /** UpdatePlayerRequest player */
-    player?: (IPlayer|null);
-}
-
-/** Represents an UpdatePlayerRequest. */
-export class UpdatePlayerRequest implements IUpdatePlayerRequest {
-
-    /**
-     * Constructs a new UpdatePlayerRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IUpdatePlayerRequest);
-
-    /** UpdatePlayerRequest playerId. */
-    public playerId: string;
-
-    /** UpdatePlayerRequest player. */
-    public player?: (IPlayer|null);
-
-    /**
-     * Creates a new UpdatePlayerRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns UpdatePlayerRequest instance
-     */
-    public static create(properties?: IUpdatePlayerRequest): UpdatePlayerRequest;
-
-    /**
-     * Encodes the specified UpdatePlayerRequest message. Does not implicitly {@link UpdatePlayerRequest.verify|verify} messages.
-     * @param message UpdatePlayerRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IUpdatePlayerRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified UpdatePlayerRequest message, length delimited. Does not implicitly {@link UpdatePlayerRequest.verify|verify} messages.
-     * @param message UpdatePlayerRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IUpdatePlayerRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an UpdatePlayerRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns UpdatePlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): UpdatePlayerRequest;
-
-    /**
-     * Decodes an UpdatePlayerRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns UpdatePlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): UpdatePlayerRequest;
-
-    /**
-     * Verifies an UpdatePlayerRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an UpdatePlayerRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns UpdatePlayerRequest
-     */
-    public static fromObject(object: { [k: string]: any }): UpdatePlayerRequest;
-
-    /**
-     * Creates a plain object from an UpdatePlayerRequest message. Also converts values to other types if specified.
-     * @param message UpdatePlayerRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: UpdatePlayerRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this UpdatePlayerRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of an AddPlayerRequest. */
-export interface IAddPlayerRequest {
-
-    /** AddPlayerRequest player */
-    player?: (IPlayer|null);
-}
-
-/** Represents an AddPlayerRequest. */
-export class AddPlayerRequest implements IAddPlayerRequest {
-
-    /**
-     * Constructs a new AddPlayerRequest.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IAddPlayerRequest);
-
-    /** AddPlayerRequest player. */
-    public player?: (IPlayer|null);
-
-    /**
-     * Creates a new AddPlayerRequest instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns AddPlayerRequest instance
-     */
-    public static create(properties?: IAddPlayerRequest): AddPlayerRequest;
-
-    /**
-     * Encodes the specified AddPlayerRequest message. Does not implicitly {@link AddPlayerRequest.verify|verify} messages.
-     * @param message AddPlayerRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IAddPlayerRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified AddPlayerRequest message, length delimited. Does not implicitly {@link AddPlayerRequest.verify|verify} messages.
-     * @param message AddPlayerRequest message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IAddPlayerRequest, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an AddPlayerRequest message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns AddPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): AddPlayerRequest;
-
-    /**
-     * Decodes an AddPlayerRequest message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns AddPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): AddPlayerRequest;
-
-    /**
-     * Verifies an AddPlayerRequest message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an AddPlayerRequest message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns AddPlayerRequest
-     */
-    public static fromObject(object: { [k: string]: any }): AddPlayerRequest;
-
-    /**
-     * Creates a plain object from an AddPlayerRequest message. Also converts values to other types if specified.
-     * @param message AddPlayerRequest
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: AddPlayerRequest, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this AddPlayerRequest to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
 /** Country enum. */
 export enum Country {
     AFGHANISTAN = 1,
@@ -615,6 +252,9 @@ export interface IPlayer {
     /** Player unknowns */
     unknowns?: (IUnknownOptions|null);
 
+    /** Player ovr */
+    ovr: number;
+
     /** Player indexState */
     indexState?: (string|null);
 
@@ -690,6 +330,9 @@ export class Player implements IPlayer {
 
     /** Player unknowns. */
     public unknowns?: (IUnknownOptions|null);
+
+    /** Player ovr. */
+    public ovr: number;
 
     /** Player indexState. */
     public indexState: string;
@@ -1728,6 +1371,102 @@ export class UnknownOptions implements IUnknownOptions {
 
     /**
      * Converts this UnknownOptions to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a Team. */
+export interface ITeam {
+
+    /** Team id */
+    id: string;
+
+    /** Team name */
+    name: string;
+}
+
+/** Represents a Team. */
+export class Team implements ITeam {
+
+    /**
+     * Constructs a new Team.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ITeam);
+
+    /** Team id. */
+    public id: string;
+
+    /** Team name. */
+    public name: string;
+
+    /**
+     * Creates a new Team instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns Team instance
+     */
+    public static create(properties?: ITeam): Team;
+
+    /**
+     * Encodes the specified Team message. Does not implicitly {@link Team.verify|verify} messages.
+     * @param message Team message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ITeam, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified Team message, length delimited. Does not implicitly {@link Team.verify|verify} messages.
+     * @param message Team message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ITeam, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a Team message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns Team
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Team;
+
+    /**
+     * Decodes a Team message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns Team
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Team;
+
+    /**
+     * Verifies a Team message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a Team message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns Team
+     */
+    public static fromObject(object: { [k: string]: any }): Team;
+
+    /**
+     * Creates a plain object from a Team message. Also converts values to other types if specified.
+     * @param message Team
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: Team, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this Team to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
