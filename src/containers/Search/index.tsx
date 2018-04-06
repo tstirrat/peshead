@@ -84,8 +84,7 @@ const getViewModel = (state: fromRoot.State): ViewModel => {
 
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
-    search: (query: search.SearchRequestPayload) =>
-      dispatch(search.search(query)),
+    search: (query: string) => dispatch(search.search(query)),
     dispatch
   };
 };

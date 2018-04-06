@@ -4,77 +4,58 @@ import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { Link } from 'redux-little-router';
 
-import * as search from '../../actions/search';
-import { Loading } from '../../components/Loading';
-import { PlayerTable } from '../../components/PlayerTable';
-import * as fromRoot from '../../reducers';
-import { Player } from '../../shared/service/api';
-
-export interface ViewModel {
-  isLoading: boolean;
-  results: Player[];
-  error?: Error;
+interface State {
+  query: string;
 }
 
-export interface Actions {
-  search: typeof search.search;
-  dispatch: Dispatch<fromRoot.State>;
-}
-
-export class Home extends React.PureComponent<ViewModel & Actions> {
-  componentDidMount() {
-    const { results, isLoading } = this.props;
-    // tslint:disable-next-line:no-console
-    console.log(this.props);
-    if (!isLoading && !results.length) {
-      // tslint:disable-next-line:no-console
-      console.log('searching...');
-      this.props.search({ query: 'mes' });
-    }
-  }
+export class Home extends React.PureComponent<{}, State> {
+  state: State = {
+    query: ''
+  };
 
   render() {
-    const { isLoading, error } = this.props;
     return (
       <div>
         <Helmet>
           <title>PESto - Home</title>
         </Helmet>
         <Typography type="title">Players</Typography>
+        <Card className="Home">
+          <ul>
+            <li>
+              <Link href="/players/37134">N. CHERUBIN</Link>
+            </li>
+            <li>
+              <Link href="/players/7511">L. MESSI</Link>
+            </li>
+            <li>
+              <Link href="/players/4522">C. RONALDO</Link>
+            </li>
+          </ul>
+        </Card>
+        <Typography type="title">Compare</Typography>
         <Card>
-          <Loading
-            when={isLoading}
-            error={error}
-            render={this.renderPlayerTable}
-          />
+          <ul>
+            <li>
+              <Link href="/players/compare/37134/7511">
+                N. CHERUBIN vs. L. MESSI
+              </Link>
+            </li>
+            <li>
+              <Link href="/players/compare/7511/4522">
+                L. MESSI vs. C. RONALDO
+              </Link>
+            </li>
+            <li>
+              <Link href="/players/compare/4522/7511-A-L1">
+                C. RONALDO vs. L1A MESSI
+              </Link>
+            </li>
+          </ul>
         </Card>
       </div>
     );
   }
-
-  private renderPlayerTable = () => {
-    const { results } = this.props;
-    return <PlayerTable players={results} />;
-  };
 }
-
-const getViewModel = (state: fromRoot.State): ViewModel => {
-  return {
-    isLoading: fromRoot.getSearchIsLoading(state),
-    results: fromRoot.getSearchResults(state),
-    error: fromRoot.getSearchError(state)
-  };
-};
-
-const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
-  return {
-    search: (query: search.SearchRequestPayload) =>
-      dispatch(search.search(query)),
-    dispatch
-  };
-};
-
-export const ConnectedHome = connect(getViewModel, getActions)(Home);
