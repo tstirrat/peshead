@@ -5,41 +5,47 @@
 #
 session="pesto"
 
-# set up tmux
-tmux start-server
+if ( $(tmux has-session -t $session 2>/dev/null) ); then
+  tmux attach-session -t $session
 
-# create a new tmux session, starting vim from a saved session in the new window
-tmux new-session -d -s $session -n serve
+else
 
-# Select pane 1, FE server
-tmux selectp -t 1
-tmux send-keys "yarn start" C-m
+  # set up tmux
+  tmux start-server
 
-tmux selectp -t 1
-tmux splitw -v -p 70
+  # create a new tmux session, starting vim from a saved session in the new window
+  tmux new-session -d -s $session -n serve
 
-# PANE 2, functions watch
-tmux selectp -t 2
-tmux send-keys "cd functions; yarn watch" C-m
+  # Select pane 1, FE server
+  tmux selectp -t 1
+  tmux send-keys "yarn start" C-m
 
-tmux selectp -t 2
-tmux splitw -v -p 66
+  tmux selectp -t 1
+  tmux splitw -v -p 70
 
-# PANE 3, functions server
-tmux selectp -t 3
-tmux send-keys "yarn server" C-m
+  # PANE 2, functions watch
+  tmux selectp -t 2
+  tmux send-keys "cd functions; yarn watch" C-m
 
-# PANE 4, general scratch
-tmux splitw -v -p 50
+  tmux selectp -t 2
+  tmux splitw -v -p 66
 
-# Select pane 1
-# tmux selectp -t 1
+  # PANE 3, functions server
+  tmux selectp -t 3
+  tmux send-keys "yarn server" C-m
 
-# create a new window called scratch
-tmux new-window -t $session:1 -n scratch
+  # PANE 4, general scratch
+  tmux splitw -v -p 50
 
-# return to main vim window
-tmux select-window -t $session:0
+  # Select pane 1
+  # tmux selectp -t 1
 
-# Finished setup, attach to the tmux session!
-tmux attach-session -t $session
+  # create a new window called scratch
+  tmux new-window -t $session:1 -n scratch
+
+  # return to main vim window
+  tmux select-window -t $session:0
+
+  # Finished setup, attach to the tmux session!
+  tmux attach-session -t $session
+fi
