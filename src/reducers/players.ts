@@ -63,9 +63,11 @@ function setLoading(state: State, id: string): State {
 }
 
 function setError(state: State, id: string, error: Error): State {
-  // tslint:disable-next-line:no-console
-  console.log(id, error);
-  return { ...state, error: { ...state.error, [id]: error } };
+  return {
+    ...state,
+    error: { ...state.error, [id]: error },
+    isLoading: { ...state.isLoading, [id]: false }
+  };
 }
 
 // Selectors
