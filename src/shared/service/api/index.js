@@ -9,734 +9,6 @@ var $Reader = $protobuf.Reader, $Writer = $protobuf.Writer, $util = $protobuf.ut
 // Exported root namespace
 var $root = $protobuf.roots["default"] || ($protobuf.roots["default"] = {});
 
-$root.API = (function() {
-
-    /**
-     * Constructs a new API service.
-     * @exports API
-     * @classdesc Represents a API
-     * @extends $protobuf.rpc.Service
-     * @constructor
-     * @param {$protobuf.RPCImpl} rpcImpl RPC implementation
-     * @param {boolean} [requestDelimited=false] Whether requests are length-delimited
-     * @param {boolean} [responseDelimited=false] Whether responses are length-delimited
-     */
-    function API(rpcImpl, requestDelimited, responseDelimited) {
-        $protobuf.rpc.Service.call(this, rpcImpl, requestDelimited, responseDelimited);
-    }
-
-    (API.prototype = Object.create($protobuf.rpc.Service.prototype)).constructor = API;
-
-    /**
-     * Creates new API service using the specified rpc implementation.
-     * @function create
-     * @memberof API
-     * @static
-     * @param {$protobuf.RPCImpl} rpcImpl RPC implementation
-     * @param {boolean} [requestDelimited=false] Whether requests are length-delimited
-     * @param {boolean} [responseDelimited=false] Whether responses are length-delimited
-     * @returns {API} RPC service. Useful where requests and/or responses are streamed.
-     */
-    API.create = function create(rpcImpl, requestDelimited, responseDelimited) {
-        return new this(rpcImpl, requestDelimited, responseDelimited);
-    };
-
-    /**
-     * Callback as used by {@link API#getPlayer}.
-     * @memberof API
-     * @typedef GetPlayerCallback
-     * @type {function}
-     * @param {Error|null} error Error, if any
-     * @param {Player} [response] Player
-     */
-
-    /**
-     * Calls GetPlayer.
-     * @function getPlayer
-     * @memberof API
-     * @instance
-     * @param {IGetPlayerRequest} request GetPlayerRequest message or plain object
-     * @param {API.GetPlayerCallback} callback Node-style callback called with the error, if any, and Player
-     * @returns {undefined}
-     * @variation 1
-     */
-    API.prototype.getPlayer = function getPlayer(request, callback) {
-        return this.rpcCall(getPlayer, $root.GetPlayerRequest, $root.Player, request, callback);
-    };
-
-    /**
-     * Calls GetPlayer.
-     * @function getPlayer
-     * @memberof API
-     * @instance
-     * @param {IGetPlayerRequest} request GetPlayerRequest message or plain object
-     * @returns {Promise<Player>} Promise
-     * @variation 2
-     */
-
-    /**
-     * Callback as used by {@link API#updatePlayer}.
-     * @memberof API
-     * @typedef UpdatePlayerCallback
-     * @type {function}
-     * @param {Error|null} error Error, if any
-     * @param {Player} [response] Player
-     */
-
-    /**
-     * Calls UpdatePlayer.
-     * @function updatePlayer
-     * @memberof API
-     * @instance
-     * @param {IUpdatePlayerRequest} request UpdatePlayerRequest message or plain object
-     * @param {API.UpdatePlayerCallback} callback Node-style callback called with the error, if any, and Player
-     * @returns {undefined}
-     * @variation 1
-     */
-    API.prototype.updatePlayer = function updatePlayer(request, callback) {
-        return this.rpcCall(updatePlayer, $root.UpdatePlayerRequest, $root.Player, request, callback);
-    };
-
-    /**
-     * Calls UpdatePlayer.
-     * @function updatePlayer
-     * @memberof API
-     * @instance
-     * @param {IUpdatePlayerRequest} request UpdatePlayerRequest message or plain object
-     * @returns {Promise<Player>} Promise
-     * @variation 2
-     */
-
-    /**
-     * Callback as used by {@link API#addPlayer}.
-     * @memberof API
-     * @typedef AddPlayerCallback
-     * @type {function}
-     * @param {Error|null} error Error, if any
-     * @param {Player} [response] Player
-     */
-
-    /**
-     * Calls AddPlayer.
-     * @function addPlayer
-     * @memberof API
-     * @instance
-     * @param {IAddPlayerRequest} request AddPlayerRequest message or plain object
-     * @param {API.AddPlayerCallback} callback Node-style callback called with the error, if any, and Player
-     * @returns {undefined}
-     * @variation 1
-     */
-    API.prototype.addPlayer = function addPlayer(request, callback) {
-        return this.rpcCall(addPlayer, $root.AddPlayerRequest, $root.Player, request, callback);
-    };
-
-    /**
-     * Calls AddPlayer.
-     * @function addPlayer
-     * @memberof API
-     * @instance
-     * @param {IAddPlayerRequest} request AddPlayerRequest message or plain object
-     * @returns {Promise<Player>} Promise
-     * @variation 2
-     */
-
-    return API;
-})();
-
-$root.GetPlayerRequest = (function() {
-
-    /**
-     * Properties of a GetPlayerRequest.
-     * @exports IGetPlayerRequest
-     * @interface IGetPlayerRequest
-     * @property {string|null} [playerId] GetPlayerRequest playerId
-     */
-
-    /**
-     * Constructs a new GetPlayerRequest.
-     * @exports GetPlayerRequest
-     * @classdesc Represents a GetPlayerRequest.
-     * @implements IGetPlayerRequest
-     * @constructor
-     * @param {IGetPlayerRequest=} [properties] Properties to set
-     */
-    function GetPlayerRequest(properties) {
-        if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                if (properties[keys[i]] != null)
-                    this[keys[i]] = properties[keys[i]];
-    }
-
-    /**
-     * GetPlayerRequest playerId.
-     * @member {string} playerId
-     * @memberof GetPlayerRequest
-     * @instance
-     */
-    GetPlayerRequest.prototype.playerId = "";
-
-    /**
-     * Creates a new GetPlayerRequest instance using the specified properties.
-     * @function create
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {IGetPlayerRequest=} [properties] Properties to set
-     * @returns {GetPlayerRequest} GetPlayerRequest instance
-     */
-    GetPlayerRequest.create = function create(properties) {
-        return new GetPlayerRequest(properties);
-    };
-
-    /**
-     * Encodes the specified GetPlayerRequest message. Does not implicitly {@link GetPlayerRequest.verify|verify} messages.
-     * @function encode
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {IGetPlayerRequest} message GetPlayerRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    GetPlayerRequest.encode = function encode(message, writer) {
-        if (!writer)
-            writer = $Writer.create();
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            writer.uint32(/* id 1, wireType 2 =*/10).string(message.playerId);
-        return writer;
-    };
-
-    /**
-     * Encodes the specified GetPlayerRequest message, length delimited. Does not implicitly {@link GetPlayerRequest.verify|verify} messages.
-     * @function encodeDelimited
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {IGetPlayerRequest} message GetPlayerRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    GetPlayerRequest.encodeDelimited = function encodeDelimited(message, writer) {
-        return this.encode(message, writer).ldelim();
-    };
-
-    /**
-     * Decodes a GetPlayerRequest message from the specified reader or buffer.
-     * @function decode
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @param {number} [length] Message length if known beforehand
-     * @returns {GetPlayerRequest} GetPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    GetPlayerRequest.decode = function decode(reader, length) {
-        if (!(reader instanceof $Reader))
-            reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.GetPlayerRequest();
-        while (reader.pos < end) {
-            var tag = reader.uint32();
-            switch (tag >>> 3) {
-            case 1:
-                message.playerId = reader.string();
-                break;
-            default:
-                reader.skipType(tag & 7);
-                break;
-            }
-        }
-        return message;
-    };
-
-    /**
-     * Decodes a GetPlayerRequest message from the specified reader or buffer, length delimited.
-     * @function decodeDelimited
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @returns {GetPlayerRequest} GetPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    GetPlayerRequest.decodeDelimited = function decodeDelimited(reader) {
-        if (!(reader instanceof $Reader))
-            reader = new $Reader(reader);
-        return this.decode(reader, reader.uint32());
-    };
-
-    /**
-     * Verifies a GetPlayerRequest message.
-     * @function verify
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {Object.<string,*>} message Plain object to verify
-     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-     */
-    GetPlayerRequest.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-            return "object expected";
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            if (!$util.isString(message.playerId))
-                return "playerId: string expected";
-        return null;
-    };
-
-    /**
-     * Creates a GetPlayerRequest message from a plain object. Also converts values to their respective internal types.
-     * @function fromObject
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {Object.<string,*>} object Plain object
-     * @returns {GetPlayerRequest} GetPlayerRequest
-     */
-    GetPlayerRequest.fromObject = function fromObject(object) {
-        if (object instanceof $root.GetPlayerRequest)
-            return object;
-        var message = new $root.GetPlayerRequest();
-        if (object.playerId != null)
-            message.playerId = String(object.playerId);
-        return message;
-    };
-
-    /**
-     * Creates a plain object from a GetPlayerRequest message. Also converts values to other types if specified.
-     * @function toObject
-     * @memberof GetPlayerRequest
-     * @static
-     * @param {GetPlayerRequest} message GetPlayerRequest
-     * @param {$protobuf.IConversionOptions} [options] Conversion options
-     * @returns {Object.<string,*>} Plain object
-     */
-    GetPlayerRequest.toObject = function toObject(message, options) {
-        if (!options)
-            options = {};
-        var object = {};
-        if (options.defaults)
-            object.playerId = "";
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            object.playerId = message.playerId;
-        return object;
-    };
-
-    /**
-     * Converts this GetPlayerRequest to JSON.
-     * @function toJSON
-     * @memberof GetPlayerRequest
-     * @instance
-     * @returns {Object.<string,*>} JSON object
-     */
-    GetPlayerRequest.prototype.toJSON = function toJSON() {
-        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-    };
-
-    return GetPlayerRequest;
-})();
-
-$root.UpdatePlayerRequest = (function() {
-
-    /**
-     * Properties of an UpdatePlayerRequest.
-     * @exports IUpdatePlayerRequest
-     * @interface IUpdatePlayerRequest
-     * @property {string|null} [playerId] UpdatePlayerRequest playerId
-     * @property {IPlayer|null} [player] UpdatePlayerRequest player
-     */
-
-    /**
-     * Constructs a new UpdatePlayerRequest.
-     * @exports UpdatePlayerRequest
-     * @classdesc Represents an UpdatePlayerRequest.
-     * @implements IUpdatePlayerRequest
-     * @constructor
-     * @param {IUpdatePlayerRequest=} [properties] Properties to set
-     */
-    function UpdatePlayerRequest(properties) {
-        if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                if (properties[keys[i]] != null)
-                    this[keys[i]] = properties[keys[i]];
-    }
-
-    /**
-     * UpdatePlayerRequest playerId.
-     * @member {string} playerId
-     * @memberof UpdatePlayerRequest
-     * @instance
-     */
-    UpdatePlayerRequest.prototype.playerId = "";
-
-    /**
-     * UpdatePlayerRequest player.
-     * @member {IPlayer|null|undefined} player
-     * @memberof UpdatePlayerRequest
-     * @instance
-     */
-    UpdatePlayerRequest.prototype.player = null;
-
-    /**
-     * Creates a new UpdatePlayerRequest instance using the specified properties.
-     * @function create
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {IUpdatePlayerRequest=} [properties] Properties to set
-     * @returns {UpdatePlayerRequest} UpdatePlayerRequest instance
-     */
-    UpdatePlayerRequest.create = function create(properties) {
-        return new UpdatePlayerRequest(properties);
-    };
-
-    /**
-     * Encodes the specified UpdatePlayerRequest message. Does not implicitly {@link UpdatePlayerRequest.verify|verify} messages.
-     * @function encode
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {IUpdatePlayerRequest} message UpdatePlayerRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    UpdatePlayerRequest.encode = function encode(message, writer) {
-        if (!writer)
-            writer = $Writer.create();
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            writer.uint32(/* id 1, wireType 2 =*/10).string(message.playerId);
-        if (message.player != null && message.hasOwnProperty("player"))
-            $root.Player.encode(message.player, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-        return writer;
-    };
-
-    /**
-     * Encodes the specified UpdatePlayerRequest message, length delimited. Does not implicitly {@link UpdatePlayerRequest.verify|verify} messages.
-     * @function encodeDelimited
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {IUpdatePlayerRequest} message UpdatePlayerRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    UpdatePlayerRequest.encodeDelimited = function encodeDelimited(message, writer) {
-        return this.encode(message, writer).ldelim();
-    };
-
-    /**
-     * Decodes an UpdatePlayerRequest message from the specified reader or buffer.
-     * @function decode
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @param {number} [length] Message length if known beforehand
-     * @returns {UpdatePlayerRequest} UpdatePlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    UpdatePlayerRequest.decode = function decode(reader, length) {
-        if (!(reader instanceof $Reader))
-            reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.UpdatePlayerRequest();
-        while (reader.pos < end) {
-            var tag = reader.uint32();
-            switch (tag >>> 3) {
-            case 1:
-                message.playerId = reader.string();
-                break;
-            case 2:
-                message.player = $root.Player.decode(reader, reader.uint32());
-                break;
-            default:
-                reader.skipType(tag & 7);
-                break;
-            }
-        }
-        return message;
-    };
-
-    /**
-     * Decodes an UpdatePlayerRequest message from the specified reader or buffer, length delimited.
-     * @function decodeDelimited
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @returns {UpdatePlayerRequest} UpdatePlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    UpdatePlayerRequest.decodeDelimited = function decodeDelimited(reader) {
-        if (!(reader instanceof $Reader))
-            reader = new $Reader(reader);
-        return this.decode(reader, reader.uint32());
-    };
-
-    /**
-     * Verifies an UpdatePlayerRequest message.
-     * @function verify
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {Object.<string,*>} message Plain object to verify
-     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-     */
-    UpdatePlayerRequest.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-            return "object expected";
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            if (!$util.isString(message.playerId))
-                return "playerId: string expected";
-        if (message.player != null && message.hasOwnProperty("player")) {
-            var error = $root.Player.verify(message.player);
-            if (error)
-                return "player." + error;
-        }
-        return null;
-    };
-
-    /**
-     * Creates an UpdatePlayerRequest message from a plain object. Also converts values to their respective internal types.
-     * @function fromObject
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {Object.<string,*>} object Plain object
-     * @returns {UpdatePlayerRequest} UpdatePlayerRequest
-     */
-    UpdatePlayerRequest.fromObject = function fromObject(object) {
-        if (object instanceof $root.UpdatePlayerRequest)
-            return object;
-        var message = new $root.UpdatePlayerRequest();
-        if (object.playerId != null)
-            message.playerId = String(object.playerId);
-        if (object.player != null) {
-            if (typeof object.player !== "object")
-                throw TypeError(".UpdatePlayerRequest.player: object expected");
-            message.player = $root.Player.fromObject(object.player);
-        }
-        return message;
-    };
-
-    /**
-     * Creates a plain object from an UpdatePlayerRequest message. Also converts values to other types if specified.
-     * @function toObject
-     * @memberof UpdatePlayerRequest
-     * @static
-     * @param {UpdatePlayerRequest} message UpdatePlayerRequest
-     * @param {$protobuf.IConversionOptions} [options] Conversion options
-     * @returns {Object.<string,*>} Plain object
-     */
-    UpdatePlayerRequest.toObject = function toObject(message, options) {
-        if (!options)
-            options = {};
-        var object = {};
-        if (options.defaults) {
-            object.playerId = "";
-            object.player = null;
-        }
-        if (message.playerId != null && message.hasOwnProperty("playerId"))
-            object.playerId = message.playerId;
-        if (message.player != null && message.hasOwnProperty("player"))
-            object.player = $root.Player.toObject(message.player, options);
-        return object;
-    };
-
-    /**
-     * Converts this UpdatePlayerRequest to JSON.
-     * @function toJSON
-     * @memberof UpdatePlayerRequest
-     * @instance
-     * @returns {Object.<string,*>} JSON object
-     */
-    UpdatePlayerRequest.prototype.toJSON = function toJSON() {
-        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-    };
-
-    return UpdatePlayerRequest;
-})();
-
-$root.AddPlayerRequest = (function() {
-
-    /**
-     * Properties of an AddPlayerRequest.
-     * @exports IAddPlayerRequest
-     * @interface IAddPlayerRequest
-     * @property {IPlayer|null} [player] AddPlayerRequest player
-     */
-
-    /**
-     * Constructs a new AddPlayerRequest.
-     * @exports AddPlayerRequest
-     * @classdesc Represents an AddPlayerRequest.
-     * @implements IAddPlayerRequest
-     * @constructor
-     * @param {IAddPlayerRequest=} [properties] Properties to set
-     */
-    function AddPlayerRequest(properties) {
-        if (properties)
-            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                if (properties[keys[i]] != null)
-                    this[keys[i]] = properties[keys[i]];
-    }
-
-    /**
-     * AddPlayerRequest player.
-     * @member {IPlayer|null|undefined} player
-     * @memberof AddPlayerRequest
-     * @instance
-     */
-    AddPlayerRequest.prototype.player = null;
-
-    /**
-     * Creates a new AddPlayerRequest instance using the specified properties.
-     * @function create
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {IAddPlayerRequest=} [properties] Properties to set
-     * @returns {AddPlayerRequest} AddPlayerRequest instance
-     */
-    AddPlayerRequest.create = function create(properties) {
-        return new AddPlayerRequest(properties);
-    };
-
-    /**
-     * Encodes the specified AddPlayerRequest message. Does not implicitly {@link AddPlayerRequest.verify|verify} messages.
-     * @function encode
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {IAddPlayerRequest} message AddPlayerRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    AddPlayerRequest.encode = function encode(message, writer) {
-        if (!writer)
-            writer = $Writer.create();
-        if (message.player != null && message.hasOwnProperty("player"))
-            $root.Player.encode(message.player, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-        return writer;
-    };
-
-    /**
-     * Encodes the specified AddPlayerRequest message, length delimited. Does not implicitly {@link AddPlayerRequest.verify|verify} messages.
-     * @function encodeDelimited
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {IAddPlayerRequest} message AddPlayerRequest message or plain object to encode
-     * @param {$protobuf.Writer} [writer] Writer to encode to
-     * @returns {$protobuf.Writer} Writer
-     */
-    AddPlayerRequest.encodeDelimited = function encodeDelimited(message, writer) {
-        return this.encode(message, writer).ldelim();
-    };
-
-    /**
-     * Decodes an AddPlayerRequest message from the specified reader or buffer.
-     * @function decode
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @param {number} [length] Message length if known beforehand
-     * @returns {AddPlayerRequest} AddPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    AddPlayerRequest.decode = function decode(reader, length) {
-        if (!(reader instanceof $Reader))
-            reader = $Reader.create(reader);
-        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.AddPlayerRequest();
-        while (reader.pos < end) {
-            var tag = reader.uint32();
-            switch (tag >>> 3) {
-            case 2:
-                message.player = $root.Player.decode(reader, reader.uint32());
-                break;
-            default:
-                reader.skipType(tag & 7);
-                break;
-            }
-        }
-        return message;
-    };
-
-    /**
-     * Decodes an AddPlayerRequest message from the specified reader or buffer, length delimited.
-     * @function decodeDelimited
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-     * @returns {AddPlayerRequest} AddPlayerRequest
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    AddPlayerRequest.decodeDelimited = function decodeDelimited(reader) {
-        if (!(reader instanceof $Reader))
-            reader = new $Reader(reader);
-        return this.decode(reader, reader.uint32());
-    };
-
-    /**
-     * Verifies an AddPlayerRequest message.
-     * @function verify
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {Object.<string,*>} message Plain object to verify
-     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-     */
-    AddPlayerRequest.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-            return "object expected";
-        if (message.player != null && message.hasOwnProperty("player")) {
-            var error = $root.Player.verify(message.player);
-            if (error)
-                return "player." + error;
-        }
-        return null;
-    };
-
-    /**
-     * Creates an AddPlayerRequest message from a plain object. Also converts values to their respective internal types.
-     * @function fromObject
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {Object.<string,*>} object Plain object
-     * @returns {AddPlayerRequest} AddPlayerRequest
-     */
-    AddPlayerRequest.fromObject = function fromObject(object) {
-        if (object instanceof $root.AddPlayerRequest)
-            return object;
-        var message = new $root.AddPlayerRequest();
-        if (object.player != null) {
-            if (typeof object.player !== "object")
-                throw TypeError(".AddPlayerRequest.player: object expected");
-            message.player = $root.Player.fromObject(object.player);
-        }
-        return message;
-    };
-
-    /**
-     * Creates a plain object from an AddPlayerRequest message. Also converts values to other types if specified.
-     * @function toObject
-     * @memberof AddPlayerRequest
-     * @static
-     * @param {AddPlayerRequest} message AddPlayerRequest
-     * @param {$protobuf.IConversionOptions} [options] Conversion options
-     * @returns {Object.<string,*>} Plain object
-     */
-    AddPlayerRequest.toObject = function toObject(message, options) {
-        if (!options)
-            options = {};
-        var object = {};
-        if (options.defaults)
-            object.player = null;
-        if (message.player != null && message.hasOwnProperty("player"))
-            object.player = $root.Player.toObject(message.player, options);
-        return object;
-    };
-
-    /**
-     * Converts this AddPlayerRequest to JSON.
-     * @function toJSON
-     * @memberof AddPlayerRequest
-     * @instance
-     * @returns {Object.<string,*>} JSON object
-     */
-    AddPlayerRequest.prototype.toJSON = function toJSON() {
-        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-    };
-
-    return AddPlayerRequest;
-})();
-
 /**
  * Country enum.
  * @exports Country
@@ -1143,6 +415,7 @@ $root.Player = (function() {
      * @property {Array.<Skill>|null} [playerSkills] Player playerSkills
      * @property {IPlayerAppearance} appearance Player appearance
      * @property {IUnknownOptions|null} [unknowns] Player unknowns
+     * @property {number} ovr Player ovr
      * @property {string|null} [indexState] Player indexState
      * @property {string|null} [indexError] Player indexError
      */
@@ -1326,6 +599,14 @@ $root.Player = (function() {
     Player.prototype.unknowns = null;
 
     /**
+     * Player ovr.
+     * @member {number} ovr
+     * @memberof Player
+     * @instance
+     */
+    Player.prototype.ovr = 0;
+
+    /**
      * Player indexState.
      * @member {string} indexState
      * @memberof Player
@@ -1403,10 +684,11 @@ $root.Player = (function() {
         $root.PlayerAppearance.encode(message.appearance, writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
         if (message.unknowns != null && message.hasOwnProperty("unknowns"))
             $root.UnknownOptions.encode(message.unknowns, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
+        writer.uint32(/* id 30, wireType 0 =*/240).uint32(message.ovr);
         if (message.indexState != null && message.hasOwnProperty("indexState"))
-            writer.uint32(/* id 21, wireType 2 =*/170).string(message.indexState);
+            writer.uint32(/* id 42, wireType 2 =*/338).string(message.indexState);
         if (message.indexError != null && message.hasOwnProperty("indexError"))
-            writer.uint32(/* id 22, wireType 2 =*/178).string(message.indexError);
+            writer.uint32(/* id 43, wireType 2 =*/346).string(message.indexError);
         return writer;
     };
 
@@ -1522,10 +804,13 @@ $root.Player = (function() {
             case 20:
                 message.unknowns = $root.UnknownOptions.decode(reader, reader.uint32());
                 break;
-            case 21:
+            case 30:
+                message.ovr = reader.uint32();
+                break;
+            case 42:
                 message.indexState = reader.string();
                 break;
-            case 22:
+            case 43:
                 message.indexError = reader.string();
                 break;
             default:
@@ -1561,6 +846,8 @@ $root.Player = (function() {
             throw $util.ProtocolError("missing required 'playingStyle'", { instance: message });
         if (!message.hasOwnProperty("appearance"))
             throw $util.ProtocolError("missing required 'appearance'", { instance: message });
+        if (!message.hasOwnProperty("ovr"))
+            throw $util.ProtocolError("missing required 'ovr'", { instance: message });
         return message;
     };
 
@@ -1953,6 +1240,8 @@ $root.Player = (function() {
             if (error)
                 return "unknowns." + error;
         }
+        if (!$util.isInteger(message.ovr))
+            return "ovr: integer expected";
         if (message.indexState != null && message.hasOwnProperty("indexState"))
             if (!$util.isString(message.indexState))
                 return "indexState: string expected";
@@ -3121,6 +2410,8 @@ $root.Player = (function() {
                 throw TypeError(".Player.unknowns: object expected");
             message.unknowns = $root.UnknownOptions.fromObject(object.unknowns);
         }
+        if (object.ovr != null)
+            message.ovr = object.ovr >>> 0;
         if (object.indexState != null)
             message.indexState = String(object.indexState);
         if (object.indexError != null)
@@ -3164,6 +2455,7 @@ $root.Player = (function() {
             object.playingStyle = options.enums === String ? "ANCHOR_MAN" : 8;
             object.appearance = null;
             object.unknowns = null;
+            object.ovr = 0;
             object.indexState = "";
             object.indexError = "";
         }
@@ -3216,6 +2508,8 @@ $root.Player = (function() {
             object.appearance = $root.PlayerAppearance.toObject(message.appearance, options);
         if (message.unknowns != null && message.hasOwnProperty("unknowns"))
             object.unknowns = $root.UnknownOptions.toObject(message.unknowns, options);
+        if (message.ovr != null && message.hasOwnProperty("ovr"))
+            object.ovr = message.ovr;
         if (message.indexState != null && message.hasOwnProperty("indexState"))
             object.indexState = message.indexState;
         if (message.indexError != null && message.hasOwnProperty("indexError"))
@@ -5777,6 +5071,216 @@ $root.UnknownOptions = (function() {
     };
 
     return UnknownOptions;
+})();
+
+$root.Team = (function() {
+
+    /**
+     * Properties of a Team.
+     * @exports ITeam
+     * @interface ITeam
+     * @property {string} id Team id
+     * @property {string} name Team name
+     */
+
+    /**
+     * Constructs a new Team.
+     * @exports Team
+     * @classdesc Represents a Team.
+     * @implements ITeam
+     * @constructor
+     * @param {ITeam=} [properties] Properties to set
+     */
+    function Team(properties) {
+        if (properties)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * Team id.
+     * @member {string} id
+     * @memberof Team
+     * @instance
+     */
+    Team.prototype.id = "";
+
+    /**
+     * Team name.
+     * @member {string} name
+     * @memberof Team
+     * @instance
+     */
+    Team.prototype.name = "";
+
+    /**
+     * Creates a new Team instance using the specified properties.
+     * @function create
+     * @memberof Team
+     * @static
+     * @param {ITeam=} [properties] Properties to set
+     * @returns {Team} Team instance
+     */
+    Team.create = function create(properties) {
+        return new Team(properties);
+    };
+
+    /**
+     * Encodes the specified Team message. Does not implicitly {@link Team.verify|verify} messages.
+     * @function encode
+     * @memberof Team
+     * @static
+     * @param {ITeam} message Team message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    Team.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+        writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+        return writer;
+    };
+
+    /**
+     * Encodes the specified Team message, length delimited. Does not implicitly {@link Team.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof Team
+     * @static
+     * @param {ITeam} message Team message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    Team.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a Team message from the specified reader or buffer.
+     * @function decode
+     * @memberof Team
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {Team} Team
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    Team.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Team();
+        while (reader.pos < end) {
+            var tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.id = reader.string();
+                break;
+            case 3:
+                message.name = reader.string();
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        if (!message.hasOwnProperty("id"))
+            throw $util.ProtocolError("missing required 'id'", { instance: message });
+        if (!message.hasOwnProperty("name"))
+            throw $util.ProtocolError("missing required 'name'", { instance: message });
+        return message;
+    };
+
+    /**
+     * Decodes a Team message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof Team
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {Team} Team
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    Team.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a Team message.
+     * @function verify
+     * @memberof Team
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    Team.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (!$util.isString(message.id))
+            return "id: string expected";
+        if (!$util.isString(message.name))
+            return "name: string expected";
+        return null;
+    };
+
+    /**
+     * Creates a Team message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof Team
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {Team} Team
+     */
+    Team.fromObject = function fromObject(object) {
+        if (object instanceof $root.Team)
+            return object;
+        var message = new $root.Team();
+        if (object.id != null)
+            message.id = String(object.id);
+        if (object.name != null)
+            message.name = String(object.name);
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a Team message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof Team
+     * @static
+     * @param {Team} message Team
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    Team.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        var object = {};
+        if (options.defaults) {
+            object.id = "";
+            object.name = "";
+        }
+        if (message.id != null && message.hasOwnProperty("id"))
+            object.id = message.id;
+        if (message.name != null && message.hasOwnProperty("name"))
+            object.name = message.name;
+        return object;
+    };
+
+    /**
+     * Converts this Team to JSON.
+     * @function toJSON
+     * @memberof Team
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    Team.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return Team;
 })();
 
 module.exports = $root;

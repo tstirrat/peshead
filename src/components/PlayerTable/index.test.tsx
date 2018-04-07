@@ -39,9 +39,7 @@ describe('<PlayerTable>', () => {
   });
 
   it('displays player position', () => {
-    expect(div.querySelector('tbody .pos')!.textContent).toBe(
-      player1.registeredPosition.toString()
-    );
+    expect(div.querySelector('tbody .pos')!.textContent).toBe('RWF');
   });
 
   it('displays player nationality', () => {
@@ -52,7 +50,7 @@ describe('<PlayerTable>', () => {
 
   it('displays player OVR', () => {
     expect(div.querySelector('tbody .ovr')!.textContent).toBe(
-      player1.abilities!.attackingProwess!.toString()
+      player1.ovr.toString()
     );
     // TODO: wire up real stats when we have them
   });

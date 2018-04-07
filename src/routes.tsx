@@ -3,7 +3,7 @@ import { Fragment, Routes } from 'redux-little-router';
 
 import { NotFound } from './containers/../components/NotFound';
 import { ConnectedComparePlayers } from './containers/ComparePlayers';
-import { Home } from './containers/Home';
+import { ConnectedHome } from './containers/Home';
 import { League } from './containers/League';
 import { ConnectedPlayer } from './containers/Player';
 import { ConnectedSearch } from './containers/Search';
@@ -13,7 +13,7 @@ export const routes = (
   <Fragment forRoute="/">
     <div>
       <Fragment forRoute="/">
-        <Home />
+        <ConnectedHome />
       </Fragment>
       <Fragment forRoute="/search">
         <ConnectedSearch />

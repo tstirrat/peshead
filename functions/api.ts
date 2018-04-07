@@ -40,14 +40,15 @@ router.get('/search', async (req, res) => {
       const client = createClient(functions.config().es);
       const response = await search(client, query);
       console.log('[search] search complete', response);
-      return res.send(response);
+      const cache = `public, max-age=${2 * HOURS}, s-maxage=${2 * HOURS}`;
+      return res.set('Cache-Control', cache).send(response);
     } catch (e) {
       console.warn('[search] search failed with', e);
       return res.status(400).send(e);
     }
   }
   console.warn('[search] search with empty query');
-  return res.status(400).send(new Error('Must supply query params'));
+  return res.status(400).send(new Error('Must supply `query` param'));
 });
 
 /** Autocomplete suggest based on name or kitName, returns minimal fields. */
@@ -59,14 +60,15 @@ router.get('/suggest', async (req, res) => {
       const client = createClient(functions.config().es);
       const response = await suggest(client, query);
       console.log('[suggest] suggest complete', response);
-      return res.send(response);
+      const cache = `public, max-age=${2 * HOURS}, s-maxage=${2 * HOURS}`;
+      return res.set('Cache-Control', cache).send(response);
     } catch (e) {
       console.warn('[suggest] suggest failed with', e);
       return res.status(400).send(e);
     }
   }
   console.warn('[suggest] suggest with empty query');
-  return res.status(400).send(new Error('Must supply query params'));
+  return res.status(400).send(new Error('Must supply `query` param'));
 });
 
 const HOURS = 3600;

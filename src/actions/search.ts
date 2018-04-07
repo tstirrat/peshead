@@ -1,4 +1,3 @@
-import { ActionCreator } from 'react-redux';
 import { Action } from 'redux';
 
 import { IPlayer } from '../shared/service/api';
@@ -10,22 +9,21 @@ export class SearchRequestAction implements Action {
 }
 export interface SearchRequestPayload {
   query: string;
+  /** Used to differentiate between user searches and hard coded (e.g. home) */
+  id: string;
   sortField?: string;
   sortDirection?: string;
 }
-export const search: ActionCreator<SearchRequestAction> = ({
+// To make id optional
+export type SearchRequestParams = Partial<SearchRequestPayload> &
+  Pick<SearchRequestPayload, 'query'>;
+export const search = ({
   query,
   sortField,
-  sortDirection
-}: SearchRequestPayload) => {
-  return {
-    type: SEARCH,
-    payload: {
-      query,
-      sortField,
-      sortDirection
-    }
-  };
+  sortDirection,
+  id = 'search'
+}: SearchRequestParams): SearchRequestAction => {
+  return { type: SEARCH, payload: { query, id, sortField, sortDirection } };
 };
 
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
@@ -34,27 +32,23 @@ export class SearchSuccessAction implements Action {
   constructor(public payload: SearchSuccessPayload) {}
 }
 export interface SearchSuccessPayload {
+  id: string;
   results: IPlayer[];
 }
-export const searchSuccess: ActionCreator<SearchSuccessAction> = (
-  results: IPlayer[]
-) => {
-  return {
-    type: SEARCH_SUCCESS,
-    payload: { results }
-  };
+export const searchSuccess = (
+  results: IPlayer[],
+  id = 'search'
+): SearchSuccessAction => {
+  return { type: SEARCH_SUCCESS, payload: { results, id } };
 };
 
 export const SEARCH_ERROR = 'SEARCH_ERROR';
 export class SearchErrorAction implements Action {
   public type: typeof SEARCH_ERROR = SEARCH_ERROR;
-  constructor(public payload: Error) {}
+  constructor(public payload: { error: Error; id: string }) {}
 }
-export const searchError: ActionCreator<SearchErrorAction> = (error: Error) => {
-  return {
-    type: SEARCH_ERROR,
-    payload: error
-  };
+export const searchError = (error: Error, id = 'search'): SearchErrorAction => {
+  return { type: SEARCH_ERROR, payload: { error, id } };
 };
 
 export type Actions =

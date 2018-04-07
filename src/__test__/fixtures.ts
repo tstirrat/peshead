@@ -8,6 +8,7 @@ export const base: IPlayer = {
   age: 30,
   nationality: Country.ARGENTINA,
   registeredPosition: Position.RWF,
+  ovr: 94,
   preferredFoot: Foot.LEFT,
   isEdited: false,
   isBaseCopy: false,

@@ -84,3 +84,14 @@ export const getSearchIsLoading = (state: State) =>
   search.getIsLoading(getSearchState(state));
 export const getSearchError = (state: State) =>
   search.getError(getSearchState(state));
+
+// Home
+
+export const getHomeResults = createSelector(getSearchState, searchState => {
+  const results = search.getHomeResults(searchState);
+  return results.map(p => Player.fromObject(p));
+});
+export const getHomeIsLoading = (state: State) =>
+  search.getHomeIsLoading(getSearchState(state));
+export const getHomeError = (state: State) =>
+  search.getHomeError(getSearchState(state));

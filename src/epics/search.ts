@@ -20,7 +20,7 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
 ) =>
   action$.ofType(search.SEARCH).pipe(
     switchMap((action: search.SearchRequestAction) => {
-      const { query } = action.payload;
+      const { query, id } = action.payload;
       if (!query) {
         return empty();
       }
@@ -37,7 +37,7 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
               return player;
             })
           ),
-          map(players => search.searchSuccess(players)),
+          map(players => search.searchSuccess(players, id)),
           catchError(err => obs(search.searchError(err)))
         );
     })

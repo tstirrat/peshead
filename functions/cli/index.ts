@@ -8,7 +8,7 @@ const USAGE = `
 Usage: pesleagues <command> [args]
 
 Commands:
-  load <file-name> [limit = 100] [offset = 0] [batchSize = 100]
+  load <file-name> <record-type> [limit = 100] [offset = 0] [batchSize = 100]
       Loads an EDIT00000000 file into the DB.
 
   search <bit-length> <needle> <file1> [<file2>,  <filen>...]
@@ -22,11 +22,12 @@ let action: Promise<void> | undefined = undefined;
 
 if (command === 'load') {
   const fileName = process.argv[3];
-  const limit = process.argv[4] ? Number(process.argv[4]) : undefined;
-  const offset = process.argv[5] ? Number(process.argv[5]) : undefined;
-  const chunkSize = process.argv[6] ? Number(process.argv[6]) : undefined;
-  if (fileName) {
-    action = load(fileName, limit, offset, chunkSize);
+  const recordType = process.argv[4];
+  const limit = process.argv[5] ? Number(process.argv[5]) : undefined;
+  const offset = process.argv[6] ? Number(process.argv[6]) : undefined;
+  const chunkSize = process.argv[7] ? Number(process.argv[7]) : undefined;
+  if (fileName && recordType) {
+    action = load(fileName, recordType, limit, offset, chunkSize);
   }
 }
 if (command === 'search') {
