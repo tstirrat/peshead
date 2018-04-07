@@ -31,9 +31,9 @@
       "args": [
         "load",
         "./functions/test/lu-2018-03-27-EDIT00000000",
-        "teams",
-        "1000", // amount
-        "0" // startAt
+        "players",
+        "9000", // amount
+        "100" // startAt
         // batchSize = 500 default
       ],
       "preLaunchTask": "tsc: build - functions/tsconfig.json",

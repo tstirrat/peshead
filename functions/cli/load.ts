@@ -85,7 +85,7 @@ async function batchInsert<T>(
   offset = 0,
   batchSize = 500
 ) {
-  const remaining = items;
+  const remaining = [...items];
   let count = 0;
   if (offset > 0) {
     remaining.splice(0, offset);
@@ -93,7 +93,7 @@ async function batchInsert<T>(
   const maxChunks = Math.ceil(limit / batchSize);
   let inserted = 0;
   while (remaining.length && count < maxChunks) {
-    const batchItems = remaining.splice(0, batchSize);
+    const batchItems = remaining.splice(0, Math.min(batchSize, limit));
     const batch = ref.firestore.batch();
 
     const set = (id: string, payload: {}) => {
@@ -119,7 +119,8 @@ async function batchInsert<T>(
   }
 
   const endIndex = offset + limit;
-  console.log(`Wrote offsets: ${offset} - ${endIndex} (wrote: ${inserted})`);
+  console.log(`Wrote offsets: ${offset} - ${endIndex} of ${items.length}`);
+  console.log(`Wrote ${inserted} items (some may have failed)`);
 }
 
 /** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
