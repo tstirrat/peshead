@@ -25,14 +25,17 @@
       "**/.*",
       "**/node_modules/**",
       "**/test/**",
-      "/design/**",
-      "firebase.json",
+      "/build/**",
       "/functions/@types/**",
+      "/functions/*.ts",
       "/functions/cli/**",
       "/functions/config/**",
-      "/functions/service/**",
+      "/functions/shared/**",
+      "/functions/test/**",
+      "/functions/typesets/**",
       "/public/**",
-      "/src/**"
+      "/src/**",
+      "firebase.json"
     ]
   }
 }

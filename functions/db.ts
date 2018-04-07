@@ -1,8 +1,7 @@
-// tslint:disable:no-console
 import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
-import { addPlayer, createClient, removePlayer } from './search';
+import { addPlayer, createClient, removePlayer } from './elasticsearch';
 import { IPlayer } from './shared/service/api';
 
 enum IndexingState {

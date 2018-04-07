@@ -1,7 +1,7 @@
 import { Client } from 'elasticsearch';
 
-import * as search from './search';
-import { Country, Player } from './shared/service/api';
+import * as search from './elasticsearch';
+import { Country, Foot, Player, PlayingStyle, Position } from './shared/service/api';
 
 describe('search', () => {
   // tslint:disable-next-line:variable-name
@@ -196,7 +196,15 @@ describe('search', () => {
       nationality: Country.JAPAN,
       abilities: {
         explosivePower: 99
-      }
+      },
+      ovr: 99,
+      physique: {
+        height: 123,
+        weight: 78
+      },
+      registeredPosition: Position.CMF,
+      playingStyle: PlayingStyle.ANCHOR_MAN,
+      preferredFoot: Foot.LEFT
     } as Player;
 
     it('uses player index/type', () => {
@@ -221,15 +229,33 @@ describe('search', () => {
     it('indexes known fields', () => {
       search.addPlayer(client, samus.id, samus);
 
-      const { id, name, kitName, age, abilities } = samus;
+      const {
+        id,
+        abilities,
+        age,
+        kitName,
+        name,
+        nationality,
+        ovr,
+        registeredPosition,
+        physique,
+        preferredFoot,
+        playingStyle
+      } = samus;
       expect(client.index).toHaveBeenCalledWith(
         expect.objectContaining({
           body: expect.objectContaining({
             id,
-            name,
-            age,
             abilities,
-            kitName
+            age,
+            kitName,
+            name,
+            nationality,
+            ovr,
+            registeredPosition,
+            physique,
+            preferredFoot,
+            playingStyle
           })
         })
       );

@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import { open, read } from 'fs-extra';
 import BitArray = require('node-bitarray');
 

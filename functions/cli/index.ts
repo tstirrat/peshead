@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import { load } from './load';
 import { search } from './search';
 

@@ -1,11 +1,10 @@
-// tslint:disable:no-console
 import * as cors from 'cors';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
 import * as morgan from 'morgan';
 
+import { createClient, search, suggest } from './elasticsearch';
 import { db } from './init';
-import { createClient, search, suggest } from './search';
 
 const app = express();
 

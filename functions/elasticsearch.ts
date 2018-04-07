@@ -1,6 +1,7 @@
 import * as AWS from 'aws-sdk';
 import * as elasticsearch from 'elasticsearch';
 import * as HttpAmazonESConnector from 'http-aws-es';
+import { pick } from 'lodash';
 
 import { IPlayer } from './shared/service/api';
 
@@ -30,12 +31,49 @@ export function createClient(config?: ClientConfig) {
 
   const options = {
     hosts: [host],
+    apiVersion: '5.5',
     connectionClass: HttpAmazonESConnector,
     awsConfig,
     httpOptions: {}
   };
 
   return new elasticsearch.Client(options);
+}
+
+export type IndexedPlayer = Pick<
+  IPlayer,
+  | 'id'
+  | 'abilities'
+  | 'age'
+  | 'kitName'
+  | 'name'
+  | 'nationality'
+  | 'ovr'
+  | 'registeredPosition'
+  | 'preferredFoot'
+  | 'playingStyle'
+> &
+  IndexedPlayerPhysique;
+
+export type IndexedPlayerPhysique = {
+  physique: Pick<IPlayer['physique'], 'height' | 'weight'>;
+};
+
+function getIndexablePlayerSubset(player: IPlayer) {
+  return pick<IndexedPlayer>(player, [
+    'id',
+    'abilities',
+    'age',
+    'kitName',
+    'name',
+    'nationality',
+    'ovr',
+    'registeredPosition',
+    'physique.height',
+    'physique.weight',
+    'preferredFoot',
+    'playingStyle'
+  ]);
 }
 
 /**
@@ -52,11 +90,7 @@ export async function addPlayer(
     type: 'player',
     id,
     body: {
-      id: player.id,
-      name: player.name,
-      kitName: player.kitName,
-      abilities: player.abilities,
-      age: player.age,
+      ...getIndexablePlayerSubset(player),
       suggest: [
         {
           input: tokenizeName(player.name),
@@ -71,7 +105,13 @@ export async function addPlayer(
   });
 }
 
-/** Remove player initial (L.) and tokenize remainder of player name (MESSI) */
+/**
+ * Remove player's first initial and tokenize remainder of player name:
+ *
+ * ```
+ * 'R. VAN PERSIE' => ['VAN', 'PERSIE']
+ * ```
+ */
 function tokenizeName(name: string) {
   return name.split(' ').filter(piece => piece[1] !== '.');
 }

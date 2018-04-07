@@ -1,4 +1,3 @@
-// tslint:disable:no-console
 import { CollectionReference } from '@google-cloud/firestore';
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
@@ -66,6 +65,7 @@ export async function load(
         offset,
         batchSize
       );
+      console.log(`Total ${editData.teams.length}`);
       break;
     default:
       throw new Error(`unknown record type ${recordType}`);
