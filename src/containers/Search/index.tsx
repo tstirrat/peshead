@@ -5,11 +5,11 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import { Player } from '../../../functions/service/api';
 import * as search from '../../actions/search';
 import { Loading } from '../../components/Loading';
 import { PlayerTable } from '../../components/PlayerTable';
 import * as fromRoot from '../../reducers';
+import { Player } from '../../shared/service/api';
 
 interface QueryParams {
   query?: string;
