@@ -2,7 +2,7 @@
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import { Physique, Player, PlayerAbilities, PlayerMotion } from '../service/api';
+import { Physique, Player, PlayerAbilities, PlayerMotion } from '../shared/service/api';
 import { EditFile, Player as PlayerBinary } from '../typesets/edit-file';
 
 const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);

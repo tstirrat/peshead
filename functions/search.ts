@@ -2,7 +2,7 @@ import * as AWS from 'aws-sdk';
 import * as elasticsearch from 'elasticsearch';
 import * as HttpAmazonESConnector from 'http-aws-es';
 
-import { IPlayer } from './service/api';
+import { IPlayer } from './shared/service/api';
 
 export interface ClientConfig {
   access_key_id?: string;

@@ -13,8 +13,10 @@
     "build": "tsc -p ./",
     "test": "jest",
     "watch": "tsc --watch -p ./",
-    "protos": "pbjs -w commonjs -t static-module -o service/api/index.js service/api.proto service/common.proto service/player.proto",
-    "api": "yarn run protos; pbts -o service/api/index.d.ts service/api/index.js",
+    "protos":
+      "pbjs -w commonjs -t static-module -o shared/service/api/index.js shared/service/api.proto shared/service/common.proto shared/service/player.proto",
+    "api":
+      "yarn run protos; pbts -o shared/service/api/index.d.ts shared/service/api/index.js",
     "deploy": "yarn build && firebase deploy --only functions",
     "cli": "yarn build && node build/cli/index.js"
   },

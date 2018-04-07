@@ -3,7 +3,7 @@ import { firestore } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
 import { addPlayer, createClient, removePlayer } from './search';
-import { IPlayer } from './service/api';
+import { IPlayer } from './shared/service/api';
 
 enum IndexingState {
   INDEXING = 'INDEXING',
