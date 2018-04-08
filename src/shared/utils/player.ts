@@ -375,6 +375,13 @@ export function getPositionWeights(
   }
 }
 
+export function getPositionRating(
+  player: Player,
+  position = player.registeredPosition
+) {
+  return getWeightedRating(player, getPositionWeights(position));
+}
+
 /** Calculate a rating given a set of stat weights. */
 export function getWeightedRating(
   player: IPlayer,

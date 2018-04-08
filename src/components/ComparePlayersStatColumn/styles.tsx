@@ -21,5 +21,7 @@ export const StyledStat = styled.div`
 
   li {
     justify-content: center;
+    padding: 0;
+    height: 48px;
   }
 `;

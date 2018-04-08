@@ -1,4 +1,14 @@
-import { ComPlayingStyle, Country, Foot, IPlayer, Player, PlayingStyle, Position, Skill } from '../shared/service/api';
+import {
+  ComPlayingStyle,
+  Country,
+  Foot,
+  IPlayer,
+  Playable,
+  Player,
+  PlayingStyle,
+  Position,
+  Skill,
+} from '../shared/service/api';
 
 export const base: IPlayer = {
   id: '7511',
@@ -22,7 +32,7 @@ export const base: IPlayer = {
     height: 170,
     weight: 72
   },
-  playablePositions: [Position.AMF, Position.SS, Position.CF],
+  playablePositions: { amf: Playable.A, ss: Playable.B },
   abilities: {
     attackingProwess: 95,
     ballControl: 96,

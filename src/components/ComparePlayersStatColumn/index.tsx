@@ -6,8 +6,9 @@ import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Link } from 'redux-little-router';
 
-import { Player } from '../../shared/service/api';
-import { AbilityFlags, getTotalStats, SIMPLE_ABILITIES } from '../../shared/utils/player';
+import { Playable, Player } from '../../shared/service/api';
+import { AbilityFlags, getPositionRating, getTotalStats, SIMPLE_ABILITIES } from '../../shared/utils/player';
+import { PlayableLabel, POSITION_LIST, PositionLabel } from '../../shared/utils/position';
 import { CalculatePositionRating } from '../CalculatePositionRating';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
 import { PlayerStat } from '../PlayerStat';
@@ -126,9 +127,43 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
               maxValue={4}
             />
           </ListItem>
+          <Divider />
         </StyledStat>
+
+        {/* Positions heading == blank */}
+        <StyledStat>
+          <ListItem />
+          <Divider />
+        </StyledStat>
+
+        {this.renderPositionRatings()}
       </List>
     );
+  }
+
+  private renderPositionRatings() {
+    const { player } = this.props;
+    return POSITION_LIST.map(position => {
+      const rating = getPositionRating(player, position);
+
+      const key = PositionLabel[position].toLowerCase();
+      const effectiveness: Playable = player.playablePositions
+        ? player.playablePositions[key]
+        : Playable.C;
+
+      return (
+        <StyledStat key={key}>
+          <ListItem>
+            <Typography type="subheading">
+              {effectiveness > Playable.C
+                ? `${rating} (${PlayableLabel[effectiveness]})`
+                : `${rating}`}
+            </Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+      );
+    });
   }
 
   private handleDelete = () => {

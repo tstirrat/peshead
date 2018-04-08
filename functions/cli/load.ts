@@ -2,7 +2,16 @@ import { CollectionReference } from '@google-cloud/firestore';
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import { Physique, Player, PlayerAbilities, PlayerMotion, Team } from '../shared/service/api';
+import {
+  Foot,
+  Physique,
+  Playable,
+  PlayablePositions,
+  Player,
+  PlayerAbilities,
+  PlayerMotion,
+  Team,
+} from '../shared/service/api';
 import { getPositionWeights, getWeightedRating, PositionLabel } from '../shared/utils/player';
 import { EditFile, Player as PlayerBinary, Team as TeamBinary } from '../typesets/edit-file';
 
@@ -20,9 +29,14 @@ export async function load(
   offset = 0,
   batchSize = 500
 ) {
-  if (batchSize > 500 || !RECORD_TYPES.includes(recordType)) {
+  if (batchSize > 500) {
     throw new Error('batch size cannot be > 500');
   }
+
+  if (!RECORD_TYPES.includes(recordType)) {
+    throw new Error(`Unknown record type ${recordType}`);
+  }
+
   const jb = await jBinary.load(fileName, EditFile);
 
   console.log(`Loading ${fileName}...`);
@@ -68,7 +82,7 @@ export async function load(
       console.log(`Total ${editData.teams.length}`);
       break;
     default:
-      throw new Error(`unknown record type ${recordType}`);
+      throw new Error(`Unknown record type ${recordType}`);
   }
 }
 
@@ -132,8 +146,12 @@ function createPlayer(input: PlayerBinary) {
     name: input.name,
     kitName: input.printName,
     age: input.block5.age,
-    preferredFoot: 0, // player.block7.strongFoot ? 'LEFT' : 'RIGHT',
+    preferredFoot: Foot.LEFT, // player.block7.strongFoot ? 'LEFT' : 'RIGHT',
     registeredPosition: input.block5.registeredPosition,
+    playablePositions: new PlayablePositions({
+      amf: Playable.A,
+      cmf: Playable.B
+    }),
     physique: new Physique({
       height: input.height,
       weight: input.weight
