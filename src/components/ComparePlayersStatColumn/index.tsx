@@ -1,45 +1,23 @@
 import RemoveCircleIcon from 'material-ui-icons/RemoveCircle';
 import ButtonBase from 'material-ui/ButtonBase';
 import Divider from 'material-ui/Divider';
-import List, { ListItem, ListSubheader } from 'material-ui/List';
+import List, { ListItem } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Link } from 'redux-little-router';
-import styled from 'styled-components';
 
 import { Player } from '../../shared/service/api';
-import { AbilityFlags, getTotalStats, PositionLabel, SIMPLE_ABILITIES } from '../../shared/utils/player';
-import { PlayerPositionRating } from '../PlayerPositionRating';
+import { AbilityFlags, getTotalStats, SIMPLE_ABILITIES } from '../../shared/utils/player';
+import { CalculatePositionRating } from '../CalculatePositionRating';
+import { ColoredPositionLabel } from '../ColoredPositionLabel';
 import { PlayerStat } from '../PlayerStat';
+import { Header, StyledStat } from './styles';
 
 export interface Props {
   player: Player;
   highlights?: AbilityFlags;
   onDelete?: (id: string) => void;
 }
-
-const Header = styled(ListSubheader)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-
-  .link {
-    text-align: center;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-`;
-
-const StyledStat = styled.div`
-  background-color: ${props =>
-    props.role === 'highest' ? 'rgba(0, 238, 171, 0.08)' : ''};
-
-  li {
-    justify-content: center;
-  }
-`;
 
 export class ComparePlayersStatColumn extends React.PureComponent<Props> {
   render() {
@@ -84,7 +62,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
         <StyledStat>
           <ListItem>
             <Typography type="subheading">
-              {PositionLabel[player.registeredPosition]}
+              <ColoredPositionLabel position={player.registeredPosition} />
             </Typography>
           </ListItem>
           <Divider />
@@ -92,7 +70,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
 
         <StyledStat>
           <ListItem>
-            <PlayerPositionRating
+            <CalculatePositionRating
               player={player}
               position={player.registeredPosition}
               render={rating => <PlayerStat value={rating} />}

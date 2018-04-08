@@ -39,7 +39,7 @@ describe('<PlayerTable>', () => {
   });
 
   it('displays player position', () => {
-    expect(div.querySelector('tbody .pos')!.textContent).toBe('RWF');
+    expect(div.querySelector('tbody .pos')!.textContent).toContain('RWF');
   });
 
   it('displays player nationality', () => {

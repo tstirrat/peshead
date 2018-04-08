@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import { PlayerPositionRating, Props } from '.';
+import { CalculatePositionRating, Props } from '.';
 import { base } from '../../__test__/fixtures';
 import { Player, Position } from '../../shared/service/api';
 
@@ -13,9 +13,9 @@ const props: Props = {
   render: rating => <div>{rating}</div>
 };
 
-describe('<PlayerPositionRating>', () => {
+describe('<CalculatePositionRating>', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    render(<PlayerPositionRating {...props} />, div);
+    render(<CalculatePositionRating {...props} />, div);
   });
 });

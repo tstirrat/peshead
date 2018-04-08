@@ -4,7 +4,7 @@ import { pure } from 'recompose';
 import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
-import { PositionLabel } from '../../shared/utils/player';
+import { PlayerPositionRatingBadge } from '../PlayerPositionRatingBadge';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
@@ -39,7 +39,7 @@ export const PlayerTable = pure<Props>(({ players }) => (
             <Link href={`/players/${player.id}`}>{player.name}</Link>
           </TableCell>
           <TableCell {...cellProps} className="pos">
-            {PositionLabel[player.registeredPosition]}
+            <PlayerPositionRatingBadge player={player} showRating={false} />
           </TableCell>
           <TableCell {...cellProps} className="age">
             {player.age}

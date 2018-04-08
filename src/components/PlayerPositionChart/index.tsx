@@ -1,62 +1,16 @@
 import * as React from 'react';
 import { pure } from 'recompose';
-import styled from 'styled-components';
 
 import { Player, Position } from '../../shared/service/api';
-import { PlayerPositionRating } from '../PlayerPositionRating';
+import { CalculatePositionRating } from '../CalculatePositionRating';
 import { PlayerStat } from '../PlayerStat';
+import { Table } from './styles';
 
 export interface Props {
   player: Player;
 }
 
 const renderPlayerStat = (rating: number) => <PlayerStat value={rating} />;
-
-const Table = styled.table`
-  ${PlayerStat} {
-    border-radius: 0;
-    display: flex;
-  }
-
-  /** prettier hates this format */
-  .lwf
-    ${PlayerStat},
-    .rwf
-    ${PlayerStat},
-    .lmf
-    ${PlayerStat},
-    .rmf
-    ${PlayerStat},
-    .lb
-    ${PlayerStat},
-    .rb
-    ${PlayerStat} {
-    height: 54px;
-    width: 32px;
-  }
-
-  .cf
-    ${PlayerStat},
-    .ss
-    ${PlayerStat},
-    .amf
-    ${PlayerStat},
-    .cmf
-    ${PlayerStat},
-    .dmf
-    ${PlayerStat},
-    .cb
-    ${PlayerStat},
-    .gk
-    ${PlayerStat} {
-    width: 68px;
-    height: 24px;
-  }
-
-  .amf ${PlayerStat}, .cmf ${PlayerStat}, .dmf ${PlayerStat} {
-    height: 16px;
-  }
-`;
 
 /**
  * Shows the ratings for a player at each position.
@@ -66,21 +20,21 @@ export const PlayerPositionChart = pure<Props>(({ player }) => (
     <tbody>
       <tr>
         <td rowSpan={2} className="lwf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.LWF}
             render={renderPlayerStat}
           />
         </td>
         <td className="cf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.CF}
             render={renderPlayerStat}
           />
         </td>
         <td rowSpan={2} className="rwf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.RWF}
             render={renderPlayerStat}
@@ -89,7 +43,7 @@ export const PlayerPositionChart = pure<Props>(({ player }) => (
       </tr>
       <tr>
         <td className="ss">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.SS}
             render={renderPlayerStat}
@@ -99,21 +53,21 @@ export const PlayerPositionChart = pure<Props>(({ player }) => (
 
       <tr>
         <td rowSpan={3} className="lmf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.LMF}
             render={renderPlayerStat}
           />
         </td>
         <td className="amf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.AMF}
             render={renderPlayerStat}
           />
         </td>
         <td rowSpan={3} className="rmf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.RMF}
             render={renderPlayerStat}
@@ -122,7 +76,7 @@ export const PlayerPositionChart = pure<Props>(({ player }) => (
       </tr>
       <tr>
         <td className="cmf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.CMF}
             render={renderPlayerStat}
@@ -131,7 +85,7 @@ export const PlayerPositionChart = pure<Props>(({ player }) => (
       </tr>
       <tr>
         <td className="dmf">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.DMF}
             render={renderPlayerStat}
@@ -141,21 +95,21 @@ export const PlayerPositionChart = pure<Props>(({ player }) => (
 
       <tr>
         <td rowSpan={2} className="lb">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.LB}
             render={renderPlayerStat}
           />
         </td>
         <td className="cb">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.CB}
             render={renderPlayerStat}
           />
         </td>
         <td rowSpan={2} className="rb">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.RB}
             render={renderPlayerStat}
@@ -164,7 +118,7 @@ export const PlayerPositionChart = pure<Props>(({ player }) => (
       </tr>
       <tr>
         <td className="gk">
-          <PlayerPositionRating
+          <CalculatePositionRating
             player={player}
             position={Position.GK}
             render={renderPlayerStat}

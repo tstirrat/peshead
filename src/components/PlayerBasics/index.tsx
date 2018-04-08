@@ -3,7 +3,7 @@ import * as React from 'react';
 import { pure } from 'recompose';
 
 import { Player } from '../../shared/service/api';
-import { PositionLabel } from '../../shared/utils/player';
+import { ColoredPositionLabel } from '../ColoredPositionLabel';
 import { PlayerPositionChart } from '../PlayerPositionChart';
 
 export interface Props {
@@ -35,7 +35,9 @@ export const PlayerBasics = pure<Props>(({ player }) => (
       </TableRow>
       <TableRow>
         <TableCell>Position</TableCell>
-        <TableCell>{PositionLabel[player.registeredPosition]}</TableCell>
+        <TableCell>
+          <ColoredPositionLabel position={player.registeredPosition} />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell colSpan={2}>

@@ -22,6 +22,7 @@ import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
 import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm, PlayerFormValue } from '../../shared/utils/player';
+import { PlayerHeader } from './styles';
 
 export interface ViewModel extends fromPlayers.BaseViewModel {
   level?: number;
@@ -105,13 +106,13 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
           <title>PESto - {player.name}</title>
         </Helmet>
 
-        <Grid item={true} xs={12} sm={12}>
+        <PlayerHeader>
           <div className="layout-row">
             <PlayerNameplate player={player} />
             <div className="flex" />
             <PlayerActionMenu player={player} />
           </div>
-        </Grid>
+        </PlayerHeader>
 
         <Grid item={true} xs={12} sm={6}>
           <Card>
