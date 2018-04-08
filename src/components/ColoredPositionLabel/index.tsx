@@ -2,7 +2,7 @@ import * as React from 'react';
 import { pure } from 'recompose';
 
 import { Position } from '../../shared/service/api';
-import { PositionLabel } from '../../shared/utils/player';
+import { PositionLabel } from '../../shared/utils/position';
 import { Wrapper } from './styles';
 
 export interface Props {

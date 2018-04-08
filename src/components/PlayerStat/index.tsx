@@ -42,12 +42,16 @@ const Container = pure<Props & InternalProps>(
 export const PlayerStat = styled<Props>(Container)`
   border-radius: 2px;
   background-color: lightgray;
-  height: 24px;
-  width: 24px;
+  height: 32px;
+  width: 32px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  color: white;
 
   /* TODO: Use better PES colors here. */
   &.max {

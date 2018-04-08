@@ -18,7 +18,7 @@ message Player {
   Edits edited = 13;
   required Position registeredPosition = 14;
   required PlayingStyle playingStyle = 15;
-  repeated Position playablePositions = 16;
+  required PlayablePositions playablePositions = 16;
   repeated ComPlayingStyle comPlayingStyles = 17;
   repeated Skill playerSkills = 18;
   required PlayerAppearance appearance = 19;
@@ -76,6 +76,28 @@ message PlayerAbilities {
   required uint32 weakFootAccuracy = 24;
   required uint32 weakFootUsage = 25;
   required uint32 form = 27;
+}
+
+message PlayablePositions {
+  Playable amf = 1;
+  Playable cb = 2;
+  Playable cf = 3;
+  Playable cmf = 4;
+  Playable dmf = 5;
+  Playable gk = 6;
+  Playable lb = 7;
+  Playable lmf = 8;
+  Playable lwf = 9;
+  Playable rb = 10;
+  Playable rmf = 11;
+  Playable rwf = 12;
+  Playable ss = 13;
+}
+
+enum Playable {
+  C = 0;
+  B = 1;
+  A = 2;
 }
 
 enum Foot {

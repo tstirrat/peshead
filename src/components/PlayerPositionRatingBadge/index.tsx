@@ -37,4 +37,5 @@ export const PlayerPositionRatingBadge = styled(Badge)`
   justify-content: space-between;
   min-width: ${props => (props.showRating ? '64px' : '')};
   padding: 0 4px;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 `;

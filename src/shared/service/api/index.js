@@ -410,7 +410,7 @@ $root.Player = (function() {
      * @property {IEdits|null} [edited] Player edited
      * @property {Position} registeredPosition Player registeredPosition
      * @property {PlayingStyle} playingStyle Player playingStyle
-     * @property {Array.<Position>|null} [playablePositions] Player playablePositions
+     * @property {IPlayablePositions} playablePositions Player playablePositions
      * @property {Array.<ComPlayingStyle>|null} [comPlayingStyles] Player comPlayingStyles
      * @property {Array.<Skill>|null} [playerSkills] Player playerSkills
      * @property {IPlayerAppearance} appearance Player appearance
@@ -429,7 +429,6 @@ $root.Player = (function() {
      * @param {IPlayer=} [properties] Properties to set
      */
     function Player(properties) {
-        this.playablePositions = [];
         this.comPlayingStyles = [];
         this.playerSkills = [];
         if (properties)
@@ -560,11 +559,11 @@ $root.Player = (function() {
 
     /**
      * Player playablePositions.
-     * @member {Array.<Position>} playablePositions
+     * @member {IPlayablePositions} playablePositions
      * @memberof Player
      * @instance
      */
-    Player.prototype.playablePositions = $util.emptyArray;
+    Player.prototype.playablePositions = null;
 
     /**
      * Player comPlayingStyles.
@@ -663,12 +662,7 @@ $root.Player = (function() {
             $root.Edits.encode(message.edited, writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
         writer.uint32(/* id 14, wireType 0 =*/112).int32(message.registeredPosition);
         writer.uint32(/* id 15, wireType 0 =*/120).int32(message.playingStyle);
-        if (message.playablePositions != null && message.playablePositions.length) {
-            writer.uint32(/* id 16, wireType 2 =*/130).fork();
-            for (var i = 0; i < message.playablePositions.length; ++i)
-                writer.int32(message.playablePositions[i]);
-            writer.ldelim();
-        }
+        $root.PlayablePositions.encode(message.playablePositions, writer.uint32(/* id 16, wireType 2 =*/130).fork()).ldelim();
         if (message.comPlayingStyles != null && message.comPlayingStyles.length) {
             writer.uint32(/* id 17, wireType 2 =*/138).fork();
             for (var i = 0; i < message.comPlayingStyles.length; ++i)
@@ -769,14 +763,7 @@ $root.Player = (function() {
                 message.playingStyle = reader.int32();
                 break;
             case 16:
-                if (!(message.playablePositions && message.playablePositions.length))
-                    message.playablePositions = [];
-                if ((tag & 7) === 2) {
-                    var end2 = reader.uint32() + reader.pos;
-                    while (reader.pos < end2)
-                        message.playablePositions.push(reader.int32());
-                } else
-                    message.playablePositions.push(reader.int32());
+                message.playablePositions = $root.PlayablePositions.decode(reader, reader.uint32());
                 break;
             case 17:
                 if (!(message.comPlayingStyles && message.comPlayingStyles.length))
@@ -844,6 +831,8 @@ $root.Player = (function() {
             throw $util.ProtocolError("missing required 'registeredPosition'", { instance: message });
         if (!message.hasOwnProperty("playingStyle"))
             throw $util.ProtocolError("missing required 'playingStyle'", { instance: message });
+        if (!message.hasOwnProperty("playablePositions"))
+            throw $util.ProtocolError("missing required 'playablePositions'", { instance: message });
         if (!message.hasOwnProperty("appearance"))
             throw $util.ProtocolError("missing required 'appearance'", { instance: message });
         if (!message.hasOwnProperty("ovr"))
@@ -1152,28 +1141,10 @@ $root.Player = (function() {
         case 9:
             break;
         }
-        if (message.playablePositions != null && message.hasOwnProperty("playablePositions")) {
-            if (!Array.isArray(message.playablePositions))
-                return "playablePositions: array expected";
-            for (var i = 0; i < message.playablePositions.length; ++i)
-                switch (message.playablePositions[i]) {
-                default:
-                    return "playablePositions: enum value[] expected";
-                case 8:
-                case 1:
-                case 12:
-                case 5:
-                case 4:
-                case 0:
-                case 2:
-                case 6:
-                case 9:
-                case 3:
-                case 7:
-                case 10:
-                case 11:
-                    break;
-                }
+        {
+            var error = $root.PlayablePositions.verify(message.playablePositions);
+            if (error)
+                return "playablePositions." + error;
         }
         if (message.comPlayingStyles != null && message.hasOwnProperty("comPlayingStyles")) {
             if (!Array.isArray(message.comPlayingStyles))
@@ -2181,66 +2152,10 @@ $root.Player = (function() {
             message.playingStyle = 9;
             break;
         }
-        if (object.playablePositions) {
-            if (!Array.isArray(object.playablePositions))
-                throw TypeError(".Player.playablePositions: array expected");
-            message.playablePositions = [];
-            for (var i = 0; i < object.playablePositions.length; ++i)
-                switch (object.playablePositions[i]) {
-                default:
-                case "AMF":
-                case 8:
-                    message.playablePositions[i] = 8;
-                    break;
-                case "CB":
-                case 1:
-                    message.playablePositions[i] = 1;
-                    break;
-                case "CF":
-                case 12:
-                    message.playablePositions[i] = 12;
-                    break;
-                case "CMF":
-                case 5:
-                    message.playablePositions[i] = 5;
-                    break;
-                case "DMF":
-                case 4:
-                    message.playablePositions[i] = 4;
-                    break;
-                case "GK":
-                case 0:
-                    message.playablePositions[i] = 0;
-                    break;
-                case "LB":
-                case 2:
-                    message.playablePositions[i] = 2;
-                    break;
-                case "LMF":
-                case 6:
-                    message.playablePositions[i] = 6;
-                    break;
-                case "LWF":
-                case 9:
-                    message.playablePositions[i] = 9;
-                    break;
-                case "RB":
-                case 3:
-                    message.playablePositions[i] = 3;
-                    break;
-                case "RMF":
-                case 7:
-                    message.playablePositions[i] = 7;
-                    break;
-                case "RWF":
-                case 10:
-                    message.playablePositions[i] = 10;
-                    break;
-                case "SS":
-                case 11:
-                    message.playablePositions[i] = 11;
-                    break;
-                }
+        if (object.playablePositions != null) {
+            if (typeof object.playablePositions !== "object")
+                throw TypeError(".Player.playablePositions: object expected");
+            message.playablePositions = $root.PlayablePositions.fromObject(object.playablePositions);
         }
         if (object.comPlayingStyles) {
             if (!Array.isArray(object.comPlayingStyles))
@@ -2433,7 +2348,6 @@ $root.Player = (function() {
             options = {};
         var object = {};
         if (options.arrays || options.defaults) {
-            object.playablePositions = [];
             object.comPlayingStyles = [];
             object.playerSkills = [];
         }
@@ -2453,6 +2367,7 @@ $root.Player = (function() {
             object.edited = null;
             object.registeredPosition = options.enums === String ? "AMF" : 8;
             object.playingStyle = options.enums === String ? "ANCHOR_MAN" : 8;
+            object.playablePositions = null;
             object.appearance = null;
             object.unknowns = null;
             object.ovr = 0;
@@ -2489,11 +2404,8 @@ $root.Player = (function() {
             object.registeredPosition = options.enums === String ? $root.Position[message.registeredPosition] : message.registeredPosition;
         if (message.playingStyle != null && message.hasOwnProperty("playingStyle"))
             object.playingStyle = options.enums === String ? $root.PlayingStyle[message.playingStyle] : message.playingStyle;
-        if (message.playablePositions && message.playablePositions.length) {
-            object.playablePositions = [];
-            for (var j = 0; j < message.playablePositions.length; ++j)
-                object.playablePositions[j] = options.enums === String ? $root.Position[message.playablePositions[j]] : message.playablePositions[j];
-        }
+        if (message.playablePositions != null && message.hasOwnProperty("playablePositions"))
+            object.playablePositions = $root.PlayablePositions.toObject(message.playablePositions, options);
         if (message.comPlayingStyles && message.comPlayingStyles.length) {
             object.comPlayingStyles = [];
             for (var j = 0; j < message.comPlayingStyles.length; ++j)
@@ -3741,6 +3653,708 @@ $root.PlayerAbilities = (function() {
     };
 
     return PlayerAbilities;
+})();
+
+$root.PlayablePositions = (function() {
+
+    /**
+     * Properties of a PlayablePositions.
+     * @exports IPlayablePositions
+     * @interface IPlayablePositions
+     * @property {Playable|null} [amf] PlayablePositions amf
+     * @property {Playable|null} [cb] PlayablePositions cb
+     * @property {Playable|null} [cf] PlayablePositions cf
+     * @property {Playable|null} [cmf] PlayablePositions cmf
+     * @property {Playable|null} [dmf] PlayablePositions dmf
+     * @property {Playable|null} [gk] PlayablePositions gk
+     * @property {Playable|null} [lb] PlayablePositions lb
+     * @property {Playable|null} [lmf] PlayablePositions lmf
+     * @property {Playable|null} [lwf] PlayablePositions lwf
+     * @property {Playable|null} [rb] PlayablePositions rb
+     * @property {Playable|null} [rmf] PlayablePositions rmf
+     * @property {Playable|null} [rwf] PlayablePositions rwf
+     * @property {Playable|null} [ss] PlayablePositions ss
+     */
+
+    /**
+     * Constructs a new PlayablePositions.
+     * @exports PlayablePositions
+     * @classdesc Represents a PlayablePositions.
+     * @implements IPlayablePositions
+     * @constructor
+     * @param {IPlayablePositions=} [properties] Properties to set
+     */
+    function PlayablePositions(properties) {
+        if (properties)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * PlayablePositions amf.
+     * @member {Playable} amf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.amf = 0;
+
+    /**
+     * PlayablePositions cb.
+     * @member {Playable} cb
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.cb = 0;
+
+    /**
+     * PlayablePositions cf.
+     * @member {Playable} cf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.cf = 0;
+
+    /**
+     * PlayablePositions cmf.
+     * @member {Playable} cmf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.cmf = 0;
+
+    /**
+     * PlayablePositions dmf.
+     * @member {Playable} dmf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.dmf = 0;
+
+    /**
+     * PlayablePositions gk.
+     * @member {Playable} gk
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.gk = 0;
+
+    /**
+     * PlayablePositions lb.
+     * @member {Playable} lb
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.lb = 0;
+
+    /**
+     * PlayablePositions lmf.
+     * @member {Playable} lmf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.lmf = 0;
+
+    /**
+     * PlayablePositions lwf.
+     * @member {Playable} lwf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.lwf = 0;
+
+    /**
+     * PlayablePositions rb.
+     * @member {Playable} rb
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.rb = 0;
+
+    /**
+     * PlayablePositions rmf.
+     * @member {Playable} rmf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.rmf = 0;
+
+    /**
+     * PlayablePositions rwf.
+     * @member {Playable} rwf
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.rwf = 0;
+
+    /**
+     * PlayablePositions ss.
+     * @member {Playable} ss
+     * @memberof PlayablePositions
+     * @instance
+     */
+    PlayablePositions.prototype.ss = 0;
+
+    /**
+     * Creates a new PlayablePositions instance using the specified properties.
+     * @function create
+     * @memberof PlayablePositions
+     * @static
+     * @param {IPlayablePositions=} [properties] Properties to set
+     * @returns {PlayablePositions} PlayablePositions instance
+     */
+    PlayablePositions.create = function create(properties) {
+        return new PlayablePositions(properties);
+    };
+
+    /**
+     * Encodes the specified PlayablePositions message. Does not implicitly {@link PlayablePositions.verify|verify} messages.
+     * @function encode
+     * @memberof PlayablePositions
+     * @static
+     * @param {IPlayablePositions} message PlayablePositions message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    PlayablePositions.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        if (message.amf != null && message.hasOwnProperty("amf"))
+            writer.uint32(/* id 1, wireType 0 =*/8).int32(message.amf);
+        if (message.cb != null && message.hasOwnProperty("cb"))
+            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.cb);
+        if (message.cf != null && message.hasOwnProperty("cf"))
+            writer.uint32(/* id 3, wireType 0 =*/24).int32(message.cf);
+        if (message.cmf != null && message.hasOwnProperty("cmf"))
+            writer.uint32(/* id 4, wireType 0 =*/32).int32(message.cmf);
+        if (message.dmf != null && message.hasOwnProperty("dmf"))
+            writer.uint32(/* id 5, wireType 0 =*/40).int32(message.dmf);
+        if (message.gk != null && message.hasOwnProperty("gk"))
+            writer.uint32(/* id 6, wireType 0 =*/48).int32(message.gk);
+        if (message.lb != null && message.hasOwnProperty("lb"))
+            writer.uint32(/* id 7, wireType 0 =*/56).int32(message.lb);
+        if (message.lmf != null && message.hasOwnProperty("lmf"))
+            writer.uint32(/* id 8, wireType 0 =*/64).int32(message.lmf);
+        if (message.lwf != null && message.hasOwnProperty("lwf"))
+            writer.uint32(/* id 9, wireType 0 =*/72).int32(message.lwf);
+        if (message.rb != null && message.hasOwnProperty("rb"))
+            writer.uint32(/* id 10, wireType 0 =*/80).int32(message.rb);
+        if (message.rmf != null && message.hasOwnProperty("rmf"))
+            writer.uint32(/* id 11, wireType 0 =*/88).int32(message.rmf);
+        if (message.rwf != null && message.hasOwnProperty("rwf"))
+            writer.uint32(/* id 12, wireType 0 =*/96).int32(message.rwf);
+        if (message.ss != null && message.hasOwnProperty("ss"))
+            writer.uint32(/* id 13, wireType 0 =*/104).int32(message.ss);
+        return writer;
+    };
+
+    /**
+     * Encodes the specified PlayablePositions message, length delimited. Does not implicitly {@link PlayablePositions.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof PlayablePositions
+     * @static
+     * @param {IPlayablePositions} message PlayablePositions message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    PlayablePositions.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a PlayablePositions message from the specified reader or buffer.
+     * @function decode
+     * @memberof PlayablePositions
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {PlayablePositions} PlayablePositions
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    PlayablePositions.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.PlayablePositions();
+        while (reader.pos < end) {
+            var tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.amf = reader.int32();
+                break;
+            case 2:
+                message.cb = reader.int32();
+                break;
+            case 3:
+                message.cf = reader.int32();
+                break;
+            case 4:
+                message.cmf = reader.int32();
+                break;
+            case 5:
+                message.dmf = reader.int32();
+                break;
+            case 6:
+                message.gk = reader.int32();
+                break;
+            case 7:
+                message.lb = reader.int32();
+                break;
+            case 8:
+                message.lmf = reader.int32();
+                break;
+            case 9:
+                message.lwf = reader.int32();
+                break;
+            case 10:
+                message.rb = reader.int32();
+                break;
+            case 11:
+                message.rmf = reader.int32();
+                break;
+            case 12:
+                message.rwf = reader.int32();
+                break;
+            case 13:
+                message.ss = reader.int32();
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        return message;
+    };
+
+    /**
+     * Decodes a PlayablePositions message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof PlayablePositions
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {PlayablePositions} PlayablePositions
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    PlayablePositions.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a PlayablePositions message.
+     * @function verify
+     * @memberof PlayablePositions
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    PlayablePositions.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (message.amf != null && message.hasOwnProperty("amf"))
+            switch (message.amf) {
+            default:
+                return "amf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.cb != null && message.hasOwnProperty("cb"))
+            switch (message.cb) {
+            default:
+                return "cb: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.cf != null && message.hasOwnProperty("cf"))
+            switch (message.cf) {
+            default:
+                return "cf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.cmf != null && message.hasOwnProperty("cmf"))
+            switch (message.cmf) {
+            default:
+                return "cmf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.dmf != null && message.hasOwnProperty("dmf"))
+            switch (message.dmf) {
+            default:
+                return "dmf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.gk != null && message.hasOwnProperty("gk"))
+            switch (message.gk) {
+            default:
+                return "gk: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.lb != null && message.hasOwnProperty("lb"))
+            switch (message.lb) {
+            default:
+                return "lb: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.lmf != null && message.hasOwnProperty("lmf"))
+            switch (message.lmf) {
+            default:
+                return "lmf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.lwf != null && message.hasOwnProperty("lwf"))
+            switch (message.lwf) {
+            default:
+                return "lwf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.rb != null && message.hasOwnProperty("rb"))
+            switch (message.rb) {
+            default:
+                return "rb: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.rmf != null && message.hasOwnProperty("rmf"))
+            switch (message.rmf) {
+            default:
+                return "rmf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.rwf != null && message.hasOwnProperty("rwf"))
+            switch (message.rwf) {
+            default:
+                return "rwf: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        if (message.ss != null && message.hasOwnProperty("ss"))
+            switch (message.ss) {
+            default:
+                return "ss: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+                break;
+            }
+        return null;
+    };
+
+    /**
+     * Creates a PlayablePositions message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof PlayablePositions
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {PlayablePositions} PlayablePositions
+     */
+    PlayablePositions.fromObject = function fromObject(object) {
+        if (object instanceof $root.PlayablePositions)
+            return object;
+        var message = new $root.PlayablePositions();
+        switch (object.amf) {
+        case "C":
+        case 0:
+            message.amf = 0;
+            break;
+        case "B":
+        case 1:
+            message.amf = 1;
+            break;
+        case "A":
+        case 2:
+            message.amf = 2;
+            break;
+        }
+        switch (object.cb) {
+        case "C":
+        case 0:
+            message.cb = 0;
+            break;
+        case "B":
+        case 1:
+            message.cb = 1;
+            break;
+        case "A":
+        case 2:
+            message.cb = 2;
+            break;
+        }
+        switch (object.cf) {
+        case "C":
+        case 0:
+            message.cf = 0;
+            break;
+        case "B":
+        case 1:
+            message.cf = 1;
+            break;
+        case "A":
+        case 2:
+            message.cf = 2;
+            break;
+        }
+        switch (object.cmf) {
+        case "C":
+        case 0:
+            message.cmf = 0;
+            break;
+        case "B":
+        case 1:
+            message.cmf = 1;
+            break;
+        case "A":
+        case 2:
+            message.cmf = 2;
+            break;
+        }
+        switch (object.dmf) {
+        case "C":
+        case 0:
+            message.dmf = 0;
+            break;
+        case "B":
+        case 1:
+            message.dmf = 1;
+            break;
+        case "A":
+        case 2:
+            message.dmf = 2;
+            break;
+        }
+        switch (object.gk) {
+        case "C":
+        case 0:
+            message.gk = 0;
+            break;
+        case "B":
+        case 1:
+            message.gk = 1;
+            break;
+        case "A":
+        case 2:
+            message.gk = 2;
+            break;
+        }
+        switch (object.lb) {
+        case "C":
+        case 0:
+            message.lb = 0;
+            break;
+        case "B":
+        case 1:
+            message.lb = 1;
+            break;
+        case "A":
+        case 2:
+            message.lb = 2;
+            break;
+        }
+        switch (object.lmf) {
+        case "C":
+        case 0:
+            message.lmf = 0;
+            break;
+        case "B":
+        case 1:
+            message.lmf = 1;
+            break;
+        case "A":
+        case 2:
+            message.lmf = 2;
+            break;
+        }
+        switch (object.lwf) {
+        case "C":
+        case 0:
+            message.lwf = 0;
+            break;
+        case "B":
+        case 1:
+            message.lwf = 1;
+            break;
+        case "A":
+        case 2:
+            message.lwf = 2;
+            break;
+        }
+        switch (object.rb) {
+        case "C":
+        case 0:
+            message.rb = 0;
+            break;
+        case "B":
+        case 1:
+            message.rb = 1;
+            break;
+        case "A":
+        case 2:
+            message.rb = 2;
+            break;
+        }
+        switch (object.rmf) {
+        case "C":
+        case 0:
+            message.rmf = 0;
+            break;
+        case "B":
+        case 1:
+            message.rmf = 1;
+            break;
+        case "A":
+        case 2:
+            message.rmf = 2;
+            break;
+        }
+        switch (object.rwf) {
+        case "C":
+        case 0:
+            message.rwf = 0;
+            break;
+        case "B":
+        case 1:
+            message.rwf = 1;
+            break;
+        case "A":
+        case 2:
+            message.rwf = 2;
+            break;
+        }
+        switch (object.ss) {
+        case "C":
+        case 0:
+            message.ss = 0;
+            break;
+        case "B":
+        case 1:
+            message.ss = 1;
+            break;
+        case "A":
+        case 2:
+            message.ss = 2;
+            break;
+        }
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a PlayablePositions message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof PlayablePositions
+     * @static
+     * @param {PlayablePositions} message PlayablePositions
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    PlayablePositions.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        var object = {};
+        if (options.defaults) {
+            object.amf = options.enums === String ? "C" : 0;
+            object.cb = options.enums === String ? "C" : 0;
+            object.cf = options.enums === String ? "C" : 0;
+            object.cmf = options.enums === String ? "C" : 0;
+            object.dmf = options.enums === String ? "C" : 0;
+            object.gk = options.enums === String ? "C" : 0;
+            object.lb = options.enums === String ? "C" : 0;
+            object.lmf = options.enums === String ? "C" : 0;
+            object.lwf = options.enums === String ? "C" : 0;
+            object.rb = options.enums === String ? "C" : 0;
+            object.rmf = options.enums === String ? "C" : 0;
+            object.rwf = options.enums === String ? "C" : 0;
+            object.ss = options.enums === String ? "C" : 0;
+        }
+        if (message.amf != null && message.hasOwnProperty("amf"))
+            object.amf = options.enums === String ? $root.Playable[message.amf] : message.amf;
+        if (message.cb != null && message.hasOwnProperty("cb"))
+            object.cb = options.enums === String ? $root.Playable[message.cb] : message.cb;
+        if (message.cf != null && message.hasOwnProperty("cf"))
+            object.cf = options.enums === String ? $root.Playable[message.cf] : message.cf;
+        if (message.cmf != null && message.hasOwnProperty("cmf"))
+            object.cmf = options.enums === String ? $root.Playable[message.cmf] : message.cmf;
+        if (message.dmf != null && message.hasOwnProperty("dmf"))
+            object.dmf = options.enums === String ? $root.Playable[message.dmf] : message.dmf;
+        if (message.gk != null && message.hasOwnProperty("gk"))
+            object.gk = options.enums === String ? $root.Playable[message.gk] : message.gk;
+        if (message.lb != null && message.hasOwnProperty("lb"))
+            object.lb = options.enums === String ? $root.Playable[message.lb] : message.lb;
+        if (message.lmf != null && message.hasOwnProperty("lmf"))
+            object.lmf = options.enums === String ? $root.Playable[message.lmf] : message.lmf;
+        if (message.lwf != null && message.hasOwnProperty("lwf"))
+            object.lwf = options.enums === String ? $root.Playable[message.lwf] : message.lwf;
+        if (message.rb != null && message.hasOwnProperty("rb"))
+            object.rb = options.enums === String ? $root.Playable[message.rb] : message.rb;
+        if (message.rmf != null && message.hasOwnProperty("rmf"))
+            object.rmf = options.enums === String ? $root.Playable[message.rmf] : message.rmf;
+        if (message.rwf != null && message.hasOwnProperty("rwf"))
+            object.rwf = options.enums === String ? $root.Playable[message.rwf] : message.rwf;
+        if (message.ss != null && message.hasOwnProperty("ss"))
+            object.ss = options.enums === String ? $root.Playable[message.ss] : message.ss;
+        return object;
+    };
+
+    /**
+     * Converts this PlayablePositions to JSON.
+     * @function toJSON
+     * @memberof PlayablePositions
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    PlayablePositions.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return PlayablePositions;
+})();
+
+/**
+ * Playable enum.
+ * @exports Playable
+ * @enum {string}
+ * @property {number} C=0 C value
+ * @property {number} B=1 B value
+ * @property {number} A=2 A value
+ */
+$root.Playable = (function() {
+    var valuesById = {}, values = Object.create(valuesById);
+    values[valuesById[0] = "C"] = 0;
+    values[valuesById[1] = "B"] = 1;
+    values[valuesById[2] = "A"] = 2;
+    return values;
 })();
 
 /**

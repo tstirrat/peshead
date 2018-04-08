@@ -238,7 +238,7 @@ export interface IPlayer {
     playingStyle: PlayingStyle;
 
     /** Player playablePositions */
-    playablePositions?: (Position[]|null);
+    playablePositions: IPlayablePositions;
 
     /** Player comPlayingStyles */
     comPlayingStyles?: (ComPlayingStyle[]|null);
@@ -317,7 +317,7 @@ export class Player implements IPlayer {
     public playingStyle: PlayingStyle;
 
     /** Player playablePositions. */
-    public playablePositions: Position[];
+    public playablePositions: IPlayablePositions;
 
     /** Player comPlayingStyles. */
     public comPlayingStyles: ComPlayingStyle[];
@@ -817,6 +817,175 @@ export class PlayerAbilities implements IPlayerAbilities {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a PlayablePositions. */
+export interface IPlayablePositions {
+
+    /** PlayablePositions amf */
+    amf?: (Playable|null);
+
+    /** PlayablePositions cb */
+    cb?: (Playable|null);
+
+    /** PlayablePositions cf */
+    cf?: (Playable|null);
+
+    /** PlayablePositions cmf */
+    cmf?: (Playable|null);
+
+    /** PlayablePositions dmf */
+    dmf?: (Playable|null);
+
+    /** PlayablePositions gk */
+    gk?: (Playable|null);
+
+    /** PlayablePositions lb */
+    lb?: (Playable|null);
+
+    /** PlayablePositions lmf */
+    lmf?: (Playable|null);
+
+    /** PlayablePositions lwf */
+    lwf?: (Playable|null);
+
+    /** PlayablePositions rb */
+    rb?: (Playable|null);
+
+    /** PlayablePositions rmf */
+    rmf?: (Playable|null);
+
+    /** PlayablePositions rwf */
+    rwf?: (Playable|null);
+
+    /** PlayablePositions ss */
+    ss?: (Playable|null);
+}
+
+/** Represents a PlayablePositions. */
+export class PlayablePositions implements IPlayablePositions {
+
+    /**
+     * Constructs a new PlayablePositions.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IPlayablePositions);
+
+    /** PlayablePositions amf. */
+    public amf: Playable;
+
+    /** PlayablePositions cb. */
+    public cb: Playable;
+
+    /** PlayablePositions cf. */
+    public cf: Playable;
+
+    /** PlayablePositions cmf. */
+    public cmf: Playable;
+
+    /** PlayablePositions dmf. */
+    public dmf: Playable;
+
+    /** PlayablePositions gk. */
+    public gk: Playable;
+
+    /** PlayablePositions lb. */
+    public lb: Playable;
+
+    /** PlayablePositions lmf. */
+    public lmf: Playable;
+
+    /** PlayablePositions lwf. */
+    public lwf: Playable;
+
+    /** PlayablePositions rb. */
+    public rb: Playable;
+
+    /** PlayablePositions rmf. */
+    public rmf: Playable;
+
+    /** PlayablePositions rwf. */
+    public rwf: Playable;
+
+    /** PlayablePositions ss. */
+    public ss: Playable;
+
+    /**
+     * Creates a new PlayablePositions instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns PlayablePositions instance
+     */
+    public static create(properties?: IPlayablePositions): PlayablePositions;
+
+    /**
+     * Encodes the specified PlayablePositions message. Does not implicitly {@link PlayablePositions.verify|verify} messages.
+     * @param message PlayablePositions message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IPlayablePositions, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified PlayablePositions message, length delimited. Does not implicitly {@link PlayablePositions.verify|verify} messages.
+     * @param message PlayablePositions message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IPlayablePositions, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a PlayablePositions message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns PlayablePositions
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PlayablePositions;
+
+    /**
+     * Decodes a PlayablePositions message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns PlayablePositions
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PlayablePositions;
+
+    /**
+     * Verifies a PlayablePositions message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a PlayablePositions message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns PlayablePositions
+     */
+    public static fromObject(object: { [k: string]: any }): PlayablePositions;
+
+    /**
+     * Creates a plain object from a PlayablePositions message. Also converts values to other types if specified.
+     * @param message PlayablePositions
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: PlayablePositions, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this PlayablePositions to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Playable enum. */
+export enum Playable {
+    C = 0,
+    B = 1,
+    A = 2
 }
 
 /** Foot enum. */
