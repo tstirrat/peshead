@@ -125,17 +125,38 @@ export async function removePlayer(client: elasticsearch.Client, id: string) {
   });
 }
 
+export interface SearchOptions {
+  sortDirection?: string;
+  sortField?: string;
+  start?: number;
+  limit?: number;
+}
+
 /** Perform basic search. TODO: add more functionality. */
-export async function search(client: elasticsearch.Client, query: string) {
+export async function search(
+  client: elasticsearch.Client,
+  query: string,
+  {
+    sortField = 'ovr',
+    sortDirection = 'desc',
+    start = 0,
+    limit = 20
+  }: SearchOptions = {}
+) {
   return client.search({
     type: 'player',
     index: 'players',
     body: {
       query: {
-        match: {
-          name: { query, analyzer: 'standard' }
-        }
-      }
+        match: query
+          ? {
+              name: { query, analyzer: 'standard' }
+            }
+          : undefined
+      },
+      from: start,
+      size: limit,
+      sort: [{ [sortField]: { order: sortDirection } }]
     }
   });
 }

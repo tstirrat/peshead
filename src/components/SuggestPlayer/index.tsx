@@ -175,7 +175,8 @@ const styles: StyleRulesCallback = theme => ({
     flexGrow: 1,
     position: 'relative',
     background: 'rgba(255, 255, 255, 0.15)',
-    zIndex: 10
+    zIndex: 10,
+    borderRadius: '2px'
   },
   suggestionsContainerOpen: {
     position: 'absolute',

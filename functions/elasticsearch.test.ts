@@ -74,13 +74,79 @@ describe('search', () => {
       search.search(client, 'samus');
       expect(client.search).toHaveBeenCalledWith(
         expect.objectContaining({
-          body: {
+          body: expect.objectContaining({
             query: {
               match: {
                 name: { query: 'samus', analyzer: 'standard' }
               }
             }
-          }
+          })
+        })
+      );
+    });
+
+    it('defaults to page size of 20', () => {
+      search.search(client, 'samus');
+      expect(client.search).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            size: 20
+          })
+        })
+      );
+    });
+
+    it('accepts custom `limit` parameter', () => {
+      search.search(client, 'samus', { limit: 25 });
+      expect(client.search).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            size: 25
+          })
+        })
+      );
+    });
+
+    it('defaults to page start of 0', () => {
+      search.search(client, 'samus');
+      expect(client.search).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            from: 0
+          })
+        })
+      );
+    });
+
+    it('accepts custom `start` parameter', () => {
+      search.search(client, 'samus', { start: 25 });
+      expect(client.search).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            from: 25
+          })
+        })
+      );
+    });
+
+    it('defaults to sort of `ovr desc`', () => {
+      search.search(client, 'samus');
+      expect(client.search).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            sort: [{ ovr: { order: 'desc' } }]
+          })
+        })
+      );
+    });
+
+    it('accepts custom `sortField` and `sortDirection` parameters', () => {
+      search.search(client, 'samus', { sortField: 'a', sortDirection: 'b' });
+      expect(client.search).toHaveBeenCalledWith(
+        expect.objectContaining({
+          body: expect.objectContaining({
+            sort: [{ a: { order: 'b' } }]
+          })
         })
       );
     });

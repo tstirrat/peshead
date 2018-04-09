@@ -1,5 +1,3 @@
-import './Home.css';
-
 import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
@@ -28,7 +26,7 @@ export class Home extends React.PureComponent<ViewModel & Actions> {
   componentDidMount() {
     const { results, isLoading } = this.props;
     if (!isLoading && !results.length) {
-      this.props.search({ query: 'mess', id: 'home' });
+      this.props.search({ query: '', id: 'home' });
     }
   }
 

@@ -32,22 +32,27 @@ app.use('/api', router);
 
 /** Perform a search */
 router.get('/search', async (req, res) => {
-  const query: string = req.query.query;
-  if (query) {
-    try {
-      console.log('[search] searching:', query);
-      const client = createClient(functions.config().es);
-      const response = await search(client, query);
-      console.log('[search] search complete', response);
-      const cache = `public, max-age=${2 * HOURS}, s-maxage=${2 * HOURS}`;
-      return res.set('Cache-Control', cache).send(response);
-    } catch (e) {
-      console.warn('[search] search failed with', e);
-      return res.status(400).send(e);
-    }
+  const { query, sortDirection, sortField } = req.query;
+  try {
+    console.log(
+      `[search] searching: '${query}'`,
+      `sort: ${sortField || 'ovr'} ${sortDirection || 'desc'}`
+    );
+    const client = createClient(functions.config().es);
+    const response = await search(client, query, {
+      sortField,
+      sortDirection
+    });
+    console.log(
+      '[search] search complete: ',
+      `${response.hits.hits.length}/${response.hits.total} total`
+    );
+    const cache = `public, max-age=${2 * HOURS}, s-maxage=${2 * HOURS}`;
+    return res.set('Cache-Control', cache).send(response);
+  } catch (e) {
+    console.warn('[search] search failed with', e);
+    return res.status(400).send(e);
   }
-  console.warn('[search] search with empty query');
-  return res.status(400).send(new Error('Must supply `query` param'));
 });
 
 /** Autocomplete suggest based on name or kitName, returns minimal fields. */

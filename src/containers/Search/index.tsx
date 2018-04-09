@@ -9,6 +9,7 @@ import * as search from '../../actions/search';
 import { Loading } from '../../components/Loading';
 import { PlayerTable } from '../../components/PlayerTable';
 import * as fromRoot from '../../reducers';
+import { assert } from '../../shared/assert';
 import { Player } from '../../shared/service/api';
 
 interface QueryParams {
@@ -33,7 +34,10 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
   componentDidMount() {
     if (this.props.params.query && !this.props.isLoading) {
       // TODO: needs work, prevent double searches
-      this.props.search({ query: this.props.params.query });
+      this.props.search({
+        ...this.props.params,
+        query: assert(this.props.params.query, `Query should be defined here`)
+      });
     }
   }
 
@@ -44,7 +48,10 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
   componentWillUpdate(nextProps: ViewModel) {
     const { query } = nextProps.params;
     if (query && query !== this.props.params.query) {
-      this.props.search({ query });
+      this.props.search({
+        ...this.props.params,
+        query: assert(this.props.params.query, `Query should be defined here`)
+      });
     }
   }
 

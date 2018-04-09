@@ -194,6 +194,10 @@
   version "8.10.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.1.tgz#aac98b810c50568054486f2bb8c486d824713be8"
 
+"@types/query-string@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-5.1.0.tgz#7f40cdea49ddafa0ea4f3db35fb6c24d3bfd4dcc"
+
 "@types/react-autosuggest@^9.3.1":
   version "9.3.1"
   resolved "https://registry.yarnpkg.com/@types/react-autosuggest/-/react-autosuggest-9.3.1.tgz#4c0deaa9e6d32bb5fd3d50a9678e003bff12e2b2"
@@ -6216,7 +6220,7 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
-query-string@^5.0.1:
+query-string@^5.0.1, query-string@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-5.1.1.tgz#a78c012b71c17e05f2e3fa2319dd330682efb3cb"
   dependencies:
