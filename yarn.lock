@@ -182,13 +182,9 @@
   version "3.0.32"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-3.0.32.tgz#f4e5af31e9e9b196d8e5fca8a5e2e20aa3d60b69"
 
-"@types/node@*":
-  version "9.6.0"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.0.tgz#d3480ee666df9784b1001a1872a2f6ccefb6c2d7"
-
-"@types/node@8.9":
-  version "8.9.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.9.5.tgz#162b864bc70be077e6db212b322754917929e976"
+"@types/node@*", "@types/node@9.6":
+  version "9.6.4"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.4.tgz#0ef7b4cfc3499881c81e0ea1ce61a23f6f4f5b42"
 
 "@types/node@^8.9.4":
   version "8.10.1"
