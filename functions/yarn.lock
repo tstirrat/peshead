@@ -269,9 +269,9 @@
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/jdataview/-/jdataview-0.0.30.tgz#5dcba364758d03587d49561ce224c92104f804f4"
 
-"@types/jest@^22.2.2":
-  version "22.2.2"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.2.tgz#afe5dacbd00d65325f52da0ed3e76e259629ac9d"
+"@types/jest@^22.2.3":
+  version "22.2.3"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
 
 "@types/jsonwebtoken@^7.1.32":
   version "7.2.6"
