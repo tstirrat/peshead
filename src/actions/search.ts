@@ -23,7 +23,7 @@ export const search = ({
   sortDirection,
   id = 'search'
 }: SearchRequestParams): SearchRequestAction => {
-  return { type: SEARCH, payload: { query, id, sortField, sortDirection } };
+  return new SearchRequestAction({ query, id, sortField, sortDirection });
 };
 
 export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
@@ -39,7 +39,7 @@ export const searchSuccess = (
   results: IPlayer[],
   id = 'search'
 ): SearchSuccessAction => {
-  return { type: SEARCH_SUCCESS, payload: { results, id } };
+  return new SearchSuccessAction({ results, id });
 };
 
 export const SEARCH_ERROR = 'SEARCH_ERROR';
@@ -48,7 +48,7 @@ export class SearchErrorAction implements Action {
   constructor(public payload: { error: Error; id: string }) {}
 }
 export const searchError = (error: Error, id = 'search'): SearchErrorAction => {
-  return { type: SEARCH_ERROR, payload: { error, id } };
+  return new SearchErrorAction({ error, id });
 };
 
 export type Actions =

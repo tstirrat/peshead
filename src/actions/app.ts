@@ -18,14 +18,11 @@ export const login = (
   id?: string,
   password?: string
 ): AppLoginAction => {
-  return {
-    type: LOGIN,
-    payload: {
-      provider,
-      id,
-      password
-    }
-  };
+  return new AppLoginAction({
+    provider,
+    id,
+    password
+  });
 };
 
 export const LOGIN_SUCCESS = '[app] LOGIN_SUCCESS';
@@ -34,10 +31,7 @@ export class AppLoginSuccessAction implements Action {
   constructor(public payload: User) {}
 }
 export const loginSuccess = (user: User): AppLoginSuccessAction => {
-  return {
-    type: LOGIN_SUCCESS,
-    payload: user
-  };
+  return new AppLoginSuccessAction(user);
 };
 
 export const LOGIN_ERROR = '[app] LOGIN_ERROR';
@@ -46,10 +40,7 @@ export class AppLoginErrorAction implements Action {
   constructor(public payload: Error) {}
 }
 export const loginError = (error: Error): AppLoginErrorAction => {
-  return {
-    type: LOGIN_ERROR,
-    payload: error
-  };
+  return new AppLoginErrorAction(error);
 };
 
 export const LOGOUT = '[app] LOGOUT';
@@ -57,9 +48,7 @@ export class AppLogoutAction implements Action {
   public type: typeof LOGOUT = LOGOUT;
 }
 export const logout: ActionCreator<AppLogoutAction> = (): AppLogoutAction => {
-  return {
-    type: LOGOUT
-  };
+  return new AppLogoutAction();
 };
 
 export const LOGOUT_SUCCESS = '[app] LOGOUT_SUCCESS';
@@ -67,9 +56,7 @@ export class AppLogoutSuccessAction implements Action {
   public type: typeof LOGOUT_SUCCESS = LOGOUT_SUCCESS;
 }
 export const logoutSuccess = (): AppLogoutSuccessAction => {
-  return {
-    type: LOGOUT_SUCCESS
-  };
+  return new AppLogoutSuccessAction();
 };
 
 export const LOAD_SESSION = '[app] SESSION_LISTEN';
@@ -77,9 +64,7 @@ export class AppLoadSessionAction implements Action {
   public type: typeof LOAD_SESSION = LOAD_SESSION;
 }
 export const loadSession = (): AppLoadSessionAction => {
-  return {
-    type: LOAD_SESSION
-  };
+  return new AppLoadSessionAction();
 };
 
 export type Actions =
