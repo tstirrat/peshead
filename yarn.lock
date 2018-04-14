@@ -224,13 +224,11 @@
     "@types/react" "*"
     redux "^3.6.0"
 
-"@types/react@*":
-  version "16.3.2"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.2.tgz#8dd45796b33160c60ddf1de068f45729214668bb"
-
-"@types/react@16.3.3":
-  version "16.3.3"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.3.tgz#39f598fe372ad032cc691e8cdfcb1d4cbf2391d1"
+"@types/react@*", "@types/react@16.3.10":
+  version "16.3.10"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.3.10.tgz#2f25eef83f7c7f6c51cea4c02660f727c75d3b33"
+  dependencies:
+    csstype "^2.2.0"
 
 "@types/recompose@^0.24.7":
   version "0.24.7"
@@ -2190,6 +2188,10 @@ cssom@0.3.x, "cssom@>= 0.3.2 < 0.4.0":
   resolved "https://registry.yarnpkg.com/cssstyle/-/cssstyle-0.2.37.tgz#541097234cb2513c83ceed3acddc27ff27987d54"
   dependencies:
     cssom "0.3.x"
+
+csstype@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.2.0.tgz#1656ef97553ac53b77090844a2531c6660ebd902"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -6490,16 +6492,7 @@ react@^15.5.4:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-"react@^15.6.2 || ^16.0":
-  version "16.3.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.3.0.tgz#fc5a01c68f91e9b38e92cf83f7b795ebdca8ddff"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
-
-react@^16.3.1:
+"react@^15.6.2 || ^16.0", react@^16.3.1:
   version "16.3.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
   dependencies:
