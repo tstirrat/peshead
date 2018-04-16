@@ -1,5 +1,5 @@
-import { Divider, ListItemText, ListSubheader } from 'material-ui';
-import List from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import List, { ListItemText, ListSubheader } from 'material-ui/List';
 import * as React from 'react';
 import { pure } from 'recompose';
 

@@ -1,6 +1,6 @@
-import RemoveCircleIcon from 'material-ui-icons/RemoveCircle';
 import ButtonBase from 'material-ui/ButtonBase';
 import Divider from 'material-ui/Divider';
+import Icon from 'material-ui/Icon';
 import List, { ListItem } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
@@ -34,35 +34,35 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
             onClick={this.handleDelete}
             disableRipple={true}
           >
-            <RemoveCircleIcon />
+            <Icon>remove_circle</Icon>
           </ButtonBase>
         </Header>
         <Divider />
 
         <StyledStat>
           <ListItem>
-            <Typography type="subheading">{player.age}</Typography>
+            <Typography variant="subheading">{player.age}</Typography>
           </ListItem>
           <Divider />
         </StyledStat>
 
         <StyledStat>
           <ListItem>
-            <Typography type="subheading">{0}</Typography>
+            <Typography variant="subheading">{0}</Typography>
           </ListItem>
           <Divider />
         </StyledStat>
 
         <StyledStat>
           <ListItem>
-            <Typography type="subheading">{0}</Typography>
+            <Typography variant="subheading">{0}</Typography>
           </ListItem>
           <Divider />
         </StyledStat>
 
         <StyledStat>
           <ListItem>
-            <Typography type="subheading">
+            <Typography variant="subheading">
               <ColoredPositionLabel position={player.registeredPosition} />
             </Typography>
           </ListItem>
@@ -82,7 +82,9 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
 
         <StyledStat>
           <ListItem>
-            <Typography type="subheading">{getTotalStats(player)}</Typography>
+            <Typography variant="subheading">
+              {getTotalStats(player)}
+            </Typography>
           </ListItem>
           <Divider />
         </StyledStat>
@@ -154,7 +156,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
       return (
         <StyledStat key={key}>
           <ListItem>
-            <Typography type="subheading">
+            <Typography variant="subheading">
               {effectiveness > Playable.C
                 ? `${rating} (${PlayableLabel[effectiveness]})`
                 : `${rating}`}

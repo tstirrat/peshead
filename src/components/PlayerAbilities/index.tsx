@@ -1,9 +1,10 @@
-import { Player } from '../../shared/service/api';
-import { PlayerStat } from '../PlayerStat';
-import Table, { TableCell, TableRow, TableBody } from 'material-ui/Table';
-import ArrowDropUpIcon from 'material-ui-icons/ArrowDropUp';
+import Icon from 'material-ui/Icon';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import * as React from 'react';
+
+import { Player } from '../../shared/service/api';
 import { getChangedAbilitiesForLevel } from '../../shared/utils/player';
+import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
   player: Player;
@@ -21,161 +22,161 @@ export class PlayerAbilities extends React.PureComponent<Props> {
             <TableCell>Attacking Prowess</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.attackingProwess!} />
-              {changed.attackingProwess ? <ArrowDropUpIcon /> : null}
+              {changed.attackingProwess ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Ball Control</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.ballControl!} />
-              {changed.ballControl ? <ArrowDropUpIcon /> : null}
+              {changed.ballControl ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Dribbling</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.dribbling!} />
-              {changed.dribbling ? <ArrowDropUpIcon /> : null}
+              {changed.dribbling ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Low Pass</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.lowPass!} />
-              {changed.lowPass ? <ArrowDropUpIcon /> : null}
+              {changed.lowPass ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Lofted Pass</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.loftedPass!} />
-              {changed.loftedPass ? <ArrowDropUpIcon /> : null}
+              {changed.loftedPass ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Finishing</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.finishing!} />
-              {changed.finishing ? <ArrowDropUpIcon /> : null}
+              {changed.finishing ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Set Piece Taking</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.placeKicking!} />
-              {changed.placeKicking ? <ArrowDropUpIcon /> : null}
+              {changed.placeKicking ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Curve</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.swerve!} />
-              {changed.swerve ? <ArrowDropUpIcon /> : null}
+              {changed.swerve ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Header</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.header!} />
-              {changed.header ? <ArrowDropUpIcon /> : null}
+              {changed.header ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Defensive Prowess</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.defensiveProwess!} />
-              {changed.defensiveProwess ? <ArrowDropUpIcon /> : null}
+              {changed.defensiveProwess ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Ball Winning</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.ballWinning!} />
-              {changed.ballWinning ? <ArrowDropUpIcon /> : null}
+              {changed.ballWinning ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Kicking Power</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.kickingPower!} />
-              {changed.kickingPower ? <ArrowDropUpIcon /> : null}
+              {changed.kickingPower ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Speed</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.speed!} />
-              {changed.speed ? <ArrowDropUpIcon /> : null}
+              {changed.speed ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Explosive Power</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.explosivePower!} />
-              {changed.explosivePower ? <ArrowDropUpIcon /> : null}
+              {changed.explosivePower ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Body Control</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.bodyControl!} />
-              {changed.bodyControl ? <ArrowDropUpIcon /> : null}
+              {changed.bodyControl ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Physical Contact</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.physicalContact!} />
-              {changed.physicalContact ? <ArrowDropUpIcon /> : null}
+              {changed.physicalContact ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Jump</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.jump!} />
-              {changed.jump ? <ArrowDropUpIcon /> : null}
+              {changed.jump ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Goalkeeping</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.goalkeeping!} />
-              {changed.goalkeeping ? <ArrowDropUpIcon /> : null}
+              {changed.goalkeeping ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Catching</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.catching!} />
-              {changed.catching ? <ArrowDropUpIcon /> : null}
+              {changed.catching ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Clearing</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.clearing!} />
-              {changed.clearing ? <ArrowDropUpIcon /> : null}
+              {changed.clearing ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Reflexes</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.reflexes!} />
-              {changed.reflexes ? <ArrowDropUpIcon /> : null}
+              {changed.reflexes ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Coverage</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.coverage!} />
-              {changed.coverage ? <ArrowDropUpIcon /> : null}
+              {changed.coverage ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Stamina</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.stamina!} />
-              {changed.stamina ? <ArrowDropUpIcon /> : null}
+              {changed.stamina ? <Icon>arrow_drop_up</Icon> : null}
             </TableCell>
           </TableRow>
           <TableRow>

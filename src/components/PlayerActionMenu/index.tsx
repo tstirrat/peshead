@@ -1,4 +1,4 @@
-import MoreVertIcon from 'material-ui-icons/MoreVert';
+import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import * as React from 'react';
@@ -28,13 +28,13 @@ export class PlayerActionMenu extends React.PureComponent<Props, State> {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <MoreVertIcon />
+          <Icon>more_vert</Icon>
         </IconButton>
         <Menu
           id="player-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
-          onRequestClose={this.handleClose}
+          onClose={this.handleClose}
         >
           <MenuItem>
             <Link href={`/players/compare/${player.id}`}>Compare</Link>

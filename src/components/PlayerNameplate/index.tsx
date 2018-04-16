@@ -15,7 +15,7 @@ export const PlayerNameplate = pure<Props>(({ player }) => (
   <Wrapper>
     <img className="image" src="/player-avatar.png" alt="player image" />
     <div className="details">
-      <Typography type="title" className="name">
+      <Typography variant="title" className="name">
         {player.name}
       </Typography>
       <div className="vitals">

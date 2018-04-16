@@ -1,9 +1,8 @@
 import './App.css';
 
-import AccountCircleIcon from 'material-ui-icons/AccountCircle';
-import HomeIcon from 'material-ui-icons/Home';
 import AppBar from 'material-ui/AppBar';
 import Button from 'material-ui/Button';
+import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import Toolbar from 'material-ui/Toolbar';
@@ -54,7 +53,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
         <AppBar>
           <Toolbar>
             <IconButton color="inherit" onClick={this.goHome}>
-              <HomeIcon />
+              <Icon>home</Icon>
             </IconButton>
             <div className="search-input flex">
               <SuggestPlayer
@@ -94,18 +93,17 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
     return (
       <div className="session">
         <IconButton
-          color="contrast"
           aria-owns={this.state.open ? 'user-menu' : undefined}
           aria-haspopup="true"
           onClick={this.openMenu}
         >
-          <AccountCircleIcon />
+          <Icon>account_circle</Icon>
         </IconButton>
         <Menu
           id="user-menu"
           anchorEl={this.state.anchorEl}
           open={this.state.open}
-          onRequestClose={this.closeMenu}
+          onClose={this.closeMenu}
         >
           <MenuItem onClick={this.closeMenu}>{user.displayName}</MenuItem>
           <MenuItem onClick={this.props.logout}>Logout</MenuItem>
@@ -115,11 +113,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   }
 
   renderLoginButtons() {
-    return (
-      <Button color="contrast" onClick={this.login.bind(this, 'google')}>
-        Google
-      </Button>
-    );
+    return <Button onClick={this.login.bind(this, 'google')}>Google</Button>;
   }
 
   private openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {

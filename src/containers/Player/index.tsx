@@ -117,7 +117,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
         <Grid item={true} xs={12} sm={6}>
           <Card>
             <CardContent>
-              <Typography type="title">Basics</Typography>
+              <Typography variant="title">Basics</Typography>
             </CardContent>
             <PlayerBasics player={player} />
             <div>
@@ -145,7 +145,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
         <Grid item={true} xs={12} sm={6}>
           <Card>
             <CardContent>
-              <Typography type="title">Abilities</Typography>
+              <Typography variant="title">Abilities</Typography>
             </CardContent>
             <PlayerAbilities player={player} level={level} />
           </Card>

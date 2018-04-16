@@ -37,7 +37,7 @@ export class Home extends React.PureComponent<ViewModel & Actions> {
         <Helmet>
           <title>PESto - Home</title>
         </Helmet>
-        <Typography type="title">Players</Typography>
+        <Typography variant="title">Players</Typography>
         <Card>
           <Loading
             when={isLoading}

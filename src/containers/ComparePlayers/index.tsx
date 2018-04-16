@@ -67,7 +67,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
           <Helmet>
             <title>PESto - {this.getSummary()}</title>
           </Helmet>
-          <Typography type="title">Compare players</Typography>
+          <Typography variant="title">Compare players</Typography>
           <div className="search-input flex">
             <SuggestPlayer onSelect={this.handlePlayerSelect} />
           </div>

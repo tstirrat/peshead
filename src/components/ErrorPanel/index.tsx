@@ -19,8 +19,8 @@ const Centered = styled.div`
 export const ErrorPanel = pure<ViewModel>(({ error }) => (
   <Centered>
     <div>
-      <Typography type="title">An error has occurred</Typography>
-      <Typography type="body1">{error.message}</Typography>
+      <Typography variant="title">An error has occurred</Typography>
+      <Typography variant="body1">{error.message}</Typography>
     </div>
   </Centered>
 ));
