@@ -6,8 +6,6 @@ import { pure } from 'recompose';
 import { Fragment, Routes } from 'redux-little-router';
 
 import { NotFound } from './containers/../components/NotFound';
-import { League } from './containers/League';
-import { Team } from './containers/Team';
 
 const Loading = pure<LoadingComponentProps>(
   ({ error, pastDelay }) =>
@@ -15,38 +13,35 @@ const Loading = pure<LoadingComponentProps>(
 );
 
 const AsyncHome = Loadable({
-  loader: () => import('./containers/Home'),
-  render: (mod, props) => {
-    const Component = mod.ConnectedHome;
-    return <Component {...props} />;
-  },
+  loader: () => import('./containers/Home').then(mod => mod.ConnectedHome),
   loading: Loading
 });
 
 const AsyncSearch = Loadable({
-  loader: () => import('./containers/Search'),
-  render: (mod, props) => {
-    const Component = mod.ConnectedSearch;
-    return <Component {...props} />;
-  },
+  loader: () => import('./containers/Search').then(mod => mod.ConnectedSearch),
   loading: Loading
 });
 
 const AsyncPlayer = Loadable({
-  loader: () => import('./containers/Player'),
-  render: (mod, props) => {
-    const Component = mod.ConnectedPlayer;
-    return <Component {...props} />;
-  },
+  loader: () => import('./containers/Player').then(mod => mod.ConnectedPlayer),
   loading: Loading
 });
 
 const AsyncComparePlayers = Loadable({
-  loader: () => import('./containers/ComparePlayers'),
-  render: (mod, props) => {
-    const Component = mod.ConnectedComparePlayers;
-    return <Component {...props} />;
-  },
+  loader: () =>
+    import('./containers/ComparePlayers').then(
+      mod => mod.ConnectedComparePlayers
+    ),
+  loading: Loading
+});
+
+const AsyncLeague = Loadable({
+  loader: () => import('./containers/League').then(mod => mod.League),
+  loading: Loading
+});
+
+const AsyncTeam = Loadable({
+  loader: () => import('./containers/Team').then(mod => mod.Team),
   loading: Loading
 });
 
@@ -60,7 +55,7 @@ export const routes = (
         <AsyncSearch />
       </Fragment>
       <Fragment forRoute="/leagues/:id">
-        <League />
+        <AsyncLeague />
       </Fragment>
       <Fragment forRoute="/players/compare/(:player1)(/:player2)(/:player3)">
         <AsyncComparePlayers />
@@ -69,7 +64,7 @@ export const routes = (
         <AsyncPlayer />
       </Fragment>
       <Fragment forRoute="/teams/:id">
-        <Team />
+        <AsyncTeam />
       </Fragment>
       <Fragment forNoMatch={true}>
         <NotFound />
