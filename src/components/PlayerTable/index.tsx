@@ -1,10 +1,11 @@
+import Hidden from 'material-ui/Hidden';
 import Table, { TableBody, TableCell, TableCellProps, TableHead, TableRow } from 'material-ui/Table';
 import * as React from 'react';
 import { pure } from 'recompose';
 import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
-import { PlayerPositionRatingBadge } from '../PlayerPositionRatingBadge';
+import { ColoredPositionLabel } from '../ColoredPositionLabel';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
@@ -21,7 +22,9 @@ export const PlayerTable = pure<Props>(({ players }) => (
       <TableRow>
         <TableCell {...cellProps}>Name</TableCell>
         <TableCell {...cellProps}>Pos.</TableCell>
-        <TableCell {...cellProps}>Age</TableCell>
+        <Hidden smDown={true}>
+          <TableCell {...cellProps}>Age</TableCell>
+        </Hidden>
         {/* Team */}
         <TableCell {...cellProps}>Country</TableCell>
         <TableCell {...cellProps}>OVR</TableCell>
@@ -39,11 +42,15 @@ export const PlayerTable = pure<Props>(({ players }) => (
             <Link href={`/players/${player.id}`}>{player.name}</Link>
           </TableCell>
           <TableCell {...cellProps} className="pos">
-            <PlayerPositionRatingBadge player={player} showRating={false} />
+            <ColoredPositionLabel position={player.registeredPosition} />
           </TableCell>
-          <TableCell {...cellProps} className="age">
-            {player.age}
-          </TableCell>
+
+          <Hidden smDown={true}>
+            <TableCell {...cellProps} className="age">
+              {player.age}
+            </TableCell>
+          </Hidden>
+
           {/* Team */}
           <TableCell {...cellProps} className="nation">
             {player.nationality}
