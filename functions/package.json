@@ -41,7 +41,7 @@
     "@types/jbinary": "^0.0.30",
     "@types/jdataview": "^0.0.30",
     "@types/jest": "^22.2.3",
-    "@types/lodash": "^4.14.106",
+    "@types/lodash": "^4.14.107",
     "@types/morgan": "^1.7.35",
     "fs-extra": "^5.0.0",
     "jest": "^22.4.3",
