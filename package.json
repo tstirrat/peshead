@@ -26,7 +26,7 @@
     "react-redux": "^5.0.7",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
-    "redux-beacon": "^1.2.1",
+    "redux-beacon": "^2.0.2",
     "redux-devtools-extension": "^2.13.2",
     "redux-little-router": "^15.1.0",
     "redux-observable": "^0.18.0",
