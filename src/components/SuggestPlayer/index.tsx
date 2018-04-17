@@ -1,7 +1,8 @@
+// tslint:disable:no-use-before-declare
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { MenuItem } from 'material-ui/Menu';
-import Paper, { PaperProps } from 'material-ui/Paper';
+import Paper from 'material-ui/Paper';
 import { StyleRulesCallback, WithStyles, withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import * as React from 'react';
@@ -134,13 +135,13 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
     );
   }
 
-  private handleSuggestionsFetchRequested = ({
+  private handleSuggestionsFetchRequested: Autosuggest.SuggestionsFetchRequested = ({
     value
-  }: Autosuggest.SuggestionsFetchRequest) => {
+  }) => {
     this.querySubject.next(value);
   };
 
-  private handleSuggestionsClearRequested = () => {
+  private handleSuggestionsClearRequested: Autosuggest.OnSuggestionsClearRequested = () => {
     this.setState({ suggestions: [] });
   };
 
@@ -159,10 +160,9 @@ class SuggestPlayerBase extends React.Component<Props & WithStyles, State> {
     }
   };
 
-  private handleSuggestionSelected = (
-    event: React.FormEvent<HTMLInputElement>,
-    { suggestion }: Autosuggest.SuggestionSelectedEventData<Suggestion>
-  ) => {
+  private handleSuggestionSelected: Autosuggest.OnSuggestionSelected<
+    Suggestion
+  > = (event, { suggestion }) => {
     if (this.props.onSelect && suggestion.value !== 'error') {
       this.props.onSelect(suggestion.value);
       this.setState({ value: '' });
@@ -205,7 +205,9 @@ const styles: StyleRulesCallback = theme => ({
 // tslint:disable-next-line:variable-name
 export const SuggestPlayer = withStyles(styles)(SuggestPlayerBase);
 
-function renderInput(inputProps: Autosuggest.InputProps) {
+const renderInput: Autosuggest.RenderInputComponent<
+  Suggestion
+> = inputProps => {
   // tslint:disable-next-line:no-any TODO: not sure of other props here
   const { classes, autoFocus, value, ref, ...other } = inputProps as any;
 
@@ -222,16 +224,16 @@ function renderInput(inputProps: Autosuggest.InputProps) {
       }}
     />
   );
-}
+};
 
 const normalStyle: React.CSSProperties = { fontWeight: 300 };
 const boldStyle: React.CSSProperties = { fontWeight: 500 };
 
 /** Render a single suggestion item, bolding the matched query. */
-function renderSuggestion(
-  suggestion: Suggestion,
-  { query, isHighlighted }: Autosuggest.RenderSuggestionParams
-) {
+const renderSuggestion: Autosuggest.RenderSuggestion<Suggestion> = (
+  suggestion,
+  { query, isHighlighted }
+) => {
   const matches = match(suggestion.label, query);
   const parts = parse(suggestion.label, matches);
 
@@ -252,14 +254,9 @@ function renderSuggestion(
       </div>
     </MenuItem>
   );
-}
+};
 
-interface SuggestionsContainerProps {
-  containerProps: PaperProps;
-  children: React.ReactChildren;
-}
-
-function renderSuggestionsContainer(options: SuggestionsContainerProps) {
+const renderSuggestionsContainer: Autosuggest.RenderSuggestionsContainer = options => {
   const { containerProps, children } = options;
 
   return (
@@ -267,8 +264,10 @@ function renderSuggestionsContainer(options: SuggestionsContainerProps) {
       {children}
     </Paper>
   );
-}
+};
 
-function getSuggestionValue(suggestion: Suggestion) {
+const getSuggestionValue: Autosuggest.GetSuggestionValue<
+  Suggestion
+> = suggestion => {
   return suggestion.label;
-}
+};
