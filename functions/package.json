@@ -33,7 +33,7 @@
     "protobufjs": "^6.8.0"
   },
   "devDependencies": {
-    "@firebase/app-types": "^0.1.2",
+    "@firebase/app-types": "^0.2.0",
     "@firebase/database-types": "^0.2.0",
     "@types/elasticsearch": "^5.0.22",
     "@types/fs-extra": "^5.0.2",
