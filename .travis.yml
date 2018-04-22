@@ -11,8 +11,7 @@ branches:
 script:
   - yarn test --maxWorkers=2 --coverage
   - cd functions && yarn install && yarn test --maxWorkers=2 --coverage
-  - yarn build # /functions
-  - cd $TRAVIS_BUILD_DIR # go back to project root
+  - cd functions && yarn build
   - yarn build
 after_script:
   - COVERALLS_REPO_TOKEN=$coveralls_repo_token yarn coveralls
