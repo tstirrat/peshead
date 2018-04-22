@@ -16,9 +16,13 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@firebase/app-types@0.1.2", "@firebase/app-types@^0.1.2":
+"@firebase/app-types@0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.1.2.tgz#a20cb346e3be374c0bdee6b102de0ea5e8e6fa27"
+
+"@firebase/app-types@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.2.0.tgz#2a0e9c433d5f39e428358c5cd8065010d5a07985"
 
 "@firebase/app@^0.1.10":
   version "0.1.10"
@@ -28,9 +32,13 @@
     "@firebase/util" "0.1.10"
     tslib "^1.9.0"
 
-"@firebase/database-types@0.2.0", "@firebase/database-types@^0.2.0":
+"@firebase/database-types@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.2.0.tgz#c442af71e4c376e6bb78f6aa62645b5a0e2b87b6"
+
+"@firebase/database-types@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.2.1.tgz#f83a6d03af5f8c93276ceb89e1f31e4664c9df1b"
 
 "@firebase/database@^0.2.0":
   version "0.2.1"
@@ -555,9 +563,9 @@ atob@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.0.tgz#ab2b150e51d7b122b9efc8d7340c06b6c41076bc"
 
-aws-sdk@^2.224.1:
-  version "2.224.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.224.1.tgz#82fe93e10b3e818f315c35ce8667cdc8db94a0b3"
+aws-sdk@^2.226.1:
+  version "2.226.1"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.226.1.tgz#8e6e2b466aaf26cb35714905d5f934e6c8317a99"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
