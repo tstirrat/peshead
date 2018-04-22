@@ -1,5 +1,4 @@
 import GoogleAnalytics, { trackPageView } from '@redux-beacon/google-analytics';
-import * as ReactGA from 'react-ga';
 import { createMiddleware } from 'redux-beacon';
 import { LOCATION_CHANGED, LocationChangedAction } from 'redux-little-router';
 
@@ -28,6 +27,5 @@ const eventsMap = {
 export const analyticsMiddleware = () => {
   const propertyId = `${process.env.REACT_APP_GA_PROPERTY_ID}`;
   assert(propertyId, 'GA property id is missing');
-  ReactGA.initialize(propertyId);
   return createMiddleware(eventsMap, GoogleAnalytics());
 };
