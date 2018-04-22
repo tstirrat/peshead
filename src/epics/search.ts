@@ -1,8 +1,8 @@
 import { SearchResponse } from 'elasticsearch';
+import fetch from 'observable-fetch';
 import { stringify } from 'query-string';
 import { Action } from 'redux';
 import { combineEpics, Epic } from 'redux-observable';
-import { ajax } from 'rxjs/observable/dom/ajax';
 import { empty } from 'rxjs/observable/empty';
 import { of as obs } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
@@ -31,7 +31,7 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
         sortField
       });
       const url = `${process.env.REACT_APP_API_ROOT}/search?${params}`;
-      return ajax.getJSON<SearchResponse<IPlayer>>(url).pipe(
+      return fetch<SearchResponse<IPlayer>>(url).pipe(
         map(res =>
           res.hits.hits.map(hit => {
             const player = hit._source;
