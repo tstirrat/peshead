@@ -55,7 +55,7 @@
     "@types/react-helmet": "^5.0.5",
     "@types/react-loadable": "^5.3.4",
     "@types/react-redux": "^5.0.16",
-    "@types/recompose": "^0.24.7",
+    "@types/recompose": "^0.26.0",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/redux-little-router": "^14.0.1",
     "coveralls": "^3.0.0",
