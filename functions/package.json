@@ -20,7 +20,7 @@
   },
   "main": "build/index.js",
   "dependencies": {
-    "aws-sdk": "^2.224.1",
+    "aws-sdk": "^2.226.1",
     "cors": "^2.8.4",
     "elasticsearch": "^14.2.2",
     "express": "^4.16.3",
