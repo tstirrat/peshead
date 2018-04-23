@@ -66,7 +66,7 @@ export const base: IPlayer = {
   appearance: {}
 };
 
-function makePlayer(attrs: Partial<IPlayer>): Player {
+function makePlayer(attrs?: Partial<IPlayer>): Player {
   const merged = {
     ...base,
     ...attrs
