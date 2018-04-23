@@ -45,7 +45,7 @@ export const reducer: Reducer<State> = (
 
     case search.SEARCH_ERROR: {
       const { error, id } = action.payload;
-      return { ...state, [id]: { isLoading: false, error } };
+      return { ...state, [id]: { isLoading: false, error, results: [] } };
     }
     default:
       return state;
