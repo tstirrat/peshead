@@ -3,7 +3,6 @@ import { stringify } from 'query-string';
 import { Action } from 'redux';
 import { combineEpics, Epic } from 'redux-observable';
 import { of as obs } from 'rxjs/observable/of';
-import { _throw } from 'rxjs/observable/throw';
 import { catchError } from 'rxjs/operators/catchError';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
@@ -22,9 +21,10 @@ export const search$: Epic<Action, GlobalState, EpicDependencies> = (
     switchMap((action: search.SearchRequestAction) => {
       const { query, id, sortDirection, sortField } = action.payload;
       if (query === undefined) {
-        return _throw(
-          new Error(`Tried to search with undefined 'query', did you mean ''?`)
+        const err = new Error(
+          `Tried to search with undefined 'query', did you mean ''?`
         );
+        return obs(search.searchError(err));
       }
       const params = stringify({
         query,

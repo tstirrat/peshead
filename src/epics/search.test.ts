@@ -110,7 +110,28 @@ describe('epics/search', () => {
       })
     );
 
-    describe('on success', () => {
+    it(
+      'produces SEARCH_ERROR if no query specified',
+      marbles(m => {
+        const err = new Error(
+          `Tried to search with undefined 'query', did you mean ''?`
+        );
+        const legend = {
+          // tslint:disable-next-line:no-any
+          s: actions.search({} as any),
+          x: actions.searchError(err)
+        };
+
+        const input$ = m.hot('-s', legend);
+        const expected$ = m.hot('-x', legend);
+
+        const actions$ = setup(search$, input$, fetchPlayer);
+
+        m.expect(actions$).toBeObservable(expected$);
+      })
+    );
+
+    describe('on API success', () => {
       it(
         'produces SEARCH_SUCCESS',
         marbles(m => {
@@ -165,9 +186,9 @@ describe('epics/search', () => {
           m.expect(actions$).toBeObservable(expected$);
         })
       );
-    }); // on success
+    }); // on API success
 
-    describe('on error', () => {
+    describe('on API error', () => {
       const err = new Error('err');
       let fetchWithError: jest.Mock;
 
@@ -213,7 +234,7 @@ describe('epics/search', () => {
           m.expect(actions$).toBeObservable(expected$);
         })
       );
-    }); // on error
+    }); // on API error
 
     // TODO: something is weird with error cases here
   }); // search$
