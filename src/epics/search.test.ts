@@ -6,6 +6,7 @@ import { of as obs } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 
 import { EpicDependencies } from '.';
+import { make } from '../__test__/fixtures';
 import * as actions from '../actions/search';
 import { search$ } from '../epics/search';
 
@@ -26,24 +27,102 @@ describe('epics/search', () => {
     });
   }
 
-  describe('search$', () => {
-    describe('on success', () => {
-      const payload = { hits: { hits: [] } };
+  function makeSearchHits(hits: object[]) {
+    return { hits: { hits } };
+  }
 
+  describe('search$', () => {
+    let fetchPlayer: jest.Mock;
+
+    beforeEach(() => {
+      const payload = makeSearchHits([{ _id: '7511', _source: make.player() }]);
+      fetchPlayer = jest.fn().mockReturnValue(obs(payload));
+    });
+
+    it(
+      'fetches from /api/search',
+      marbles(m => {
+        const legend = { s: actions.search({ query: 'hello' }) };
+
+        const input$ = m.hot('-s', legend);
+        const actions$ = setup(search$, input$, fetchPlayer);
+
+        actions$.subscribe(() => {
+          expect(fetchPlayer).toHaveBeenCalledWith(
+            'http://localhost/api/search?query=hello'
+          );
+        });
+      })
+    );
+
+    it(
+      'passes sortDirection',
+      marbles(m => {
+        const legend = {
+          s: actions.search({ query: 'hello', sortDirection: 'desc' })
+        };
+
+        const input$ = m.hot('-s', legend);
+        const actions$ = setup(search$, input$, fetchPlayer);
+
+        actions$.subscribe(() => {
+          expect(fetchPlayer).toHaveBeenCalledWith(
+            'http://localhost/api/search?query=hello&sortDirection=desc'
+          );
+        });
+      })
+    );
+
+    it(
+      'passes sortField',
+      marbles(m => {
+        const legend = {
+          s: actions.search({ query: 'hello', sortField: 'x' })
+        };
+
+        const input$ = m.hot('-s', legend);
+        const actions$ = setup(search$, input$, fetchPlayer);
+
+        actions$.subscribe(() => {
+          expect(fetchPlayer).toHaveBeenCalledWith(
+            'http://localhost/api/search?query=hello&sortField=x'
+          );
+        });
+      })
+    );
+
+    it(
+      'does not pass unknown params',
+      marbles(m => {
+        const legend = {
+          // tslint:disable-next-line:no-any
+          s: actions.search({ query: 'hello', a: 'b' } as any)
+        };
+
+        const input$ = m.hot('-s', legend);
+        const actions$ = setup(search$, input$, fetchPlayer);
+
+        actions$.subscribe(() => {
+          expect(fetchPlayer).toHaveBeenCalledWith(
+            'http://localhost/api/search?query=hello'
+          );
+        });
+      })
+    );
+
+    describe('on success', () => {
       it(
         'produces SEARCH_SUCCESS',
         marbles(m => {
-          const fetch = jest.fn().mockReturnValue(obs(payload));
-
           const legend = {
             s: actions.search({ query: 'a' }),
-            '✔': actions.searchSuccess([])
+            '✔': actions.searchSuccess([make.player()])
           };
 
           const input$ = m.hot('-s', legend);
           const expected$ = m.hot('-✔', legend);
 
-          const actions$ = setup(search$, input$, fetch);
+          const actions$ = setup(search$, input$, fetchPlayer);
 
           m.expect(actions$).toBeObservable(expected$);
         })
@@ -52,51 +131,53 @@ describe('epics/search', () => {
       it(
         'remembers search id, if supplied',
         marbles(m => {
-          const fetch = jest.fn().mockReturnValue(obs(payload));
-
           const legend = {
             s: actions.search({ query: 'a', id: 'kanye' }),
-            '✔': actions.searchSuccess([], 'kanye')
+            '✔': actions.searchSuccess([make.player()], 'kanye')
           };
 
           const input$ = m.hot('-s', legend);
           const expected$ = m.hot('-✔', legend);
 
-          const actions$ = setup(search$, input$, fetch);
+          const actions$ = setup(search$, input$, fetchPlayer);
 
           m.expect(actions$).toBeObservable(expected$);
         })
       );
 
       it(
-        'fetches from /api/search',
+        'copies search result _id into player payload',
         marbles(m => {
-          const fetch = jest.fn().mockReturnValue(obs(payload));
-
+          const payload = makeSearchHits([
+            { _id: 'x', _source: make.player() }
+          ]);
+          const fetchWithCustomId = jest.fn().mockReturnValue(obs(payload));
           const legend = {
-            s: actions.search({ query: 'hello' })
+            s: actions.search({ query: 'a', id: 'kanye' }),
+            '✔': actions.searchSuccess([make.player({ id: 'x' })], 'kanye')
           };
 
           const input$ = m.hot('-s', legend);
-          const actions$ = setup(search$, input$, fetch);
+          const expected$ = m.hot('-✔', legend);
 
-          actions$.subscribe(() => {
-            expect(fetch).toHaveBeenCalledWith(
-              'http://localhost/api/search?query=hello'
-            );
-          });
+          const actions$ = setup(search$, input$, fetchWithCustomId);
+
+          m.expect(actions$).toBeObservable(expected$);
         })
       );
     }); // on success
 
     describe('on error', () => {
       const err = new Error('err');
+      let fetchWithError: jest.Mock;
+
+      beforeEach(() => {
+        fetchWithError = jest.fn().mockReturnValue(_throw(err));
+      });
 
       it(
         'produces SEARCH_ERROR',
         marbles(m => {
-          const fetch = jest.fn().mockReturnValue(_throw(err));
-
           const legend = {
             s: actions.search({
               query: 'a'
@@ -107,7 +188,7 @@ describe('epics/search', () => {
           const input$ = m.hot('-s', legend);
           const expected$ = m.hot('-x', legend);
 
-          const actions$ = setup(search$, input$, fetch);
+          const actions$ = setup(search$, input$, fetchWithError);
 
           m.expect(actions$).toBeObservable(expected$);
         })
@@ -116,8 +197,6 @@ describe('epics/search', () => {
       it(
         'remembers search id, if supplied',
         marbles(m => {
-          const fetch = jest.fn().mockReturnValue(_throw(err));
-
           const legend = {
             s: actions.search({
               query: 'a',
@@ -129,7 +208,7 @@ describe('epics/search', () => {
           const input$ = m.hot('-s', legend);
           const expected$ = m.hot('-x', legend);
 
-          const actions$ = setup(search$, input$, fetch);
+          const actions$ = setup(search$, input$, fetchWithError);
 
           m.expect(actions$).toBeObservable(expected$);
         })
