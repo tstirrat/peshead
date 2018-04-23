@@ -1,4 +1,3 @@
-import fetch from 'observable-fetch';
 import { Action } from 'redux';
 import { combineEpics, Epic } from 'redux-observable';
 import { of as obs } from 'rxjs/observable/of';
@@ -21,10 +20,12 @@ export const getPlayer: Epic<Action, GlobalState, EpicDependencies> = (
     concatMap((action: players.GetPlayerAction) => {
       const id = assert(action.payload, 'Player id should be supplied');
       const url = `${process.env.REACT_APP_API_ROOT}/players/${id}`;
-      return fetch<IPlayer>(url).pipe(
-        map(player => players.getPlayerSuccess(player)),
-        catchError(err => obs(players.getPlayerError(id, err)))
-      );
+      return deps
+        .fetch<IPlayer>(url)
+        .pipe(
+          map(player => players.getPlayerSuccess(player)),
+          catchError(err => obs(players.getPlayerError(id, err)))
+        );
     })
   );
 
