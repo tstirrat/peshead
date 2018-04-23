@@ -1,3 +1,4 @@
+import fetch from 'observable-fetch';
 import { applyMiddleware, combineReducers, compose, createStore, GenericStoreEnhancer, Middleware, Store } from 'redux';
 import { devToolsEnhancer } from 'redux-devtools-extension/logOnlyInProduction';
 import { initializeCurrentLocation, routerForBrowser } from 'redux-little-router';
@@ -16,7 +17,8 @@ const router = routerForBrowser({
 const enhancers: GenericStoreEnhancer[] = [devToolsEnhancer({})];
 
 const epicDependencies: EpicDependencies = {
-  firebaseApp: configureFirebase()
+  firebaseApp: configureFirebase(),
+  fetch: fetch
 };
 
 const middleware: Middleware[] = [

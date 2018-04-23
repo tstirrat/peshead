@@ -12,10 +12,7 @@ export class GetPlayerAction implements Action {
   ) {}
 }
 export const getPlayer = (id: string): GetPlayerAction => {
-  return {
-    type: GET_PLAYER,
-    payload: id
-  };
+  return new GetPlayerAction(id);
 };
 
 export const GET_PLAYER_SUCCESS = 'GET_PLAYER_SUCCESS';
@@ -24,7 +21,7 @@ export class GetPlayerSuccessAction implements Action {
   constructor(public payload: IPlayer) {}
 }
 export const getPlayerSuccess = (player: IPlayer): GetPlayerSuccessAction => {
-  return { type: GET_PLAYER_SUCCESS, payload: player };
+  return new GetPlayerSuccessAction(player);
 };
 
 export const GET_PLAYER_ERROR = 'GET_PLAYER_ERROR';
@@ -40,10 +37,7 @@ export const getPlayerError = (
   id: string,
   error: Error
 ): GetPlayerErrorAction => {
-  return {
-    type: GET_PLAYER_ERROR,
-    payload: { id, error }
-  };
+  return new GetPlayerErrorAction({ id, error });
 };
 
 export type Actions =

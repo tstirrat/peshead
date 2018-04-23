@@ -1,4 +1,5 @@
 import { app } from 'firebase';
+import fetch from 'observable-fetch';
 import { combineEpics } from 'redux-observable';
 
 import * as players from './players';
@@ -10,6 +11,7 @@ import * as session from './session';
  */
 export interface EpicDependencies {
   firebaseApp: app.App;
+  fetch: typeof fetch;
 }
 
 export const epics = combineEpics(players.epics, search.epics, session.epics);
