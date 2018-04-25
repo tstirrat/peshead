@@ -213,9 +213,9 @@
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-5.1.0.tgz#7f40cdea49ddafa0ea4f3db35fb6c24d3bfd4dcc"
 
-"@types/react-autosuggest@^9.3.3":
-  version "9.3.3"
-  resolved "https://registry.yarnpkg.com/@types/react-autosuggest/-/react-autosuggest-9.3.3.tgz#a6bc7a6f5076629372fafe2e7a48e15f5b76ff90"
+"@types/react-autosuggest@^9.3.4":
+  version "9.3.4"
+  resolved "https://registry.yarnpkg.com/@types/react-autosuggest/-/react-autosuggest-9.3.4.tgz#1e0fee77f077e6b703a414ce7a3e35c124ed9e69"
   dependencies:
     "@types/react" "*"
 
