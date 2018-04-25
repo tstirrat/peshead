@@ -258,9 +258,9 @@
   dependencies:
     csstype "^2.2.0"
 
-"@types/recompose@^0.26.0":
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/@types/recompose/-/recompose-0.26.0.tgz#0726c727283ac6380a4ec973df7f0f350c2e4db8"
+"@types/recompose@^0.26.1":
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/@types/recompose/-/recompose-0.26.1.tgz#a21c5728dea223551882b763335cb1bc641bf1d0"
   dependencies:
     "@types/react" "*"
 
