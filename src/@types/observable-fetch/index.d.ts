@@ -5,7 +5,7 @@
 // TypeScript Version: 2.8
 
 declare module 'observable-fetch' {
-  import { Observable } from 'rxjs/Observable';
+  import { Observable } from 'rxjs';
   export default function fetch<T>(
     url: RequestInfo,
     options?: RequestInit

@@ -2,10 +2,8 @@ import { SearchResponse } from 'elasticsearch';
 import { stringify } from 'query-string';
 import { Action } from 'redux';
 import { combineEpics, Epic } from 'redux-observable';
-import { of as obs } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { map } from 'rxjs/operators/map';
-import { switchMap } from 'rxjs/operators/switchMap';
+import { of as obs } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import * as search from '../actions/search';
 import { EpicDependencies } from '../epics';

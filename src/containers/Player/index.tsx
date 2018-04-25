@@ -7,10 +7,8 @@ import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
 import { replace } from 'redux-little-router';
 import { createSelector } from 'reselect';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { tap } from 'rxjs/operators/tap';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 
 import * as players from '../../actions/players';
 import { Loading } from '../../components/Loading';

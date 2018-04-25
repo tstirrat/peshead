@@ -1,9 +1,7 @@
 import { Action } from 'redux';
 import { combineEpics, Epic } from 'redux-observable';
-import { of as obs } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { concatMap } from 'rxjs/operators/concatMap';
-import { map } from 'rxjs/operators/map';
+import { of as obs } from 'rxjs';
+import { catchError, concatMap, map } from 'rxjs/operators';
 
 import * as players from '../actions/players';
 import { EpicDependencies } from '../epics';

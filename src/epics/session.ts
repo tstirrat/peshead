@@ -1,14 +1,8 @@
 import * as firebase from 'firebase';
 import { combineEpics, Epic } from 'redux-observable';
+import { empty, from, of as observableOf } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
-import { empty } from 'rxjs/observable/empty';
-import { from } from 'rxjs/observable/from';
-import { of as observableOf } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { filter } from 'rxjs/operators/filter';
-import { map } from 'rxjs/operators/map';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { take } from 'rxjs/operators/take';
+import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 
 import * as app from '../actions/app';
 import { EpicDependencies } from '../epics';
@@ -50,7 +44,7 @@ export const login$: Epic<app.Actions, GlobalState, EpicDependencies> = (
         return observableOf(app.loginSuccess(auth.currentUser));
       }
 
-      let doLogin$ = empty<firebase.auth.UserCredential>();
+      let doLogin$: Observable<firebase.auth.UserCredential> = empty();
 
       // TODO: phone auth
       if (provider === Provider.PHONE) {

@@ -3,15 +3,9 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import * as React from 'react';
 import * as Autosuggest from 'react-autosuggest';
-import { Observable } from 'rxjs/Observable';
-import { ajax } from 'rxjs/observable/dom/ajax';
-import { of } from 'rxjs/observable/of';
-import { catchError } from 'rxjs/operators/catchError';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { map } from 'rxjs/operators/map';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Subject } from 'rxjs/Subject';
+import { Observable, of, Subject } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
+import { catchError, debounceTime, map, switchMap, takeUntil } from 'rxjs/operators';
 import styled from 'styled-components';
 
 import { SuggestionResult, SuggestionsContainer, TextBox } from './styles';

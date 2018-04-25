@@ -1,9 +1,7 @@
 import { Action } from 'redux';
 import { ActionsObservable, Epic } from 'redux-observable';
+import { Observable, of as obs, throwError } from 'rxjs';
 import { marbles } from 'rxjs-marbles';
-import { Observable } from 'rxjs/Observable';
-import { of as obs } from 'rxjs/observable/of';
-import { _throw } from 'rxjs/observable/throw';
 
 import { EpicDependencies } from '.';
 import { make } from '../__test__/fixtures';
@@ -193,7 +191,7 @@ describe('epics/search', () => {
       let fetchWithError: jest.Mock;
 
       beforeEach(() => {
-        fetchWithError = jest.fn().mockReturnValue(_throw(err));
+        fetchWithError = jest.fn().mockReturnValue(throwError(err));
       });
 
       it(
