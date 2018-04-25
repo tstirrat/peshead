@@ -189,6 +189,140 @@ export enum Country {
     ZIMBABWE = 95
 }
 
+/** Properties of an Operation. */
+export interface IOperation {
+
+    /** Operation type */
+    type: OperationType;
+
+    /** Operation status */
+    status?: (OperationStatus|null);
+
+    /** Start date/time (ISO date string) */
+    started?: (string|null);
+
+    /** Last updated date/time (ISO date string) */
+    lastUpdated?: (string|null);
+
+    /** Completion date/time (ISO date string) */
+    completed?: (string|null);
+
+    /** Operation errorMessage */
+    errorMessage?: (string|null);
+}
+
+/** Long running operations e.g. Indexing */
+export class Operation implements IOperation {
+
+    /**
+     * Constructs a new Operation.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IOperation);
+
+    /** Operation type. */
+    public type: OperationType;
+
+    /** Operation status. */
+    public status: OperationStatus;
+
+    /** Start date/time (ISO date string) */
+    public started: string;
+
+    /** Last updated date/time (ISO date string) */
+    public lastUpdated: string;
+
+    /** Completion date/time (ISO date string) */
+    public completed: string;
+
+    /** Operation errorMessage. */
+    public errorMessage: string;
+
+    /**
+     * Creates a new Operation instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns Operation instance
+     */
+    public static create(properties?: IOperation): Operation;
+
+    /**
+     * Encodes the specified Operation message. Does not implicitly {@link Operation.verify|verify} messages.
+     * @param message Operation message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IOperation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified Operation message, length delimited. Does not implicitly {@link Operation.verify|verify} messages.
+     * @param message Operation message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IOperation, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes an Operation message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns Operation
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Operation;
+
+    /**
+     * Decodes an Operation message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns Operation
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Operation;
+
+    /**
+     * Verifies an Operation message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates an Operation message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns Operation
+     */
+    public static fromObject(object: { [k: string]: any }): Operation;
+
+    /**
+     * Creates a plain object from an Operation message. Also converts values to other types if specified.
+     * @param message Operation
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: Operation, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this Operation to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** OperationType enum. */
+export enum OperationType {
+    UNKNOWN = 0,
+    FULL_INDEX = 1
+}
+
+/** OperationStatus enum. */
+export enum OperationStatus {
+    IDLE = 0,
+    RUNNING = 1,
+    COMPLETE = 2,
+    ERROR = 400
+}
+
 /** Properties of a Player. */
 export interface IPlayer {
 

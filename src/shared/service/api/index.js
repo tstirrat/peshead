@@ -389,6 +389,372 @@ $root.Country = (function() {
     return values;
 })();
 
+$root.Operation = (function() {
+
+    /**
+     * Properties of an Operation.
+     * @exports IOperation
+     * @interface IOperation
+     * @property {OperationType} type Operation type
+     * @property {OperationStatus|null} [status] Operation status
+     * @property {string|null} [started] Start date/time (ISO date string)
+     * @property {string|null} [lastUpdated] Last updated date/time (ISO date string)
+     * @property {string|null} [completed] Completion date/time (ISO date string)
+     * @property {string|null} [errorMessage] Operation errorMessage
+     */
+
+    /**
+     * Constructs a new Operation.
+     * @exports Operation
+     * @classdesc Long running operations e.g. Indexing
+     * @implements IOperation
+     * @constructor
+     * @param {IOperation=} [properties] Properties to set
+     */
+    function Operation(properties) {
+        if (properties)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * Operation type.
+     * @member {OperationType} type
+     * @memberof Operation
+     * @instance
+     */
+    Operation.prototype.type = 0;
+
+    /**
+     * Operation status.
+     * @member {OperationStatus} status
+     * @memberof Operation
+     * @instance
+     */
+    Operation.prototype.status = 0;
+
+    /**
+     * Start date/time (ISO date string)
+     * @member {string} started
+     * @memberof Operation
+     * @instance
+     */
+    Operation.prototype.started = "";
+
+    /**
+     * Last updated date/time (ISO date string)
+     * @member {string} lastUpdated
+     * @memberof Operation
+     * @instance
+     */
+    Operation.prototype.lastUpdated = "";
+
+    /**
+     * Completion date/time (ISO date string)
+     * @member {string} completed
+     * @memberof Operation
+     * @instance
+     */
+    Operation.prototype.completed = "";
+
+    /**
+     * Operation errorMessage.
+     * @member {string} errorMessage
+     * @memberof Operation
+     * @instance
+     */
+    Operation.prototype.errorMessage = "";
+
+    /**
+     * Creates a new Operation instance using the specified properties.
+     * @function create
+     * @memberof Operation
+     * @static
+     * @param {IOperation=} [properties] Properties to set
+     * @returns {Operation} Operation instance
+     */
+    Operation.create = function create(properties) {
+        return new Operation(properties);
+    };
+
+    /**
+     * Encodes the specified Operation message. Does not implicitly {@link Operation.verify|verify} messages.
+     * @function encode
+     * @memberof Operation
+     * @static
+     * @param {IOperation} message Operation message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    Operation.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        writer.uint32(/* id 1, wireType 0 =*/8).int32(message.type);
+        if (message.status != null && message.hasOwnProperty("status"))
+            writer.uint32(/* id 2, wireType 0 =*/16).int32(message.status);
+        if (message.started != null && message.hasOwnProperty("started"))
+            writer.uint32(/* id 3, wireType 2 =*/26).string(message.started);
+        if (message.lastUpdated != null && message.hasOwnProperty("lastUpdated"))
+            writer.uint32(/* id 4, wireType 2 =*/34).string(message.lastUpdated);
+        if (message.completed != null && message.hasOwnProperty("completed"))
+            writer.uint32(/* id 5, wireType 2 =*/42).string(message.completed);
+        if (message.errorMessage != null && message.hasOwnProperty("errorMessage"))
+            writer.uint32(/* id 6, wireType 2 =*/50).string(message.errorMessage);
+        return writer;
+    };
+
+    /**
+     * Encodes the specified Operation message, length delimited. Does not implicitly {@link Operation.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof Operation
+     * @static
+     * @param {IOperation} message Operation message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    Operation.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes an Operation message from the specified reader or buffer.
+     * @function decode
+     * @memberof Operation
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {Operation} Operation
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    Operation.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.Operation();
+        while (reader.pos < end) {
+            var tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.type = reader.int32();
+                break;
+            case 2:
+                message.status = reader.int32();
+                break;
+            case 3:
+                message.started = reader.string();
+                break;
+            case 4:
+                message.lastUpdated = reader.string();
+                break;
+            case 5:
+                message.completed = reader.string();
+                break;
+            case 6:
+                message.errorMessage = reader.string();
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        if (!message.hasOwnProperty("type"))
+            throw $util.ProtocolError("missing required 'type'", { instance: message });
+        return message;
+    };
+
+    /**
+     * Decodes an Operation message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof Operation
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {Operation} Operation
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    Operation.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies an Operation message.
+     * @function verify
+     * @memberof Operation
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    Operation.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        switch (message.type) {
+        default:
+            return "type: enum value expected";
+        case 0:
+        case 1:
+            break;
+        }
+        if (message.status != null && message.hasOwnProperty("status"))
+            switch (message.status) {
+            default:
+                return "status: enum value expected";
+            case 0:
+            case 1:
+            case 2:
+            case 400:
+                break;
+            }
+        if (message.started != null && message.hasOwnProperty("started"))
+            if (!$util.isString(message.started))
+                return "started: string expected";
+        if (message.lastUpdated != null && message.hasOwnProperty("lastUpdated"))
+            if (!$util.isString(message.lastUpdated))
+                return "lastUpdated: string expected";
+        if (message.completed != null && message.hasOwnProperty("completed"))
+            if (!$util.isString(message.completed))
+                return "completed: string expected";
+        if (message.errorMessage != null && message.hasOwnProperty("errorMessage"))
+            if (!$util.isString(message.errorMessage))
+                return "errorMessage: string expected";
+        return null;
+    };
+
+    /**
+     * Creates an Operation message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof Operation
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {Operation} Operation
+     */
+    Operation.fromObject = function fromObject(object) {
+        if (object instanceof $root.Operation)
+            return object;
+        var message = new $root.Operation();
+        switch (object.type) {
+        case "UNKNOWN":
+        case 0:
+            message.type = 0;
+            break;
+        case "FULL_INDEX":
+        case 1:
+            message.type = 1;
+            break;
+        }
+        switch (object.status) {
+        case "IDLE":
+        case 0:
+            message.status = 0;
+            break;
+        case "RUNNING":
+        case 1:
+            message.status = 1;
+            break;
+        case "COMPLETE":
+        case 2:
+            message.status = 2;
+            break;
+        case "ERROR":
+        case 400:
+            message.status = 400;
+            break;
+        }
+        if (object.started != null)
+            message.started = String(object.started);
+        if (object.lastUpdated != null)
+            message.lastUpdated = String(object.lastUpdated);
+        if (object.completed != null)
+            message.completed = String(object.completed);
+        if (object.errorMessage != null)
+            message.errorMessage = String(object.errorMessage);
+        return message;
+    };
+
+    /**
+     * Creates a plain object from an Operation message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof Operation
+     * @static
+     * @param {Operation} message Operation
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    Operation.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        var object = {};
+        if (options.defaults) {
+            object.type = options.enums === String ? "UNKNOWN" : 0;
+            object.status = options.enums === String ? "IDLE" : 0;
+            object.started = "";
+            object.lastUpdated = "";
+            object.completed = "";
+            object.errorMessage = "";
+        }
+        if (message.type != null && message.hasOwnProperty("type"))
+            object.type = options.enums === String ? $root.OperationType[message.type] : message.type;
+        if (message.status != null && message.hasOwnProperty("status"))
+            object.status = options.enums === String ? $root.OperationStatus[message.status] : message.status;
+        if (message.started != null && message.hasOwnProperty("started"))
+            object.started = message.started;
+        if (message.lastUpdated != null && message.hasOwnProperty("lastUpdated"))
+            object.lastUpdated = message.lastUpdated;
+        if (message.completed != null && message.hasOwnProperty("completed"))
+            object.completed = message.completed;
+        if (message.errorMessage != null && message.hasOwnProperty("errorMessage"))
+            object.errorMessage = message.errorMessage;
+        return object;
+    };
+
+    /**
+     * Converts this Operation to JSON.
+     * @function toJSON
+     * @memberof Operation
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    Operation.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return Operation;
+})();
+
+/**
+ * OperationType enum.
+ * @exports OperationType
+ * @enum {string}
+ * @property {number} UNKNOWN=0 UNKNOWN value
+ * @property {number} FULL_INDEX=1 FULL_INDEX value
+ */
+$root.OperationType = (function() {
+    var valuesById = {}, values = Object.create(valuesById);
+    values[valuesById[0] = "UNKNOWN"] = 0;
+    values[valuesById[1] = "FULL_INDEX"] = 1;
+    return values;
+})();
+
+/**
+ * OperationStatus enum.
+ * @exports OperationStatus
+ * @enum {string}
+ * @property {number} IDLE=0 IDLE value
+ * @property {number} RUNNING=1 RUNNING value
+ * @property {number} COMPLETE=2 COMPLETE value
+ * @property {number} ERROR=400 ERROR value
+ */
+$root.OperationStatus = (function() {
+    var valuesById = {}, values = Object.create(valuesById);
+    values[valuesById[0] = "IDLE"] = 0;
+    values[valuesById[1] = "RUNNING"] = 1;
+    values[valuesById[2] = "COMPLETE"] = 2;
+    values[valuesById[400] = "ERROR"] = 400;
+    return values;
+})();
+
 $root.Player = (function() {
 
     /**

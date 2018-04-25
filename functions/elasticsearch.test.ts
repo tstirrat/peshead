@@ -252,7 +252,7 @@ describe('search', () => {
     });
   }); // #removePlayer
 
-  describe('#addPlayer', () => {
+  describe('#addPlayers', () => {
     const samus = {
       id: 'samus',
       name: 'S. ARAN',
@@ -274,7 +274,7 @@ describe('search', () => {
     } as Player;
 
     it('uses player index/type', () => {
-      search.addPlayer(client, samus.id, samus);
+      search.addPlayers(client, [samus]);
       expect(client.index).toHaveBeenCalledWith(
         expect.objectContaining({
           index: 'players',
@@ -284,7 +284,7 @@ describe('search', () => {
     });
 
     it('adds/updates correct id', () => {
-      search.addPlayer(client, samus.id, samus);
+      search.addPlayers(client, [samus]);
       expect(client.index).toHaveBeenCalledWith(
         expect.objectContaining({
           id: samus.id
@@ -293,7 +293,7 @@ describe('search', () => {
     });
 
     it('indexes known fields', () => {
-      search.addPlayer(client, samus.id, samus);
+      search.addPlayers(client, [samus]);
 
       const {
         id,
@@ -328,7 +328,7 @@ describe('search', () => {
     });
 
     it('creates suggestion index for player and kit name', () => {
-      search.addPlayer(client, samus.id, samus);
+      search.addPlayers(client, [samus]);
 
       expect(client.index.mock.calls[0][0].body.suggest).toEqual([
         { input: ['ARAN'], weight: 100 },
@@ -338,14 +338,14 @@ describe('search', () => {
 
     it('resolves on success', () => {
       client.index.mockImplementation(() => Promise.resolve('success'));
-      const result = search.addPlayer(client, samus.id, samus);
+      const result = search.addPlayers(client, [samus]);
       return expect(result).resolves.toBe('success');
     });
 
     it('rejects on error', () => {
       client.index.mockImplementation(() => Promise.reject('error'));
-      const result = search.addPlayer(client, samus.id, samus);
+      const result = search.addPlayers(client, [samus]);
       return expect(result).rejects.toBe('error');
     });
-  }); // #addPlayer
+  }); // #addPlayers
 }); // search
