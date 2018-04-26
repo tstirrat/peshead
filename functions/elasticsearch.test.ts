@@ -8,7 +8,7 @@ describe('search', () => {
   const MockClient = jest.fn<Client>(() => {
     return {
       search: jest.fn(),
-      index: jest.fn(),
+      bulk: jest.fn(),
       delete: jest.fn()
     };
   });
@@ -252,7 +252,7 @@ describe('search', () => {
     });
   }); // #removePlayer
 
-  describe('#addPlayer', () => {
+  describe('#addPlayers', () => {
     const samus = {
       id: 'samus',
       name: 'S. ARAN',
@@ -273,44 +273,72 @@ describe('search', () => {
       preferredFoot: Foot.LEFT
     } as Player;
 
-    it('uses player index/type', () => {
-      search.addPlayer(client, samus.id, samus);
-      expect(client.index).toHaveBeenCalledWith(
-        expect.objectContaining({
-          index: 'players',
-          type: 'player'
-        })
-      );
+    const kraid = {
+      id: 'kraid',
+      name: 'KRAID',
+      kitName: 'KRAID',
+      age: 32,
+      commentaryId: 'kraid',
+      nationality: Country.JAPAN,
+      abilities: {
+        explosivePower: 99
+      },
+      ovr: 99,
+      physique: {
+        height: 123,
+        weight: 78
+      },
+      registeredPosition: Position.CMF,
+      playingStyle: PlayingStyle.ANCHOR_MAN,
+      preferredFoot: Foot.LEFT
+    } as Player;
+
+    const bulkOperationRow = (mock: jest.Mocked<Client>, index = 0) =>
+      mock.bulk.mock.calls[0][0].body[index];
+
+    it('adds two rows per player', () => {
+      search.addPlayers(client, [samus, kraid]);
+      expect(client.bulk.mock.calls[0][0].body).toHaveLength(4);
     });
 
-    it('adds/updates correct id', () => {
-      search.addPlayer(client, samus.id, samus);
-      expect(client.index).toHaveBeenCalledWith(
-        expect.objectContaining({
-          id: samus.id
-        })
-      );
-    });
+    describe('for each player', () => {
+      it('uses player index/type', () => {
+        search.addPlayers(client, [samus, kraid]);
+        expect(bulkOperationRow(client)).toEqual({
+          index: expect.objectContaining({
+            _index: 'players',
+            _type: 'player'
+          })
+        });
+      });
 
-    it('indexes known fields', () => {
-      search.addPlayer(client, samus.id, samus);
+      it('adds/updates correct id', () => {
+        search.addPlayers(client, [samus, kraid]);
+        expect(bulkOperationRow(client)).toEqual({
+          index: expect.objectContaining({
+            _id: samus.id
+          })
+        });
+      });
 
-      const {
-        id,
-        abilities,
-        age,
-        kitName,
-        name,
-        nationality,
-        ovr,
-        registeredPosition,
-        physique,
-        preferredFoot,
-        playingStyle
-      } = samus;
-      expect(client.index).toHaveBeenCalledWith(
-        expect.objectContaining({
-          body: expect.objectContaining({
+      it('indexes known fields', () => {
+        search.addPlayers(client, [samus, kraid]);
+
+        const {
+          id,
+          abilities,
+          age,
+          kitName,
+          name,
+          nationality,
+          ovr,
+          registeredPosition,
+          physique,
+          preferredFoot,
+          playingStyle
+        } = samus;
+        expect(bulkOperationRow(client, 1)).toEqual(
+          expect.objectContaining({
             id,
             abilities,
             age,
@@ -323,29 +351,29 @@ describe('search', () => {
             preferredFoot,
             playingStyle
           })
-        })
-      );
-    });
+        );
+      });
 
-    it('creates suggestion index for player and kit name', () => {
-      search.addPlayer(client, samus.id, samus);
+      it('creates suggestion index for player and kit name', () => {
+        search.addPlayers(client, [samus, kraid]);
 
-      expect(client.index.mock.calls[0][0].body.suggest).toEqual([
-        { input: ['ARAN'], weight: 100 },
-        { input: ['SAMUS', 'ARAN'], weight: 75 }
-      ]);
-    });
+        expect(bulkOperationRow(client, 1).suggest).toEqual([
+          { input: ['ARAN'], weight: 100 },
+          { input: ['SAMUS', 'ARAN'], weight: 75 }
+        ]);
+      });
+    }); // for each player
 
     it('resolves on success', () => {
-      client.index.mockImplementation(() => Promise.resolve('success'));
-      const result = search.addPlayer(client, samus.id, samus);
+      client.bulk.mockImplementation(() => Promise.resolve('success'));
+      const result = search.addPlayers(client, [samus, kraid]);
       return expect(result).resolves.toBe('success');
     });
 
     it('rejects on error', () => {
-      client.index.mockImplementation(() => Promise.reject('error'));
-      const result = search.addPlayer(client, samus.id, samus);
+      client.bulk.mockImplementation(() => Promise.reject('error'));
+      const result = search.addPlayers(client, [samus, kraid]);
       return expect(result).rejects.toBe('error');
     });
-  }); // #addPlayer
+  }); // #addPlayers
 }); // search

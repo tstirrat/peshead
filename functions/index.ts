@@ -1,2 +1,3 @@
 export { api } from './api';
-export { updatePlayerIndex } from './db';
+export { removePlayerIndex } from './db';
+export { operations } from './operations';

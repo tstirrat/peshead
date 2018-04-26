@@ -187,3 +187,32 @@ enum Country {
   ZAMBIA = 94;
   ZIMBABWE = 95;
 }
+
+/** Long running operations e.g. Indexing */
+message Operation {
+  required OperationType type = 1;
+  OperationStatus status = 2;
+
+  /** Start date/time (ISO date string) */
+  string started = 3;
+
+  /** Last updated date/time (ISO date string) */
+  string lastUpdated = 4;
+
+  /** Completion date/time (ISO date string) */
+  string completed = 5;
+
+  string errorMessage = 6;
+}
+
+enum OperationType {
+  UNKNOWN = 0; // default when parsing unknown string
+  FULL_INDEX = 1;
+}
+
+enum OperationStatus {
+  IDLE = 0;
+  RUNNING = 1;
+  COMPLETE = 2;
+  ERROR = 400;
+}

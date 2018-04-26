@@ -80,16 +80,23 @@ function getIndexablePlayerSubset(player: IPlayer) {
  * Add a player record to the index. Overwrites existing record, if already
  * present.
  */
-export async function addPlayer(
+export async function addPlayers(
   client: elasticsearch.Client,
-  id: string,
-  player: IPlayer
+  players: IPlayer[]
 ) {
-  return client.index({
-    index: 'players',
-    type: 'player',
-    id,
-    body: {
+  // tslint:disable-next-line:no-any
+  const operations: any[] = [];
+  players.forEach(player => {
+    // operation
+    operations.push({
+      index: {
+        _index: 'players',
+        _type: 'player',
+        _id: player.id
+      }
+    });
+    // fields to index
+    operations.push({
       ...getIndexablePlayerSubset(player),
       suggest: [
         {
@@ -101,7 +108,10 @@ export async function addPlayer(
           weight: 75
         }
       ]
-    }
+    });
+  });
+  return client.bulk({
+    body: operations
   });
 }
 
@@ -161,7 +171,7 @@ export async function search(
   });
 }
 
-/** Perform basic suggest. Return minial fields (position, id, name) */
+/** Perform basic suggest. Return minimal fields (position, id, name) */
 export async function suggest(client: elasticsearch.Client, prefix: string) {
   return client.search({
     index: 'players',

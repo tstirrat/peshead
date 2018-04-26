@@ -287,7 +287,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash@^4.14.108":
+"@types/lodash@^4.14.104", "@types/lodash@^4.14.108":
   version "4.14.108"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
 
@@ -1762,7 +1762,7 @@ find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase-admin@^5.12.0:
+firebase-admin@^5.11.0, firebase-admin@^5.12.0:
   version "5.12.0"
   resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.12.0.tgz#3291b0466b4d161cb4135e83c97f9878e7768cac"
   dependencies:
@@ -1775,6 +1775,14 @@ firebase-admin@^5.12.0:
     faye-websocket "0.9.3"
     jsonwebtoken "8.1.0"
     node-forge "0.7.4"
+
+firebase-functions-test@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/firebase-functions-test/-/firebase-functions-test-0.1.1.tgz#97962a0eec1c11ca64bba049a5a734f624468552"
+  dependencies:
+    "@types/lodash" "^4.14.104"
+    firebase-admin "^5.11.0"
+    lodash "^4.17.5"
 
 firebase-functions@^1.0.2:
   version "1.0.2"
@@ -3191,7 +3199,7 @@ lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, l
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
-lodash@^4.17.10:
+lodash@^4.17.10, lodash@^4.17.5:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 

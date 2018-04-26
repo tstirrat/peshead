@@ -10,7 +10,7 @@
     }
   ],
   "scripts": {
-    "build": "tsc -p ./",
+    "build": "tsc -p ./ && cp -r shared/service build/shared",
     "test": "jest",
     "watch": "tsc --watch -p ./",
     "protos": "pbjs -w commonjs -t static-module -o shared/service/api/index.js shared/service/common.proto shared/service/player.proto shared/service/team.proto",
@@ -43,6 +43,7 @@
     "@types/jest": "^22.2.3",
     "@types/lodash": "^4.14.108",
     "@types/morgan": "^1.7.35",
+    "firebase-functions-test": "^0.1.1",
     "fs-extra": "^5.0.0",
     "jest": "^22.4.3",
     "node-bitarray": "^0.1.0",
