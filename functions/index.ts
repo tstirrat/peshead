@@ -1,3 +1,3 @@
 export { api } from './api';
 export { removePlayerIndex } from './db';
-export { operations, tempReIndex } from './operations';
+export { operations } from './operations';

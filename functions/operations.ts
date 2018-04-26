@@ -38,14 +38,15 @@ export const operations = functions.firestore
       return;
     }
 
+    if (op.type !== OperationType.UNKNOWN) {
+      console.log(`[operation] ${opId}: running [${op.type}]`);
+      await writeOperation(opRef, op, { status: OperationStatus.RUNNING });
+    }
+
     try {
       let status = OperationStatus.COMPLETE;
       switch (op.type) {
         case OperationType.FULL_INDEX:
-          console.log(`[operation] ${opId}: running [${op.type}]`);
-          await writeOperation(opRef, op, {
-            status: OperationStatus.RUNNING
-          });
           status = await doFullIndex(opId, op, client, db);
           break;
 
@@ -76,12 +77,16 @@ async function writeOperation(
   }).toJSON();
   // We intentionally lose typing here so we can write Server Timestamps :/
   json.lastUpdated = firestore.FieldValue.serverTimestamp();
+  if (!json.started) {
+    json.started = firestore.FieldValue.serverTimestamp();
+  }
   if (json.status === 'COMPLETE') {
     json.completed = firestore.FieldValue.serverTimestamp();
   }
   if (json.status !== 'ERROR') {
     json.error = firestore.FieldValue.delete();
   }
+
   console.log(`[operation] setting status: ${json.status}`);
   return await opRef.update(json);
 }
@@ -136,21 +141,3 @@ export async function updateDocIndexStatus(
   });
   return await batch.commit();
 }
-
-// TODO: remove
-/** Temp function to trigger the re-index */
-export const tempReIndex = functions.https.onRequest(async (req, res) => {
-  try {
-    const status = await doFullIndex(
-      '-LAz4LyvNtq4zLRb8nlV',
-      new Operation({
-        type: OperationType.FULL_INDEX
-      }),
-      createClient(functions.config().es),
-      db
-    );
-  } catch (e) {
-    return res.status(400).send(e.message);
-  }
-  return res.send('OK');
-});
