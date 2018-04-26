@@ -10,7 +10,7 @@
     }
   ],
   "scripts": {
-    "build": "tsc -p ./ && cp -r shared build/",
+    "build": "tsc -p ./ && cp -r shared/service build/shared",
     "test": "jest",
     "watch": "tsc --watch -p ./",
     "protos": "pbjs -w commonjs -t static-module -o shared/service/api/index.js shared/service/common.proto shared/service/player.proto shared/service/team.proto",
