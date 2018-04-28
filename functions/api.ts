@@ -5,6 +5,7 @@ import * as morgan from 'morgan';
 
 import { createClient, search, suggest } from './elasticsearch';
 import { db } from './init';
+import { fetchLiveUpdate, Platform } from './konami';
 
 const app = express();
 
@@ -100,4 +101,22 @@ router.get('/players/:id', async (req, res) => {
   }
   console.warn('[getPlayer] getPlayer with empty query');
   return res.status(400).send(new Error('Must supply query params'));
+});
+
+/** Fetch latest live update .cpk file and store in cloud storage. */
+router.get('/import/liveupdate/:platform', async (req, res) => {
+  const platform: string = req.params.platform;
+  try {
+    if (platform !== Platform.PC) {
+      throw new Error('Invalid platform');
+    }
+
+    console.log('[liveupdate] fetching:', platform);
+
+    const files = await fetchLiveUpdate(platform);
+    return res.send({ files });
+  } catch (e) {
+    console.warn('[liveupdate] failed with', e);
+    return res.status(400).send(e.message);
+  }
 });
