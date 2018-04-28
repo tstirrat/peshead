@@ -1,6 +1,6 @@
 # PEShead
 
-[![Build Status](https://travis-ci.org/tstirrat/pesleagues.svg?branch=master)](https://travis-ci.org/tstirrat/pesleagues) [![Coverage Status](https://coveralls.io/repos/github/tstirrat/pesleagues/badge.svg)](https://coveralls.io/github/tstirrat/pesleagues)
+[![Build Status](https://travis-ci.org/tstirrat/peshead.svg?branch=master)](https://travis-ci.org/tstirrat/peshead) [![Coverage Status](https://coveralls.io/repos/github/tstirrat/peshead/badge.svg)](https://coveralls.io/github/tstirrat/peshead)
 
 A Progressive Web App to find and compare PES 2018 players.
 
