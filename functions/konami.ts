@@ -1,7 +1,10 @@
+import { CustomFileMetadata } from '@google-cloud/storage';
 import axios from 'axios';
 import { stringify } from 'query-string';
 
 import { db, storage } from './init';
+
+const API_ROOT = 'http://pes18-web.cs.konami.net';
 
 export enum Platform {
   PC = 'pc'
@@ -42,7 +45,7 @@ export enum FlowResponseResult {
 }
 
 export async function fetchLiveUpdate(platform: Platform) {
-  const url = `http://210.148.52.131/pes18_${platform}/flow/flow.php`;
+  const url = `${API_ROOT}/pes18_${platform}/flow/flow.php`;
   const params: FlowRequest = {
     msgid: 'CMD_GET_DLC_FILELIST',
     rqid: 0,
@@ -90,9 +93,12 @@ export async function fetchLiveUpdate(platform: Platform) {
       await fileRef.save(Buffer.from(res.data));
       console.log('[liveupdate] saved file to storage', bucketPath);
 
+      // cloud's types are wrong here
+      const { bucket, name } = fileRef.metadata as CustomFileMetadata;
+
       const dbEntry: DbFileEntry = {
         ...f,
-        gcs_url: `gs://pesleagues-dev.appspot.com/${bucketPath}`
+        gcs_url: `gs://${bucket}/${name}`
       };
 
       console.log('[liveupdate] saved db entry', dbPath);
