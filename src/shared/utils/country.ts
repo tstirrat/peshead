@@ -148,7 +148,7 @@ export const CountryFlagImage = {
   [Country.SAUDI_ARABIA]: '/images/flags/saudi_arabia.png',
   [Country.SCOTLAND]: '/images/flags/scotland.png',
   [Country.SENEGAL]: '/images/flags/senegal.png',
-  [Country.SERBIA]: '/images/flags/serbia.png',
+  [Country.SERBIA]: '/images/flags/serbia_and_montenegro.png',
   [Country.SIERRA_LEONE]: '/images/flags/sierra_leone.png',
   [Country.SINGAPORE]: '/images/flags/singapore.png',
   [Country.SINT_MAARTEN]: '/images/flags/sint_maarten.png',

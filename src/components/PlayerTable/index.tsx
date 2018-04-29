@@ -6,6 +6,7 @@ import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
+import { CountryFlag } from '../CountryFlag';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
@@ -53,7 +54,7 @@ export const PlayerTable = pure<Props>(({ players }) => (
 
           {/* Team */}
           <TableCell {...cellProps} className="nation">
-            {player.nationality}
+            <CountryFlag countryId={player.nationality} />
           </TableCell>
           {/* TODO: calculate OVR, SHT, PAS, DEF, PHY, DRI  */}
           <TableCell {...cellProps} className="ovr">
