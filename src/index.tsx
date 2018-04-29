@@ -5,8 +5,10 @@ import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
 
 import store from './configureStore';
+import i18n from './configureI18n';
 import { ConnectedApp } from './containers/App';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -23,9 +25,11 @@ const theme = createMuiTheme({
 
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
-    <Provider store={store}>
-      <ConnectedApp />
-    </Provider>
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
+        <ConnectedApp />
+      </Provider>
+    </I18nextProvider>
   </MuiThemeProvider>,
   document.getElementById('root') as HTMLElement
 );
