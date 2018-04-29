@@ -48,7 +48,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
     return (
       <div className="App">
         <Helmet>
-          <title>PESto</title>
+          <title>PEShead</title>
         </Helmet>
         <AppBar>
           <Toolbar>

@@ -36,7 +36,7 @@ export class Home extends React.PureComponent<ViewModel & Actions> {
     return (
       <div>
         <Helmet>
-          <title>PESto - Home</title>
+          <title>PEShead - Home</title>
         </Helmet>
         <Typography variant="title">
           <Trans>Players</Trans>
