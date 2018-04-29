@@ -1,6 +1,6 @@
 import * as i18n from 'i18next';
-import * as XHR from 'i18next-xhr-backend';
 import * as LanguageDetector from 'i18next-browser-languagedetector';
+import * as XHR from 'i18next-xhr-backend';
 
 export default i18n
   .use(XHR)
@@ -16,16 +16,3 @@ export default i18n
       nsMode: 'fallback' // let passed namespaces act as fallbacks
     }
   });
-
-export const i18nTest = i18n.init({
-  fallbackLng: 'cimode',
-  debug: false,
-  saveMissing: false,
-  interpolation: {
-    escapeValue: false
-  },
-  react: {
-    wait: false,
-    nsMode: 'fallback'
-  }
-});

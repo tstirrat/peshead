@@ -2,9 +2,9 @@ import Card from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
+import { Trans } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { Trans } from 'react-i18next';
 
 import * as search from '../../actions/search';
 import { Loading } from '../../components/Loading';
