@@ -7,7 +7,13 @@ import * as React from 'react';
 import { Link } from 'redux-little-router';
 
 import { Playable, Player } from '../../shared/service/api';
-import { AbilityFlags, getPositionRating, getTotalStats, SIMPLE_ABILITIES } from '../../shared/utils/player';
+import {
+  AbilityFlags,
+  getPositionRating,
+  getTotalStats,
+  PlayingStyleLabel,
+  SIMPLE_ABILITIES,
+} from '../../shared/utils/player';
 import { PlayableLabel, POSITION_LIST, PositionLabel } from '../../shared/utils/position';
 import { CalculatePositionRating } from '../CalculatePositionRating';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
@@ -86,6 +92,15 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
           <ListItem>
             <Typography variant="subheading">
               <ColoredPositionLabel position={player.registeredPosition} />
+            </Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <Typography variant="subheading">
+              {PlayingStyleLabel[player.playingStyle] || '-'}
             </Typography>
           </ListItem>
           <Divider />

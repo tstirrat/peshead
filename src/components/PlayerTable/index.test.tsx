@@ -42,10 +42,10 @@ describe('<PlayerTable>', () => {
     expect(div.querySelector('tbody .pos')!.textContent).toContain('RWF');
   });
 
-  it('displays player nationality', () => {
-    expect(div.querySelector('tbody .nation')!.textContent).toBe(
-      player1.nationality.toString()
-    );
+  it('displays player nationality flag', () => {
+    expect(
+      div.querySelector('tbody .nation img[alt=Argentina]')
+    ).not.toBeNull();
   });
 
   it('displays player OVR', () => {

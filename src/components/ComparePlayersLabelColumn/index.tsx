@@ -13,6 +13,7 @@ const SINGLE_STATS = [
   'Weight (kg)',
   'Foot',
   'Position',
+  'Playing Style',
   'OVR',
   'Total stats',
   'Attacking Prowess',
