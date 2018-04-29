@@ -8,8 +8,10 @@ import { Label } from './styles';
 
 const SINGLE_STATS = [
   'Age',
-  'Height',
-  'Weight',
+  'Nationality',
+  'Height (cm)',
+  'Weight (kg)',
+  'Foot',
   'Position',
   'OVR',
   'Total stats',

@@ -11,6 +11,8 @@ import { AbilityFlags, getPositionRating, getTotalStats, SIMPLE_ABILITIES } from
 import { PlayableLabel, POSITION_LIST, PositionLabel } from '../../shared/utils/position';
 import { CalculatePositionRating } from '../CalculatePositionRating';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
+import { CountryFlag } from '../CountryFlag';
+import { FootChart } from '../FootChart';
 import { PlayerStat } from '../PlayerStat';
 import { Header, StyledStat } from './styles';
 
@@ -48,14 +50,34 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
 
         <StyledStat>
           <ListItem>
-            <Typography variant="subheading">{0}</Typography>
+            <CountryFlag countryId={player.nationality} />
           </ListItem>
           <Divider />
         </StyledStat>
 
         <StyledStat>
           <ListItem>
-            <Typography variant="subheading">{0}</Typography>
+            <Typography variant="subheading">
+              {player.physique.height}
+            </Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <Typography variant="subheading">
+              {player.physique.weight}
+            </Typography>
+          </ListItem>
+          <Divider />
+        </StyledStat>
+
+        <StyledStat>
+          <ListItem>
+            <Typography variant="subheading">
+              <FootChart player={player} />
+            </Typography>
           </ListItem>
           <Divider />
         </StyledStat>

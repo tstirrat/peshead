@@ -3,7 +3,10 @@ import * as React from 'react';
 import { pure } from 'recompose';
 
 import { Player } from '../../shared/service/api';
+import { CountryLabel } from '../../shared/utils/country';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
+import { CountryFlag } from '../CountryFlag';
+import { FootChart } from '../FootChart';
 import { PlayerPositionChart } from '../PlayerPositionChart';
 
 export interface Props {
@@ -15,19 +18,28 @@ export const PlayerBasics = pure<Props>(({ player }) => (
     <TableBody>
       <TableRow>
         <TableCell>Height</TableCell>
-        <TableCell>{/* player.physique!.height */} cm</TableCell>
+        <TableCell>{player.physique.height} cm</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>Weight</TableCell>
-        <TableCell>{/* player.physique!.weight */} kg</TableCell>
+        <TableCell>{player.physique.weight} kg</TableCell>
       </TableRow>
       <TableRow>
         <TableCell>Age</TableCell>
         <TableCell>{player.age}</TableCell>
       </TableRow>
       <TableRow>
+        <TableCell>Foot</TableCell>
+        <TableCell>
+          <FootChart player={player} />
+        </TableCell>
+      </TableRow>
+      <TableRow>
         <TableCell>Nationality</TableCell>
-        <TableCell>{player.nationality}</TableCell>
+        <TableCell>
+          <CountryFlag countryId={player.nationality} />{' '}
+          {CountryLabel[player.nationality]}
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell>Print name</TableCell>

@@ -67,22 +67,38 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
         <div className="App-container">
           <div>{routes}</div>
           <small className="canvas-controls center">
-            Icons made by{' '}
-            <a href="http://www.freepik.com" title="Freepik">
-              Freepik
-            </a>{' '}
-            from{' '}
-            <a href="https://www.flaticon.com/" title="Flaticon">
-              flaticon.com
-            </a>{' '}
-            is licensed by{' '}
-            <a
-              href="http://creativecommons.org/licenses/by/3.0/"
-              title="Creative Commons BY 3.0"
-              target="_blank"
-            >
-              CC 3.0 BY
-            </a>
+            <p>
+              Beachball by{' '}
+              <a href="http://www.freepik.com" title="Freepik">
+                Freepik
+              </a>{' '}
+              from{' '}
+              <a href="https://www.flaticon.com/" title="Flaticon">
+                flaticon.com
+              </a>{' '}
+              is licensed under{' '}
+              <a
+                href="http://creativecommons.org/licenses/by/3.0/"
+                title="Creative Commons BY 3.0"
+                target="_blank"
+              >
+                CC 3.0 BY
+              </a>
+            </p>
+            <p>
+              Free Country Flags by{' '}
+              <a href="http://www.free-country-flags.com/">
+                Gang of the Coconuts
+              </a>{' '}
+              is licensed under{' '}
+              <a
+                href="http://creativecommons.org/licenses/by-sa/3.0/"
+                title="Creative Commons BY-SA 3.0"
+                target="_blank"
+              >
+                CC 3.0 BY-SA
+              </a>
+            </p>
           </small>
         </div>
       </div>
