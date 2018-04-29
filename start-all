@@ -1,9 +1,9 @@
 #!/bin/sh
 #
-# Setup a work space called `pesto` with two windows
+# Setup a work space called `peshead` with two windows
 # first window has 3 panes.
 #
-session="pesto"
+session="peshead"
 
 if ( $(tmux has-session -t $session 2>/dev/null) ); then
   tmux attach-session -t $session

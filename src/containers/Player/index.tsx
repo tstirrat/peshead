@@ -101,7 +101,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
     return (
       <Grid container={true} spacing={24}>
         <Helmet>
-          <title>PESto - {player.name}</title>
+          <title>PEShead - {player.name}</title>
         </Helmet>
 
         <PlayerHeader>

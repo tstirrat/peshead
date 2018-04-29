@@ -1,6 +1,6 @@
 {
-  "name": "pesto-functions",
-  "description": "PESto's Firebase Functions",
+  "name": "peshead-functions",
+  "description": "PEShead's Firebase Functions",
   "private": true,
   "license": "Apache-2.0",
   "licenses": [
