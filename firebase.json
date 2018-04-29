@@ -20,6 +20,15 @@
       {
         "source": "/service-worker.js",
         "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+      },
+      {
+        "source": "/images/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=7200, s-maxage=7200"
+          }
+        ]
       }
     ]
   },
