@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { Trans } from 'react-i18next';
 
 import * as search from '../../actions/search';
 import { Loading } from '../../components/Loading';
@@ -37,7 +38,9 @@ export class Home extends React.PureComponent<ViewModel & Actions> {
         <Helmet>
           <title>PESto - Home</title>
         </Helmet>
-        <Typography variant="title">Players</Typography>
+        <Typography variant="title">
+          <Trans>Players</Trans>
+        </Typography>
         <Card>
           <Loading
             when={isLoading}
