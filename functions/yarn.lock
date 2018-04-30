@@ -1751,7 +1751,7 @@ find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase-admin@^5.11.0, firebase-admin@^5.12.0:
+firebase-admin@^5.12.0:
   version "5.12.0"
   resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.12.0.tgz#3291b0466b4d161cb4135e83c97f9878e7768cac"
   dependencies:
@@ -1765,12 +1765,11 @@ firebase-admin@^5.11.0, firebase-admin@^5.12.0:
     jsonwebtoken "8.1.0"
     node-forge "0.7.4"
 
-firebase-functions-test@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/firebase-functions-test/-/firebase-functions-test-0.1.1.tgz#97962a0eec1c11ca64bba049a5a734f624468552"
+firebase-functions-test@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/firebase-functions-test/-/firebase-functions-test-0.1.2.tgz#5310da772497625aaa461d61e045daea3b2f2e91"
   dependencies:
     "@types/lodash" "^4.14.104"
-    firebase-admin "^5.11.0"
     lodash "^4.17.5"
 
 firebase-functions@^1.0.2:
