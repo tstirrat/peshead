@@ -185,7 +185,16 @@ export async function suggest(client: elasticsearch.Client, prefix: string) {
           }
         }
       },
-      _source: ['name']
-    }
+      _source: [
+        'id',
+        'name',
+        'nationality',
+        'age',
+        'ovr',
+        'registeredPosition',
+        'playingStyle'
+      ]
+    },
+    size: 20
   });
 }

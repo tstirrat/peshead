@@ -3,6 +3,8 @@ import { render } from 'react-dom';
 
 import { Actions, Search, ViewModel } from '.';
 
+jest.mock('../../components/PlayerTable');
+
 const props: ViewModel = {
   isLoading: false,
   results: [],

@@ -3,7 +3,6 @@ import { pure } from 'recompose';
 import styled from 'styled-components';
 
 import { Player } from '../../shared/service/api';
-import { CalculatePositionRating } from '../CalculatePositionRating';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
 
 export interface Props {
@@ -17,20 +16,14 @@ export interface Props {
 const Badge = pure<Props>(({ player, className, showRating }) => (
   <div className={className}>
     <ColoredPositionLabel position={player.registeredPosition} />{' '}
-    {showRating ? (
-      <CalculatePositionRating
-        player={player}
-        position={player.registeredPosition}
-        render={rating => <span className="rating">{rating}</span>}
-      />
-    ) : null}
+    {showRating ? <span className="rating">{player.ovr}</span> : null}
   </div>
 ));
 
 export const PlayerPositionRatingBadge = styled(Badge)`
   align-items: center;
   background-color: #283138;
-  border-radius: 1px;
+  border-radius: 2px;
   color: white;
   display: inline-flex;
   font-size: 16px;

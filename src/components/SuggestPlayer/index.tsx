@@ -1,20 +1,44 @@
 // tslint:disable:no-use-before-declare
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
+import { Hidden } from 'material-ui';
 import * as React from 'react';
 import * as Autosuggest from 'react-autosuggest';
 import { Observable, of, Subject } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { catchError, debounceTime, map, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, debounceTime, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import styled from 'styled-components';
 
-import { SuggestionResult, SuggestionsContainer, TextBox } from './styles';
+import { Player } from '../../shared/service/api';
+import { PlayerPositionRatingBadge } from '../PlayerPositionRatingBadge';
+import { Flag, Image, MainInput, Name, SuggestionResult, SuggestionsContainer } from './styles';
+
+type PlayerSuggestion = Pick<
+  Player,
+  | 'id'
+  | 'name'
+  | 'nationality'
+  | 'age'
+  | 'ovr'
+  | 'registeredPosition'
+  | 'playingStyle'
+>;
+
+type SuggestPlayerResponse = SuggestResponse<PlayerSuggestion>;
+
+const KC_ENTER = 13; // TODO: get this from some lib or DOM
 
 export interface Props {
   className?: string;
   placeholder?: string;
   onSelect?: (value: string) => void;
   onSearch?: (value: string) => void;
+}
+
+interface State {
+  value: string;
+  suggestions: PlayerSuggestion[];
+  selectedId?: string;
 }
 
 /** Auto-complete text field that allows quick lookup of players by name. */
@@ -27,8 +51,9 @@ class SuggestPlayerBase extends React.Component<Props, State> {
   private querySubject = new Subject<string>();
   private destroy$ = new Subject<void>();
   private fetch$: Observable<
-    Suggestion[]
+    PlayerSuggestion[]
   > = this.querySubject.asObservable().pipe(
+    filter(q => q.length > 1),
     debounceTime(250),
     switchMap(query => {
       return ajax
@@ -37,12 +62,12 @@ class SuggestPlayerBase extends React.Component<Props, State> {
         )
         .pipe(
           map(response =>
-            response.suggest.player_suggest[0].options.map(hit => {
-              return { label: hit._source.name, value: hit._id };
-            })
+            response.suggest.player_suggest[0].options.map(hit => hit._source)
           ),
           catchError((err: Error) => {
-            return of<Suggestion[]>([{ value: 'error', label: 'Error!' }]);
+            return of<PlayerSuggestion[]>([
+              { id: 'error', name: 'Error!' } as PlayerSuggestion
+            ]);
           })
         );
     })
@@ -61,6 +86,8 @@ class SuggestPlayerBase extends React.Component<Props, State> {
   render() {
     return (
       <Autosuggest
+        focusInputOnSuggestionClick={false}
+        // alwaysRenderSuggestions={true}
         theme={{
           container: this.props.className,
           suggestionsList: 'suggestions-list'
@@ -70,6 +97,7 @@ class SuggestPlayerBase extends React.Component<Props, State> {
         onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
         onSuggestionSelected={this.handleSuggestionSelected}
+        onSuggestionHighlighted={this.handleSuggestionHighlighted}
         renderSuggestionsContainer={renderSuggestionsContainer}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
@@ -103,20 +131,44 @@ class SuggestPlayerBase extends React.Component<Props, State> {
 
   private searchIfEnterKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const { keyCode } = event;
-    if (keyCode === KC_ENTER && this.props.onSearch) {
-      this.props.onSearch(this.state.value);
-      this.setState({ value: '' });
+    const { selectedId } = this.state;
+    if (keyCode === KC_ENTER) {
+      if (selectedId && this.props.onSelect) {
+        this.props.onSelect(selectedId);
+        this.clear();
+      } else if (this.props.onSearch) {
+        this.props.onSearch(this.state.value);
+        this.clear();
+      }
     }
   };
 
   private handleSuggestionSelected: Autosuggest.OnSuggestionSelected<
-    Suggestion
+    PlayerSuggestion
   > = (event, { suggestion }) => {
-    if (this.props.onSelect && suggestion.value !== 'error') {
-      this.props.onSelect(suggestion.value);
-      this.setState({ value: '' });
+    if (this.props.onSelect && suggestion.id !== 'error') {
+      this.props.onSelect(suggestion.id);
+      this.clear();
     }
   };
+
+  /**
+   * Store the currently highlighted selection id in case the user presses
+   * enter.
+   */
+  private handleSuggestionHighlighted: Autosuggest.OnSuggestionHighlighted = ({
+    suggestion
+  }) => {
+    if (this.props.onSelect) {
+      const id =
+        suggestion && suggestion.id !== 'error' ? suggestion.id : undefined;
+      this.setState({ selectedId: id });
+    }
+  };
+
+  private clear() {
+    this.setState({ value: '', selectedId: undefined });
+  }
 }
 
 export const SuggestPlayer = styled(SuggestPlayerBase)`
@@ -124,13 +176,13 @@ export const SuggestPlayer = styled(SuggestPlayerBase)`
 `;
 
 const renderInput: Autosuggest.RenderInputComponent<
-  Suggestion
+  PlayerSuggestion
 > = inputProps => {
   // tslint:disable-next-line:no-any TODO: not sure of other props here
   const { autoFocus, value, ref, ...other } = inputProps as any;
 
   return (
-    <TextBox
+    <MainInput
       autoFocus={autoFocus}
       value={value}
       inputRef={ref}
@@ -143,16 +195,21 @@ const renderInput: Autosuggest.RenderInputComponent<
 };
 
 /** Render a single suggestion item, bolding the matched query. */
-const renderSuggestion: Autosuggest.RenderSuggestion<Suggestion> = (
+const renderSuggestion: Autosuggest.RenderSuggestion<PlayerSuggestion> = (
   suggestion,
   { query, isHighlighted }
 ) => {
-  const matches = match(suggestion.label, query);
-  const parts = parse(suggestion.label, matches);
+  const playerStub = Player.fromObject(suggestion);
 
+  const matches = match(suggestion.name, query);
+  const parts = parse(suggestion.name, matches);
   return (
     <SuggestionResult selected={isHighlighted}>
-      <div>
+      <Hidden xsDown={true}>
+        <Image src="/player-avatar.png" alt="player image" />
+      </Hidden>
+      <Flag countryId={playerStub.nationality} />
+      <Name>
         {parts.map((part, index) => {
           return part.highlight ? (
             <strong key={index}>{part.text}</strong>
@@ -160,7 +217,8 @@ const renderSuggestion: Autosuggest.RenderSuggestion<Suggestion> = (
             <span key={index}>{part.text}</span>
           );
         })}
-      </div>
+      </Name>
+      <PlayerPositionRatingBadge player={playerStub} showRating={true} />
     </SuggestionResult>
   );
 };
@@ -176,20 +234,10 @@ const renderSuggestionsContainer: Autosuggest.RenderSuggestionsContainer = optio
 };
 
 const getSuggestionValue: Autosuggest.GetSuggestionValue<
-  Suggestion
+  PlayerSuggestion
 > = suggestion => {
-  return suggestion.label;
+  return suggestion.name;
 };
-
-interface Suggestion {
-  value: string;
-  label: string;
-}
-
-interface State {
-  value: string;
-  suggestions: Suggestion[];
-}
 
 interface SuggestResponse<T> {
   suggest: {
@@ -212,11 +260,3 @@ interface SuggestResponseHitOptions<T> {
   _score: number;
   _source: T;
 }
-
-interface PlayerNameOnly {
-  name: string;
-}
-
-type SuggestPlayerResponse = SuggestResponse<PlayerNameOnly>;
-
-const KC_ENTER = 13; // TODO: get this from some lib or DOM

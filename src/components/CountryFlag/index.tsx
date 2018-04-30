@@ -6,12 +6,20 @@ import { CountryFlagImage, CountryLabel } from '../../shared/utils/country';
 
 export interface Props {
   countryId: number;
+  className?: string;
 }
 
 /**
  * Renders a player's preferred foot incl. weak foot information.
  */
-export const CountryFlag = pure<Props>(({ countryId }) => {
+export const CountryFlag = pure<Props>(({ countryId, className }) => {
   const title = CountryLabel[countryId];
-  return <img src={CountryFlagImage[countryId]} alt={title} title={title} />;
+  return (
+    <img
+      className={className}
+      src={CountryFlagImage[countryId]}
+      alt={title}
+      title={title}
+    />
+  );
 });
