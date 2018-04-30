@@ -180,7 +180,15 @@ describe('search', () => {
       expect(client.search).toHaveBeenCalledWith(
         expect.objectContaining({
           body: expect.objectContaining({
-            _source: ['name']
+            _source: [
+              'id',
+              'name',
+              'nationality',
+              'age',
+              'ovr',
+              'registeredPosition',
+              'playingStyle'
+            ]
           })
         })
       );
