@@ -1,82 +1,112 @@
 import Hidden from 'material-ui/Hidden';
-import Table, { TableBody, TableCell, TableCellProps, TableHead, TableRow } from 'material-ui/Table';
+import { TableBody, TableCell, TableCellProps, TableHead, TableRow } from 'material-ui/Table';
 import * as React from 'react';
+import { Trans } from 'react-i18next';
 import { pure } from 'recompose';
 import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
-import { ColoredPositionLabel } from '../ColoredPositionLabel';
-import { CountryFlag } from '../CountryFlag';
+import { PlayerPositionRatingBadge } from '../PlayerPositionRatingBadge';
 import { PlayerStat } from '../PlayerStat';
+import { Avatar, Flag, NameLink, StyledTable } from './styles';
 
 export interface Props {
   players: Player[];
 }
 
-const cellProps: TableCellProps = {
+const leftAlign: TableCellProps = {
   padding: 'none'
 };
 
+const center: TableCellProps = {
+  ...leftAlign,
+  className: 'center'
+};
+
 export const PlayerTable = pure<Props>(({ players }) => (
-  <Table>
+  <StyledTable>
     <TableHead>
       <TableRow>
-        <TableCell {...cellProps}>Name</TableCell>
-        <TableCell {...cellProps}>Pos.</TableCell>
-        <Hidden smDown={true}>
-          <TableCell {...cellProps}>Age</TableCell>
+        {/* Avatar */}
+        <TableCell {...center} />
+        <TableCell {...leftAlign}>
+          <Trans>Name</Trans>
+        </TableCell>
+        <TableCell {...center}>
+          <Trans>Pos.</Trans>
+        </TableCell>
+        <TableCell {...center}>
+          <Trans>Club</Trans>
+        </TableCell>
+        <TableCell {...center}>
+          <Trans>Nat.</Trans>
+        </TableCell>
+        <TableCell {...center} sortDirection="desc">
+          OVR
+        </TableCell>
+        <Hidden xsDown={true}>
+          <TableCell {...center}>
+            <Trans>SHT</Trans>
+          </TableCell>
+          <TableCell {...center}>
+            <Trans>PAS</Trans>
+          </TableCell>
+          <TableCell {...center}>
+            <Trans>DRI</Trans>
+          </TableCell>
+          <TableCell {...center}>
+            <Trans>DEF</Trans>
+          </TableCell>
+          <TableCell {...center}>
+            <Trans>PHY</Trans>
+          </TableCell>
         </Hidden>
-        {/* Team */}
-        <TableCell {...cellProps}>Country</TableCell>
-        <TableCell {...cellProps}>OVR</TableCell>
-        <TableCell {...cellProps}>SHT</TableCell>
-        <TableCell {...cellProps}>PAS</TableCell>
-        <TableCell {...cellProps}>DRI</TableCell>
-        <TableCell {...cellProps}>DEF</TableCell>
-        <TableCell {...cellProps}>PHY</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
       {players.map(player => (
         <TableRow key={player.id} id={player.id} hover={true}>
-          <TableCell {...cellProps} className="name">
-            <Link href={`/players/${player.id}`}>{player.name}</Link>
+          <TableCell {...center}>
+            <Link href={`/players/${player.id}`}>
+              <Avatar src="/player-avatar.png" alt="player image" />
+            </Link>
           </TableCell>
-          <TableCell {...cellProps} className="pos">
-            <ColoredPositionLabel position={player.registeredPosition} />
+          <TableCell {...leftAlign}>
+            <NameLink href={`/players/${player.id}`}>{player.name}</NameLink>
           </TableCell>
-
-          <Hidden smDown={true}>
-            <TableCell {...cellProps} className="age">
-              {player.age}
-            </TableCell>
-          </Hidden>
+          <TableCell {...center}>
+            <PlayerPositionRatingBadge player={player} />
+          </TableCell>
 
           {/* Team */}
-          <TableCell {...cellProps} className="nation">
-            <CountryFlag countryId={player.nationality} />
+          <TableCell {...center} />
+
+          <TableCell {...center}>
+            <Flag countryId={player.nationality} />
           </TableCell>
-          {/* TODO: calculate OVR, SHT, PAS, DEF, PHY, DRI  */}
-          <TableCell {...cellProps} className="ovr">
+          <TableCell {...center}>
             <PlayerStat value={player.ovr} />
           </TableCell>
-          <TableCell {...cellProps} className="sht">
-            <PlayerStat value={player.abilities!.finishing!} />
-          </TableCell>
-          <TableCell {...cellProps} className="pas">
-            <PlayerStat value={player.abilities!.lowPass!} />
-          </TableCell>
-          <TableCell {...cellProps} className="dri">
-            <PlayerStat value={player.abilities!.dribbling!} />
-          </TableCell>
-          <TableCell {...cellProps} className="def">
-            <PlayerStat value={player.abilities!.defensiveProwess!} />
-          </TableCell>
-          <TableCell {...cellProps} className="phy">
-            <PlayerStat value={player.abilities!.physicalContact!} />
-          </TableCell>
+
+          <Hidden xsDown={true}>
+            <TableCell {...center}>
+              <PlayerStat value={player.abilities!.finishing!} />
+            </TableCell>
+            <TableCell {...center}>
+              <PlayerStat value={player.abilities!.lowPass!} />
+            </TableCell>
+            <TableCell {...center}>
+              <PlayerStat value={player.abilities!.dribbling!} />
+            </TableCell>
+            <TableCell {...center}>
+              <PlayerStat value={player.abilities!.defensiveProwess!} />
+            </TableCell>
+            <TableCell {...center}>
+              <PlayerStat value={player.abilities!.physicalContact!} />
+            </TableCell>
+          </Hidden>
         </TableRow>
       ))}
     </TableBody>
-  </Table>
+  </StyledTable>
 ));
