@@ -166,9 +166,9 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
 
-"@redux-beacon/google-analytics@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@redux-beacon/google-analytics/-/google-analytics-1.0.1.tgz#e40523d2c3dce89fc7e049183d19ac99bc64a199"
+"@redux-beacon/google-analytics@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@redux-beacon/google-analytics/-/google-analytics-1.0.2.tgz#c91f3cdb962e2ecd80e63852ea299ad22d4db148"
 
 "@types/elasticsearch@^5.0.17":
   version "5.0.22"
