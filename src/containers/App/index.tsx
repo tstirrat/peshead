@@ -1,7 +1,6 @@
 import './App.css';
 
 import AppBar from 'material-ui/AppBar';
-import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
@@ -112,6 +111,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
           aria-owns={this.state.open ? 'user-menu' : undefined}
           aria-haspopup="true"
           onClick={this.openMenu}
+          color="inherit"
         >
           <Icon>account_circle</Icon>
         </IconButton>
@@ -129,7 +129,11 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   }
 
   renderLoginButtons() {
-    return <Button onClick={this.login.bind(this, 'google')}>Google</Button>;
+    return (
+      <IconButton color="inherit" onClick={this.login.bind(this, 'google')}>
+        <Icon>account_circle</Icon>
+      </IconButton>
+    );
   }
 
   private openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {

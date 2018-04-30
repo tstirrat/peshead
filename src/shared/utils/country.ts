@@ -22,7 +22,7 @@ export const CountryFlagImage = {
   [Country.BENIN]: '/images/flags/benin.png',
   [Country.BERMUDA]: '/images/flags/bermuda.png',
   [Country.BOLIVIA]: '/images/flags/bolivia.png',
-  [Country.BOSNIA_AND_HERZEGOVINA]: '/images/flags/bosnia_and_herzegovina.png',
+  [Country.BOSNIA_AND_HERZEGOVINA]: '/images/flags/bosnia.png',
   [Country.BOTSWANA]: '/images/flags/botswana.png',
   [Country.BRAZIL]: '/images/flags/brazil.png',
   [Country.BULGARIA]: '/images/flags/bulgaria.png',
