@@ -15,7 +15,7 @@ const pageView = trackPageView((action: LocationChangedAction) => {
   return {
     hitType: 'pageview',
     page,
-    title: `PEShead - ${title}`
+    title: `${title} - PEShead`
   };
 });
 
