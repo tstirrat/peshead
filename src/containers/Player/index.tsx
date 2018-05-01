@@ -20,6 +20,7 @@ import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
 import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm, PlayerFormValue } from '../../shared/utils/player';
+import { PositionLabel } from '../../shared/utils/position';
 import { PlayerHeader } from './styles';
 
 export interface ViewModel extends fromPlayers.BaseViewModel {
@@ -98,10 +99,15 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
     } = this.state;
     const player = assert(this.props.player, 'Player is guarded by <Loading>');
     const maxLevel = 50; // TODO: need to get this from data files
+
+    const title =
+      `${player.name} ` +
+      `[${PositionLabel[player.registeredPosition]} ${player.ovr}]`;
+
     return (
       <Grid container={true} spacing={24}>
         <Helmet>
-          <title>PEShead - {player.name}</title>
+          <title>{title} - PEShead</title>
         </Helmet>
 
         <PlayerHeader>

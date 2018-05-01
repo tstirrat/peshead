@@ -65,7 +65,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
       <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
           <Helmet>
-            <title>PEShead - {this.getSummary()}</title>
+            <title>{this.getSummary()} - PEShead</title>
           </Helmet>
           <Typography variant="title">Compare players</Typography>
           <div className="search-input flex">

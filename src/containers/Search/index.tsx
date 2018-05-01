@@ -60,7 +60,7 @@ export class Search extends React.PureComponent<ViewModel & Actions> {
     return (
       <div className="Search">
         <Helmet>
-          <title>PEShead - Search results</title>
+          <title>Search results - PEShead</title>
         </Helmet>
         <Typography variant="title">Search results</Typography>
         <Card>
