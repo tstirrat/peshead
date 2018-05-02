@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@firebase/app-types": "^0.2.0",
-    "@types/elasticsearch": "^5.0.17",
+    "@types/elasticsearch": "^5.0.23",
     "@types/history": "^4.6.1",
     "@types/i18next": "^8.4.3",
     "@types/i18next-browser-languagedetector": "^2.0.1",
