@@ -68,7 +68,7 @@
     "@types/recompose": "^0.26.1",
     "@types/redux-devtools-extension": "^2.13.2",
     "@types/redux-little-router": "^14.0.1",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.1",
     "eslint-config-prettier": "^2.9.0",
     "react-scripts-ts": "^2.15.1",
     "rxjs-marbles": "^3.0.1",
