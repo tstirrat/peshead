@@ -21,7 +21,7 @@
     "material-ui": "^1.0.0-beta.44",
     "observable-fetch": "^1.1.1",
     "protobufjs": "^6.8.0",
-    "query-string": "^6.0.0",
+    "query-string": "^6.1.0",
     "react": "^16.3.2",
     "react-autosuggest": "^9.3.4",
     "react-dom": "^16.3.2",
