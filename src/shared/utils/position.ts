@@ -21,19 +21,19 @@ export const PositionLabel = {
 
 /** Sorted position list, for use in comparison tables. */
 export const POSITION_LIST: Array<Position> = [
-  Position.GK,
-  Position.CB,
-  Position.LB,
-  Position.RB,
-  Position.DMF,
-  Position.CMF,
-  Position.LMF,
-  Position.RMF,
-  Position.AMF,
-  Position.LWF,
-  Position.RWF,
+  Position.CF,
   Position.SS,
-  Position.CF
+  Position.RWF,
+  Position.LWF,
+  Position.AMF,
+  Position.RMF,
+  Position.LMF,
+  Position.CMF,
+  Position.DMF,
+  Position.RB,
+  Position.LB,
+  Position.CB,
+  Position.GK
 ];
 
 export const PlayableLabel = {
