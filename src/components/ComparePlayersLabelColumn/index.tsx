@@ -1,7 +1,7 @@
 import Divider from 'material-ui/Divider';
 import { ListItemText, ListSubheader } from 'material-ui/List';
 import * as React from 'react';
-import Sticky from 'react-stickynode';
+import * as Sticky from 'react-stickynode';
 import { pure } from 'recompose';
 
 import { POSITION_LIST, PositionLabel } from '../../shared/utils/position';

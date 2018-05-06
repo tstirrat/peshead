@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import { ListItem } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
-import Sticky from 'react-stickynode';
+import * as Sticky from 'react-stickynode';
 import { Link } from 'redux-little-router';
 
 import { Playable, Player } from '../../shared/service/api';
