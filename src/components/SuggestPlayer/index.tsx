@@ -27,12 +27,16 @@ type PlayerSuggestion = Pick<
 type SuggestPlayerResponse = SuggestResponse<PlayerSuggestion>;
 
 const KC_ENTER = 13; // TODO: get this from some lib or DOM
+const KC_ESCAPE = 27; // TODO: get this from some lib or DOM
 
 export interface Props {
   className?: string;
   placeholder?: string;
+  autoFocus?: boolean;
+  cancelOnBlur?: boolean;
   onSelect?: (value: string) => void;
   onSearch?: (value: string) => void;
+  onCancel?: () => void;
 }
 
 interface State {
@@ -84,6 +88,7 @@ class SuggestPlayerBase extends React.Component<Props, State> {
   }
 
   render() {
+    const { autoFocus = false } = this.props;
     return (
       <Autosuggest
         focusInputOnSuggestionClick={false}
@@ -102,11 +107,12 @@ class SuggestPlayerBase extends React.Component<Props, State> {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
-          autoFocus: false,
+          autoFocus,
           placeholder: this.props.placeholder || 'Find player',
           value: this.state.value,
           onChange: this.handleChange,
-          onKeyDown: this.searchIfEnterKey
+          onKeyDown: this.searchIfEnterKey,
+          onBlur: this.handleBlur
         }}
       />
     );
@@ -140,6 +146,15 @@ class SuggestPlayerBase extends React.Component<Props, State> {
         this.props.onSearch(this.state.value);
         this.clear();
       }
+    }
+    if (keyCode === KC_ESCAPE && this.props.onCancel) {
+      this.props.onCancel();
+    }
+  };
+
+  private handleBlur = () => {
+    if (this.props.onCancel && this.props.cancelOnBlur) {
+      this.props.onCancel();
     }
   };
 

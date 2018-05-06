@@ -21,6 +21,7 @@ import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
 import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm, PlayerFormValue } from '../../shared/utils/player';
 import { PositionLabel } from '../../shared/utils/position';
+import { Flex, FlexLayout } from '../App/styles';
 import { PlayerHeader } from './styles';
 
 export interface ViewModel extends fromPlayers.BaseViewModel {
@@ -111,11 +112,11 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
         </Helmet>
 
         <PlayerHeader>
-          <div className="layout-row">
+          <FlexLayout align="row">
             <PlayerNameplate player={player} />
-            <div className="flex" />
+            <Flex />
             <PlayerActionMenu player={player} />
-          </div>
+          </FlexLayout>
         </PlayerHeader>
 
         <Grid item={true} xs={12} sm={6}>

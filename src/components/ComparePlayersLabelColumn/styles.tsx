@@ -1,5 +1,9 @@
-import { ListItem } from 'material-ui/List';
+import List, { ListItem } from 'material-ui/List';
 import styled from 'styled-components';
+
+export const Column = styled(List)`
+  padding: 0 !important;
+`;
 
 export const Label = styled(ListItem)`
   > div {
@@ -13,4 +17,8 @@ export const Label = styled(ListItem)`
     white-space: nowrap;
     padding-right: 0;
   }
+`;
+
+export const PlayerHeader = styled(ListItem)`
+  height: 78px;
 `;

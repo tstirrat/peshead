@@ -1,5 +1,3 @@
-import './App.css';
-
 import AppBar from 'material-ui/AppBar';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
@@ -15,6 +13,7 @@ import { SuggestPlayer } from '../../components/SuggestPlayer';
 import { User } from '../../models/user';
 import * as fromRoot from '../../reducers';
 import { routes } from '../../routes';
+import { AppContainer, AppRoot, CanvasControls, ToolbarSearchContainer } from './styles';
 
 interface ViewModel {
   user?: User;
@@ -45,7 +44,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
   render() {
     const { user } = this.props;
     return (
-      <div className="App">
+      <AppRoot>
         <Helmet>
           <title>PEShead</title>
         </Helmet>
@@ -54,25 +53,28 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
             <IconButton color="inherit" onClick={this.goHome}>
               <Icon>home</Icon>
             </IconButton>
-            <div className="search-input flex">
+            <ToolbarSearchContainer>
               <SuggestPlayer
                 onSelect={this.handlePlayerSelect}
                 onSearch={this.handleSearch}
               />
-            </div>
+            </ToolbarSearchContainer>
             {user ? this.renderUser(user) : this.renderLoginButtons()}
           </Toolbar>
         </AppBar>
-        <div className="App-container">
+        <AppContainer>
           <div>{routes}</div>
-          <small className="canvas-controls center">
+          <CanvasControls className="center">
             <p>
-              Beachball by{' '}
+              Volleyball icon by{' '}
               <a href="http://www.freepik.com" title="Freepik">
                 Freepik
               </a>{' '}
               from{' '}
-              <a href="https://www.flaticon.com/" title="Flaticon">
+              <a
+                href="https://www.flaticon.com/free-icon/volleyball_772289"
+                title="Flaticon"
+              >
                 flaticon.com
               </a>{' '}
               is licensed under{' '}
@@ -98,13 +100,13 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
                 CC 3.0 BY-SA
               </a>
             </p>
-          </small>
-        </div>
-      </div>
+          </CanvasControls>
+        </AppContainer>
+      </AppRoot>
     );
   }
 
-  renderUser(user: User) {
+  private renderUser(user: User) {
     return (
       <div className="session">
         <IconButton
@@ -128,7 +130,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
     );
   }
 
-  renderLoginButtons() {
+  private renderLoginButtons() {
     return (
       <IconButton color="inherit" onClick={this.login.bind(this, 'google')}>
         <Icon>account_circle</Icon>

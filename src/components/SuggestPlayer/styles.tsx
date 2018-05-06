@@ -10,7 +10,6 @@ export const SuggestionsContainer = styled(Paper)`
   left: 0;
   right: 0;
   z-index: 10;
-  max-width: 400px;
   border-radius: 2px;
 
   .suggestions-list {
@@ -59,11 +58,4 @@ export const Flag = styled(CountryFlag)`
 
 export const MainInput = styled(TextField)`
   width: 100%;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-
-  input {
-    color: white;
-    padding-left: 0.5rem;
-  }
 `;

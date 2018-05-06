@@ -4,10 +4,10 @@ import { render } from 'react-dom';
 import { PlayerStat } from '.';
 
 describe('<PlayerStat>', () => {
-  it('displays [value] inside a .stat element', () => {
+  it('displays [value] inside a .t-stat element', () => {
     const div = document.createElement('div');
     render(<PlayerStat value={10} />, div);
-    expect(div.querySelector('.stat')!.textContent).toBe('10');
+    expect(div.querySelector('.t-stat')!.textContent).toBe('10');
   });
 
   describe('coloring', () => {

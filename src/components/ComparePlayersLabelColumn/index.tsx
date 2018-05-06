@@ -1,16 +1,16 @@
 import Divider from 'material-ui/Divider';
-import List, { ListItemText, ListSubheader } from 'material-ui/List';
+import { ListItemText, ListSubheader } from 'material-ui/List';
 import * as React from 'react';
 import { pure } from 'recompose';
 
 import { POSITION_LIST, PositionLabel } from '../../shared/utils/position';
-import { Label } from './styles';
+import { Column, Label, PlayerHeader } from './styles';
 
 const SINGLE_STATS = [
   'Age',
   'Nationality',
-  'Height (cm)',
-  'Weight (kg)',
+  'Height',
+  'Weight',
   'Foot',
   'Position',
   'Playing Style',
@@ -47,8 +47,12 @@ const SINGLE_STATS = [
 ];
 
 export const ComparePlayersLabelColumn = pure(() => (
-  <List className="ComparePlayersLabelColumn">
-    <ListSubheader>Stats</ListSubheader>
+  <Column>
+    <ListSubheader>&nbsp;</ListSubheader>
+    <Divider />
+    <PlayerHeader>
+      <ListItemText primary={'Player'} />
+    </PlayerHeader>
     {SINGLE_STATS.map(skill => (
       <div key={skill}>
         <Divider />
@@ -65,5 +69,5 @@ export const ComparePlayersLabelColumn = pure(() => (
         </Label>
       </div>
     ))}
-  </List>
+  </Column>
 ));

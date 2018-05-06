@@ -1,17 +1,21 @@
-import { ListSubheader } from 'material-ui/List';
+import { ListItem } from 'material-ui/List';
+import { Link } from 'redux-little-router';
 import styled from 'styled-components';
 
-export const Header = styled(ListSubheader)`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+export const EllipsizedLink = styled(Link)`
+  text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+`;
 
-  .link {
-    text-align: center;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+export const Header = styled(ListItem)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ${EllipsizedLink} {
+    width: 100%;
   }
 `;
 
@@ -24,4 +28,10 @@ export const StyledStat = styled.div`
     padding: 0;
     height: 48px;
   }
+`;
+
+// TODO: de-dupe this with PlayerTable/styles
+export const Avatar = styled.img`
+  user-select: none;
+  height: 40px;
 `;

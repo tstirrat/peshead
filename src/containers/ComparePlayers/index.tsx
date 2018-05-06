@@ -1,4 +1,4 @@
-import { Paper } from 'material-ui';
+import { Icon } from 'material-ui';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
@@ -18,10 +18,16 @@ import { PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
 import { Position } from '../../shared/service/api';
 import { AbilityFlags, getHighestAbilities } from '../../shared/utils/player';
+import { AddButton, PaperContainer, PlayerInputContainer } from './styles';
 
 export interface ViewModel {
   players: PlayerViewModel[];
   position?: Position;
+}
+
+export interface State {
+  /** Show the "add player" input */
+  showPlayerInput: boolean;
 }
 
 export interface PlayerViewModel
@@ -47,6 +53,10 @@ const createPlayerViewModel = (
 };
 
 export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
+  state: State = {
+    showPlayerInput: false
+  };
+
   componentDidMount() {
     this.fetchMissingPlayers(this.props);
   }
@@ -61,6 +71,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     const { players } = this.props;
     const highlights = this.calculateHighlights(players);
     const colWidth = players.length === 3 ? 3 : 4;
+    const { showPlayerInput } = this.state;
     return (
       <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
@@ -68,12 +79,29 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
             <title>{this.getSummary()} - PEShead</title>
           </Helmet>
           <Typography variant="title">Compare players</Typography>
-          <div className="search-input flex">
-            <SuggestPlayer onSelect={this.handlePlayerSelect} />
-          </div>
         </Grid>
         <Grid item={true} xs={12} sm={12}>
-          <Paper>
+          <PaperContainer>
+            {showPlayerInput ? (
+              <PlayerInputContainer>
+                <SuggestPlayer
+                  autoFocus={true}
+                  onSelect={this.handlePlayerSelect}
+                  onCancel={this.hideAddPlayerInput}
+                  cancelOnBlur={true}
+                  placeholder="Add player"
+                />
+              </PlayerInputContainer>
+            ) : (
+              <AddButton
+                variant="fab"
+                color="primary"
+                aria-label="Add"
+                onClick={this.showAddPlayerInput}
+              >
+                <Icon>add</Icon>
+              </AddButton>
+            )}
             <Grid container={true} spacing={0}>
               <Grid item={true} xs={colWidth}>
                 <ComparePlayersLabelColumn />
@@ -87,7 +115,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
                 </Grid>
               ))}
             </Grid>
-          </Paper>
+          </PaperContainer>
         </Grid>
       </Grid>
     );
@@ -130,9 +158,18 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     return getHighestAbilities(players);
   }
 
+  private showAddPlayerInput = () => {
+    this.setState({ showPlayerInput: true });
+  };
+
+  private hideAddPlayerInput = () => {
+    this.setState({ showPlayerInput: false });
+  };
+
   private handlePlayerSelect = (id: string) => {
     const { players } = this.props;
     const ids = players.map(p => p.id).concat([id]);
+    this.setState({ showPlayerInput: false });
     this.props.pushUrl(`/players/compare/${ids.join('/')}`, {});
   };
 

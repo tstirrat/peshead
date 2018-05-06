@@ -1,10 +1,13 @@
 import * as React from 'react';
 import { pure } from 'recompose';
 import styled from 'styled-components';
+import { Badge } from './styles';
 
 export interface Props {
   value: number;
   maxValue?: number;
+  fade?: boolean;
+  badgeText?: string;
 }
 
 export interface InternalProps {
@@ -22,7 +25,7 @@ enum Band {
   MAX = 96
 }
 
-const BAND_CLASS: { [b: number]: string } = {
+const BAND_CLASS: { [band: number]: string } = {
   [Band.VERY_WEAK]: 'very-weak', // red
   [Band.WEAK]: 'weak', // dark-orange
   [Band.AVERAGE]: 'average', // yellow
@@ -32,26 +35,29 @@ const BAND_CLASS: { [b: number]: string } = {
 };
 
 const Container = pure<Props & InternalProps>(
-  ({ value, maxValue, className }) => (
+  ({ value, maxValue = 99, className, badgeText }) => (
     <span className={className + ' ' + getStrengthClass(value, maxValue)}>
-      <span className="stat">{value}</span>
+      <span className="t-stat">{Math.min(value, maxValue)}</span>
+      {badgeText ? <Badge>{badgeText}</Badge> : null}
     </span>
   )
 );
 
 export const PlayerStat = styled<Props>(Container)`
-  border-radius: 2px;
-  background-color: lightgray;
-  height: 32px;
-  width: 32px;
-  display: inline-flex;
-  justify-content: center;
   align-items: center;
+  background-color: lightgray;
+  border-radius: 2px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
+  color: white;
+  display: inline-flex;
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-size: 18px;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  color: white;
+  height: 32px;
+  justify-content: center;
+  opacity: ${({ fade }) => (fade ? 0.6 : 1)};
+  position: relative;
+  width: 32px;
 
   /* TODO: Use better PES colors here. */
   &.max {
