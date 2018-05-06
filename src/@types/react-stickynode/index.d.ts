@@ -16,7 +16,7 @@ declare module 'react-stickynode' {
   }
 
   export interface Status {
-    status: Status;
+    status: StatusCode;
   }
 
   export interface Props {
