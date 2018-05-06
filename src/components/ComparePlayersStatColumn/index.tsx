@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import { ListItem } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
+import Sticky from 'react-stickynode';
 import { Link } from 'redux-little-router';
 
 import { Playable, Player } from '../../shared/service/api';
@@ -37,34 +38,36 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
         <StyledStat>
           <ListItem>
             <IconButton
-              aria-label="Delete"
+              aria-label="Remove player"
               onClick={this.handleDelete}
               disableRipple={true}
             >
               <Icon>remove_circle</Icon>
             </IconButton>
           </ListItem>
+          <Divider />
         </StyledStat>
 
-        <Divider />
-        <Header>
-          <Link href={`/players/${player.id}`}>
-            <Avatar src="/player-avatar.png" alt="player image" />
-          </Link>
-          <EllipsizedLink href={`/players/${player.id}`}>
-            {player.name}
-          </EllipsizedLink>
-        </Header>
+        <Sticky top={'.MuiAppBar-positionFixed-2'} innerZ="99">
+          <Header>
+            <Link href={`/players/${player.id}`}>
+              <Avatar src="/player-avatar.png" alt="player image" />
+            </Link>
+            <EllipsizedLink href={`/players/${player.id}`}>
+              {player.name}
+            </EllipsizedLink>
+          </Header>
+          <Divider />
+        </Sticky>
 
         <StyledStat>
-          <Divider />
           <ListItem>
             <Typography variant="subheading">{player.age}</Typography>
           </ListItem>
         </StyledStat>
-        <Divider />
 
         <StyledStat>
+          <Divider />
           <ListItem>
             <CountryFlag countryId={player.nationality} />
           </ListItem>

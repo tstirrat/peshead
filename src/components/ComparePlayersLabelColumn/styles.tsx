@@ -20,5 +20,6 @@ export const Label = styled(ListItem)`
 `;
 
 export const PlayerHeader = styled(ListItem)`
+  background-color: white;
   height: 78px;
 `;

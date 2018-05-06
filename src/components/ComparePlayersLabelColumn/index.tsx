@@ -1,6 +1,7 @@
 import Divider from 'material-ui/Divider';
 import { ListItemText, ListSubheader } from 'material-ui/List';
 import * as React from 'react';
+import Sticky from 'react-stickynode';
 import { pure } from 'recompose';
 
 import { POSITION_LIST, PositionLabel } from '../../shared/utils/position';
@@ -50,23 +51,28 @@ export const ComparePlayersLabelColumn = pure(() => (
   <Column>
     <ListSubheader>&nbsp;</ListSubheader>
     <Divider />
-    <PlayerHeader>
-      <ListItemText primary={'Player'} />
-    </PlayerHeader>
+
+    <Sticky top={'.MuiAppBar-positionFixed-2'} innerZ="99">
+      <PlayerHeader>
+        <ListItemText primary={'Player'} />
+      </PlayerHeader>
+      <Divider />
+    </Sticky>
+
     {SINGLE_STATS.map(skill => (
       <div key={skill}>
-        <Divider />
         <Label>
           <ListItemText primary={skill} />
         </Label>
+        <Divider />
       </div>
     ))}
     {POSITION_LIST.map(pos => (
       <div key={pos}>
-        <Divider />
         <Label>
           <ListItemText primary={PositionLabel[pos]} />
         </Label>
+        <Divider />
       </div>
     ))}
   </Column>

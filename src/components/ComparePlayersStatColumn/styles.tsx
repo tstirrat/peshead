@@ -10,9 +10,10 @@ export const EllipsizedLink = styled(Link)`
 `;
 
 export const Header = styled(ListItem)`
+  align-items: center;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   ${EllipsizedLink} {
     width: 100%;
