@@ -48,7 +48,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
         <Helmet>
           <title>PEShead</title>
         </Helmet>
-        <AppBar>
+        <AppBar className="sticky-header">
           <Toolbar>
             <IconButton color="inherit" onClick={this.goHome}>
               <Icon>home</Icon>

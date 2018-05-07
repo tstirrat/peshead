@@ -4,8 +4,8 @@ import * as React from 'react';
 import * as Sticky from 'react-stickynode';
 import { pure } from 'recompose';
 
+import { Column, Header, Label } from '../../containers/ComparePlayers/styles';
 import { POSITION_LIST, PositionLabel } from '../../shared/utils/position';
-import { Column, Label, PlayerHeader } from './styles';
 
 const SINGLE_STATS = [
   'Age',
@@ -42,7 +42,7 @@ const SINGLE_STATS = [
   'Stamina',
   'NonDom Leg Usage',
   'NonDom Leg Prec.',
-  'Condition',
+  'Form',
   'Injury Resistance',
   'Positions'
 ];
@@ -52,10 +52,10 @@ export const ComparePlayersLabelColumn = pure(() => (
     <ListSubheader>&nbsp;</ListSubheader>
     <Divider />
 
-    <Sticky top={'.MuiAppBar-positionFixed-2'} innerZ="99">
-      <PlayerHeader>
+    <Sticky top={'.sticky-header'} innerZ="99">
+      <Header>
         <ListItemText primary={'Player'} />
-      </PlayerHeader>
+      </Header>
       <Divider />
     </Sticky>
 

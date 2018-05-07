@@ -198,7 +198,7 @@ export class PlayerAbilities extends React.PureComponent<Props> {
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Condition</TableCell>
+            <TableCell>Form</TableCell>
             <TableCell>
               <PlayerStat value={player.abilities!.form!} maxValue={8} />
             </TableCell>

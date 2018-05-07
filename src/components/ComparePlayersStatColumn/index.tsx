@@ -18,11 +18,10 @@ import {
 import { PlayableLabel, POSITION_LIST, PositionLabel } from '../../shared/utils/position';
 import { CalculatePositionRating } from '../CalculatePositionRating';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
-import { Column } from '../ComparePlayersLabelColumn/styles';
 import { CountryFlag } from '../CountryFlag';
 import { FootChart } from '../FootChart';
 import { PlayerStat } from '../PlayerStat';
-import { Avatar, EllipsizedLink, Header, StyledStat } from './styles';
+import { Avatar, Column, EllipsizedLink, Header, StyledStat } from './../../containers/ComparePlayers/styles';
 
 export interface Props {
   player: Player;
@@ -48,7 +47,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
           <Divider />
         </StyledStat>
 
-        <Sticky top={'.MuiAppBar-positionFixed-2'} innerZ="99">
+        <Sticky top={'.sticky-header'} innerZ="99">
           <Header>
             <Link href={`/players/${player.id}`}>
               <Avatar src="/player-avatar.png" alt="player image" />

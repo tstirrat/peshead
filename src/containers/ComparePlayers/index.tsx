@@ -4,6 +4,7 @@ import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
+import * as Sticky from 'react-stickynode';
 import { push } from 'redux-little-router';
 import { createSelector } from 'reselect';
 
@@ -54,7 +55,7 @@ const createPlayerViewModel = (
 
 export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   state: State = {
-    showPlayerInput: this.props.players.length <= 2
+    showPlayerInput: this.props.players.length <= 1
   };
 
   componentDidMount() {
@@ -93,14 +94,16 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
                 />
               </PlayerInputContainer>
             ) : (
-              <AddButton
-                variant="fab"
-                color="primary"
-                aria-label="Add"
-                onClick={this.showAddPlayerInput}
-              >
-                <Icon>add</Icon>
-              </AddButton>
+              <Sticky top={66} innerZ="100">
+                <AddButton
+                  variant="fab"
+                  color="primary"
+                  aria-label="Add"
+                  onClick={this.showAddPlayerInput}
+                >
+                  <Icon>add</Icon>
+                </AddButton>
+              </Sticky>
             )}
             <Grid container={true} spacing={0}>
               <Grid item={true} xs={colWidth}>
