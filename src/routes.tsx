@@ -57,7 +57,7 @@ export const routes = (
       <Fragment forRoute="/leagues/:id">
         <AsyncLeague />
       </Fragment>
-      <Fragment forRoute="/players/compare/(:player1)(/:player2)(/:player3)">
+      <Fragment forRoute="/players/compare/*">
         <AsyncComparePlayers />
       </Fragment>
       <Fragment forRoute="/players/:id">
@@ -80,7 +80,7 @@ export const routeDefinition: Routes = {
     '/search': { title: 'Search' },
 
     '/players': {
-      '/compare/(:player1)(/:player2)(/:player3)': {
+      '/compare/*': {
         title: 'Compare players'
       },
       '/:id': { title: 'Player' }

@@ -4,14 +4,10 @@ import { assert } from '../shared/assert';
 
 export type State = Location;
 
+const WILDCARD_PARAM = '_';
+
 export interface RouteWithId {
   id: string;
-}
-
-export interface RouteWithPlayerIds {
-  player1?: string;
-  player2?: string;
-  player3?: string;
 }
 
 export interface PlayerCompareOption {
@@ -25,12 +21,13 @@ export const getId = (state: State) => {
   return state.params!.id;
 };
 
-/** Get :player1, :player2, :player3 from the route  */
+/** Get player info from the route  */
 export const getPlayerCompareOptions = (
   state: State
 ): PlayerCompareOption[] => {
-  return ['player1', 'player2', 'player3']
-    .map(key => state.params![key])
+  const playersParam = state.params![WILDCARD_PARAM];
+  return playersParam
+    .split('/')
     .filter(id => !!id)
     .map(playerString => extractPlayerOptions(playerString));
 };
@@ -43,6 +40,8 @@ function extractPlayerOptions(playerString: string): PlayerCompareOption {
     match,
     'Cannot find player id in url'
   );
+  // tslint:disable-next-line:no-console
+  console.log(id);
   return {
     id,
     form,
