@@ -209,6 +209,10 @@
   version "3.0.32"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-3.0.32.tgz#f4e5af31e9e9b196d8e5fca8a5e2e20aa3d60b69"
 
+"@types/mousetrap@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@types/mousetrap/-/mousetrap-1.6.0.tgz#c3951ab98b88ff6093cd0b1e4f8591af439141b8"
+
 "@types/node@*":
   version "9.6.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.6.tgz#439b91f9caf3983cad2eef1e11f6bedcbf9431d2"
@@ -5177,6 +5181,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   dependencies:
     minimist "0.0.8"
 
+mousetrap@^1.6.0:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.1.tgz#2a085f5c751294c75e7e81f6ec2545b29cbf42d9"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -6681,6 +6689,12 @@ redux-little-router@^15.1.0:
 redux-observable@^1.0.0-alpha:
   version "1.0.0-alpha.2"
   resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-1.0.0-alpha.2.tgz#86ac0d04f17992ad7aff6023d8b3ecc034c7de2f"
+
+redux-shortcuts@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/redux-shortcuts/-/redux-shortcuts-0.0.3.tgz#a3d739985fdbed45b07572439c5a6127d6c4dea3"
+  dependencies:
+    mousetrap "^1.6.0"
 
 redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"
