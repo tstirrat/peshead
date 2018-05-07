@@ -54,7 +54,7 @@ const createPlayerViewModel = (
 
 export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   state: State = {
-    showPlayerInput: false
+    showPlayerInput: this.props.players.length <= 2
   };
 
   componentDidMount() {
