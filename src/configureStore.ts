@@ -6,7 +6,6 @@ import { createEpicMiddleware } from 'redux-observable';
 
 import { analyticsMiddleware } from './configureAnalytics';
 import { configureFirebase } from './configureFirebase';
-import { configureShortcuts } from './configureShortcuts';
 import { EpicDependencies, epics as rootEpic } from './epics';
 import * as fromRoot from './reducers';
 import { routeDefinition } from './routes';
@@ -46,7 +45,5 @@ const initialLocation = (store as Store<fromRoot.State>).getState().router;
 if (initialLocation) {
   store.dispatch(initializeCurrentLocation(initialLocation));
 }
-
-configureShortcuts(store);
 
 export default store;

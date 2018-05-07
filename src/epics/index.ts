@@ -2,7 +2,6 @@ import { app } from 'firebase';
 import fetch from 'observable-fetch';
 import { combineEpics } from 'redux-observable';
 
-import * as keyboard from './keyboard';
 import * as players from './players';
 import * as search from './search';
 import * as session from './session';
@@ -16,8 +15,7 @@ export interface EpicDependencies {
 }
 
 export const epics = combineEpics(
-  keyboard.epics, // alignment
-  players.epics,
+  players.epics, // alignment
   search.epics,
   session.epics
 );

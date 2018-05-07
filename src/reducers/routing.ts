@@ -40,8 +40,6 @@ function extractPlayerOptions(playerString: string): PlayerCompareOption {
     match,
     'Cannot find player id in url'
   );
-  // tslint:disable-next-line:no-console
-  console.log(id);
   return {
     id,
     form,
