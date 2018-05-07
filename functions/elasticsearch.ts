@@ -195,6 +195,7 @@ export async function suggest(client: elasticsearch.Client, prefix: string) {
         'playingStyle'
       ]
     },
-    size: 20
+    size: 20,
+    sort: 'ovr'
   });
 }
