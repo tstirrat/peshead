@@ -16,6 +16,7 @@ import { PlayerAbilities } from '../../components/PlayerAbilities';
 import { PlayerActionMenu } from '../../components/PlayerActionMenu';
 import { PlayerBasics } from '../../components/PlayerBasics';
 import { PlayerNameplate } from '../../components/PlayerNameplate';
+import { Shortcut } from '../../components/Shortcut';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
@@ -111,6 +112,8 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
           <title>{title} - PEShead</title>
         </Helmet>
 
+        <Shortcut keys="c" handler={this.goToCompare} />
+
         <PlayerHeader>
           <FlexLayout align="row">
             <PlayerNameplate player={player} />
@@ -191,6 +194,13 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
     const player = assert(this.props.player, 'Guarded by <Loading>');
     return `/players/${player.id}?level=${level}&form=${form}`;
   }
+
+  private goToCompare = () => {
+    const { player } = this.props;
+    if (player) {
+      this.props.replaceUrl(`/players/compare/${player.id}`, {});
+    }
+  };
 }
 
 export interface PlayerQueryParams {

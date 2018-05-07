@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { I18nextProvider } from 'react-i18next';
 
-import { PlayerTable } from '.';
+import { PlayerTable, Props } from '.';
 import { StaticRouter } from '../../__test__';
 import { base } from '../../__test__/fixtures';
 import i18n from '../../configureI18n';
@@ -15,13 +15,18 @@ const players = [player1, player2];
 
 let div: HTMLDivElement;
 
+const props: Props = {
+  players,
+  selectedIndex: 1
+};
+
 describe('<PlayerTable>', () => {
   beforeEach(() => {
     div = document.createElement('div');
     render(
       <StaticRouter url="/players/1">
         <I18nextProvider i18n={i18n}>
-          <PlayerTable players={players} />
+          <PlayerTable {...props} />
         </I18nextProvider>
       </StaticRouter>,
       div

@@ -8,7 +8,7 @@ import { Dispatch } from 'redux';
 
 import * as search from '../../actions/search';
 import { Loading } from '../../components/Loading';
-import { PlayerTable } from '../../components/PlayerTable';
+import { InteractivePlayerTable } from '../../components/PlayerTable';
 import * as fromRoot from '../../reducers';
 import { Player } from '../../shared/service/api';
 
@@ -54,7 +54,7 @@ export class Home extends React.PureComponent<ViewModel & Actions> {
 
   private renderPlayerTable = () => {
     const { results } = this.props;
-    return <PlayerTable players={results} />;
+    return <InteractivePlayerTable list={results} />;
   };
 }
 

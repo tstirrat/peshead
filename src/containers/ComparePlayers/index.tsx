@@ -12,6 +12,7 @@ import * as playerActions from '../../actions/players';
 import { ComparePlayersLabelColumn } from '../../components/ComparePlayersLabelColumn';
 import { ComparePlayersStatColumn } from '../../components/ComparePlayersStatColumn';
 import { Loading } from '../../components/Loading';
+import { Shortcut } from '../../components/Shortcut';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
@@ -79,6 +80,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
           <Helmet>
             <title>{this.getSummary()} - PEShead</title>
           </Helmet>
+          <Shortcut keys="+" handler={this.showAddPlayerInput} />
           <Typography variant="title">Compare players</Typography>
         </Grid>
         <Grid item={true} xs={12} sm={12}>

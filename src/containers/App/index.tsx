@@ -9,6 +9,7 @@ import { connect, Dispatch } from 'react-redux';
 import { push } from 'redux-little-router';
 
 import * as fromApp from '../../actions/app';
+import { Shortcut } from '../../components/Shortcut';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
 import { User } from '../../models/user';
 import * as fromRoot from '../../reducers';
@@ -37,6 +38,8 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
     open: false
   };
 
+  private searchInput: HTMLInputElement | null = null;
+
   componentDidMount() {
     this.props.loadSession();
   }
@@ -57,6 +60,7 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
               <SuggestPlayer
                 onSelect={this.handlePlayerSelect}
                 onSearch={this.handleSearch}
+                inputRef={this.getSearchInputRef}
               />
             </ToolbarSearchContainer>
             {user ? this.renderUser(user) : this.renderLoginButtons()}
@@ -102,6 +106,9 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
             </p>
           </CanvasControls>
         </AppContainer>
+
+        <Shortcut keys="g h" handler={this.goHome} />
+        <Shortcut keys="/" handler={this.focusSearch} />
       </AppRoot>
     );
   }
@@ -160,6 +167,16 @@ export class App extends React.PureComponent<ViewModel & Actions, State> {
 
   private goHome = () => {
     this.props.pushUrl(`/`, {});
+  };
+
+  private getSearchInputRef: React.Ref<HTMLInputElement> = ref => {
+    this.searchInput = ref;
+  };
+
+  private focusSearch = () => {
+    if (this.searchInput) {
+      this.searchInput.focus();
+    }
   };
 }
 

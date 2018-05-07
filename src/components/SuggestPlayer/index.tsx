@@ -34,6 +34,7 @@ export interface Props {
   placeholder?: string;
   autoFocus?: boolean;
   cancelOnBlur?: boolean;
+  inputRef?: React.Ref<HTMLInputElement>;
   onSelect?: (value: string) => void;
   onSearch?: (value: string) => void;
   onCancel?: () => void;
@@ -88,7 +89,7 @@ class SuggestPlayerBase extends React.Component<Props, State> {
   }
 
   render() {
-    const { autoFocus = false } = this.props;
+    const { autoFocus = false, inputRef } = this.props;
     return (
       <Autosuggest
         focusInputOnSuggestionClick={false}
@@ -107,6 +108,8 @@ class SuggestPlayerBase extends React.Component<Props, State> {
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         inputProps={{
+          // tslint:disable-next-line:no-console
+          inputRef,
           autoFocus,
           placeholder: this.props.placeholder || 'Find player',
           value: this.state.value,
@@ -194,17 +197,14 @@ const renderInput: Autosuggest.RenderInputComponent<
   PlayerSuggestion
 > = inputProps => {
   // tslint:disable-next-line:no-any TODO: not sure of other props here
-  const { autoFocus, value, ref, ...other } = inputProps as any;
+  const { autoFocus, value, inputRef, ...other } = inputProps as any;
 
   return (
     <MainInput
       autoFocus={autoFocus}
       value={value}
-      inputRef={ref}
-      InputProps={{
-        disableUnderline: true,
-        ...other
-      }}
+      inputRef={inputRef}
+      InputProps={{ disableUnderline: true, ...other }}
     />
   );
 };
