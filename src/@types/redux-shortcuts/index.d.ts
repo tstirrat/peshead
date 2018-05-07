@@ -6,24 +6,29 @@ declare module 'redux-shortcuts' {
 
   export function bindShortcut(
     keys: KeyBindings,
-    actionCreator: ActionCreator<Action>,
+    actionCreator: ActionBindings,
     preventDefault?: boolean
-  ): (dispatch: Dispatch<Action>) => void;
+  ): (dispatch: Dispatch<any>) => void;
 
   export function bindShortcuts(
     ...shortcut: ShortcutDefinition[]
-  ): (dispatch: Dispatch<Action>) => void;
+  ): (dispatch: Dispatch<any>) => void;
 
   export type KeyBindings = string | string[];
+
+  export type ActionBindings =
+    | ActionCreator<Action>
+    | Array<ActionCreator<Action>>;
+
   export type ShortcutDefinition =
     | BasicShortcutDefinition
     | ShortcutDefinitionWithPreventDefault;
 
-  type BasicShortcutDefinition = [KeyBindings, ActionCreator<Action>];
+  export type BasicShortcutDefinition = [KeyBindings, ActionBindings];
 
-  type ShortcutDefinitionWithPreventDefault = [
+  export type ShortcutDefinitionWithPreventDefault = [
     KeyBindings,
-    ActionCreator<Action>,
+    ActionBindings,
     boolean
   ];
 }
