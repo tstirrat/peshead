@@ -20,7 +20,7 @@ import { buildPlayerCompareUrl, PlayerCompareOption } from '../../reducers/routi
 import { assert } from '../../shared/assert';
 import { Position } from '../../shared/service/api';
 import { AugmentedPlayer } from '../../shared/utils/augmented_player';
-import { AbilityFlags, getHighestAbilities, PlayerForm } from '../../shared/utils/player';
+import { AbilityFlags, getHighestAbilities, PlayerForm, PlayerFormChar } from '../../shared/utils/player';
 import { AddButton, PaperContainer, PlayerInputContainer } from './styles';
 
 export interface ViewModel {
@@ -86,7 +86,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
       <Grid className="ComparePlayers" container={true} spacing={24}>
         <Grid item={true} xs={12} sm={12}>
           <Helmet>
-            <title>{this.getSummary()} - PEShead</title>
+            <title>{this.getPageTitle()} - PEShead</title>
           </Helmet>
           <Shortcut keys="+" handler={this.showAddPlayerInput} />
           <Typography variant="title">Compare players</Typography>
@@ -162,10 +162,17 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     });
   }
 
-  private getSummary() {
+  private getPageTitle() {
     const { players } = this.props;
     const summary = players
-      .map(player => player.player && player.player.name)
+      .filter(vm => !!vm.player)
+      .map(vm => {
+        const { form, player } = vm;
+        const name = player!.name;
+        const formArrow =
+          form && form !== PlayerForm.C ? ` ${PlayerFormChar[form]}` : '';
+        return `${name}${formArrow}`;
+      })
       .filter(name => !!name)
       .join(' / ');
     return summary ? `Compare: ${summary}` : 'Compare';

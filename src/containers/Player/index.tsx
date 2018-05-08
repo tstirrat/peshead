@@ -23,8 +23,9 @@ import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { buildPlayerCompareUrl, PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
+import { Player as PlayerModel } from '../../shared/service/api';
 import { AugmentedPlayer } from '../../shared/utils/augmented_player';
-import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm } from '../../shared/utils/player';
+import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm, PlayerFormChar } from '../../shared/utils/player';
 import { PositionLabel } from '../../shared/utils/position';
 import { Flex, FlexLayout } from '../App/styles';
 import { PlayerHeader } from './styles';
@@ -106,14 +107,10 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
     } = this.state;
     const player = assert(this.props.player, 'Player is guarded by <Loading>');
 
-    const title =
-      `${player.name} ` +
-      `[${PositionLabel[player.registeredPosition]} ${player.ovr}]`;
-
     return (
       <Grid container={true} spacing={24}>
         <Helmet>
-          <title>{title} - PEShead</title>
+          <title>{this.getPageTitle(form, player)} - PEShead</title>
         </Helmet>
 
         <Shortcut keys="c" handler={this.goToCompare} />
@@ -183,6 +180,14 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
     // change url eventually
     this.debouncedUpdateUrl$.next(this.getPlayerUrl({ form }));
   };
+
+  private getPageTitle(form: PlayerForm, player: PlayerModel) {
+    const arrowChar = form !== PlayerForm.C ? `${PlayerFormChar[form]}` : '';
+    return (
+      `${player.name} ` +
+      `[${PositionLabel[player.registeredPosition]} ${player.ovr} ${arrowChar}]`
+    );
+  }
 
   private getPlayerUrl(newState: State) {
     const { level = DEFAULT_PLAYER_LEVEL, form = DEFAULT_PLAYER_FORM } = {

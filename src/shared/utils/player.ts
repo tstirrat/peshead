@@ -31,6 +31,15 @@ export const PlayerFormValue = {
   [PlayerForm.E]: 'E'
 };
 
+/** Unicode form arrows for page titles. */
+export const PlayerFormChar = {
+  [PlayerForm.A]: '⬆️',
+  [PlayerForm.B]: '↗️',
+  [PlayerForm.C]: '➡️',
+  [PlayerForm.D]: '↘️',
+  [PlayerForm.E]: '⬇️'
+};
+
 export function parseForm(formString = 'C'): PlayerForm {
   return PlayerForm[formString];
 }
