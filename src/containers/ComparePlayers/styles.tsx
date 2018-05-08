@@ -20,6 +20,8 @@ export const EllipsizedLink = styled(Link)`
   white-space: nowrap;
 `;
 
+export const BlockListItem = styled(ListItem)``;
+
 export const StyledStat = styled.div`
   background-color: ${props =>
     props.role === 'highest' ? 'rgba(0, 238, 171, 0.08)' : ''};
@@ -28,6 +30,11 @@ export const StyledStat = styled.div`
     justify-content: center;
     padding: 0;
     height: 48px;
+  }
+
+  ${BlockListItem} {
+    display: block;
+    padding: 8px;
   }
 `;
 

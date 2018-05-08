@@ -25,7 +25,14 @@ import { FootChart } from '../FootChart';
 import { FormSlider } from '../FormSlider';
 import { LevelSlider } from '../LevelSlider';
 import { PlayerStat } from '../PlayerStat';
-import { Avatar, Column, EllipsizedLink, PlayerHeader, StyledStat } from './../../containers/ComparePlayers/styles';
+import {
+  Avatar,
+  BlockListItem,
+  Column,
+  EllipsizedLink,
+  PlayerHeader,
+  StyledStat,
+} from './../../containers/ComparePlayers/styles';
 
 export interface Props {
   player: Player;
@@ -159,16 +166,16 @@ export class ComparePlayersStatColumn extends React.PureComponent<
 
         <StyledStat>
           <Divider />
-          <ListItem>
+          <BlockListItem>
             <LevelSlider value={level} onChange={this.handleLevelChanged} />
-          </ListItem>
+          </BlockListItem>
         </StyledStat>
 
         <StyledStat>
           <Divider />
-          <ListItem>
+          <BlockListItem>
             <FormSlider value={form} onChange={this.handleFormChanged} />
-          </ListItem>
+          </BlockListItem>
         </StyledStat>
 
         <StyledStat>

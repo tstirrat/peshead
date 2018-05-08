@@ -15,7 +15,7 @@ const SINGLE_STATS = [
   'Foot',
   'Position',
   'Playing Style',
-  'Level',
+  'myClub Level',
   'Arrow',
   'OVR',
   'Total stats',
