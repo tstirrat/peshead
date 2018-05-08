@@ -1,6 +1,5 @@
 import Card, { CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
-import Input from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
@@ -11,6 +10,8 @@ import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
 
 import * as players from '../../actions/players';
+import { FormSlider } from '../../components/FormSlider';
+import { LevelSlider } from '../../components/LevelSlider';
 import { Loading } from '../../components/Loading';
 import { PlayerAbilities } from '../../components/PlayerAbilities';
 import { PlayerActionMenu } from '../../components/PlayerActionMenu';
@@ -21,7 +22,7 @@ import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
 import { AugmentedPlayer } from '../../shared/utils/augmented_player';
-import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm, PlayerFormValue } from '../../shared/utils/player';
+import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm } from '../../shared/utils/player';
 import { PositionLabel } from '../../shared/utils/position';
 import { Flex, FlexLayout } from '../App/styles';
 import { PlayerHeader } from './styles';
@@ -101,7 +102,6 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
       form = DEFAULT_PLAYER_FORM
     } = this.state;
     const player = assert(this.props.player, 'Player is guarded by <Loading>');
-    const maxLevel = 50; // TODO: need to get this from data files
 
     const title =
       `${player.name} ` +
@@ -129,26 +129,8 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
               <Typography variant="title">Basics</Typography>
             </CardContent>
             <PlayerBasics player={player} />
-            <div>
-              Level{' '}
-              <Input
-                type="range"
-                value={level}
-                inputProps={{ min: 1, max: maxLevel }}
-                onChange={this.levelChanged}
-              />{' '}
-              Lv. {level} / {maxLevel}
-            </div>
-            <div>
-              Form{' '}
-              <Input
-                type="range"
-                value={form}
-                inputProps={{ min: PlayerForm.E, max: PlayerForm.A }}
-                onChange={this.formChanged}
-              />{' '}
-              {PlayerFormValue[form]}
-            </div>
+            Level <LevelSlider value={level} onChange={this.levelChanged} />
+            Form <FormSlider value={form} onChange={this.formChanged} />
           </Card>
         </Grid>
         <Grid item={true} xs={12} sm={6}>
@@ -167,8 +149,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
    * Update the player level, recalculate the stats. After a fixed time, change
    * the url with the new value.
    */
-  private levelChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const level = Number(event.target.value);
+  private levelChanged = (level: number) => {
     this.setState({ level });
 
     // change url eventually
@@ -179,8 +160,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
    * Update the player form, recalculate the stats. After a fixed time, change
    * the url with the new value.
    */
-  private formChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const form: PlayerForm = Number(event.target.value);
+  private formChanged = (form: PlayerForm) => {
     this.setState({ form });
 
     // change url eventually

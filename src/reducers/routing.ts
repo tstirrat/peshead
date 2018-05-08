@@ -1,7 +1,13 @@
 import { Location } from 'redux-little-router';
 
 import { assert } from '../shared/assert';
-import { parseForm, PlayerForm } from '../shared/utils/player';
+import {
+  DEFAULT_PLAYER_FORM,
+  DEFAULT_PLAYER_LEVEL,
+  parseForm,
+  PlayerForm,
+  PlayerFormValue,
+} from '../shared/utils/player';
 
 export type State = Location;
 
@@ -41,11 +47,27 @@ function extractPlayerOptions(playerString: string): PlayerCompareOption {
     match,
     'Cannot find player id in url'
   );
+
+  const level = levelString ? Number(levelString) : undefined;
   return {
     id,
     form: parseForm(form),
-    level: Number(levelString)
+    level
   };
+}
+
+export function buildPlayerCompareUrl(players: PlayerCompareOption[]) {
+  const slugs = players.map(p => buildPlayerSlug(p)).join('/');
+  return `/players/compare/${slugs}`;
+}
+
+function buildPlayerSlug({ id, form, level }: PlayerCompareOption): string {
+  if ((!form && !level) || (form === PlayerForm.C && level === 30)) {
+    return id;
+  }
+  const f = form || DEFAULT_PLAYER_FORM;
+  const l = level || DEFAULT_PLAYER_LEVEL;
+  return `${id}-${PlayerFormValue[f]}-L${l}`;
 }
 
 /**

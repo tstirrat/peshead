@@ -16,7 +16,7 @@ import { Shortcut } from '../../components/Shortcut';
 import { SuggestPlayer } from '../../components/SuggestPlayer';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
-import { PlayerCompareOption } from '../../reducers/routing';
+import { buildPlayerCompareUrl, PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
 import { Position } from '../../shared/service/api';
 import { AugmentedPlayer } from '../../shared/utils/augmented_player';
@@ -138,11 +138,16 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
       viewModel.player,
       'Player should exist when !isLoading'
     );
+    const { form, level } = viewModel;
     return (
       <ComparePlayersStatColumn
         player={player}
         highlights={highlights}
+        form={form}
+        level={level}
         onDelete={this.handlePlayerDelete}
+        onFormChanged={this.handlePlayerFormChanged}
+        onLevelChanged={this.handlePlayerLevelChanged}
       />
     );
   }
@@ -179,16 +184,39 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   };
 
   private handlePlayerSelect = (id: string) => {
-    const { players } = this.props;
-    const ids = players.map(p => p.id).concat([id]);
+    const players: PlayerCompareOption[] = this.props.players;
+    const newPlayers = [...players, { id }];
     this.setState({ showPlayerInput: false });
-    this.props.pushUrl(`/players/compare/${ids.join('/')}`, {});
+    this.props.pushUrl(buildPlayerCompareUrl(newPlayers), {});
   };
 
   private handlePlayerDelete = (id: string) => {
-    const { players } = this.props;
-    const ids = players.map(p => p.id).filter(playerId => playerId !== id);
-    this.props.pushUrl(`/players/compare/${ids.join('/')}`, {});
+    const players: PlayerCompareOption[] = this.props.players;
+    const newPlayers = players.filter(p => p.id !== id);
+    this.props.pushUrl(buildPlayerCompareUrl(newPlayers), {});
+  };
+
+  private handlePlayerFormChanged = (id: string, form: PlayerForm) => {
+    const newPlayers: PlayerCompareOption[] = [...this.props.players];
+    const index = newPlayers.findIndex(p => p.id === id);
+    if (index >= 0) {
+      const updatedPlayer: PlayerCompareOption = { ...newPlayers[index], form };
+      newPlayers.splice(index, 1, updatedPlayer);
+      this.props.pushUrl(buildPlayerCompareUrl(newPlayers), {});
+    }
+  };
+
+  private handlePlayerLevelChanged = (id: string, level: number) => {
+    const newPlayers: PlayerCompareOption[] = [...this.props.players];
+    const index = newPlayers.findIndex(p => p.id === id);
+    if (index >= 0) {
+      const updatedPlayer: PlayerCompareOption = {
+        ...newPlayers[index],
+        level
+      };
+      newPlayers.splice(index, 1, updatedPlayer);
+      this.props.pushUrl(buildPlayerCompareUrl(newPlayers), {});
+    }
   };
 }
 

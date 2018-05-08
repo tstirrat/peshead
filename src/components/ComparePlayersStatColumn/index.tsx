@@ -1,3 +1,4 @@
+import { debounce } from 'lodash';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
@@ -12,6 +13,7 @@ import {
   AbilityFlags,
   getPositionRating,
   getTotalStats,
+  PlayerForm,
   PlayingStyleLabel,
   SIMPLE_ABILITIES,
 } from '../../shared/utils/player';
@@ -20,18 +22,56 @@ import { CalculatePositionRating } from '../CalculatePositionRating';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
 import { CountryFlag } from '../CountryFlag';
 import { FootChart } from '../FootChart';
+import { FormSlider } from '../FormSlider';
+import { LevelSlider } from '../LevelSlider';
 import { PlayerStat } from '../PlayerStat';
-import { Avatar, Column, EllipsizedLink, Header, StyledStat } from './../../containers/ComparePlayers/styles';
+import { Avatar, Column, EllipsizedLink, PlayerHeader, StyledStat } from './../../containers/ComparePlayers/styles';
 
 export interface Props {
   player: Player;
+  level?: number;
+  form?: PlayerForm;
   highlights?: AbilityFlags;
   onDelete?: (id: string) => void;
+  onLevelChanged?: (id: string, level: number) => void;
+  onFormChanged?: (id: string, form: PlayerForm) => void;
 }
 
-export class ComparePlayersStatColumn extends React.PureComponent<Props> {
+export interface State {
+  level?: number;
+  form?: PlayerForm;
+}
+
+export class ComparePlayersStatColumn extends React.PureComponent<
+  Props,
+  State
+> {
+  state: State = { level: this.props.level, form: this.props.form };
+
+  private debouncedChangeForm = debounce(
+    // alignment
+    (id: string, form: PlayerForm) => {
+      if (this.props.onFormChanged) {
+        this.props.onFormChanged(id, form);
+      }
+    },
+    300
+  );
+
+  private debouncedChangeLevel = debounce(
+    // alignment
+    (id: string, level: number) => {
+      if (this.props.onLevelChanged) {
+        this.props.onLevelChanged(id, level);
+      }
+    },
+    300
+  );
+
   render() {
     const { player, highlights = {} } = this.props;
+
+    const { level = 30, form = PlayerForm.C } = this.state;
     return (
       <Column>
         <StyledStat>
@@ -48,14 +88,14 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
         </StyledStat>
 
         <Sticky top={'.sticky-header'} innerZ="99">
-          <Header>
+          <PlayerHeader>
             <Link href={`/players/${player.id}`}>
               <Avatar src="/player-avatar.png" alt="player image" />
             </Link>
             <EllipsizedLink href={`/players/${player.id}`}>
               {player.name}
             </EllipsizedLink>
-          </Header>
+          </PlayerHeader>
           <Divider />
         </Sticky>
 
@@ -114,6 +154,20 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
             <Typography variant="subheading">
               {PlayingStyleLabel[player.playingStyle] || '-'}
             </Typography>
+          </ListItem>
+        </StyledStat>
+
+        <StyledStat>
+          <Divider />
+          <ListItem>
+            <LevelSlider value={level} onChange={this.handleLevelChanged} />
+          </ListItem>
+        </StyledStat>
+
+        <StyledStat>
+          <Divider />
+          <ListItem>
+            <FormSlider value={form} onChange={this.handleFormChanged} />
           </ListItem>
         </StyledStat>
 
@@ -223,5 +277,17 @@ export class ComparePlayersStatColumn extends React.PureComponent<Props> {
     if (onDelete) {
       onDelete(player.id);
     }
+  };
+
+  private handleLevelChanged = (level: number) => {
+    this.setState({ level });
+    const { player } = this.props;
+    this.debouncedChangeLevel(player.id, level);
+  };
+
+  private handleFormChanged = (form: PlayerForm) => {
+    this.setState({ form });
+    const { player } = this.props;
+    this.debouncedChangeForm(player.id, form);
   };
 }

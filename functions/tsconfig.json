@@ -16,5 +16,5 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false
   },
-  "exclude": ["node_modules", "build", "jest"]
+  "exclude": ["node_modules", "build", "jest", "shared/**/*.test.ts"]
 }

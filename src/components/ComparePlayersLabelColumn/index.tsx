@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as Sticky from 'react-stickynode';
 import { pure } from 'recompose';
 
-import { Column, Header, Label } from '../../containers/ComparePlayers/styles';
+import { Column, Label, PlayerHeaderLabel } from '../../containers/ComparePlayers/styles';
 import { POSITION_LIST, PositionLabel } from '../../shared/utils/position';
 
 const SINGLE_STATS = [
@@ -15,6 +15,8 @@ const SINGLE_STATS = [
   'Foot',
   'Position',
   'Playing Style',
+  'Level',
+  'Arrow',
   'OVR',
   'Total stats',
   'Attacking Prowess',
@@ -53,9 +55,9 @@ export const ComparePlayersLabelColumn = pure(() => (
     <Divider />
 
     <Sticky top={'.sticky-header'} innerZ="99">
-      <Header>
+      <PlayerHeaderLabel>
         <ListItemText primary={'Player'} />
-      </Header>
+      </PlayerHeaderLabel>
       <Divider />
     </Sticky>
 

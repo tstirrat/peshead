@@ -37,7 +37,7 @@ export const Avatar = styled.img`
   height: 40px;
 `;
 
-export const Header = styled(ListItem)`
+export const PlayerHeader = styled(ListItem)`
   align-items: center;
   background-color: white;
   display: flex;
@@ -49,10 +49,15 @@ export const Header = styled(ListItem)`
   }
 `;
 
+export const PlayerHeaderLabel = styled(ListItem)`
+  background-color: white;
+  height: 78px;
+`;
+
 export const PaperContainer = styled(Paper)`
   position: relative;
 
-  ${Header} {
+  ${PlayerHeader} {
     padding: 8px;
   }
 `;
