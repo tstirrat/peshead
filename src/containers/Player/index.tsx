@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
-import { replace } from 'redux-little-router';
+import { push, replace } from 'redux-little-router';
 import { createSelector } from 'reselect';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil, tap } from 'rxjs/operators';
@@ -41,6 +41,7 @@ interface State {
 
 interface Actions {
   getPlayer: typeof players.getPlayer;
+  pushUrl: typeof push;
   replaceUrl: typeof replace;
   dispatch: Dispatch<fromRoot.State>;
 }
@@ -197,7 +198,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
     const { level, form } = this.state;
     if (player) {
       const options: PlayerCompareOption = { id: player.id, level, form };
-      this.props.replaceUrl(buildPlayerCompareUrl([options]), {});
+      this.props.pushUrl(buildPlayerCompareUrl([options]), {});
     }
   };
 }
@@ -245,6 +246,7 @@ const getViewModel = createSelector(
 const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
     getPlayer: (id: string) => dispatch(players.getPlayer(id)),
+    pushUrl: (href: string) => dispatch(push(href, {})),
     replaceUrl: (href: string) => dispatch(replace(href, {})),
     dispatch
   };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { push } from 'redux-little-router';
 
 import { Actions, ComparePlayers, ViewModel } from '.';
 import { getPlayer } from '../../actions/players';
@@ -17,7 +16,8 @@ const dispatch = jasmine.createSpy('dispatch');
 
 const actions: Actions = {
   getPlayer,
-  pushUrl: push,
+  pushUrl: jest.fn(),
+  replaceUrl: jest.fn(),
   dispatch
 };
 

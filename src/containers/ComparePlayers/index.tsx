@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect, Dispatch } from 'react-redux';
 import * as Sticky from 'react-stickynode';
-import { push } from 'redux-little-router';
+import { push, replace } from 'redux-little-router';
 import { createSelector } from 'reselect';
 
 import * as playerActions from '../../actions/players';
@@ -40,6 +40,7 @@ export interface PlayerViewModel
 export interface Actions {
   getPlayer: typeof playerActions.getPlayer;
   pushUrl: typeof push;
+  replaceUrl: typeof replace;
   dispatch: Dispatch<fromRoot.State>;
 }
 
@@ -202,7 +203,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     if (index >= 0) {
       const updatedPlayer: PlayerCompareOption = { ...newPlayers[index], form };
       newPlayers.splice(index, 1, updatedPlayer);
-      this.props.pushUrl(buildPlayerCompareUrl(newPlayers), {});
+      this.props.replaceUrl(buildPlayerCompareUrl(newPlayers), {});
     }
   };
 
@@ -215,7 +216,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
         level
       };
       newPlayers.splice(index, 1, updatedPlayer);
-      this.props.pushUrl(buildPlayerCompareUrl(newPlayers), {});
+      this.props.replaceUrl(buildPlayerCompareUrl(newPlayers), {});
     }
   };
 }
@@ -239,6 +240,7 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
   return {
     getPlayer: (id: string) => dispatch(playerActions.getPlayer(id)),
     pushUrl: (href: string) => dispatch(push(href, {})),
+    replaceUrl: (href: string) => dispatch(replace(href, {})),
     dispatch
   };
 };

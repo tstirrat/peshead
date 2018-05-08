@@ -14,11 +14,12 @@ const props = {
   isLoading: false
 };
 
-const dispatch = jasmine.createSpy('dispatch');
+const dispatch = jest.fn();
 
 const actions = {
   getPlayer: players.getPlayer,
-  replaceUrl: jasmine.createSpy('history.replace'),
+  pushUrl: jest.fn(),
+  replaceUrl: jest.fn(),
   dispatch
 };
 
