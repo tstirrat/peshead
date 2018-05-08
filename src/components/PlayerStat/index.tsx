@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { pure } from 'recompose';
 import styled from 'styled-components';
+
 import { Badge } from './styles';
 
 export interface Props {
@@ -35,9 +36,9 @@ const BAND_CLASS: { [band: number]: string } = {
 };
 
 const Container = pure<Props & InternalProps>(
-  ({ value, maxValue = 99, className, badgeText }) => (
+  ({ value, maxValue, className, badgeText }) => (
     <span className={className + ' ' + getStrengthClass(value, maxValue)}>
-      <span className="t-stat">{Math.min(value, maxValue)}</span>
+      <span className="t-stat">{value}</span>
       {badgeText ? <Badge>{badgeText}</Badge> : null}
     </span>
   )

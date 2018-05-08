@@ -19,7 +19,8 @@ import * as fromPlayers from '../../reducers/players';
 import { PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
 import { Position } from '../../shared/service/api';
-import { AbilityFlags, getHighestAbilities } from '../../shared/utils/player';
+import { AugmentedPlayer } from '../../shared/utils/augmented_player';
+import { AbilityFlags, getHighestAbilities, PlayerForm } from '../../shared/utils/player';
 import { AddButton, PaperContainer, PlayerInputContainer } from './styles';
 
 export interface ViewModel {
@@ -44,13 +45,19 @@ export interface Actions {
 
 const createPlayerViewModel = (
   state: fromPlayers.State,
-  playerOptions: PlayerCompareOption
+  options: PlayerCompareOption
 ): PlayerViewModel => {
-  const baseView = fromPlayers.getPlayerBaseView(state, playerOptions.id);
+  const baseView = fromPlayers.getPlayerBaseView(state, options.id);
+  let { player } = baseView;
+  if (player) {
+    const { form = PlayerForm.C, level = 30 } = options;
+    player = new AugmentedPlayer(player, { form, level });
+  }
   return {
     ...baseView,
-    form: 'A',
-    level: 30
+    player,
+    form: options.form,
+    level: options.level
   };
 };
 

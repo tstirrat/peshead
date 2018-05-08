@@ -1,6 +1,7 @@
 import { Location } from 'redux-little-router';
 
 import { assert } from '../shared/assert';
+import { parseForm, PlayerForm } from '../shared/utils/player';
 
 export type State = Location;
 
@@ -13,7 +14,7 @@ export interface RouteWithId {
 export interface PlayerCompareOption {
   id: string;
   level?: number;
-  form?: string; // TODO: make enum
+  form?: PlayerForm;
 }
 
 /** Get :id from the, route, operates on component's ownProps  */
@@ -42,7 +43,7 @@ function extractPlayerOptions(playerString: string): PlayerCompareOption {
   );
   return {
     id,
-    form,
+    form: parseForm(form),
     level: Number(levelString)
   };
 }

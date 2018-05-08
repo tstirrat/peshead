@@ -20,6 +20,7 @@ import { Shortcut } from '../../components/Shortcut';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { assert } from '../../shared/assert';
+import { AugmentedPlayer } from '../../shared/utils/augmented_player';
 import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm, PlayerFormValue } from '../../shared/utils/player';
 import { PositionLabel } from '../../shared/utils/position';
 import { Flex, FlexLayout } from '../App/styles';
@@ -229,8 +230,14 @@ const getPlayerQueryParams = (state: fromRoot.State): PlayerQueryParams => {
 const getViewModel = createSelector(
   [fromRoot.getRouteId, fromRoot.getSelectedPlayerView, getPlayerQueryParams],
   (id, playerView, params): ViewModel => {
+    let { player } = playerView;
+    if (player) {
+      const { form = PlayerForm.C, level = 30 } = params;
+      player = new AugmentedPlayer(player, { form, level });
+    }
     return {
       ...playerView,
+      player,
       level: params.level,
       form: params.form
     };

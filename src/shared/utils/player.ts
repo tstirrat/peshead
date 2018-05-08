@@ -1,3 +1,5 @@
+import { countBy, flatten } from 'lodash';
+
 import { IPlayer, IPlayerAbilities, Player, PlayingStyle, Position } from '../service/api';
 
 export type PlayerAbilityName = keyof IPlayerAbilities;
@@ -28,6 +30,10 @@ export const PlayerFormValue = {
   [PlayerForm.D]: 'D',
   [PlayerForm.E]: 'E'
 };
+
+export function parseForm(formString = 'C'): PlayerForm {
+  return PlayerForm[formString];
+}
 
 // TODO: i18n
 /** Position names */
@@ -202,17 +208,160 @@ const LEVEL_CHANGES: PlayerAbilityName[][] = [
  * Returns a map which contains the keys of the attributes that changed between
  * the previous and the supplied level.
  */
-export function getChangedAbilitiesForLevel(
-  level: number
+export function getChangedAbilitiesForCurrentLevel(
+  level: number,
+  delta = 1
 ): Partial<IPlayerAbilities> {
   if (level >= LEVEL_CHANGES.length) {
     return {};
   }
   const changed = LEVEL_CHANGES[level].reduce<Partial<IPlayerAbilities>>(
-    (acc, ability) => ({ ...acc, [ability]: 1 }),
+    (acc, ability) => ({ ...acc, [ability]: delta }),
     {}
   );
   return changed;
+}
+
+/**
+ * Returns delta for abilities that changed between two levels.
+ */
+export function getAbilityDeltaForLevel(
+  abilities: IPlayerAbilities,
+  level: number,
+  referenceLevel = 30
+): Partial<IPlayerAbilities> {
+  if (referenceLevel === level) {
+    return {};
+  }
+
+  const start = Math.min(level, referenceLevel);
+  const end = Math.max(level, referenceLevel);
+
+  const levelChanges = flatten(LEVEL_CHANGES.slice(start, end));
+  const deltas: Partial<IPlayerAbilities> = countBy(levelChanges);
+
+  const delta = level < referenceLevel ? -1 : 1;
+  const changes = Object.keys(deltas).reduce<Partial<IPlayerAbilities>>(
+    (acc, ability) => ({ ...acc, [ability]: deltas[ability] * delta }),
+    {}
+  );
+  return changes;
+}
+
+export const FORM_CHANGES: { [form: number]: Partial<IPlayerAbilities> } = {
+  [PlayerForm.A]: {
+    explosivePower: 0.12,
+    attackingProwess: 0.12,
+    defensiveProwess: 0.12,
+    ballWinning: 0.12,
+    kickingPower: 0.12,
+    stamina: 0.12,
+
+    ballControl: 0.09,
+    dribbling: 0.09,
+    finishing: 0.09,
+    header: 0.09,
+    jump: 0.09,
+    loftedPass: 0.09,
+    lowPass: 0.09,
+    placeKicking: 0.09,
+    swerve: 0.09,
+    speed: 0.09,
+
+    bodyControl: 0.06,
+    physicalContact: 0.06
+  },
+
+  [PlayerForm.B]: {
+    explosivePower: 0.06,
+    attackingProwess: 0.066,
+    defensiveProwess: 0.064,
+    ballWinning: 0.06,
+    kickingPower: 0.06,
+    stamina: 0.06,
+
+    ballControl: 0.048,
+    dribbling: 0.048,
+    finishing: 0.048,
+    header: 0.048,
+    jump: 0.048,
+    loftedPass: 0.048,
+    lowPass: 0.048,
+    placeKicking: 0.048,
+    swerve: 0.048,
+    speed: 0.047,
+
+    bodyControl: 0.03,
+    physicalContact: 0.03
+  },
+
+  [PlayerForm.C]: {
+    // no changes
+  },
+
+  [PlayerForm.D]: {
+    explosivePower: -0.09,
+    attackingProwess: -0.08,
+    defensiveProwess: -0.08,
+    ballWinning: -0.06,
+    kickingPower: -0.06,
+    stamina: -0.06,
+
+    ballControl: -0.048,
+    dribbling: -0.048,
+    finishing: -0.048,
+    header: -0.048,
+    jump: -0.048,
+    loftedPass: -0.048,
+    lowPass: -0.048,
+
+    placeKicking: -0.06,
+    swerve: -0.06,
+    speed: -0.06,
+    bodyControl: -0.06,
+    physicalContact: -0.06
+  },
+
+  [PlayerForm.E]: {
+    explosivePower: -0.18,
+    attackingProwess: -0.016,
+    defensiveProwess: -0.016,
+    ballWinning: -0.12,
+    kickingPower: -0.12,
+    stamina: -0.12,
+
+    ballControl: -0.09,
+    dribbling: -0.09,
+    finishing: -0.09,
+    header: -0.09,
+    jump: -0.09,
+    loftedPass: -0.09,
+    lowPass: -0.09,
+
+    placeKicking: -0.12,
+    swerve: -0.12,
+    speed: -0.12,
+    bodyControl: -0.12,
+    physicalContact: -0.12
+  }
+};
+
+/**
+ * Returns new ability values after form changes. Only those affected by form
+ * are returned.
+ */
+export function getAbilityDeltaForForm(
+  abilities: IPlayerAbilities,
+  form: PlayerForm
+): Partial<IPlayerAbilities> {
+  const changePercent = FORM_CHANGES[form];
+  return Object.keys(changePercent).reduce<Partial<IPlayerAbilities>>(
+    (acc, a) => {
+      const newValue = Math.round(abilities[a] * changePercent[a]);
+      return { ...acc, [a]: newValue };
+    },
+    {}
+  );
 }
 
 export function getHighestAbilities(players: Player[]): AbilityFlags[] {

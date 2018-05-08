@@ -4,11 +4,12 @@ import { push } from 'redux-little-router';
 
 import { Actions, ComparePlayers, ViewModel } from '.';
 import { getPlayer } from '../../actions/players';
+import { PlayerForm } from '../../shared/utils/player';
 
 const props: ViewModel = {
   players: [
-    { id: '1', form: 'A', level: 30, isLoading: true },
-    { id: '2', form: 'B', level: 31, isLoading: true }
+    { id: '1', form: PlayerForm.A, level: 30, isLoading: true },
+    { id: '2', form: PlayerForm.B, level: 31, isLoading: true }
   ]
 };
 

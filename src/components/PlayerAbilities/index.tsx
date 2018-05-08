@@ -3,7 +3,7 @@ import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import * as React from 'react';
 
 import { Player } from '../../shared/service/api';
-import { getChangedAbilitiesForLevel } from '../../shared/utils/player';
+import { getChangedAbilitiesForCurrentLevel } from '../../shared/utils/player';
 import { PlayerStat } from '../PlayerStat';
 
 export interface Props {
@@ -14,7 +14,7 @@ export interface Props {
 export class PlayerAbilities extends React.PureComponent<Props> {
   render() {
     const { player, level } = this.props;
-    const changed = level ? getChangedAbilitiesForLevel(level) : {};
+    const changed = level ? getChangedAbilitiesForCurrentLevel(level) : {};
     return (
       <Table className="player-abilities">
         <TableBody>
