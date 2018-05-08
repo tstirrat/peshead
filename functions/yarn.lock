@@ -224,9 +224,9 @@
   dependencies:
     "@types/express" "*"
 
-"@types/elasticsearch@*", "@types/elasticsearch@^5.0.22":
-  version "5.0.22"
-  resolved "https://registry.yarnpkg.com/@types/elasticsearch/-/elasticsearch-5.0.22.tgz#d8901bc4f6326cc51e33325e3a597b4c563f078b"
+"@types/elasticsearch@*", "@types/elasticsearch@^5.0.23":
+  version "5.0.23"
+  resolved "https://registry.yarnpkg.com/@types/elasticsearch/-/elasticsearch-5.0.23.tgz#235622772a7c7f3ccedd0dc9769dfcfe20eed1ec"
 
 "@types/events@*":
   version "1.2.0"
