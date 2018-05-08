@@ -5,13 +5,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
 
-  .image {
-    max-height: 64px;
-  }
-
-  .details {
-    display: flex;
-    flex-direction: column;
-  }
+export const Image = styled.img`
+  max-height: 64px;
+  user-select: none;
 `;
