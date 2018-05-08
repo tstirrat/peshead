@@ -1,5 +1,6 @@
 import Card, { CardContent } from 'material-ui/Card';
 import Grid from 'material-ui/Grid';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import Typography from 'material-ui/Typography';
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
@@ -20,6 +21,7 @@ import { PlayerNameplate } from '../../components/PlayerNameplate';
 import { Shortcut } from '../../components/Shortcut';
 import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
+import { buildPlayerCompareUrl, PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
 import { AugmentedPlayer } from '../../shared/utils/augmented_player';
 import { DEFAULT_PLAYER_FORM, DEFAULT_PLAYER_LEVEL, PlayerForm } from '../../shared/utils/player';
@@ -119,7 +121,7 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
           <FlexLayout align="row">
             <PlayerNameplate player={player} />
             <Flex />
-            <PlayerActionMenu player={player} />
+            <PlayerActionMenu onCompare={this.goToCompare} />
           </FlexLayout>
         </PlayerHeader>
 
@@ -129,8 +131,22 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
               <Typography variant="title">Basics</Typography>
             </CardContent>
             <PlayerBasics player={player} />
-            Level <LevelSlider value={level} onChange={this.levelChanged} />
-            Form <FormSlider value={form} onChange={this.formChanged} />
+            <Table>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Level</TableCell>
+                  <TableCell>
+                    <LevelSlider value={level} onChange={this.levelChanged} />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Form</TableCell>
+                  <TableCell>
+                    <FormSlider value={form} onChange={this.formChanged} />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
           </Card>
         </Grid>
         <Grid item={true} xs={12} sm={6}>
@@ -178,8 +194,10 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
 
   private goToCompare = () => {
     const { player } = this.props;
+    const { level, form } = this.state;
     if (player) {
-      this.props.replaceUrl(`/players/compare/${player.id}`, {});
+      const options: PlayerCompareOption = { id: player.id, level, form };
+      this.props.replaceUrl(buildPlayerCompareUrl([options]), {});
     }
   };
 }

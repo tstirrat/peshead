@@ -52,7 +52,8 @@ export const PlayerBasics = pure<Props>(({ player }) => (
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell colSpan={2}>
+        <TableCell>&nbsp;</TableCell>
+        <TableCell>
           <PlayerPositionChart player={player} />
         </TableCell>
       </TableRow>

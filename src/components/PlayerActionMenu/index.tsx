@@ -2,12 +2,10 @@ import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import * as React from 'react';
-import { Link } from 'redux-little-router';
-
-import { Player } from '../../shared/service/api';
+import { Trans } from 'react-i18next';
 
 export interface Props {
-  player: Player;
+  onCompare: () => void;
 }
 
 interface State {
@@ -18,7 +16,6 @@ export class PlayerActionMenu extends React.PureComponent<Props, State> {
   state: State = {};
 
   render() {
-    const { player } = this.props;
     const { anchorEl } = this.state;
     return (
       <div className="actions">
@@ -36,8 +33,8 @@ export class PlayerActionMenu extends React.PureComponent<Props, State> {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem>
-            <Link href={`/players/compare/${player.id}`}>Compare</Link>
+          <MenuItem onClick={this.props.onCompare}>
+            <Trans>Compare</Trans>
           </MenuItem>
         </Menu>
       </div>

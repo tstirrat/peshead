@@ -55,7 +55,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
         this.props.onFormChanged(id, form);
       }
     },
-    300
+    150
   );
 
   private debouncedChangeLevel = debounce(
@@ -65,7 +65,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
         this.props.onLevelChanged(id, level);
       }
     },
-    300
+    150
   );
 
   render() {

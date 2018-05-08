@@ -39,14 +39,16 @@ export const getPlayerCompareOptions = (
     .map(playerString => extractPlayerOptions(playerString));
 };
 
-const PLAYER_ID_FORM_LEVEL_REGEX = /(\d+)(-([AaBbCcDd]))?(-L(\d{1,2}))?/;
+const PLAYER_ID_REGEX = /^(\d+)/;
+const FORM_REGEX = /-([AaBbCcDdEe])?/;
+const LEVEL_REGEX = /-L(\d{1,2})?/;
 
 function extractPlayerOptions(playerString: string): PlayerCompareOption {
-  const match = playerString.match(PLAYER_ID_FORM_LEVEL_REGEX);
-  const [, id, , form, , levelString] = assert(
-    match,
-    'Cannot find player id in url'
-  );
+  const match = playerString.match(PLAYER_ID_REGEX);
+  const [, id] = assert(match, 'Cannot find player id in url');
+
+  const [, form = undefined] = FORM_REGEX.exec(playerString) || [];
+  const [, levelString = undefined] = LEVEL_REGEX.exec(playerString) || [];
 
   const level = levelString ? Number(levelString) : undefined;
   return {
@@ -62,12 +64,15 @@ export function buildPlayerCompareUrl(players: PlayerCompareOption[]) {
 }
 
 function buildPlayerSlug({ id, form, level }: PlayerCompareOption): string {
-  if ((!form && !level) || (form === PlayerForm.C && level === 30)) {
-    return id;
+  let formBlock = '';
+  if (form && form !== DEFAULT_PLAYER_FORM) {
+    formBlock = `-${PlayerFormValue[form]}`;
   }
-  const f = form || DEFAULT_PLAYER_FORM;
-  const l = level || DEFAULT_PLAYER_LEVEL;
-  return `${id}-${PlayerFormValue[f]}-L${l}`;
+  let levelBlock = '';
+  if (level && level !== DEFAULT_PLAYER_LEVEL) {
+    levelBlock = `-L${level}`;
+  }
+  return id + formBlock + levelBlock;
 }
 
 /**
