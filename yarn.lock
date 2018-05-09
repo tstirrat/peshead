@@ -299,9 +299,9 @@
   dependencies:
     redux-devtools-extension "*"
 
-"@types/redux-little-router@^14.0.1":
-  version "14.0.1"
-  resolved "https://registry.yarnpkg.com/@types/redux-little-router/-/redux-little-router-14.0.1.tgz#a8c79135354357e9f119fd3a23029565b24a9953"
+"@types/redux-little-router@^14.0.2":
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/@types/redux-little-router/-/redux-little-router-14.0.2.tgz#f11c0aa878cdecebcefe46f1840a13d3c8251ddb"
   dependencies:
     "@types/react" "*"
     redux "^3.6.0"
