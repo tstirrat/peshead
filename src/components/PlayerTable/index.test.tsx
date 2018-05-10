@@ -16,7 +16,7 @@ const players = [player1, player2];
 let div: HTMLDivElement;
 
 const props: Props = {
-  players,
+  list: players,
   selectedIndex: 1
 };
 

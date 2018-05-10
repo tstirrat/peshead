@@ -2,7 +2,7 @@ import Hidden from 'material-ui/Hidden';
 import { TableBody, TableCell, TableCellProps, TableHead, TableRow } from 'material-ui/Table';
 import * as React from 'react';
 import { Trans } from 'react-i18next';
-import { compose, mapProps, pure, withHandlers, withState } from 'recompose';
+import { compose, pure, withHandlers, withState } from 'recompose';
 import { Link } from 'redux-little-router';
 
 import { Player } from '../../shared/service/api';
@@ -12,7 +12,7 @@ import { Shortcut } from '../Shortcut';
 import { Avatar, Flag, NameLink, StyledTable } from './styles';
 
 export interface Props {
-  players: Player[];
+  list: Player[];
   selectedIndex: number;
 }
 
@@ -25,7 +25,7 @@ const center: TableCellProps = {
   className: 'center'
 };
 
-export const PlayerTable = pure<Props>(({ players, selectedIndex }) => (
+export const PlayerTable = pure<Props>(({ list, selectedIndex }) => (
   <StyledTable>
     <TableHead>
       <TableRow>
@@ -66,7 +66,7 @@ export const PlayerTable = pure<Props>(({ players, selectedIndex }) => (
       </TableRow>
     </TableHead>
     <TableBody>
-      {players.map((player, i) => (
+      {list.map((player, i) => (
         <TableRow
           key={player.id}
           id={player.id}
@@ -120,40 +120,41 @@ export const PlayerTable = pure<Props>(({ players, selectedIndex }) => (
 
 export interface Outer {
   list: Player[];
+  onSelect?: (item: Player) => void;
 }
 
 export interface Inner extends Outer {
   selectedIndex: number;
-  select: (f: (n: number) => number) => void;
+  setSelectedIndex: (f: (n: number) => number) => void;
 }
 
 export interface Handlers {
   up: () => void;
   down: () => void;
   reset: () => void;
+  enter: () => void;
 }
 
 export const InteractivePlayerTable = compose<Props, Outer>(
-  withState<Outer, number, 'selectedIndex', 'select'>(
+  withState<Outer, number, 'selectedIndex', 'setSelectedIndex'>(
     'selectedIndex',
-    'select',
+    'setSelectedIndex',
     -1
   ),
   withHandlers<Inner, Handlers>({
-    up: ({ select, list }) => () => select(i => i - 1),
-    down: ({ select, list }) => () => select(i => i + 1),
-    reset: ({ select, list }) => () => select(i => -1)
-  }),
-  mapProps<Props & Handlers, Inner & Handlers>(({ list, ...rest }) => ({
-    ...rest,
-    players: list
-  }))
+    up: ({ setSelectedIndex, list }) => () => setSelectedIndex(i => i - 1),
+    down: ({ setSelectedIndex, list }) => () => setSelectedIndex(i => i + 1),
+    reset: ({ setSelectedIndex, list }) => () => setSelectedIndex(i => -1),
+    enter: ({ selectedIndex, list, onSelect }) => () =>
+      onSelect && onSelect(list[selectedIndex])
+  })
 )(
-  pure<Props & Handlers>(({ up, down, reset, ...props }) => (
+  pure<Props & Handlers>(({ up, down, reset, enter, ...props }) => (
     <>
       <Shortcut keys="j" handler={down} />
       <Shortcut keys="k" handler={up} />
       <Shortcut keys="escape" handler={reset} />
+      <Shortcut keys="enter" handler={enter} />
       <PlayerTable {...props} />
     </>
   ))
