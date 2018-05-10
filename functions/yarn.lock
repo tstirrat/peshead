@@ -20,9 +20,9 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.1.2.tgz#a20cb346e3be374c0bdee6b102de0ea5e8e6fa27"
 
-"@firebase/app-types@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.2.0.tgz#2a0e9c433d5f39e428358c5cd8065010d5a07985"
+"@firebase/app-types@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.3.0.tgz#88f837426219ce48710369be4626e14d98215284"
 
 "@firebase/app@^0.1.10":
   version "0.1.10"
@@ -36,9 +36,9 @@
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.2.0.tgz#c442af71e4c376e6bb78f6aa62645b5a0e2b87b6"
 
-"@firebase/database-types@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.2.1.tgz#f83a6d03af5f8c93276ceb89e1f31e4664c9df1b"
+"@firebase/database-types@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.3.0.tgz#88e18a305eef9db1ef437502052e3a12b13eacd1"
 
 "@firebase/database@^0.2.0":
   version "0.2.1"
@@ -224,9 +224,13 @@
   dependencies:
     "@types/express" "*"
 
-"@types/elasticsearch@*", "@types/elasticsearch@^5.0.22":
+"@types/elasticsearch@*":
   version "5.0.22"
   resolved "https://registry.yarnpkg.com/@types/elasticsearch/-/elasticsearch-5.0.22.tgz#d8901bc4f6326cc51e33325e3a597b4c563f078b"
+
+"@types/elasticsearch@^5.0.23":
+  version "5.0.23"
+  resolved "https://registry.yarnpkg.com/@types/elasticsearch/-/elasticsearch-5.0.23.tgz#235622772a7c7f3ccedd0dc9769dfcfe20eed1ec"
 
 "@types/events@*":
   version "1.2.0"
@@ -571,9 +575,9 @@ atob@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.0.tgz#ab2b150e51d7b122b9efc8d7340c06b6c41076bc"
 
-aws-sdk@^2.233.1:
-  version "2.233.1"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.233.1.tgz#b4f541069a9f2781e9f73e1336ce81a9fc08bcf1"
+aws-sdk@^2.236.1:
+  version "2.236.1"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.236.1.tgz#93c45f9ff1b622580c61fe45f2b732b68770e0ab"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -1887,9 +1891,17 @@ fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
 
-fs-extra@6.0.0, fs-extra@^6.0.0:
+fs-extra@6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-6.0.0.tgz#0f0afb290bb3deb87978da816fcd3c7797f3a817"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
+fs-extra@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-6.0.1.tgz#8abc128f7946e310135ddc93b98bddb410e7a34b"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
