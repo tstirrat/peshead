@@ -19,6 +19,15 @@ export const base: IPlayer = {
   nationality: Country.ARGENTINA,
   registeredPosition: Position.RWF,
   ovr: 98,
+  totalAbilities: 1656,
+  cardStats: {
+    DEF: 53,
+    DRI: 95,
+    PAS: 88,
+    PHY: 70,
+    SHT: 90,
+    SPD: 86
+  },
   preferredFoot: Foot.LEFT,
   isEdited: false,
   isBaseCopy: false,
