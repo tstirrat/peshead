@@ -6796,9 +6796,9 @@ redux-devtools-extension@*, redux-devtools-extension@^2.13.2:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.2.tgz#e0f9a8e8dfca7c17be92c7124958a3b94eb2911d"
 
-redux-little-router@^15.1.0:
-  version "15.1.0"
-  resolved "https://registry.yarnpkg.com/redux-little-router/-/redux-little-router-15.1.0.tgz#02fad8d4deb22f0b65c2d6d073fcf6de6800bca2"
+redux-little-router@^15.1.1:
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/redux-little-router/-/redux-little-router-15.1.1.tgz#cbc1b6102dc9e195b6e5daca5f178fea2f85ad55"
   dependencies:
     history "^4.6.1"
     lodash.assign "^4.2.0"
