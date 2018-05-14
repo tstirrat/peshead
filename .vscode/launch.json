@@ -32,8 +32,8 @@
         "load",
         "./functions/test/lu-2018-03-27-EDIT00000000",
         "players",
-        "9000", // amount
-        "100" // startAt
+        "16530", // amount
+        "0" // startAt
         // batchSize = 500 default
       ],
       "preLaunchTask": "tsc: build - functions/tsconfig.json",

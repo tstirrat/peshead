@@ -26,6 +26,8 @@ message Player {
 
   // Not in binaries, must be calculated
   required uint32 ovr = 30;
+  required uint32 totalAbilities = 31;
+  required CardStatMap cardStats = 32;
 
   // remote DB states
   string indexState = 42;
@@ -92,6 +94,15 @@ message PlayablePositions {
   Playable rmf = 11;
   Playable rwf = 12;
   Playable ss = 13;
+}
+
+message CardStatMap {
+  required uint32 DEF = 1;
+  required uint32 DRI = 2;
+  required uint32 PAS = 3;
+  required uint32 PHY = 4;
+  required uint32 SHT = 5;
+  required uint32 SPD = 6;
 }
 
 enum Playable {

@@ -782,6 +782,8 @@ $root.Player = (function() {
      * @property {IPlayerAppearance} appearance Player appearance
      * @property {IUnknownOptions|null} [unknowns] Player unknowns
      * @property {number} ovr Player ovr
+     * @property {number} totalAbilities Player totalAbilities
+     * @property {ICardStatMap} cardStats Player cardStats
      * @property {string|null} [indexState] Player indexState
      * @property {string|null} [indexError] Player indexError
      */
@@ -972,6 +974,22 @@ $root.Player = (function() {
     Player.prototype.ovr = 0;
 
     /**
+     * Player totalAbilities.
+     * @member {number} totalAbilities
+     * @memberof Player
+     * @instance
+     */
+    Player.prototype.totalAbilities = 0;
+
+    /**
+     * Player cardStats.
+     * @member {ICardStatMap} cardStats
+     * @memberof Player
+     * @instance
+     */
+    Player.prototype.cardStats = null;
+
+    /**
      * Player indexState.
      * @member {string} indexState
      * @memberof Player
@@ -1045,6 +1063,8 @@ $root.Player = (function() {
         if (message.unknowns != null && message.hasOwnProperty("unknowns"))
             $root.UnknownOptions.encode(message.unknowns, writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
         writer.uint32(/* id 30, wireType 0 =*/240).uint32(message.ovr);
+        writer.uint32(/* id 31, wireType 0 =*/248).uint32(message.totalAbilities);
+        $root.CardStatMap.encode(message.cardStats, writer.uint32(/* id 32, wireType 2 =*/258).fork()).ldelim();
         if (message.indexState != null && message.hasOwnProperty("indexState"))
             writer.uint32(/* id 42, wireType 2 =*/338).string(message.indexState);
         if (message.indexError != null && message.hasOwnProperty("indexError"))
@@ -1160,6 +1180,12 @@ $root.Player = (function() {
             case 30:
                 message.ovr = reader.uint32();
                 break;
+            case 31:
+                message.totalAbilities = reader.uint32();
+                break;
+            case 32:
+                message.cardStats = $root.CardStatMap.decode(reader, reader.uint32());
+                break;
             case 42:
                 message.indexState = reader.string();
                 break;
@@ -1203,6 +1229,10 @@ $root.Player = (function() {
             throw $util.ProtocolError("missing required 'appearance'", { instance: message });
         if (!message.hasOwnProperty("ovr"))
             throw $util.ProtocolError("missing required 'ovr'", { instance: message });
+        if (!message.hasOwnProperty("totalAbilities"))
+            throw $util.ProtocolError("missing required 'totalAbilities'", { instance: message });
+        if (!message.hasOwnProperty("cardStats"))
+            throw $util.ProtocolError("missing required 'cardStats'", { instance: message });
         return message;
     };
 
@@ -1579,6 +1609,13 @@ $root.Player = (function() {
         }
         if (!$util.isInteger(message.ovr))
             return "ovr: integer expected";
+        if (!$util.isInteger(message.totalAbilities))
+            return "totalAbilities: integer expected";
+        {
+            var error = $root.CardStatMap.verify(message.cardStats);
+            if (error)
+                return "cardStats." + error;
+        }
         if (message.indexState != null && message.hasOwnProperty("indexState"))
             if (!$util.isString(message.indexState))
                 return "indexState: string expected";
@@ -2693,6 +2730,13 @@ $root.Player = (function() {
         }
         if (object.ovr != null)
             message.ovr = object.ovr >>> 0;
+        if (object.totalAbilities != null)
+            message.totalAbilities = object.totalAbilities >>> 0;
+        if (object.cardStats != null) {
+            if (typeof object.cardStats !== "object")
+                throw TypeError(".Player.cardStats: object expected");
+            message.cardStats = $root.CardStatMap.fromObject(object.cardStats);
+        }
         if (object.indexState != null)
             message.indexState = String(object.indexState);
         if (object.indexError != null)
@@ -2737,6 +2781,8 @@ $root.Player = (function() {
             object.appearance = null;
             object.unknowns = null;
             object.ovr = 0;
+            object.totalAbilities = 0;
+            object.cardStats = null;
             object.indexState = "";
             object.indexError = "";
         }
@@ -2788,6 +2834,10 @@ $root.Player = (function() {
             object.unknowns = $root.UnknownOptions.toObject(message.unknowns, options);
         if (message.ovr != null && message.hasOwnProperty("ovr"))
             object.ovr = message.ovr;
+        if (message.totalAbilities != null && message.hasOwnProperty("totalAbilities"))
+            object.totalAbilities = message.totalAbilities;
+        if (message.cardStats != null && message.hasOwnProperty("cardStats"))
+            object.cardStats = $root.CardStatMap.toObject(message.cardStats, options);
         if (message.indexState != null && message.hasOwnProperty("indexState"))
             object.indexState = message.indexState;
         if (message.indexError != null && message.hasOwnProperty("indexError"))
@@ -4705,6 +4755,304 @@ $root.PlayablePositions = (function() {
     };
 
     return PlayablePositions;
+})();
+
+$root.CardStatMap = (function() {
+
+    /**
+     * Properties of a CardStatMap.
+     * @exports ICardStatMap
+     * @interface ICardStatMap
+     * @property {number} DEF CardStatMap DEF
+     * @property {number} DRI CardStatMap DRI
+     * @property {number} PAS CardStatMap PAS
+     * @property {number} PHY CardStatMap PHY
+     * @property {number} SHT CardStatMap SHT
+     * @property {number} SPD CardStatMap SPD
+     */
+
+    /**
+     * Constructs a new CardStatMap.
+     * @exports CardStatMap
+     * @classdesc Represents a CardStatMap.
+     * @implements ICardStatMap
+     * @constructor
+     * @param {ICardStatMap=} [properties] Properties to set
+     */
+    function CardStatMap(properties) {
+        if (properties)
+            for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                if (properties[keys[i]] != null)
+                    this[keys[i]] = properties[keys[i]];
+    }
+
+    /**
+     * CardStatMap DEF.
+     * @member {number} DEF
+     * @memberof CardStatMap
+     * @instance
+     */
+    CardStatMap.prototype.DEF = 0;
+
+    /**
+     * CardStatMap DRI.
+     * @member {number} DRI
+     * @memberof CardStatMap
+     * @instance
+     */
+    CardStatMap.prototype.DRI = 0;
+
+    /**
+     * CardStatMap PAS.
+     * @member {number} PAS
+     * @memberof CardStatMap
+     * @instance
+     */
+    CardStatMap.prototype.PAS = 0;
+
+    /**
+     * CardStatMap PHY.
+     * @member {number} PHY
+     * @memberof CardStatMap
+     * @instance
+     */
+    CardStatMap.prototype.PHY = 0;
+
+    /**
+     * CardStatMap SHT.
+     * @member {number} SHT
+     * @memberof CardStatMap
+     * @instance
+     */
+    CardStatMap.prototype.SHT = 0;
+
+    /**
+     * CardStatMap SPD.
+     * @member {number} SPD
+     * @memberof CardStatMap
+     * @instance
+     */
+    CardStatMap.prototype.SPD = 0;
+
+    /**
+     * Creates a new CardStatMap instance using the specified properties.
+     * @function create
+     * @memberof CardStatMap
+     * @static
+     * @param {ICardStatMap=} [properties] Properties to set
+     * @returns {CardStatMap} CardStatMap instance
+     */
+    CardStatMap.create = function create(properties) {
+        return new CardStatMap(properties);
+    };
+
+    /**
+     * Encodes the specified CardStatMap message. Does not implicitly {@link CardStatMap.verify|verify} messages.
+     * @function encode
+     * @memberof CardStatMap
+     * @static
+     * @param {ICardStatMap} message CardStatMap message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    CardStatMap.encode = function encode(message, writer) {
+        if (!writer)
+            writer = $Writer.create();
+        writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.DEF);
+        writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.DRI);
+        writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.PAS);
+        writer.uint32(/* id 4, wireType 0 =*/32).uint32(message.PHY);
+        writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.SHT);
+        writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.SPD);
+        return writer;
+    };
+
+    /**
+     * Encodes the specified CardStatMap message, length delimited. Does not implicitly {@link CardStatMap.verify|verify} messages.
+     * @function encodeDelimited
+     * @memberof CardStatMap
+     * @static
+     * @param {ICardStatMap} message CardStatMap message or plain object to encode
+     * @param {$protobuf.Writer} [writer] Writer to encode to
+     * @returns {$protobuf.Writer} Writer
+     */
+    CardStatMap.encodeDelimited = function encodeDelimited(message, writer) {
+        return this.encode(message, writer).ldelim();
+    };
+
+    /**
+     * Decodes a CardStatMap message from the specified reader or buffer.
+     * @function decode
+     * @memberof CardStatMap
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @param {number} [length] Message length if known beforehand
+     * @returns {CardStatMap} CardStatMap
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    CardStatMap.decode = function decode(reader, length) {
+        if (!(reader instanceof $Reader))
+            reader = $Reader.create(reader);
+        var end = length === undefined ? reader.len : reader.pos + length, message = new $root.CardStatMap();
+        while (reader.pos < end) {
+            var tag = reader.uint32();
+            switch (tag >>> 3) {
+            case 1:
+                message.DEF = reader.uint32();
+                break;
+            case 2:
+                message.DRI = reader.uint32();
+                break;
+            case 3:
+                message.PAS = reader.uint32();
+                break;
+            case 4:
+                message.PHY = reader.uint32();
+                break;
+            case 5:
+                message.SHT = reader.uint32();
+                break;
+            case 6:
+                message.SPD = reader.uint32();
+                break;
+            default:
+                reader.skipType(tag & 7);
+                break;
+            }
+        }
+        if (!message.hasOwnProperty("DEF"))
+            throw $util.ProtocolError("missing required 'DEF'", { instance: message });
+        if (!message.hasOwnProperty("DRI"))
+            throw $util.ProtocolError("missing required 'DRI'", { instance: message });
+        if (!message.hasOwnProperty("PAS"))
+            throw $util.ProtocolError("missing required 'PAS'", { instance: message });
+        if (!message.hasOwnProperty("PHY"))
+            throw $util.ProtocolError("missing required 'PHY'", { instance: message });
+        if (!message.hasOwnProperty("SHT"))
+            throw $util.ProtocolError("missing required 'SHT'", { instance: message });
+        if (!message.hasOwnProperty("SPD"))
+            throw $util.ProtocolError("missing required 'SPD'", { instance: message });
+        return message;
+    };
+
+    /**
+     * Decodes a CardStatMap message from the specified reader or buffer, length delimited.
+     * @function decodeDelimited
+     * @memberof CardStatMap
+     * @static
+     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+     * @returns {CardStatMap} CardStatMap
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    CardStatMap.decodeDelimited = function decodeDelimited(reader) {
+        if (!(reader instanceof $Reader))
+            reader = new $Reader(reader);
+        return this.decode(reader, reader.uint32());
+    };
+
+    /**
+     * Verifies a CardStatMap message.
+     * @function verify
+     * @memberof CardStatMap
+     * @static
+     * @param {Object.<string,*>} message Plain object to verify
+     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+     */
+    CardStatMap.verify = function verify(message) {
+        if (typeof message !== "object" || message === null)
+            return "object expected";
+        if (!$util.isInteger(message.DEF))
+            return "DEF: integer expected";
+        if (!$util.isInteger(message.DRI))
+            return "DRI: integer expected";
+        if (!$util.isInteger(message.PAS))
+            return "PAS: integer expected";
+        if (!$util.isInteger(message.PHY))
+            return "PHY: integer expected";
+        if (!$util.isInteger(message.SHT))
+            return "SHT: integer expected";
+        if (!$util.isInteger(message.SPD))
+            return "SPD: integer expected";
+        return null;
+    };
+
+    /**
+     * Creates a CardStatMap message from a plain object. Also converts values to their respective internal types.
+     * @function fromObject
+     * @memberof CardStatMap
+     * @static
+     * @param {Object.<string,*>} object Plain object
+     * @returns {CardStatMap} CardStatMap
+     */
+    CardStatMap.fromObject = function fromObject(object) {
+        if (object instanceof $root.CardStatMap)
+            return object;
+        var message = new $root.CardStatMap();
+        if (object.DEF != null)
+            message.DEF = object.DEF >>> 0;
+        if (object.DRI != null)
+            message.DRI = object.DRI >>> 0;
+        if (object.PAS != null)
+            message.PAS = object.PAS >>> 0;
+        if (object.PHY != null)
+            message.PHY = object.PHY >>> 0;
+        if (object.SHT != null)
+            message.SHT = object.SHT >>> 0;
+        if (object.SPD != null)
+            message.SPD = object.SPD >>> 0;
+        return message;
+    };
+
+    /**
+     * Creates a plain object from a CardStatMap message. Also converts values to other types if specified.
+     * @function toObject
+     * @memberof CardStatMap
+     * @static
+     * @param {CardStatMap} message CardStatMap
+     * @param {$protobuf.IConversionOptions} [options] Conversion options
+     * @returns {Object.<string,*>} Plain object
+     */
+    CardStatMap.toObject = function toObject(message, options) {
+        if (!options)
+            options = {};
+        var object = {};
+        if (options.defaults) {
+            object.DEF = 0;
+            object.DRI = 0;
+            object.PAS = 0;
+            object.PHY = 0;
+            object.SHT = 0;
+            object.SPD = 0;
+        }
+        if (message.DEF != null && message.hasOwnProperty("DEF"))
+            object.DEF = message.DEF;
+        if (message.DRI != null && message.hasOwnProperty("DRI"))
+            object.DRI = message.DRI;
+        if (message.PAS != null && message.hasOwnProperty("PAS"))
+            object.PAS = message.PAS;
+        if (message.PHY != null && message.hasOwnProperty("PHY"))
+            object.PHY = message.PHY;
+        if (message.SHT != null && message.hasOwnProperty("SHT"))
+            object.SHT = message.SHT;
+        if (message.SPD != null && message.hasOwnProperty("SPD"))
+            object.SPD = message.SPD;
+        return object;
+    };
+
+    /**
+     * Converts this CardStatMap to JSON.
+     * @function toJSON
+     * @memberof CardStatMap
+     * @instance
+     * @returns {Object.<string,*>} JSON object
+     */
+    CardStatMap.prototype.toJSON = function toJSON() {
+        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+    };
+
+    return CardStatMap;
 })();
 
 /**

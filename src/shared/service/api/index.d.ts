@@ -389,6 +389,12 @@ export interface IPlayer {
     /** Player ovr */
     ovr: number;
 
+    /** Player totalAbilities */
+    totalAbilities: number;
+
+    /** Player cardStats */
+    cardStats: ICardStatMap;
+
     /** Player indexState */
     indexState?: (string|null);
 
@@ -467,6 +473,12 @@ export class Player implements IPlayer {
 
     /** Player ovr. */
     public ovr: number;
+
+    /** Player totalAbilities. */
+    public totalAbilities: number;
+
+    /** Player cardStats. */
+    public cardStats: ICardStatMap;
 
     /** Player indexState. */
     public indexState: string;
@@ -1110,6 +1122,126 @@ export class PlayablePositions implements IPlayablePositions {
 
     /**
      * Converts this PlayablePositions to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+/** Properties of a CardStatMap. */
+export interface ICardStatMap {
+
+    /** CardStatMap DEF */
+    DEF: number;
+
+    /** CardStatMap DRI */
+    DRI: number;
+
+    /** CardStatMap PAS */
+    PAS: number;
+
+    /** CardStatMap PHY */
+    PHY: number;
+
+    /** CardStatMap SHT */
+    SHT: number;
+
+    /** CardStatMap SPD */
+    SPD: number;
+}
+
+/** Represents a CardStatMap. */
+export class CardStatMap implements ICardStatMap {
+
+    /**
+     * Constructs a new CardStatMap.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: ICardStatMap);
+
+    /** CardStatMap DEF. */
+    public DEF: number;
+
+    /** CardStatMap DRI. */
+    public DRI: number;
+
+    /** CardStatMap PAS. */
+    public PAS: number;
+
+    /** CardStatMap PHY. */
+    public PHY: number;
+
+    /** CardStatMap SHT. */
+    public SHT: number;
+
+    /** CardStatMap SPD. */
+    public SPD: number;
+
+    /**
+     * Creates a new CardStatMap instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns CardStatMap instance
+     */
+    public static create(properties?: ICardStatMap): CardStatMap;
+
+    /**
+     * Encodes the specified CardStatMap message. Does not implicitly {@link CardStatMap.verify|verify} messages.
+     * @param message CardStatMap message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: ICardStatMap, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified CardStatMap message, length delimited. Does not implicitly {@link CardStatMap.verify|verify} messages.
+     * @param message CardStatMap message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: ICardStatMap, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a CardStatMap message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns CardStatMap
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): CardStatMap;
+
+    /**
+     * Decodes a CardStatMap message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns CardStatMap
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): CardStatMap;
+
+    /**
+     * Verifies a CardStatMap message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a CardStatMap message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns CardStatMap
+     */
+    public static fromObject(object: { [k: string]: any }): CardStatMap;
+
+    /**
+     * Creates a plain object from a CardStatMap message. Also converts values to other types if specified.
+     * @param message CardStatMap
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: CardStatMap, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this CardStatMap to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };

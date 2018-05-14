@@ -135,7 +135,7 @@ export const EditFile = {
         { key: 'physicalContact', bits: 7 },
         { key: 'kickingPower', bits: 7 },
         { key: 'explosivePower', bits: 7 },
-        { key: 'motionDribblingArms', bits: 3 },
+        { key: 'motionUnknown', bits: 3 },
         { key: 'isRegisteredPositionEdited', bits: 1 }
       ] as Definition[]
     ],
@@ -147,7 +147,7 @@ export const EditFile = {
       [
         { key: 'age', bits: 6 },
         { key: 'registeredPosition', bits: 4 },
-        { key: 'unknown', bits: 1 },
+        { key: 'unknownC', bits: 1 },
         { key: 'playingStyle', bits: 5 },
         { key: 'ballControl', bits: 7 },
         { key: 'ballWinning', bits: 7 },
@@ -161,11 +161,15 @@ export const EditFile = {
       'uint32',
       [
         { key: 'jump', bits: 7 },
-        { key: 'motionRunningArms', bits: 3 }, // unsure
-        { key: 'motionCornerKick', bits: 3 }, // unsure
-        { key: 'unknown', bits: 3 }, // unsure
+        { key: 'motionDribblingArms', bits: 3 },
+        { key: 'motionRunningArms', bits: 3 },
+        { key: 'motionCornerKick', bits: 3 },
         { key: 'coverage', bits: 7 },
-        { key: 'playablePosition', bits: 10 } // TODO: separate this
+        { key: 'weakFootUsage', bits: 2 },
+        { key: 'playableCF', bits: 2 },
+        { key: 'playableSS', bits: 2 },
+        { key: 'playableLWF', bits: 2 },
+        { key: 'isPlayablePositionsEdited', bits: 1 }
       ] as Definition[]
     ],
 
@@ -174,42 +178,64 @@ export const EditFile = {
       PackedBits,
       'uint32',
       [
-        { key: 'playablePosition', bits: 18 }, // TODO: separate this
+        { key: 'playableAMF', bits: 2 },
+        { key: 'playableDMF', bits: 2 },
+        { key: 'playableCMF', bits: 2 },
+        { key: 'playableLMF', bits: 2 },
+        { key: 'playableRMF', bits: 2 },
+        { key: 'playableCB', bits: 2 },
+        { key: 'playableLB', bits: 2 },
+        { key: 'playableRB', bits: 2 },
+        { key: 'playableGK', bits: 2 },
         { key: 'motionDribblingHunching', bits: 2 },
         { key: 'motionRunningHunching', bits: 2 },
         { key: 'motionPenaltyKick', bits: 2 },
         { key: 'placeKicking', bits: 7 },
-        { key: 'isPlayablePositionEdited', bits: 1 },
-        { key: 'isAbilitiesEdited', bits: 1 },
-        { key: 'isPlayerSkillsEdited', bits: 1 }
+        { key: 'isAbilitiesEdited', bits: 1 }
       ] as Definition[]
     ],
 
-    // 4 bytes
+    // 2 bytes
     block8: [
       PackedBits,
-      'uint32',
+      'uint16',
       [
         { key: 'stamina', bits: 7 },
-        { key: 'isPlayingStylesEdited', bits: 1 }, // unsure
-        { key: 'isComPlayingStylesEdited', bits: 1 }, // unsure
-        { key: 'speed', bits: 7 },
-        { key: 'isMotionEdited', bits: 1 },
-        { key: 'isBaseCopy', bits: 1 },
-        { key: 'unknown', bits: 1 },
-        { key: 'strongFoot', bits: 1 },
-        { key: 'unknown2', bits: 1 },
-        { key: 'comPlayingStyles', bits: 7 },
-        { key: 'unknown3', bits: 4 }
+        { key: 'playableRWF', bits: 2 },
+        { key: 'speed', bits: 7 }
       ] as Definition[]
     ],
-
+    // 1 byte
     block9: [
+      PackedBits,
+      'uint8',
+      [
+        { key: 'isPlayerSkillsEdited', bits: 1 },
+        { key: 'isPlayingStyleEdited', bits: 1 },
+        { key: 'isComPlayingStylesEdited', bits: 1 },
+        { key: 'isMotionEdited', bits: 1 },
+        { key: 'isBaseCopy', bits: 1 },
+        { key: 'unknownD', bits: 1 },
+        { key: 'preferredFoot', bits: 1 },
+        { key: 'unknownE', bits: 1 }
+      ] as Definition[]
+    ],
+    // 1 byte
+    block10: [
+      PackedBits,
+      'uint8',
+      [
+        { key: 'comPlayingStyles', bits: 7 },
+        { key: 'skill1', bits: 1 }
+      ] as Definition[]
+    ],
+    // 4 byte
+    block11: [
       PackedBits,
       'uint32',
       [
-        { key: 'playerSkills', bits: 24 },
-        { key: 'unknown3', bits: 8 }
+        { key: 'skills', bits: 27 },
+        { key: 'unknownF', bits: 5 }
       ] as Definition[]
     ],
 
@@ -349,13 +375,13 @@ export interface Player {
     physicalContact: number;
     kickingPower: number;
     explosivePower: number;
-    motionDribblingArms: number;
+    motionUnknown: number;
     isRegisteredPositionEdited: number;
   };
   block5: {
     age: number;
     registeredPosition: number;
-    unknown: number;
+    unknownC: number;
     playingStyle: number;
     ballControl: number;
     ballWinning: number;
@@ -363,47 +389,62 @@ export interface Player {
   };
   block6: {
     jump: number;
+    motionDribblingArms: number;
     motionRunningArms: number;
     motionCornerKick: number;
     coverage: number;
     weakFootUsage: number;
-    playablePosition: number;
+    playableCF: number;
+    playableSS: number;
+    playableLWF: number;
+    isPlayablePositionsEdited: number;
   };
 
   block7: {
-    playablePosition: number;
+    playableAMF: number;
+    playableCMF: number;
+    playableDMF: number;
+    playableLMF: number;
+    playableRMF: number;
+    playableCB: number;
+    playableLB: number;
+    playableRB: number;
+    playableGK: number;
     motionDribblingHunching: number;
     motionRunningHunching: number;
     motionPenaltyKick: number;
     placeKicking: number;
-    isPlayablePositionEdited: number;
     isAbilitiesEdited: number;
-    isPlayerSkillsEdited: number;
   };
 
   block8: {
     stamina: number;
+    playableRWF: number;
     speed: number;
-    isPlayingStylesEdited: number;
-    isComPlayingStylesEdited: number;
-    isMotionEdited: number;
-    isBaseCopy: number;
-    unknown: number;
-    strongFoot: number;
-    unknown2: number;
-    comPlayingStyles: number;
-    playerSkills: number;
   };
 
   block9: {
-    playerSkills: number;
+    isPlayerSkillsEdited: number;
+    isPlayingStyleEdited: number;
+    isComPlayingStylesEdited: number;
+    isMotionEdited: number;
+    isBaseCopy: number;
+    unknownD: number;
+    preferredFoot: number;
+    unknownE: number;
+  };
+
+  block10: {
+    comPlayingStyles: number;
+    skill1: number;
     unknown3: number;
   };
 
-  isBaseCopy: boolean;
-  comPlayingStyles: number;
-  unknown06: number;
-  playerSkills: number;
+  block11: {
+    skills: number;
+    unknownF: number;
+  };
+
   name: string;
   printName: string;
   appearance: PlayerAppearance;

@@ -1,3 +1,4 @@
+// tslint:disable:no-bitwise
 import jBinary = require('jbinary');
 
 export interface Definition {
@@ -10,6 +11,7 @@ interface ExpandedProps {
 }
 
 // TODO(tstirrat/pesleagues#1): Fix jBinary types
+// tslint:disable-next-line:no-any
 export const PackedBits = (jBinary as any).Template({
   params: ['baseType', 'definition'],
 

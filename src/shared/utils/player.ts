@@ -1,6 +1,6 @@
-import { countBy, flatten } from 'lodash';
+import { countBy, flatten, mapKeys, mapValues, sum, values } from 'lodash';
 
-import { IPlayer, IPlayerAbilities, Player, PlayingStyle, Position } from '../service/api';
+import { ICardStatMap, IPlayer, IPlayerAbilities, Player, PlayingStyle, Position } from '../service/api';
 
 export type PlayerAbilityName = keyof IPlayerAbilities;
 
@@ -8,6 +8,8 @@ export type PlayerAbilityName = keyof IPlayerAbilities;
 export type Flags<T> = { [P in keyof T]?: boolean };
 
 export type AbilityFlags = Flags<IPlayerAbilities>;
+
+export type AbilityWeights = Partial<IPlayerAbilities>;
 
 /**
  * Player form
@@ -257,7 +259,7 @@ export function getAbilityDeltaForLevel(
   return changes;
 }
 
-export const FORM_CHANGES: { [form: number]: Partial<IPlayerAbilities> } = {
+export const FORM_CHANGES: { [form: number]: AbilityWeights } = {
   [PlayerForm.A]: {
     explosivePower: 0.12,
     attackingProwess: 0.12,
@@ -391,7 +393,7 @@ export function getHighestAbilities(players: Player[]): AbilityFlags[] {
   return highlights;
 }
 
-export const OVR_WEIGHTS: { [pos: number]: Partial<IPlayerAbilities> } = {
+export const OVR_WEIGHTS: { [pos: number]: AbilityWeights } = {
   [Position.CF]: {
     attackingProwess: 0.33,
     ballControl: 0.25,
@@ -548,13 +550,13 @@ export function getWeightedRating(
   const BASE = 7; // ?
   const rating = Object.keys(weights).reduce(
     // fixes prettier/tslint alignment
-    (sum, stat) => {
+    (total, stat) => {
       if (!player.abilities || !weights) {
         throw new Error('Player or weights are undefined');
       }
       if (stat in player.abilities) {
         const weight = (player.abilities[stat] - 25) * weights[stat];
-        return sum + weight;
+        return total + weight;
       }
       throw new Error(`Unknown stat: ${stat}`);
     },
@@ -563,3 +565,97 @@ export function getWeightedRating(
 
   return Math.floor(rating);
 }
+
+function normalizeWeights(weights: AbilityWeights): AbilityWeights {
+  const total = sum(values(weights));
+  return mapValues(weights, w => (w ? w / total : 0));
+}
+
+/** Calculates a basic normalized weighted rating, no funny business. */
+export function simpleWeightRating(
+  player: IPlayer,
+  inputWeights: AbilityWeights
+): number {
+  const weights = normalizeWeights(inputWeights);
+  const weightedValues: AbilityWeights = mapValues(
+    weights,
+    (w, key) => (w ? player.abilities[key] * w : 0)
+  );
+  const total = Math.round(sum(values(weightedValues)));
+  return total;
+}
+
+/** Returns a map of card stat to value e.g. `{'SPD': 94}` */
+export function getCardStats(player: IPlayer): ICardStatMap {
+  const enumMap = mapKeys(CardStat, num => CardStatLabel[num]);
+  const weightsMap = mapValues(enumMap, val => CARD_STAT_WEIGHTS[val]);
+  return (mapValues(
+    weightsMap,
+    weights => simpleWeightRating(player, weights)
+    // tslint:disable-next-line:no-any sorry, too hard
+  ) as any) as ICardStatMap;
+}
+
+/** The combined stats shown "on card" or the hexagon chart */
+export enum CardStat {
+  SPEED,
+  DRIBBLING,
+  PASSING,
+  DEFENDING,
+  PHYSICAL,
+  SHOOTING
+}
+
+export const CardStatLabel = {
+  [CardStat.SPEED]: 'SPD',
+  [CardStat.DRIBBLING]: 'DRI',
+  [CardStat.PASSING]: 'PAS',
+  [CardStat.DEFENDING]: 'DEF',
+  [CardStat.PHYSICAL]: 'PHY',
+  [CardStat.SHOOTING]: 'SHT'
+};
+
+export interface CardStatMap {
+  SPD: number;
+  DRI: number;
+  PAS: number;
+  DEF: number;
+  PHY: number;
+  SHT: number;
+}
+
+export const CARD_STAT_WEIGHTS: {
+  [stat: string]: Partial<IPlayerAbilities>;
+} = {
+  [CardStat.SPEED]: {
+    speed: 1
+    // explosivePower too?
+  },
+  [CardStat.DRIBBLING]: {
+    ballControl: 1,
+    dribbling: 1,
+    explosivePower: 1,
+    bodyControl: 1
+  },
+  [CardStat.PASSING]: {
+    lowPass: 1,
+    loftedPass: 1,
+    placeKicking: 1,
+    swerve: 1
+  },
+  [CardStat.SHOOTING]: {
+    attackingProwess: 1,
+    finishing: 1,
+    kickingPower: 1
+  },
+  [CardStat.DEFENDING]: {
+    header: 1,
+    defensiveProwess: 1,
+    ballWinning: 1
+  },
+  [CardStat.PHYSICAL]: {
+    physicalContact: 1,
+    jump: 1,
+    stamina: 1
+  }
+};
