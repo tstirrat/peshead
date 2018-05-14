@@ -42,16 +42,21 @@ export function createClient(config?: ClientConfig) {
 
 export type IndexedPlayer = Pick<
   IPlayer,
-  | 'id'
   | 'abilities'
   | 'age'
+  | 'cardStats'
+  | 'comPlayingStyles'
+  | 'id'
   | 'kitName'
   | 'name'
   | 'nationality'
   | 'ovr'
-  | 'registeredPosition'
-  | 'preferredFoot'
+  | 'playablePositions'
   | 'playingStyle'
+  | 'preferredFoot'
+  | 'playerSkills'
+  | 'registeredPosition'
+  | 'totalAbilities'
 > &
   IndexedPlayerPhysique;
 
@@ -61,18 +66,23 @@ export type IndexedPlayerPhysique = {
 
 function getIndexablePlayerSubset(player: IPlayer) {
   return pick<IndexedPlayer>(player, [
-    'id',
     'abilities',
     'age',
+    'cardStats',
+    'comPlayingStyles',
+    'id',
     'kitName',
     'name',
     'nationality',
     'ovr',
-    'registeredPosition',
     'physique.height',
     'physique.weight',
+    'playablePositions',
+    'playingStyle',
     'preferredFoot',
-    'playingStyle'
+    'playerSkills',
+    'registeredPosition',
+    'totalAbilities'
   ]);
 }
 
