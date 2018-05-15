@@ -97,19 +97,19 @@ export const PlayerTable = pure<Props>(({ list, selectedIndex }) => (
 
           <Hidden xsDown={true}>
             <TableCell {...center}>
-              <PlayerStat value={player.abilities!.finishing!} />
+              <PlayerStat value={player.cardStats.SHT} />
             </TableCell>
             <TableCell {...center}>
-              <PlayerStat value={player.abilities!.lowPass!} />
+              <PlayerStat value={player.cardStats.PAS} />
             </TableCell>
             <TableCell {...center}>
-              <PlayerStat value={player.abilities!.dribbling!} />
+              <PlayerStat value={player.cardStats.DRI} />
             </TableCell>
             <TableCell {...center}>
-              <PlayerStat value={player.abilities!.defensiveProwess!} />
+              <PlayerStat value={player.cardStats.DEF} />
             </TableCell>
             <TableCell {...center}>
-              <PlayerStat value={player.abilities!.physicalContact!} />
+              <PlayerStat value={player.cardStats.PHY} />
             </TableCell>
           </Hidden>
         </TableRow>

@@ -66,12 +66,11 @@ export class Player extends PlayerProto {
       motionDribblingHunching,
       motionRunningHunching,
       motionPenaltyKick
-      // isAbilitiesEdited
     } = input.block7;
+    // isAbilitiesEdited
     const { speed, stamina, playableRWF } = input.block8;
     const {
-      isBaseCopy,
-      // isComPlayingStylesEdited,
+      isBaseCopy, // isComPlayingStylesEdited,
       // isMotionEdited,
       // isPlayerSkillsEdited,
       // isPlayingStyleEdited,
@@ -198,6 +197,8 @@ export class Player extends PlayerProto {
     player.ovr = overallRating;
     player.totalAbilities = getTotalStats(player);
     player.cardStats = getCardStats(player);
+    // old index date means any new index run will work
+    player.indexState = new Date(1).toISOString();
     return player;
   }
 

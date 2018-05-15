@@ -12,7 +12,6 @@ import { Playable, Player } from '../../shared/service/api';
 import {
   AbilityFlags,
   getPositionRating,
-  getTotalStats,
   PlayerForm,
   PlayingStyleLabel,
   SIMPLE_ABILITIES,
@@ -193,7 +192,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
           <Divider />
           <ListItem>
             <Typography variant="subheading">
-              {getTotalStats(player)}
+              {player.totalAbilities}
             </Typography>
           </ListItem>
         </StyledStat>

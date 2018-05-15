@@ -63,31 +63,31 @@ describe('<PlayerTable>', () => {
 
   it('displays player SHT', () => {
     expect(div.querySelector('tbody td:nth-of-type(7)')!.textContent).toBe(
-      player1.abilities!.finishing!.toString()
+      player1.cardStats.SHT.toString()
     );
   });
 
   it('displays player PAS', () => {
     expect(div.querySelector('tbody td:nth-of-type(8)')!.textContent).toBe(
-      player1.abilities!.lowPass!.toString()
+      player1.cardStats.PAS.toString()
     );
   });
 
   it('displays player DRI', () => {
     expect(div.querySelector('tbody td:nth-of-type(9)')!.textContent).toBe(
-      player1.abilities!.dribbling!.toString()
+      player1.cardStats.DRI.toString()
     );
   });
 
   it('displays player DEF', () => {
     expect(div.querySelector('tbody td:nth-of-type(10)')!.textContent).toBe(
-      player1.abilities!.defensiveProwess!.toString()
+      player1.cardStats.DEF.toString()
     );
   });
 
   it('displays player PHY', () => {
     expect(div.querySelector('tbody td:nth-of-type(11)')!.textContent).toBe(
-      player1.abilities!.physicalContact!.toString()
+      player1.cardStats.PHY.toString()
     );
   });
 });
