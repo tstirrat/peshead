@@ -1,7 +1,7 @@
-import { make } from '../../__test__/fixtures';
+import { make } from '../__test__/fixtures';
 import { Player } from '../service/api';
+import { FORM_CHANGES, getPositionRating, PlayerForm } from '../utils/player';
 import { AugmentedPlayer } from './augmented_player';
-import { FORM_CHANGES, getPositionRating, PlayerForm } from './player';
 
 describe('AugmentedPlayer', () => {
   describe('[form]', () => {

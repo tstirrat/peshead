@@ -8,7 +8,7 @@ import {
   PlayingStyle,
   Position,
   Skill,
-} from '../shared/service/api';
+} from '../service/api';
 
 export const base: IPlayer = {
   id: '7511',

@@ -2,10 +2,11 @@ import { CollectionReference } from '@google-cloud/firestore';
 import * as admin from 'firebase-admin';
 import jBinary = require('jbinary');
 
-import { Player } from '../shared/player';
+import { Player } from '../shared/models/player';
 import { Team } from '../shared/service/api';
+import { EditData, Player as PlayerBinary, Team as TeamBinary } from '../shared/types/edit-file';
 import { PositionLabel } from '../shared/utils/player';
-import { EditFile, Player as PlayerBinary, Team as TeamBinary } from '../typesets/edit-file';
+import { EditFile } from '../typesets/edit-file';
 
 const serviceAccount = require(`${__dirname}/../../../config/service-account.json`);
 
@@ -32,7 +33,7 @@ export async function load(
   const jb = await jBinary.load(fileName, EditFile);
 
   console.log(`Loading ${fileName}...`);
-  const editData: EditFile = jb.readAll();
+  const editData: EditData = jb.readAll();
 
   admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
 

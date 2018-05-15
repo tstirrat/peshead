@@ -1,5 +1,5 @@
 import { IPlayer, IPlayerAbilities, Player } from '../service/api';
-import { getAbilityDeltaForForm, getAbilityDeltaForLevel, getPositionRating, PlayerForm } from './player';
+import { getAbilityDeltaForForm, getAbilityDeltaForLevel, getPositionRating, PlayerForm } from '../utils/player';
 
 export interface AugmentedPlayerOptions {
   form?: PlayerForm;

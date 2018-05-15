@@ -1,6 +1,6 @@
 import jBinary = require('jbinary');
 
-import { Player } from '../shared/player';
+import { Player } from '../shared/models/player';
 import { ComPlayingStyle, Foot, Playable, PlayingStyle, Position, Skill } from '../shared/service/api';
 import { EditFile } from './edit-file';
 
@@ -196,7 +196,7 @@ describe('Player', () => {
     expect(attrs99.abilities.stamina).toEqual(77);
 
     // Various other bits:
-    expect(attrs99.abilities.weakFootUsage).toEqual(2);
+    expect(attrs99.abilities.weakFootUsage).toEqual(4);
     expect(attrs99.motion.armRunning).toEqual(7);
     expect(attrs99.motion.cornerKick).toEqual(6);
     expect(attrs99.abilities.weakFootAccuracy).toEqual(2);

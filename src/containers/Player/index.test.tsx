@@ -2,8 +2,8 @@ import * as React from 'react';
 import { render } from 'react-dom';
 
 import { Player } from '.';
-import { base } from '../../__test__/fixtures';
 import * as players from '../../actions/players';
+import { base } from '../../shared/__test__/fixtures';
 import { Player as PlayerModel } from '../../shared/service/api';
 
 const player = PlayerModel.create(base);

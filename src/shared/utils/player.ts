@@ -585,17 +585,6 @@ export function simpleWeightRating(
   return total;
 }
 
-/** Returns a map of card stat to value e.g. `{'SPD': 94}` */
-export function getCardStats(player: IPlayer): ICardStatMap {
-  const enumMap = mapKeys(CardStat, num => CardStatLabel[num]);
-  const weightsMap = mapValues(enumMap, val => CARD_STAT_WEIGHTS[val]);
-  return (mapValues(
-    weightsMap,
-    weights => simpleWeightRating(player, weights)
-    // tslint:disable-next-line:no-any sorry, too hard
-  ) as any) as ICardStatMap;
-}
-
 /** The combined stats shown "on card" or the hexagon chart */
 export enum CardStat {
   SPEED,
@@ -659,3 +648,14 @@ export const CARD_STAT_WEIGHTS: {
     stamina: 1
   }
 };
+
+/** Returns a map of card stat to value e.g. `{'SPD': 94}` */
+export function getCardStats(player: IPlayer): ICardStatMap {
+  const enumMap = mapKeys(CardStat, num => CardStatLabel[num]);
+  const weightsMap = mapValues(enumMap, val => CARD_STAT_WEIGHTS[val]);
+  return (mapValues(
+    weightsMap,
+    weights => simpleWeightRating(player, weights)
+    // tslint:disable-next-line:no-any sorry, too hard
+  ) as any) as ICardStatMap;
+}

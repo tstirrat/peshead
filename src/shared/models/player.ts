@@ -1,8 +1,8 @@
 import { identity, pickBy } from 'lodash';
 
-import { Player as PlayerBinary } from '../typesets/edit-file';
-import { CardStatMap, IEdits, IPlayablePositions, Player as PlayerProto } from './service/api';
-import { getCardStats, getPositionWeights, getTotalStats, getWeightedRating } from './utils/player';
+import { CardStatMap, IPlayablePositions, Player as PlayerProto } from '../service/api';
+import { Player as PlayerBinary } from '../types/edit-file';
+import { getCardStats, getPositionWeights, getTotalStats, getWeightedRating } from '../utils/player';
 
 /** Map a jBinary parsed player to DB/API schema (proto3 JSON) */
 export class Player extends PlayerProto {
@@ -65,16 +65,16 @@ export class Player extends PlayerProto {
       playableGK,
       motionDribblingHunching,
       motionRunningHunching,
-      motionPenaltyKick,
-      isAbilitiesEdited
+      motionPenaltyKick
+      // isAbilitiesEdited
     } = input.block7;
     const { speed, stamina, playableRWF } = input.block8;
     const {
       isBaseCopy,
-      isComPlayingStylesEdited,
-      isMotionEdited,
-      isPlayerSkillsEdited,
-      isPlayingStyleEdited,
+      // isComPlayingStylesEdited,
+      // isMotionEdited,
+      // isPlayerSkillsEdited,
+      // isPlayingStyleEdited,
       preferredFoot
     } = input.block9;
 
@@ -158,7 +158,7 @@ export class Player extends PlayerProto {
         stamina,
         swerve,
         weakFootAccuracy: weakFootAccuracy + 1,
-        weakFootUsage: weakFootAccuracy + 1
+        weakFootUsage: weakFootUsage + 1
       },
       isEdited: Boolean(input.block2.isCreated),
       isBaseCopy: Boolean(isBaseCopy),
@@ -180,16 +180,16 @@ export class Player extends PlayerProto {
     });
 
     // leaving this out for now, not used in the DB
-    const edited: IEdits = {
-      playablePositions: Boolean(input.block6.isPlayablePositionsEdited),
-      registeredPosition: Boolean(input.block4.isRegisteredPositionEdited),
-      abilities: Boolean(isAbilitiesEdited),
-      basics: Boolean(input.block3.isBasicsEdited),
-      comPlayingStyles: Boolean(isComPlayingStylesEdited),
-      motion: Boolean(isMotionEdited),
-      playerSkills: Boolean(isPlayerSkillsEdited),
-      playingStyle: Boolean(isPlayingStyleEdited)
-    };
+    // const edited: IEdits = {
+    //   playablePositions: Boolean(input.block6.isPlayablePositionsEdited),
+    //   registeredPosition: Boolean(input.block4.isRegisteredPositionEdited),
+    //   abilities: Boolean(isAbilitiesEdited),
+    //   basics: Boolean(input.block3.isBasicsEdited),
+    //   comPlayingStyles: Boolean(isComPlayingStylesEdited),
+    //   motion: Boolean(isMotionEdited),
+    //   playerSkills: Boolean(isPlayerSkillsEdited),
+    //   playingStyle: Boolean(isPlayingStyleEdited)
+    // };
 
     const overallRating = getWeightedRating(
       player,

@@ -4,9 +4,9 @@ import { Observable, of as obs, throwError } from 'rxjs';
 import { marbles } from 'rxjs-marbles';
 
 import { EpicDependencies } from '.';
-import { make } from '../__test__/fixtures';
 import * as actions from '../actions/search';
 import { search$ } from '../epics/search';
+import { make } from '../shared/__test__/fixtures';
 
 describe('epics/search', () => {
   function setup(

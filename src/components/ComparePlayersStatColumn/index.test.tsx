@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 import { ComparePlayersStatColumn } from '.';
 import { StaticRouter } from '../../__test__';
-import { base } from '../../__test__/fixtures';
+import { base } from '../../shared/__test__/fixtures';
 import { Player } from '../../shared/service/api';
 
 const player = Player.create(base);

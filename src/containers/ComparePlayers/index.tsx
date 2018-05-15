@@ -18,8 +18,8 @@ import * as fromRoot from '../../reducers';
 import * as fromPlayers from '../../reducers/players';
 import { buildPlayerCompareUrl, PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
+import { AugmentedPlayer } from '../../shared/models/augmented_player';
 import { Position } from '../../shared/service/api';
-import { AugmentedPlayer } from '../../shared/utils/augmented_player';
 import { AbilityFlags, getHighestAbilities, PlayerForm, PlayerFormChar } from '../../shared/utils/player';
 import { AddButton, PaperContainer, PlayerInputContainer } from './styles';
 

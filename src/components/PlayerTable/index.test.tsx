@@ -4,8 +4,8 @@ import { I18nextProvider } from 'react-i18next';
 
 import { PlayerTable, Props } from '.';
 import { StaticRouter } from '../../__test__';
-import { base } from '../../__test__/fixtures';
 import i18n from '../../configureI18n';
+import { base } from '../../shared/__test__/fixtures';
 import { Player } from '../../shared/service/api';
 
 const player1 = Player.create({ ...base, id: 'a', name: 'Player 1', age: 21 });
