@@ -270,9 +270,9 @@
     "@types/i18next" "*"
     "@types/react" "*"
 
-"@types/react-loadable@^5.3.4":
-  version "5.3.4"
-  resolved "https://registry.yarnpkg.com/@types/react-loadable/-/react-loadable-5.3.4.tgz#1d689fb233f816916c0df2d0a346c49f071b1cb3"
+"@types/react-loadable@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@types/react-loadable/-/react-loadable-5.4.0.tgz#7a4f0673de07473525ab27959cf4c2601e25f37f"
   dependencies:
     "@types/react" "*"
     "@types/webpack" "*"
