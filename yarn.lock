@@ -7106,9 +7106,9 @@ rxjs-compat@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.1.0.tgz#935059623ee4c167728c9dd03ee6e4468cc5b583"
 
-rxjs-marbles@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/rxjs-marbles/-/rxjs-marbles-3.0.1.tgz#696d7eddd39ecbb542c3841634fe0ca9ad26ce13"
+rxjs-marbles@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/rxjs-marbles/-/rxjs-marbles-4.0.0.tgz#9b101c20375801397857341b35313f916a54a8cb"
   dependencies:
     "@types/lodash" "^4.0.0"
     lodash "^4.0.0"
