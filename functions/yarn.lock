@@ -1820,9 +1820,9 @@ firebase-functions-test@^0.1.2:
     "@types/lodash" "^4.14.104"
     lodash "^4.17.5"
 
-firebase-functions@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-1.0.2.tgz#90aea959ba513037fb03ec2c526bb34741f49512"
+firebase-functions@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-1.0.3.tgz#e4612e6075d4587c1c2cd2f4d4a7aa89157efff8"
   dependencies:
     "@types/cors" "^2.8.1"
     "@types/express" "^4.11.1"
