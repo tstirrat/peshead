@@ -6642,9 +6642,9 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react-stickynode@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/react-stickynode/-/react-stickynode-1.4.1.tgz#de48e78a8767f21d6d5e1f81a859f31f7e466094"
+react-stickynode@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-stickynode/-/react-stickynode-2.0.0.tgz#c739244bd4e01b1a97226f74b30201c91b8325b1"
   dependencies:
     classnames "^2.0.0"
     prop-types "^15.6.0"
