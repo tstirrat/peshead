@@ -60,8 +60,8 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
   private destroy$ = new Subject<void>();
 
   componentDidMount() {
-    const { id, player, isLoading } = this.props;
-    if (!player && !isLoading) {
+    const { id, player, isLoading, error } = this.props;
+    if (!player && !isLoading && !error) {
       this.props.getPlayer(id);
     }
 
