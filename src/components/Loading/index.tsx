@@ -11,7 +11,7 @@ interface ViewModel {
   error?: Error;
 }
 
-const Centered = styled.div`
+export const Centered = styled.div`
   min-height: 240px;
   display: flex;
   flex-direction: column;

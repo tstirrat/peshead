@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper';
 import { Link } from 'redux-little-router';
 import styled from 'styled-components';
 
+import { Centered } from '../../components/Loading';
 import { MainInput } from '../../components/SuggestPlayer/styles';
 
 export const AddButton = styled(Button)`
@@ -66,6 +67,12 @@ export const PaperContainer = styled(Paper)`
 
   ${PlayerHeader} {
     padding: 8px;
+  }
+
+  /* Loading spinner on stat column */
+  ${Centered} {
+    justify-content: flex-start;
+    padding-top: 4px;
   }
 `;
 
