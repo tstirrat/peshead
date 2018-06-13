@@ -1,5 +1,11 @@
 import { IPlayer, IPlayerAbilities, Player } from '../service/api';
-import { getAbilityDeltaForForm, getAbilityDeltaForLevel, getPositionRating, PlayerForm } from '../utils/player';
+import {
+  getAbilityDeltaForForm,
+  getAbilityDeltaForLevel,
+  getPositionRating,
+  getTotalStats,
+  PlayerForm,
+} from '../utils/player';
 
 export interface AugmentedPlayerOptions {
   form?: PlayerForm;
@@ -29,6 +35,7 @@ export class AugmentedPlayer extends Player {
     // update OVR with new stats
     const finalPlayer = Player.fromObject(finalJson);
     finalPlayer.ovr = getPositionRating(finalPlayer);
+    finalPlayer.totalAbilities = getTotalStats(finalPlayer);
     super(finalPlayer);
 
     this.original = player;
