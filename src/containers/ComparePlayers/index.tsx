@@ -49,7 +49,7 @@ const createPlayerViewModel = (
   options: PlayerCompareOption
 ): PlayerViewModel => {
   const baseView = fromPlayers.getPlayerBaseView(state, options.id);
-  let { player } = baseView;
+  let { player, error } = baseView;
   if (player) {
     const { form = PlayerForm.C, level = 30 } = options;
     player = new AugmentedPlayer(player, { form, level });
@@ -57,6 +57,7 @@ const createPlayerViewModel = (
   return {
     ...baseView,
     player,
+    error,
     form: options.form,
     level: options.level
   };
@@ -156,7 +157,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
   /** Fetch any missing players. */
   private fetchMissingPlayers(props: ViewModel) {
     props.players.forEach(player => {
-      if (!player.player && !player.isLoading) {
+      if (!player.player && !player.isLoading && !player.error) {
         this.props.getPlayer(player.id);
       }
     });
@@ -253,6 +254,7 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedComparePlayers = connect(getViewModel, getActions)(
-  ComparePlayers
-);
+export const ConnectedComparePlayers = connect(
+  getViewModel,
+  getActions
+)(ComparePlayers);
