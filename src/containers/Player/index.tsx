@@ -182,10 +182,10 @@ export class Player extends React.PureComponent<ViewModel & Actions, State> {
   };
 
   private getPageTitle(form: PlayerForm, player: PlayerModel) {
-    const arrowChar = form !== PlayerForm.C ? `${PlayerFormChar[form]}` : '';
+    const arrowChar = form !== PlayerForm.C ? ` ${PlayerFormChar[form]}` : '';
     return (
       `${player.name} ` +
-      `[${PositionLabel[player.registeredPosition]} ${player.ovr} ${arrowChar}]`
+      `[${PositionLabel[player.registeredPosition]} ${player.ovr}${arrowChar}]`
     );
   }
 
@@ -258,4 +258,7 @@ const getActions = (dispatch: Dispatch<fromRoot.State>): Actions => {
 };
 
 // tslint:disable-next-line:variable-name
-export const ConnectedPlayer = connect(getViewModel, getActions)(Player);
+export const ConnectedPlayer = connect(
+  getViewModel,
+  getActions
+)(Player);
