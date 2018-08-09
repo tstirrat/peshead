@@ -2286,9 +2286,9 @@ html-encoding-sniffer@^1.0.2:
   dependencies:
     whatwg-encoding "^1.0.1"
 
-http-aws-es@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/http-aws-es/-/http-aws-es-4.0.0.tgz#ffc95907ebc3c7985206853ff45e22264b2bd062"
+http-aws-es@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/http-aws-es/-/http-aws-es-6.0.0.tgz#1528978d2bee718b8732dcdced0856efa747aeff"
 
 http-errors@1.6.2:
   version "1.6.2"
