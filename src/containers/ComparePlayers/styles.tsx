@@ -1,6 +1,8 @@
 import Button from 'material-ui/Button';
 import List, { ListItem } from 'material-ui/List';
 import Paper from 'material-ui/Paper';
+import * as React from 'react';
+import pure from 'recompose/pure';
 import { Link } from 'redux-little-router';
 import styled from 'styled-components';
 
@@ -23,9 +25,13 @@ export const EllipsizedLink = styled(Link)`
 
 export const BlockListItem = styled(ListItem)``;
 
-export const StyledStat = styled.div`
+const Stat = pure<{ className?: string; isHighest?: boolean }>(
+  ({ className, children }) => <div className={className}>{children}</div>
+);
+
+export const StyledStat = styled(Stat)`
   background-color: ${props =>
-    props.role === 'highest' ? 'rgba(0, 238, 171, 0.08)' : ''};
+    props.isHighest ? 'rgba(0, 238, 171, 0.08)' : ''};
 
   li {
     justify-content: center;

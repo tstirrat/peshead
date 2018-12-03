@@ -17,10 +17,10 @@ export class AugmentedPlayer extends Player {
   /** The unmodified player. */
   readonly original: Player;
 
-  constructor(
-    player: Player,
-    { form = PlayerForm.C, level = 30 }: AugmentedPlayerOptions
-  ) {
+  readonly options: AugmentedPlayerOptions;
+
+  constructor(player: Player, options: AugmentedPlayerOptions = {}) {
+    const { form = PlayerForm.C, level = 30 } = options;
     const levelDelta = getAbilityDeltaForLevel(player.abilities, level);
     const withLevel = addAbilityChanges(player.abilities, levelDelta);
     const formDelta = getAbilityDeltaForForm(withLevel, form);
@@ -39,6 +39,7 @@ export class AugmentedPlayer extends Player {
     super(finalPlayer);
 
     this.original = player;
+    this.options = options;
   }
 }
 

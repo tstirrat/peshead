@@ -19,13 +19,11 @@ import * as fromPlayers from '../../reducers/players';
 import { buildPlayerCompareUrl, PlayerCompareOption } from '../../reducers/routing';
 import { assert } from '../../shared/assert';
 import { AugmentedPlayer } from '../../shared/models/augmented_player';
-import { Position } from '../../shared/service/api';
-import { AbilityFlags, getHighestAbilities, PlayerForm, PlayerFormChar } from '../../shared/utils/player';
+import { PlayerForm, PlayerFormChar } from '../../shared/utils/player';
 import { AddButton, PaperContainer, PlayerInputContainer } from './styles';
 
 export interface ViewModel {
   players: PlayerViewModel[];
-  position?: Position;
 }
 
 export interface State {
@@ -35,7 +33,9 @@ export interface State {
 
 export interface PlayerViewModel
   extends PlayerCompareOption,
-    fromPlayers.BaseViewModel {}
+    fromPlayers.BaseViewModel {
+  player?: AugmentedPlayer;
+}
 
 export interface Actions {
   getPlayer: typeof playerActions.getPlayer;
@@ -56,7 +56,7 @@ const createPlayerViewModel = (
   }
   return {
     ...baseView,
-    player,
+    player: player as AugmentedPlayer,
     error,
     form: options.form,
     level: options.level
@@ -80,7 +80,9 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
 
   render() {
     const { players } = this.props;
-    const highlights = this.calculateHighlights(players);
+    const compareTo = players
+      .filter(vm => vm.player)
+      .map(vm => assert(vm.player));
     const colWidth = players.length === 3 ? 3 : 4;
     const { showPlayerInput } = this.state;
     return (
@@ -124,7 +126,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
                 <Grid item={true} xs={colWidth} key={player.id}>
                   <Loading
                     when={!player.player || player.isLoading}
-                    render={() => this.renderPlayer(player, highlights[index])}
+                    render={() => this.renderPlayer(player, compareTo)}
                   />
                 </Grid>
               ))}
@@ -135,7 +137,10 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     );
   }
 
-  private renderPlayer(viewModel: PlayerViewModel, highlights: AbilityFlags) {
+  private renderPlayer(
+    viewModel: PlayerViewModel,
+    compareTo: AugmentedPlayer[]
+  ) {
     const player = assert(
       viewModel.player,
       'Player should exist when !isLoading'
@@ -144,7 +149,7 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
     return (
       <ComparePlayersStatColumn
         player={player}
-        highlights={highlights}
+        compareTo={compareTo}
         form={form}
         level={level}
         onDelete={this.handlePlayerDelete}
@@ -177,11 +182,6 @@ export class ComparePlayers extends React.PureComponent<ViewModel & Actions> {
       .filter(name => !!name)
       .join(' / ');
     return summary ? `Compare: ${summary}` : 'Compare';
-  }
-
-  private calculateHighlights(viewModels: PlayerViewModel[]) {
-    const players = viewModels.map(vm => vm.player!).filter(p => !!p);
-    return getHighestAbilities(players);
   }
 
   private showAddPlayerInput = () => {

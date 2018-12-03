@@ -4,8 +4,8 @@ import * as functions from 'firebase-functions';
 import * as morgan from 'morgan';
 
 import { createClient, search, suggest } from './elasticsearch';
-import { db } from './init';
 import { fetchLiveUpdate, Platform } from './konami';
+import { players } from './test/offline';
 
 const app = express();
 
@@ -85,15 +85,16 @@ router.get('/players/:id', async (req, res) => {
     try {
       console.log('[getPlayer] fetching:', playerId);
       const client = createClient(functions.config().es);
-      const snapshot = await db.doc(`players/${playerId}`).get();
-      console.log('[getPlayer] getPlayer complete', snapshot.id);
+      // const snapshot = await db.doc(`players/${playerId}`).get();
+      const snapshot = await Promise.resolve(players[playerId]);
 
-      if (!snapshot.exists) {
+      if (!snapshot) {
         return res.sendStatus(404);
       }
+      console.log('[getPlayer] getPlayer complete', snapshot.id);
 
       const cache = `public, max-age=${2 * HOURS}, s-maxage=${2 * HOURS}`;
-      return res.set('Cache-Control', cache).send(snapshot.data());
+      return res.set('Cache-Control', cache).send(snapshot);
     } catch (e) {
       console.warn('[getPlayer] getPlayer failed with', e);
       return res.status(400).send(e);

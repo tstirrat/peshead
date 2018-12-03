@@ -1,4 +1,4 @@
-import { debounce } from 'lodash';
+import { debounce, get } from 'lodash';
 import Divider from 'material-ui/Divider';
 import Icon from 'material-ui/Icon';
 import IconButton from 'material-ui/IconButton';
@@ -8,14 +8,9 @@ import * as React from 'react';
 import * as Sticky from 'react-stickynode';
 import { Link } from 'redux-little-router';
 
-import { Playable, Player } from '../../shared/service/api';
-import {
-  AbilityFlags,
-  getPositionRating,
-  PlayerForm,
-  PlayingStyleLabel,
-  SIMPLE_ABILITIES,
-} from '../../shared/utils/player';
+import { AugmentedPlayer } from '../../shared/models/augmented_player';
+import { Playable } from '../../shared/service/api';
+import { getPositionRating, PlayerForm, PlayingStyleLabel, SIMPLE_ABILITIES } from '../../shared/utils/player';
 import { PlayableLabel, POSITION_LIST, PositionLabel } from '../../shared/utils/position';
 import { CalculatePositionRating } from '../CalculatePositionRating';
 import { ColoredPositionLabel } from '../ColoredPositionLabel';
@@ -34,10 +29,10 @@ import {
 } from './../../containers/ComparePlayers/styles';
 
 export interface Props {
-  player: Player;
+  player: AugmentedPlayer;
+  compareTo: AugmentedPlayer[];
   level?: number;
   form?: PlayerForm;
-  highlights?: AbilityFlags;
   onDelete?: (id: string) => void;
   onLevelChanged?: (id: string, level: number) => void;
   onFormChanged?: (id: string, form: PlayerForm) => void;
@@ -75,7 +70,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
   );
 
   render() {
-    const { player, highlights = {} } = this.props;
+    const { player } = this.props;
 
     const { level = 30, form = PlayerForm.C } = this.state;
     return (
@@ -105,7 +100,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
           <Divider />
         </Sticky>
 
-        <StyledStat>
+        <StyledStat isHighest={this.isHighestStat('age')}>
           <ListItem>
             <Typography variant="subheading">{player.age}</Typography>
           </ListItem>
@@ -118,7 +113,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
           </ListItem>
         </StyledStat>
 
-        <StyledStat>
+        <StyledStat isHighest={this.isHighestStat('physique.height')}>
           <Divider />
           <ListItem>
             <Typography variant="subheading">
@@ -127,7 +122,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
           </ListItem>
         </StyledStat>
 
-        <StyledStat>
+        <StyledStat isHighest={this.isHighestStat('physique.weight')}>
           <Divider />
           <ListItem>
             <Typography variant="subheading">
@@ -188,7 +183,7 @@ export class ComparePlayersStatColumn extends React.PureComponent<
           </ListItem>
         </StyledStat>
 
-        <StyledStat>
+        <StyledStat isHighest={this.isHighestStat('totalAbilities')}>
           <Divider />
           <ListItem>
             <Typography variant="subheading">
@@ -198,45 +193,54 @@ export class ComparePlayersStatColumn extends React.PureComponent<
         </StyledStat>
 
         {SIMPLE_ABILITIES.map(key => (
-          <StyledStat key={key} role={highlights[key] ? 'highest' : ''}>
+          <StyledStat
+            key={key}
+            isHighest={this.isHighestStat(`abilities.${key}`)}
+          >
             <Divider />
             <ListItem>
-              <PlayerStat value={player.abilities![key]!} />
+              <PlayerStat value={player.abilities[key]} />
             </ListItem>
           </StyledStat>
         ))}
 
-        <StyledStat role={highlights.weakFootUsage ? 'highest' : ''}>
+        <StyledStat isHighest={this.isHighestStat('abilities.weakFootUsage')}>
           <Divider />
           <ListItem>
-            <PlayerStat value={player.abilities!.weakFootUsage!} maxValue={4} />
+            <PlayerStat value={player.abilities.weakFootUsage} maxValue={4} />
           </ListItem>
         </StyledStat>
 
-        <StyledStat role={highlights.weakFootAccuracy ? 'highest' : ''}>
+        <StyledStat
+          isHighest={this.isHighestStat('abilities.weakFootAccuracy')}
+        >
           <Divider />
           <ListItem>
             <PlayerStat
-              value={player.abilities!.weakFootAccuracy!}
+              value={player.abilities.weakFootAccuracy}
               maxValue={4}
             />
           </ListItem>
         </StyledStat>
 
-        <StyledStat role={highlights.form ? 'highest' : ''}>
+        <StyledStat isHighest={this.isHighestStat('abilities.form')}>
           <Divider />
           <ListItem>
-            <PlayerStat value={player.abilities!.form!} maxValue={8} />
+            <PlayerStat value={player.abilities.form} maxValue={8} />
+            {this.renderChangeAmount('abilities.form')}
           </ListItem>
         </StyledStat>
 
-        <StyledStat role={highlights.injuryResistance ? 'highest' : ''}>
+        <StyledStat
+          isHighest={this.isHighestStat('abilities.injuryResistance')}
+        >
           <Divider />
           <ListItem>
             <PlayerStat
-              value={player.abilities!.injuryResistance!}
+              value={player.abilities.injuryResistance}
               maxValue={4}
             />
+            {this.renderChangeAmount('abilities.injuryResistance')}
           </ListItem>
         </StyledStat>
 
@@ -249,6 +253,31 @@ export class ComparePlayersStatColumn extends React.PureComponent<
         {this.renderPositionRatings()}
       </Column>
     );
+  }
+
+  /** Used in compare view to highlight the winning stat */
+  private isHighestStat(statPath: string): boolean {
+    const { player, compareTo } = this.props;
+    const highestStat = compareTo
+      .filter(p => p.id !== player.id)
+      .reduce<number>(
+        // for alignment
+        (highest, comparedPlayer) => {
+          const stat = get(comparedPlayer, statPath);
+          return highest > stat ? highest : stat;
+        },
+        0
+      );
+    const playerStat: number = get(player, statPath);
+    return playerStat >= highestStat;
+  }
+
+  private renderChangeAmount(statPath: string, index = 0) {
+    const { player, compareTo } = this.props;
+    const playerStat: number = get(player, statPath);
+    const comparedStat: number = get(compareTo[index], statPath);
+    const change = playerStat - comparedStat;
+    return change > 0 ? <span className="change">+{change}</span> : null;
   }
 
   private renderPositionRatings() {
@@ -266,7 +295,10 @@ export class ComparePlayersStatColumn extends React.PureComponent<
       const isFaded = strength < Playable.B;
 
       return (
-        <StyledStat key={key}>
+        <StyledStat
+          key={key}
+          isHighest={this.isHighestStat(`playablePositions.${key}`)}
+        >
           <Divider />
           <ListItem>
             <Typography variant="subheading">
