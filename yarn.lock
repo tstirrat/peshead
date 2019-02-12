@@ -210,10 +210,6 @@
     csstype "^2.0.0"
     indefinite-observable "^1.0.1"
 
-"@types/lodash@^4.0.0":
-  version "4.14.108"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
-
 "@types/long@^3.0.32":
   version "3.0.32"
   resolved "https://registry.yarnpkg.com/@types/long/-/long-3.0.32.tgz#f4e5af31e9e9b196d8e5fca8a5e2e20aa3d60b69"
@@ -2983,6 +2979,10 @@ extsprintf@^1.2.0:
 fast-deep-equal@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
+
+fast-equals@^1.6.1:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/fast-equals/-/fast-equals-1.6.2.tgz#f1762bde0d571b5e9d4e1c4ae0599792f6a6df5f"
 
 fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
@@ -7106,12 +7106,11 @@ rxjs-compat@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.1.0.tgz#935059623ee4c167728c9dd03ee6e4468cc5b583"
 
-rxjs-marbles@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/rxjs-marbles/-/rxjs-marbles-3.0.1.tgz#696d7eddd39ecbb542c3841634fe0ca9ad26ce13"
+rxjs-marbles@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/rxjs-marbles/-/rxjs-marbles-5.0.0.tgz#b46b4d6ed8ff62da9b5da6df1bcb423df56c72f4"
   dependencies:
-    "@types/lodash" "^4.0.0"
-    lodash "^4.0.0"
+    fast-equals "^1.6.1"
 
 rxjs@^6.1.0:
   version "6.1.0"
