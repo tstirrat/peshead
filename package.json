@@ -39,7 +39,7 @@
     "redux-little-router": "^15.1.1",
     "redux-observable": "^1.0.0-alpha",
     "reselect": "^3.0.1",
-    "rxjs": "^6.1.0",
+    "rxjs": "^6.5.4",
     "rxjs-compat": "^6.1.0",
     "styled-components": "^3.2.6"
   },
