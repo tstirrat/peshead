@@ -48,7 +48,7 @@
     "@types/morgan": "^1.7.35",
     "@types/query-string": "^5.1.0",
     "firebase-functions-test": "^0.1.2",
-    "jest": "^22.4.3",
+    "jest": "^26.1.0",
     "node-bitarray": "^0.1.0",
     "ts-jest": "^22.4.6",
     "typescript": "^2.8.3"
