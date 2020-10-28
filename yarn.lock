@@ -270,9 +270,9 @@
     "@types/i18next" "*"
     "@types/react" "*"
 
-"@types/react-loadable@^5.3.4":
-  version "5.3.4"
-  resolved "https://registry.yarnpkg.com/@types/react-loadable/-/react-loadable-5.3.4.tgz#1d689fb233f816916c0df2d0a346c49f071b1cb3"
+"@types/react-loadable@^5.5.4":
+  version "5.5.4"
+  resolved "https://registry.yarnpkg.com/@types/react-loadable/-/react-loadable-5.5.4.tgz#9bfb31e1299e9a3b23ea6cae437fa8813afde544"
   dependencies:
     "@types/react" "*"
     "@types/webpack" "*"
@@ -1918,7 +1918,7 @@ compressible@~2.0.13:
 
 compression@^1.5.2:
   version "1.7.2"
-  resolved "http://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
+  resolved "https://registry.npmjs.org/compression/-/compression-1.7.2.tgz#aaffbcd6aaf854b44ebb280353d5ad1651f59a69"
   dependencies:
     accepts "~1.3.4"
     bytes "3.0.0"
