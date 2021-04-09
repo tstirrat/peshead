@@ -36,7 +36,7 @@
     "query-string": "^6.1.0"
   },
   "devDependencies": {
-    "@firebase/app-types": "^0.3.1",
+    "@firebase/app-types": "^0.6.2",
     "@firebase/database-types": "^0.3.1",
     "@types/elasticsearch": "^5.0.23",
     "@types/fs-extra": "^5.0.2",
