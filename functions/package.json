@@ -44,7 +44,7 @@
     "@types/jbinary": "^0.0.30",
     "@types/jdataview": "^0.0.30",
     "@types/jest": "^22.2.3",
-    "@types/lodash": "^4.14.108",
+    "@types/lodash": "^4.14.171",
     "@types/morgan": "^1.7.35",
     "@types/query-string": "^5.1.0",
     "firebase-functions-test": "^0.1.2",
